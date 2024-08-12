@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import React from "react";
 import { store, persistor } from "@/store/store";
 import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
