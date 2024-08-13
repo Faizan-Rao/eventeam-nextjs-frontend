@@ -10,13 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import HebrewFlag from "./icons/HebrewFlag";
+import EnglistFlag from "./icons/EnglistFlag";
 
 const LanguageSelector = () => {
   const { t, i18n } = useTranslation(["translation"]);
   const [open, setOpen] = useState(false);
   const langs = [
-    { code: "en", lang: "English" },
-    { code: "he", lang: "Hebrew" },
+    { code: "en", lang: "English", country: EnglistFlag() },
+    { code: "he", lang: "Hebrew", country: HebrewFlag() },
   ];
 
   const changeLanguage = (event: React.MouseEvent, code: string) => {
@@ -26,10 +28,7 @@ const LanguageSelector = () => {
 
   useEffect(() => {
     document.documentElement.dir = i18n?.dir();
-    
   }, [i18n, i18n.language]);
-
-
 
   return (
     <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
@@ -37,18 +36,19 @@ const LanguageSelector = () => {
         {i18n.language.toUpperCase()}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>{t('Select Language')}</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("Select Language")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {langs.map((lng, index) => (
           <DropdownMenuItem
             key={index}
             onClick={(event) => {
-              changeLanguage(event, lng.code)
-              setOpen(false)
+              changeLanguage(event, lng.code);
+              setOpen(false);
             }}
-            className="hover:bg-[#7655FA] hover:text-white"
+            className="flex gap-6 text-left hover:bg-[#7655FA] hover:text-white"
           >
-            {lng.lang}
+            <div className="max-h-[25px] max-w-[25px] aspect-square flex justify-center items-center object-cover overflow-hidden rounded-full "  >{lng.country}</div>
+            <span>{lng.lang}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

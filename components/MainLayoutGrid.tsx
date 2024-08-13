@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import clsx from "clsx";
+import React from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
@@ -12,19 +11,12 @@ const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
   return (
     <>
       <Header />
-     
       <div className="flex">
-      
-      <div className="z-50">
-        <SideBar />
+        <div className="z-50">
+          <SideBar />
+        </div>
+        {children}
       </div>
-      
-    
-
-      {children}
-   
-      
-    </div>
     </>
   );
 };
