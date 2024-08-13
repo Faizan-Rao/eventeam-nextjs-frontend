@@ -3,12 +3,11 @@ import Logo from "@/components/icons/Logo";
 import clsx from "clsx";
 import SearchInput from "./SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
+import LanguageSelector from "./LanguageSelector";
 
-export interface IMainHeader {
- 
-}
+export interface IMainHeader {}
 
-const Header : React.FC<IMainHeader> = () => {
+const Header: React.FC<IMainHeader> = () => {
   return (
     <>
       <div
@@ -22,8 +21,10 @@ const Header : React.FC<IMainHeader> = () => {
         </div>
 
         <SearchInput />
-
-        <ProfileDropdown/>
+        <span className="flex">
+          <ProfileDropdown />
+          <LanguageSelector/>
+        </span>
       </div>
     </>
   );
