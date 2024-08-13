@@ -21,9 +21,9 @@ const Header: React.FC<IMainHeader> = () => {
         </div>
 
         <SearchInput />
-        <span className="flex">
+        <span className="sm:hidden md:flex">
           <ProfileDropdown />
-          <LanguageSelector/>
+          <LanguageSelector />
         </span>
       </div>
     </>

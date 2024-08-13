@@ -8,9 +8,11 @@ import { paths } from "@/configs/paths";
 import ArrowDown from "./icons/ArrowDown";
 
 import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
+import ProfileDropdown from "./ProfileDropdown";
 
 const SideBar = () => {
-  const { t } = useTranslation(['translation']);
+  const { t } = useTranslation(["translation"]);
   const [isHover, setIsHover] = useState<boolean>(false);
   const handleHover = (state: boolean) => setIsHover(state);
   const hover = useMemo(() => isHover, [isHover]);
@@ -28,7 +30,13 @@ const SideBar = () => {
       onMouseEnter={() => handleHover(true)}
       onMouseLeave={() => handleHover(false)}
     >
-      
+      {isHover && (
+        <span className=" overflow-hidden sm:flex md:hidden  items-center text-nowrap">
+          <ProfileDropdown />
+          <LanguageSelector />
+        </span>
+      )}
+
       <div className="flex  flex-col my-auto overflow-hidden gap-4">
         {paths.map((nav, index) => (
           <>
