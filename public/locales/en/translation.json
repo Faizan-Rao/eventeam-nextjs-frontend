@@ -1,13 +1,19 @@
 {
-        
-        "Dashboard" : "Dashboard",
-        "Companies" : "Companies",
-        "Events" : "Events",
-        "Payment Details" : "Payments Details",
-        "General Settings" : "General Settings",
-        "Leads" : "Leads",
-        "Select Language" : "Select Language",
-        "Search here..." : "Search here...",
-        "Help & Support": "Help & Support"
-        
+  "Dashboard": "Dashboard",
+  "Companies": "Companies",
+  "Events": "Events",
+  "Payment Details": "Payments Details",
+  "General Settings": "General Settings",
+  "Leads": "Leads",
+  "Select Language": "Select Language",
+  "Search here...": "Search here...",
+  "Help & Support": "Help & Support",
+  "All Time Events": "All Time Events",
+  "Active Events": "Active Events",
+  "Automatic Events": "Automatic Events",
+  "Total Registrations": "Total Registrations",
+  "All Time Guests": "All Time Guests",
+  "All Time Earnings":"All Time Earnings",
+  "Cleared Earnings":"Cleared Earnings",
+  "Pending Earning":"Pending Earning"
 }

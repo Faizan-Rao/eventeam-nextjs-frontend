@@ -1,9 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import DashboardGrid from "@/components/DashboardGrid";
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    
+      <DashboardGrid />
+   
+  );
+};
 
-export default Dashboard
+export default Dashboard;

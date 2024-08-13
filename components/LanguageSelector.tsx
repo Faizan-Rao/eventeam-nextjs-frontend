@@ -32,7 +32,7 @@ const LanguageSelector = () => {
 
   return (
     <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger className=" text-[#757575] mx-2 border-none rounded-full border-[2px]  p-1 text-center">
+      <DropdownMenuTrigger className=" text-[#757575] mx-2 border-none ring-transparent rounded-full border-[2px]  p-1 text-center">
         {i18n.language.toUpperCase()}
       </DropdownMenuTrigger>
       <DropdownMenuContent>

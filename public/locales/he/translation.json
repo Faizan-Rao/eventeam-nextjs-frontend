@@ -1,11 +1,19 @@
 {
-        "Dashboard" : "לוּחַ מַחווָנִים",
-        "Companies" : "חברות",
-        "Events" : "אירועים",
-        "Payment Details" : "פרטי תשלום",
-        "General Settings" : "הגדרות כלליות",
-        "Leads" : "לידים",
-        "Select Language" : "בחר שפה",
-         "Search here..." : "חפש כאן...",
-         "Help & Support": "עזרה ותמיכה"
+  "Dashboard": "לוּחַ מַחווָנִים",
+  "Companies": "חברות",
+  "Events": "אירועים",
+  "Payment Details": "פרטי תשלום",
+  "General Settings": "הגדרות כלליות",
+  "Leads": "לידים",
+  "Select Language": "בחר שפה",
+  "Search here...": "חפש כאן...",
+  "Help & Support": "עזרה ותמיכה",
+  "All Time Events": "אירועי כל הזמנים",
+  "Active Events": "אירועים פעילים",
+  "Automatic Events": "אירועים אוטומטיים",
+  "Total Registrations": "סך ההרשמות",
+  "All Time Guests": "אורחי כל הזמנים",
+  "All Time Earnings": "רווחי כל הזמנים",
+  "Cleared Earnings":"רווחים מסולקים",
+  "Pending Earning":"ממתין להרוויח"
 }
