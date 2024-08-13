@@ -37,27 +37,28 @@ const SideBar = () => {
         </span>
       )}
 
-      <div className="flex  flex-col my-auto overflow-hidden gap-4">
+      <div className="flex  flex-col my-auto overflow-hidden gap-4" >
         {paths.map((nav, index) => (
-          <>
+          <div key={nav.path + index}>
             {!nav.children && (
               <SideBarNav
                 href={nav.path}
                 value={t(nav.name)}
                 icon={nav.icon}
                 isHover={hover}
-                key={nav.path + nav.name}
+                key={nav.path + index}
               />
             )}
 
             {nav.children && (
               <>
                 <div
+                 key={nav.path + index}
                   onClick={() => toggleList(index)}
-                  key={nav.path + nav.name}
+                 
                   className="flex text-[#4A4A4A]   p-2 transition-all rounded-md  items-center cursor-pointer overflow-none text-nowrap  gap-4 "
                 >
-                  {nav.icon && <span className="mx-4">{nav.icon}</span>}
+                  {nav.icon && <span  className="mx-4">{nav.icon}</span>}
                   {isHover && (
                     <>
                       <p className="font-semibold">{t(nav.name)}</p>
@@ -67,6 +68,7 @@ const SideBar = () => {
                 </div>
                 {isHover && (
                   <div
+                  key={nav.path + index}
                     ref={(elref) => (ref.current[index] = elref) as any}
                     className="border-[2px] hidden transition-all bg-[#efefef] rounded-md mx-4 "
                   >
@@ -76,14 +78,14 @@ const SideBar = () => {
                         value={t(subnav.name)}
                         icon={subnav.icon}
                         isHover={hover}
-                        key={index}
+                        key={subnav.path + index}
                       />
                     ))}
                   </div>
                 )}
               </>
             )}
-          </>
+          </div>
         ))}
       </div>
 

@@ -1,19 +1,20 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ArrowDown from "@/components/icons/ArrowDown";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 const ProfileDropdown = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = ()=> setOpen(false)
   return (
     <>
-      <DropdownMenu modal={false}>
+      <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger>
           <div className="flex justify-center items-center gap-2 py-1 px-4">
             <Avatar>
@@ -31,9 +32,9 @@ const ProfileDropdown = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleOpen} >Profile</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleOpen} >Billing</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleOpen} >Team</DropdownMenuItem>
           
         </DropdownMenuContent>
       </DropdownMenu>

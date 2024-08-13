@@ -11,7 +11,7 @@ import Crown from '@/components/icons/Crown'
 
 export const paths =  [
     {
-        name:"Dashboard",
+        name: "Dashboard",
         path:"/dashboard",
         icon: SquaresFour()
     },
@@ -43,7 +43,7 @@ export const paths =  [
         icon: CurrencyCircleDollar()
     },
     {
-        name:"General Settings",
+        name: "General Settings",
         path:"/dashboard/settings",
         icon: Slider(),
         children: [
