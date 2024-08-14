@@ -16,11 +16,11 @@ const SubeventPreview : React.FC<ISubeventPreview>= (
         <p className="text-xs text-[#E0A450]">17/7/2024</p>
       </div>
 
-      <table>
+      <table cellPadding={5} cellSpacing={9}>
         <thead >
-          <tr className=" text-left border-b-[1px] my-4 ">
-            <th className="font-semibold ">Ticket Type</th>
-            <th>Price</th>
+          <tr className="border-b-[1px] my-4 ">
+            <td className="font-semibold ">Ticket Type</td>
+            <td className="font-semibold ">Price</td>
           </tr>
         </thead>
         <tbody className=""  >
