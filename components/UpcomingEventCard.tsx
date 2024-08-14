@@ -2,11 +2,13 @@ import React from "react";
 import clsx from "clsx";
 import Calendar from "./icons/Calendar";
 import DotThreeVertical from "./icons/DotThreeVertical";
+import ViewEye from "./icons/ViewEye";
+import UserFour from "./icons/UserFour";
 
 const UpcomingEventCard = () => {
-  const status = false;
+  const status = true;
   return (
-    <div className="flex flex-col gap-4 p-4 bg-[#F7F6F9] rounded-md">
+    <div className="flex flex-col  gap-4 p-4 bg-[#F7F6F9] rounded-md">
       {/* header */}
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-center">
@@ -31,32 +33,37 @@ const UpcomingEventCard = () => {
       </div>
 
       {/* data sections */}
-      <div className="flex border-t-[1px] justify-between">
-        <div className="flex  gap-2 p-2  bg-[#F7F6F9] rounded-md">
+      <div className="flex border-t-[1px] pt-4 justify-between items-center">
+        <div className="flex items-center gap-2    bg-[#F7F6F9] rounded-md">
           <div className="flex items-center aspect-square max-h-[30px] object-cover bg-[#7655FA26] justify-center p-1 rounded-md">
             <Calendar />
           </div>
 
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Dates</p>
-            <p className="text-[#4A4A4A] text-sm font-semibold flex  ">
-              Dec 31 - Jan 1
+            <p className="text-[#4A4A4A] text-[12.5px]  font-semibold flex  ">
+              Dec 31-Jan 1
             </p>
           </div>
         </div>
 
-        <div className="flex  gap-3 p-2  bg-[#F7F6F9] rounded-md">
+        <div className="flex items-center justify-center gap-3  bg-[#F7F6F9] rounded-md">
           <div className="flex items-center aspect-square max-h-[30px] object-cover bg-[#7655FA26] justify-center p-1 rounded-md">
-            <Calendar />
+            <UserFour/>
           </div>
 
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Guests</p>
-            <p className="text-[#4A4A4A] text-sm font-semibold flex  ">
-              Dec 31 - Jan 1
+            <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
+              0
             </p>
           </div>
         </div>
+        {status && (
+          <span className="cursor-pointer justify-self-end">
+            <ViewEye />
+          </span>
+        )}
       </div>
     </div>
   );

@@ -10,6 +10,8 @@
     --bg-primary: #e7e7e7;
 }
 
+
+
 html, body {
     background: var(--bg-primary);
     font-family: "Titillium Web", sans-serif;

@@ -43,7 +43,7 @@ const BarChartJSX : React.FC<IBarChartJSX> = ({
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            // tickFormatter={(value) => value.slice(0, 3)}
+            tickFormatter={(value) => value.slice(0, 4)}
           />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar dataKey={barName} fill="#7655FA" radius={4} />
