@@ -22,7 +22,7 @@ const KPICard : React.FC<IKPICard> = ({
 
         <div className='flex justify-center  flex-col  '>
             <p className='text-[#999999] text-xs font-semibold'>{title}</p>
-            <p className='text-[#4A4A4A] text-3xl font-semibold flex gap-4 '>{currency} {value}</p>
+            <p className='text-[#4A4A4A] text-3xl font-semibold flex  '>{currency}{value}</p>
         </div>
     </div>
   )

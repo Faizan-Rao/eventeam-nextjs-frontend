@@ -47,7 +47,9 @@ const LanguageSelector = () => {
             }}
             className="flex gap-6 text-left hover:bg-[#7655FA] hover:text-white"
           >
-            <div className="max-h-[25px] max-w-[25px] aspect-square flex justify-center items-center object-cover overflow-hidden rounded-full "  >{lng.country}</div>
+            <div className="max-h-[25px] max-w-[25px] aspect-square flex justify-center items-center object-cover overflow-hidden rounded-full ">
+              {lng.country}
+            </div>
             <span>{lng.lang}</span>
           </DropdownMenuItem>
         ))}
