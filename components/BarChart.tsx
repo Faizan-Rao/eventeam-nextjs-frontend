@@ -32,7 +32,7 @@ const BarChartJSX : React.FC<IBarChartJSX> = ({
     title
 }) => {
   return (
-    <div className="flex flex-col min-w-[400px]  gap-4 bg-[#f7f6f9] my-3 p-6 rounded-xl">
+    <div className="flex flex-col   gap-4 bg-[#f7f6f9] my-3 p-6 rounded-xl">
       <h1 className="font-semibold text-lg">{title}</h1>
 
       <ChartContainer config={chartConfig} className="h-[200px] w-full">

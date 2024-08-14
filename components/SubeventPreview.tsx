@@ -10,7 +10,7 @@ const SubeventPreview : React.FC<ISubeventPreview>= (
     }
 ) => {
   return (
-    <div className={clsx("flex min-w-[300px] w-[320px] p-5 flex-col  gap-2", className)}>
+    <div className={clsx("flex min-w-[200px] w-[230px] p-5 flex-col  gap-2 aspect-square object-cover", className)}>
       <div className="flex flex-col gap-1 ">
         <h1 className="text-xl font-semibold">Subevent # 2</h1>
         <p className="text-xs text-[#E0A450]">17/7/2024</p>

@@ -15,7 +15,7 @@ const KPICard : React.FC<IKPICard> = ({
     currency
 }) => {
   return (
-    <div className='flex min-w-[250px]  gap-5 p-4  bg-[#F7F6F9] rounded-md'>
+    <div className='flex min-w-[200px]  gap-5 p-4  bg-[#F7F6F9] rounded-md'>
         <div className='flex aspect-square h-[50px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-md'>
            { icon && icon}
         </div>

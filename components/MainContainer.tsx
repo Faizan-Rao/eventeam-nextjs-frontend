@@ -5,7 +5,7 @@ import ChartsMain from "./ChartsMain";
 import RecentRegMain from "./RecentRegMain";
 const MainContainer = () => {
   return (
-    <div className="grid sm:m-3 md:m-8 p-4  gap-4 bg-[#fffefe] rounded-lg grid-col-12 ">
+    <div className="grid   p-4  gap-4 bg-[#fffefe] rounded-lg grid-col-12 ">
       <div className="col-span-12 ">
         <KPIContainer />
       </div>
