@@ -6,6 +6,7 @@ import CalendarBlank from '@/components/icons/CalendarBlank'
 import CurrencyCircleDollar from '@/components/icons/CurrencyCircleDollar'
 import Slider from '@/components/icons/Slider'
 import Crown from '@/components/icons/Crown'
+import Calendar from '@/components/icons/Calendar'
 
 
 
@@ -22,18 +23,17 @@ export const paths =  [
     },
     {
         name:"Events",
-        path:"/dashboard/events",
         icon: CalendarBlank(),
         children: [
             {
-                name:"Add Event",
-                path:"/dashboard/events/add-event",
-                icon: SquaresFour(),
+                name:"My Events",
+                path:"/dashboard/my-events",
+                icon: CalendarBlank(),
             },
             {
                 name:"Add Event",
-                path:"/dashboard/events/add-event",
-                icon: SquaresFour(),
+                path:"/dashboard/add-event",
+                icon: CalendarBlank(),
             }
         ],
     },

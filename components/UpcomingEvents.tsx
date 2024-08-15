@@ -15,7 +15,7 @@ const UpcomingEvents = () => {
         <UpcomingEventCard />
       </div>
       <div className="flex gap-3 mt-4 justify-center items-center">
-        <button className=" flex items-center gap-5 text-base rounded-full">
+        <button className=" flex items-center gap-3 mr-4 text-base rounded-full">
           <span className="rotate-[-270deg]">
             <ArrowDown />
           </span>

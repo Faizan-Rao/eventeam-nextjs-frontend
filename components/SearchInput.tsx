@@ -50,15 +50,19 @@ const SearchInput = () => {
         <DialogHeader>
           <DialogTitle></DialogTitle>
           <DialogDescription>
+            <div className="flex gap-4 justify-center items-center">
+
+          <ManifyingGlass />
             <input
               type="text"
               onChange={handleSearch}
-              className="  border-transparent w-full text-base my-4 py-2 border-[2px] focus:outline-none"
+              className="  border-transparent w-full text-xl my-4 py-2 border-[2px] focus:outline-none"
               placeholder={t("Search here...")}
               value={searchValue}
               name="search"
               autoComplete="off"
             />
+            </div>
 
             {searchValue.length >= 3  &&
               (filtered as any[]).map((nav, index) => (
@@ -74,7 +78,7 @@ const SearchInput = () => {
                      
                    >
                      {nav.icon && <span className="mx-4">{nav.icon}</span>}
-                     <p className="font-semibold">{t(nav.name)}</p>
+                     <p className="font-semibold text-lg">{t(nav.name)}</p>
                    </Link>
                 </>
                 ))

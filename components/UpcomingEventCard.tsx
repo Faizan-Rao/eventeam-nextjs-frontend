@@ -27,7 +27,7 @@ const UpcomingEventCard = () => {
             </span>
           </span>
         </div>
-        <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-end cursor-pointer  rounded-full">
+        <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-end items-center cursor-pointer  rounded-full">
           <DotThreeVertical />
         </div>
       </div>
@@ -58,12 +58,12 @@ const UpcomingEventCard = () => {
               0
             </p>
           </div>
-        </div>
         {status && (
-          <span className="cursor-pointer justify-self-end">
+          <span className="cursor-pointer justify-self-end self-center">
             <ViewEye />
           </span>
         )}
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,30 @@
     --bg-primary: #e7e7e7;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border-radius: 25px;
+ 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  transition:all 0.3s ease-in-out ;
+  background: #e8e8e8;
+  cursor: pointer;
+}
 
 html, body {
     background: var(--bg-primary);
