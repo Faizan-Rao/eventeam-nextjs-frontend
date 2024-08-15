@@ -18,10 +18,10 @@ const PageTitleContainer = () => {
   };
 
   return (
-    <div className="flex justify-between  items-center">
+    <div className="flex mt-7  justify-between  items-center">
       <div className="flex flex-col gap-1">
-        <p className="text-sm">{pageLinkFormat()}</p>
-        <h1 className="font-bold text-3xl">My Events</h1>
+        <p className="text-sm font-semibold text-[#999999]">{pageLinkFormat()}</p>
+        <h1 className="font-semibold text-4xl">My Events</h1>
       </div>
     </div>
   );

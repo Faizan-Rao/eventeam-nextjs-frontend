@@ -58,12 +58,12 @@ const UpcomingEventCard = () => {
               0
             </p>
           </div>
+        </div>
         {status && (
           <span className="cursor-pointer justify-self-end self-center">
             <ViewEye />
           </span>
         )}
-        </div>
       </div>
     </div>
   );
