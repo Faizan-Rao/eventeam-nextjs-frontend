@@ -2,6 +2,7 @@
 import ActionDropDown from "@/components/ActionDropDown";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
+import { ArrowUpDown } from "lucide-react";
 
 type Payment = {
   id: string;
@@ -20,7 +21,17 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "title",
-    header: "Title",
+    header: ({ column }) => {
+      return (
+        <button
+         className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Title
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      )
+    },
   },
   {
     accessorKey: "start-date",
@@ -32,11 +43,31 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "registrations",
-    header: "Registrations",
+    header: ({ column }) => {
+      return (
+        <button
+         className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Registrations
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      )
+    },
   },
   {
     accessorKey: "is-active",
-    header: "Active State",
+    header: ({ column }) => {
+      return (
+        <button
+         className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Active State
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      )
+    },
     cell: ({ row }) => {
       return (
         <span
@@ -53,7 +84,17 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "status",
-    header: "Operation State",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Operation State
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      )
+    },
     cell: ({ row }) => {
       return (
         <span
