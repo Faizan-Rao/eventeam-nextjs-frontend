@@ -8,7 +8,7 @@ import UserFour from "./icons/UserFour";
 const UpcomingEventCard = () => {
   const status = true;
   return (
-    <div className="flex flex-col  gap-4 p-4 bg-[#F7F6F9] rounded-md">
+    <div className="flex flex-col container  gap-4 p-4 bg-[#F7F6F9] rounded-md">
       {/* header */}
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-center">
@@ -33,7 +33,7 @@ const UpcomingEventCard = () => {
       </div>
 
       {/* data sections */}
-      <div className="flex border-t-[1px] pt-4 justify-between items-center">
+      <div className="flex border-t-[1px] gap-4 pt-4 justify-between items-center">
         <div className="flex items-center gap-2    bg-[#F7F6F9] rounded-md">
           <div className="flex items-center aspect-square max-h-[30px] object-cover bg-[#7655FA26] justify-center p-1 rounded-md">
             <Calendar />
@@ -41,7 +41,7 @@ const UpcomingEventCard = () => {
 
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Dates</p>
-            <p className="text-[#4A4A4A] text-[12.5px]  font-semibold flex  ">
+            <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
               Dec 31-Jan 1
             </p>
           </div>

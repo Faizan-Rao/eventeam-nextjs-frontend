@@ -25,7 +25,7 @@ const SideBar = () => {
     <div
       className={clsx(
         !isHover && "w-[50px] items-center ",
-        "w-[20rem] min-h-[100vh]  bg-[#fffefe] border-t-2 transition-all duration-300 p-1 flex justify-between  flex-col z-[2000] "
+        "w-[20rem] container-fluid min-h-[100vh]  bg-[#fffefe] border-t-2 transition-all duration-300 p-1 flex justify-between  flex-col  "
       )}
       onMouseEnter={() => handleHover(true)}
       onMouseLeave={() => handleHover(false)}
@@ -39,7 +39,7 @@ const SideBar = () => {
 
       <div className="flex  flex-col my-auto overflow-hidden gap-4" >
         {paths.map((nav, index) => (
-          <div key={nav.path + index}>
+          <div key={(nav as any).path + index}>
             {!nav.children && (
               <SideBarNav
                 href={nav.path}
@@ -53,7 +53,7 @@ const SideBar = () => {
             {nav.children && (
               <>
                 <div
-                 key={nav.path + index}
+                 key={(nav as any).path + index}
                   onClick={() => toggleList(index)}
                  
                   className="flex text-[#4A4A4A]   p-2 transition-all rounded-md  items-center cursor-pointer overflow-none text-nowrap  gap-4 "
@@ -68,7 +68,7 @@ const SideBar = () => {
                 </div>
                 {isHover && (
                   <div
-                  key={nav.path + index}
+                  key={(nav as any).path + index}
                     ref={(elref) => (ref.current[index] = elref) as any}
                     className="border-[2px] hidden transition-all bg-[#efefef] rounded-md mx-4 "
                   >

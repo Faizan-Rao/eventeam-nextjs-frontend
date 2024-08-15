@@ -9,7 +9,7 @@ const EventDashContainer = () => {
   let ref = useRef(null);
   console.log(ref)
   return (
-    <div className="flex p-8 gap-6 rounded-md flex-col bg-[#1E1640] text-white">
+    <div className="flex container p-8 gap-6 rounded-md flex-col bg-[#1E1640] text-white">
       <div className="flex sm:justify-center md:justify-between items-center gap-4 flex-wrap">
         <div className="flex flex-col gap-1">
           <h4 className="text-2xl">Eid ul Fitr Event</h4>
@@ -48,7 +48,7 @@ const EventDashContainer = () => {
           <span className="font-bold text-4xl self-end">“”</span>
         </div>
 
-        <div className="flex items-center justify-center w-[100%]  flex-wrap">
+        <div className="flex items-center justify-center container  flex-wrap">
           <SubeventPreview />
           <SubeventPreview className="bg-[#7655FA26] rounded-md"/>
           <SubeventPreview />

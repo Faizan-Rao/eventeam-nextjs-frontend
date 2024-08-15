@@ -1,10 +1,12 @@
 import React from "react";
 import PageTitleContainer from "./PageTitleContainer";
+import MyEventMainCont from "./MyEventMainCont";
 
 const MyEventGrid = () => {
   return (
-    <div className={"flex flex-col sm:m-3 md:m-3 p-4 gap-4 sm:flex-wrap md:flex-nowrap"}>
+    <div className={"flex container flex-col gap-4 "}>
       <PageTitleContainer/>
+      <MyEventMainCont/>
     </div>
   );
 };

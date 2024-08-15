@@ -15,13 +15,13 @@ const KPICard : React.FC<IKPICard> = ({
     currency
 }) => {
   return (
-    <div className='flex min-w-[200px]  gap-5 p-4  bg-[#F7F6F9] rounded-md'>
+    <div className='flex min-w-[200px] flex-grow transition-all  gap-5 p-4  bg-[#F7F6F9] rounded-md'>
         <div className='flex aspect-square h-[50px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-md'>
            { icon && icon}
         </div>
 
-        <div className='flex justify-center  flex-col  '>
-            <p className='text-[#999999] text-xs font-semibold'>{title}</p>
+        <div className='flex flex-1 justify-center  flex-col  '>
+            <p className='text-[#999999] text-nowrap text-xs font-semibold'>{title}</p>
             <p className='text-[#4A4A4A] text-3xl font-semibold flex  '>{currency}{value}</p>
         </div>
     </div>

@@ -12,7 +12,7 @@ const Header: React.FC<IMainHeader> = () => {
     <>
       <div
         className={clsx(
-          "bg-[var(--bg-secondary)] min-w-[100%]  text-white w-full flex justify-between items-center"
+          "bg-[var(--bg-secondary)] container-fluid  text-white  flex justify-between items-center"
         )}
       >
         <div className="mx-4 my-2 flex justify-center items-center gap-4">
