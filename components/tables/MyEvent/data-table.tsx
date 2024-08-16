@@ -10,9 +10,9 @@ import {
   useReactTable,
   getFilteredRowModel,
   ColumnFiltersState,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { ListFilter } from "lucide-react";
-("lucide-react");
+import { ListFilter, CircleCheckBig } from "lucide-react";
 
 import {
   Table,
@@ -32,7 +32,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import ManifyingGlass from "@/components/icons/ManifyingGlass";
+import PaginationControls from "@/components/PaginationControls";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -98,6 +99,7 @@ export function MyEventTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnFilters: columnFilters,
@@ -107,17 +109,22 @@ export function MyEventTable<TData, TValue>({
   return (
     <>
       {/* Filters & Actions */}
-      <div className="flex justify-end items-center py-4">
-        <input
-          placeholder="Filter emails..."
-          onChange={(event) => {
-            if (filteredRows.length > 0) {
-              setFilteredRows([]);
-            }
-            table.getColumn("title")?.setFilterValue(event.target.value ?? "");
-          }}
-          className="max-w-sm"
-        />
+      <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
+        <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
+          <ManifyingGlass />
+          <input
+            placeholder={"Searh Title..."}
+            onChange={(event) => {
+              if (filteredRows.length > 0) {
+                setFilteredRows([]);
+              }
+              table
+                .getColumn("title")
+                ?.setFilterValue(event.target.value ?? "");
+            }}
+            className="max-w-sm outline-none"
+          />
+        </span>
 
         <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
@@ -130,32 +137,42 @@ export function MyEventTable<TData, TValue>({
             <DropdownMenuLabel>Active State</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              className="flex items-center justify-between"
               onClick={() => handleDropDownFilter("active", "is-active")}
             >
-              Active
+              <span>Active</span>
+              <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="flex items-center justify-between"
               onClick={() => handleDropDownFilter("inactive", "is-active")}
             >
-              Inactive
+              <span>Inactive</span>
+              <CircleCheckBig size={15} />
             </DropdownMenuItem>
 
             <DropdownMenuLabel>Operational State</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+              className="flex items-center justify-between"
               onClick={() => handleDropDownFilter("operational", "status")}
             >
-              Operational
+              <span>Operational</span>
+              <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="flex items-center justify-between"
               onClick={() => handleDropDownFilter("ended", "status")}
             >
-              Ended
+              <span>Ended</span>
+              <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="flex items-center justify-between"
               onClick={() => handleDropDownFilter("pending approval", "status")}
             >
-              Pending Approval
+              <span>Pending Approval</span>
+              <CircleCheckBig size={15} />
             </DropdownMenuItem>
 
             <DropdownMenuLabel>Registrations</DropdownMenuLabel>
@@ -189,23 +206,34 @@ export function MyEventTable<TData, TValue>({
                 />
               </span>
             </div>
-            <button
-              className=" text-[#FF2727] my-4 px-4 py-1"
-              onClick={() => {
-                handleClear();
-                setOpen(false);
-              }}
-            >
-              Clear Filters
-            </button>
+            <span className="flex gap-3 flex-1">
+              <button
+                className=" text-[#FF2727] my-4 px-4 py-1"
+                onClick={() => {
+                  handleClear();
+                  setOpen(false);
+                }}
+              >
+                Clear Filters
+              </button>
+
+              <button
+                className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
+                onClick={() => {
+        
+                  setOpen(false);
+                }}
+              >
+                Close
+              </button>
+            </span>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <PaginationControls table={table} />
 
       {/* Data Table */}
-      <p className="text-[#bababa]">
-        Total Rows: {isFiltered ? filteredRows.length : data.length}
-      </p>
+      <p className="text-[#bababa]">Total Records: {data.length}</p>
       <div className="my-5 rounded-md ">
         <Table>
           <TableHeader>

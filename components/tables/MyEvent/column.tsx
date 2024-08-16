@@ -15,13 +15,7 @@ type Payment = {
 };
 
 export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => {
-      return <span>{row.getValue("id")}</span>;
-    },
-  },
+  
   {
     accessorKey: "title",
     header: ({ column }) => {
