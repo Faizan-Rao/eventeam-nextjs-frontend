@@ -5,10 +5,13 @@ import clsx from "clsx";
 import { ArrowUpDown } from "lucide-react";
 
 type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+       "id": string,
+      "title":string,
+      "start-date": string,
+      "end-date": string,
+      "registrations":  string,
+      "is-active":false,
+      "status":string
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -36,10 +39,12 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "start-date",
     header: "Start Date",
+    enableGlobalFilter:false
   },
   {
     accessorKey: "end-date",
     header: "End Date",
+    enableGlobalFilter:false
   },
   {
     accessorKey: "registrations",
@@ -54,6 +59,7 @@ export const columns: ColumnDef<Payment>[] = [
         </button>
       )
     },
+    enableGlobalFilter:false
   },
   {
     accessorKey: "is-active",
@@ -77,7 +83,7 @@ export const columns: ColumnDef<Payment>[] = [
             !(row.getValue("is-active") as any) && "bg-[#FFC2C2]"
           )}
         >
-          {row.getValue("is-active") ? "Active" : "Inactive"}
+          {row.getValue("is-active") ?  "Active" : "Inactive"}
         </span>
       );
     },
