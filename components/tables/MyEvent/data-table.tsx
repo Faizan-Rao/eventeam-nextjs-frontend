@@ -116,7 +116,7 @@ export function MyEventTable<TData, TValue>({
         <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
-            placeholder={"Searh Title..."}
+            placeholder={"Search Event..."}
             onChange={(event) => {
               if (filteredRows.length > 0) {
                 setFilteredRows([]);
@@ -293,10 +293,12 @@ export function MyEventTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <span className="gap-4 flex my-4 font-semibold ">
+      <span className="gap-4 flex my-4  justify-around font-semibold ">
       <p className="text-[#4a4a4a]">Total Records: {data.length}</p>
       <p className="text-[#4a4a4a]">Selected Rows: {table.getSelectedRowModel().rows.length}</p>
-
+      <span className="font-semibold text-nowrap justify-self-end text-[#4a4a4a]">
+        Total Page: {table.getPageCount()}
+      </span>
       </span>
     </>
   );

@@ -5,6 +5,9 @@ const PaginationControls = ({ table }: any) => {
   console.log(table.getState().pagination);
   return (
     <div className="flex justify-between flex-wrap items-center">
+
+      
+
       {/* Pagination Controls */}
       <span className="font-semibold text-nowrap text-[#4a4a4a]">
         Current Page: {table.getState().pagination.pageIndex + 1}
