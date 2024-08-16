@@ -70,6 +70,7 @@ export function MyEventTable<TData, TValue>({
     setFilteredRows([]);
     setSorting([]);
     setFilter([0, 0]);
+    table.reset()
   };
 
   const handleDropDownFilter = (value: string, col: string) => {
@@ -106,9 +107,11 @@ export function MyEventTable<TData, TValue>({
     },
   });
 
+
   return (
     <>
       {/* Filters & Actions */}
+      
       <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
         <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
@@ -230,12 +233,14 @@ export function MyEventTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+     
       <PaginationControls table={table} />
 
       {/* Data Table */}
-      <p className="text-[#bababa]">Total Records: {data.length}</p>
+     
       <div className="my-5 rounded-md ">
-        <Table>
+        <Table className="border-b-[2px] rounded-md">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="border-b-[8px]">
@@ -288,6 +293,11 @@ export function MyEventTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+      <span className="gap-4 flex my-4 font-semibold ">
+      <p className="text-[#4a4a4a]">Total Records: {data.length}</p>
+      <p className="text-[#4a4a4a]">Selected Rows: {table.getSelectedRowModel().rows.length}</p>
+
+      </span>
     </>
   );
 }
