@@ -12,16 +12,16 @@ const Header: React.FC<IMainHeader> = () => {
     <>
       <div
         className={clsx(
-          "bg-[var(--bg-secondary)] container-fluid  text-white  flex justify-between items-center"
+          "bg-[var(--bg-secondary)]  container min-w-full  text-white  flex justify-between items-center"
         )}
       >
         <div className="mx-4 my-2 flex justify-center items-center gap-4">
           <Logo />
-          <h1 className="text-[#4A4A4A] text-xl font-bold ">EvenTeam</h1>
+          <h1 className="text-[#4A4A4A]  text-xl font-bold ">EvenTeam</h1>
         </div>
 
         <SearchInput />
-        <span className="sm:hidden md:flex">
+        <span className="sm:hidden md:flex    flex-wrap">
           <ProfileDropdown />
           <LanguageSelector />
         </span>

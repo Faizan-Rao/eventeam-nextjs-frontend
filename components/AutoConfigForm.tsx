@@ -4,7 +4,7 @@ import autoConfigSteps from "@/configs/autoConfigs";
 import clsx from "clsx";
 import { ChevronLeft } from "lucide-react";
 const AutoConfigForm = () => {
-  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const deferStep = useDeferredValue(currentStep);
   const handleStepInc = (e : React.MouseEvent) => {
     e.preventDefault()

@@ -241,11 +241,11 @@ export function MyEventTable<TData, TValue>({
 
       {/* Data Table */}
 
-      <div className="my-5 rounded-md ">
-        <Table className="border-b-[2px] rounded-md">
+      <div className="my-5 rounded-md  order-collapse border-spacing-0">
+        <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="border-b-[8px]">
+              <TableRow key={headerGroup.id} className="border-b-[8px] text-nowrap">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -270,7 +270,7 @@ export function MyEventTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="border-none font-semibold text-[#4a4a4a]"
+                  className="border-none font-semibold text-[#4a4a4a] text-nowrap"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
