@@ -23,6 +23,7 @@ const LanguageSelector = () => {
 
   const changeLanguage = (event: React.MouseEvent, code: string) => {
     event.preventDefault();
+    window.location.reload()
     i18n.changeLanguage(code);
   };
 
