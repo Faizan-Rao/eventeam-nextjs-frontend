@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-    --bg-secondary: #fffefe;
+  --bg-secondary: #fffefe;
 
-    --bg-primary: #e7e7e7;
+  --bg-primary: #e7e7e7;
 }
 
 /* width */
@@ -31,19 +31,19 @@
 ::-webkit-scrollbar-thumb {
   background: #e1e1e1;
   border-radius: 25px;
- 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  transition:all 0.3s ease-in-out ;
+  transition: all 0.3s ease-in-out;
   background: #e8e8e8;
   cursor: pointer;
 }
 
-html, body {
-    background: var(--bg-primary);
-    font-family: "Titillium Web", sans-serif;
+html,
+body {
+  background: var(--bg-primary);
+  font-family: "Titillium Web", sans-serif;
   font-weight: 400;
   font-style: normal;
 }

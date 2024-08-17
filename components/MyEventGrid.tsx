@@ -1,13 +1,13 @@
 import React from "react";
 import PageTitleContainer from "./PageTitleContainer";
 import MyEventMainCont from "./MyEventMainCont";
-
+import MainContentGrid from "./MainContentGrid";
 const MyEventGrid = () => {
   return (
-    <div className={"flex container flex-col gap-4 "}>
-      <PageTitleContainer/>
+    <MainContentGrid>
+      <PageTitleContainer title="My Events"/>
       <MyEventMainCont/>
-    </div>
+    </MainContentGrid>
   );
 };
 

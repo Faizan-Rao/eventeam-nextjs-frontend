@@ -12,7 +12,7 @@ import {
   ColumnFiltersState,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { ListFilter, CircleCheckBig } from "lucide-react";
+import { ListFilter, CircleCheckBig, Plus } from "lucide-react";
 
 import {
   Table,
@@ -70,7 +70,7 @@ export function MyEventTable<TData, TValue>({
     setFilteredRows([]);
     setSorting([]);
     setFilter([0, 0]);
-    table.reset()
+    table.reset();
   };
 
   const handleDropDownFilter = (value: string, col: string) => {
@@ -107,11 +107,10 @@ export function MyEventTable<TData, TValue>({
     },
   });
 
-
   return (
     <>
       {/* Filters & Actions */}
-      
+
       <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
         <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
@@ -223,7 +222,6 @@ export function MyEventTable<TData, TValue>({
               <button
                 className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
                 onClick={() => {
-        
                   setOpen(false);
                 }}
               >
@@ -232,13 +230,17 @@ export function MyEventTable<TData, TValue>({
             </span>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <button className="flex gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
+          <Plus />
+          <span>Add New Event</span>
+        </button>
       </div>
 
-     
       <PaginationControls table={table} />
 
       {/* Data Table */}
-     
+
       <div className="my-5 rounded-md ">
         <Table className="border-b-[2px] rounded-md">
           <TableHeader>
@@ -293,12 +295,14 @@ export function MyEventTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <span className="gap-4 flex my-4  justify-around font-semibold ">
-      <p className="text-[#4a4a4a]">Total Records: {data.length}</p>
-      <p className="text-[#4a4a4a]">Selected Rows: {table.getSelectedRowModel().rows.length}</p>
-      <span className="font-semibold text-nowrap justify-self-end text-[#4a4a4a]">
-        Total Page: {table.getPageCount()}
-      </span>
+      <span className="gap-7 mr-5 text-nowrap flex-wrap flex my-4  font-semibold ">
+        <p className="text-[#4a4a4a] flex-1">Total Records: {data.length}</p>
+        <p className="text-[#4a4a4a]">
+          Selected Rows: {table.getSelectedRowModel().rows.length}
+        </p>
+        <span className="font-semibold text-nowrap justify-self-end text-[#4a4a4a]">
+          Total Page: {table.getPageCount()}
+        </span>
       </span>
     </>
   );
