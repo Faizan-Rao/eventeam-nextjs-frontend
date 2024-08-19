@@ -7,7 +7,7 @@ interface ISidebarNav {
   value: string;
   href?: string;
   className?: string;
-  icon?: React.ReactNode;
+  icon?: any;
 }
 
 const SideBarNav: React.FC<ISidebarNav> = ({
@@ -26,7 +26,11 @@ const SideBarNav: React.FC<ISidebarNav> = ({
           className
         )}
       >
-        {icon && <span className="mx-4">{icon}</span>}
+        {icon && (
+          <span className="mx-4">
+        {icon}
+          </span>
+        )}
         {isHover && <p className="font-semibold">{value}</p>}
       </Link>
     </>

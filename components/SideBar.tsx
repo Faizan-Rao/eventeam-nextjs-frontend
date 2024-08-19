@@ -44,7 +44,7 @@ const SideBar = () => {
               <SideBarNav
                 href={nav.path}
                 value={t(nav.name)}
-                icon={nav.icon}
+                icon={<nav.icon strokeWidth={1.5}/>}
                 isHover={hover}
                 key={nav.path + index}
               />
@@ -58,7 +58,7 @@ const SideBar = () => {
                  
                   className="flex text-[#4A4A4A]   p-2 transition-all rounded-md  items-center cursor-pointer overflow-none text-nowrap  gap-4 "
                 >
-                  {nav.icon && <span  className="mx-4">{nav.icon}</span>}
+                  {nav.icon && <span  className="mx-4">{<nav.icon strokeWidth={1.5}/>}</span>}
                   {isHover && (
                     <>
                       <p className="font-semibold">{t(nav.name)}</p>
@@ -76,7 +76,7 @@ const SideBar = () => {
                       <SideBarNav
                         href={subnav.path}
                         value={t(subnav.name)}
-                        icon={subnav.icon}
+                        icon={<nav.icon strokeWidth={1.5}/>}
                         isHover={hover}
                         key={subnav.path + index}
                       />
