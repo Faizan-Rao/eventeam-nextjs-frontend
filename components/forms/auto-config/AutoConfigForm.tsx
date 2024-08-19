@@ -12,6 +12,7 @@ import { FormStepperButtons } from "./FormStepperButtons";
 import { TicketTypes } from "./TicketTypeFormAdmin";
 import { GeneralInfoInput } from "./GenInputForm";
 import { SubEventInput } from "./SubEventInputForm";
+import AdvanceForm from "./AdvanceForm";
 
 export interface IAutoConfig {
   gen_info: {
@@ -28,20 +29,19 @@ export interface IAutoConfig {
     date: Date;
     active: boolean;
   }[];
+  advance_form:{
+    show_address:boolean;
+    cash_payment:boolean;
+    show_regulations:boolean;
+    show_stripe:boolean;
+  }
 }
 const AutoConfigForm = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const deferStep = useDeferredValue(currentStep);
 
   const id = useId();
-
-  const {
-    control,
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<IAutoConfig>({
+  const autoConfigDefaultValues = {
     defaultValues: {
       tickets: [
         {
@@ -57,8 +57,21 @@ const AutoConfigForm = () => {
           active: true,
         },
       ],
+      advance_form:{
+        show_address:false,
+        cash_payment:false,
+        show_regulations:false,
+        show_stripe:false,
+      }
     },
-  });
+  }
+  const {
+    control,
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<IAutoConfig>(autoConfigDefaultValues);
 
   console.log(getValues("sub_events.0.name"));
   const handleStepInc = (e: React.MouseEvent) => {
@@ -162,11 +175,11 @@ const AutoConfigForm = () => {
         {deferStep === 3 && (
           <>
             <FormHeader
-              title="Add Form Settings"
+              title="Advance Form Settings"
               currentStep={currentStep + 1}
               totalSteps={autoConfigSteps.length}
             />
-            {/* <SubEventInput control={control} /> */}
+            <AdvanceForm control={control}/>
           </>
         )}
         <FormStepperButtons
