@@ -47,6 +47,7 @@ const SideBar = () => {
                 icon={<nav.icon strokeWidth={1.5}/>}
                 isHover={hover}
                 key={nav.path + index}
+                className="rounded-none"
               />
             )}
 
@@ -70,7 +71,7 @@ const SideBar = () => {
                   <div
                   key={(nav as any).path + index}
                     ref={(elref) => (ref.current[index] = elref) as any}
-                    className="border-[2px] hidden transition-all bg-[#efefef] rounded-md mx-4 "
+                    className="border-[2px] hidden overflow-hidden transition-all bg-[#efefef] rounded-md mx-4 "
                   >
                     {nav.children.map((subnav, index) => (
                       <SideBarNav
@@ -79,6 +80,7 @@ const SideBar = () => {
                         icon={<nav.icon strokeWidth={1.5}/>}
                         isHover={hover}
                         key={subnav.path + index}
+                        className="rounded-none"
                       />
                     ))}
                   </div>
