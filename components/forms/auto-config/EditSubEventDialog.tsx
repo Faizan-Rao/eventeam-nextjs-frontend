@@ -1,7 +1,7 @@
 "use client";
 
-import { DialogHeader } from "@/components/ui/dialog";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
 import { PenBoxIcon } from "lucide-react";
 import { ChangeEvent, SyntheticEvent } from "react";
 
@@ -117,5 +117,6 @@ export const EditSubEventDialog = ({
         </DialogHeader>
       </DialogContent>
     </Dialog>
+   
   );
 };

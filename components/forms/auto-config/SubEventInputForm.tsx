@@ -3,8 +3,9 @@ import { CircleX, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
 import { Control, useFieldArray } from "react-hook-form";
-import { EditSubEventDialog } from "./AutoConfigEditSubEventDialog";
+
 import { IAutoConfig } from "./AutoConfigForm";
+import { EditSubEventDialog } from "./EditSubEventDialog";
 
 export const SubEventInput = ({
     control,

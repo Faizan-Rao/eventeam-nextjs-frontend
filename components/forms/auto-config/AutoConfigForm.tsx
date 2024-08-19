@@ -5,13 +5,13 @@ import clsx from "clsx";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { FormHeader } from "./AutoConfigFormHeader";
+import { FormHeader } from "./FormHeader";
 
 import { FormStepperButtons } from "./FormStepperButtons";
 
-import { SubEventInput } from "./AutoConfigSubEventInputForm";
-import { TicketTypes } from "./AutoConfigTicketTypeFormAdmin";
-import { GeneralInfoInput } from "./AutoConfigGenInputForm";
+import { TicketTypes } from "./TicketTypeFormAdmin";
+import { GeneralInfoInput } from "./GenInputForm";
+import { SubEventInput } from "./SubEventInputForm";
 
 export interface IAutoConfig {
   gen_info: {
@@ -156,6 +156,17 @@ const AutoConfigForm = () => {
               totalSteps={autoConfigSteps.length}
             />
             <SubEventInput control={control} />
+          </>
+        )}
+
+        {deferStep === 3 && (
+          <>
+            <FormHeader
+              title="Add Form Settings"
+              currentStep={currentStep + 1}
+              totalSteps={autoConfigSteps.length}
+            />
+            {/* <SubEventInput control={control} /> */}
           </>
         )}
         <FormStepperButtons
