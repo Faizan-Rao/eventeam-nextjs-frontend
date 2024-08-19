@@ -47,6 +47,7 @@ const SideBar = () => {
                 icon={<nav.icon strokeWidth={1.5}/>}
                 isHover={hover}
                 key={nav.path + index}
+                className="rounded-none"
               />
             )}
 
