@@ -4,7 +4,7 @@ import MainContentGrid from "./MainContentGrid";
 import PageTitleContainer from "./PageTitleContainer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import i18n from "@/configs/i18n";
-import AutoConfigForm from "./AutoConfigForm";
+import AutoConfigForm from "./forms/auto-config/AutoConfigForm";
 const AddEventGrid = () => {
   const { dir } = i18n;
 
