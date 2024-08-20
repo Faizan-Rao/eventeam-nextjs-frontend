@@ -4,7 +4,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 
 import { PenBoxIcon } from "lucide-react";
 import { ChangeEvent, SyntheticEvent } from "react";
+import { IAutoConfig } from "./AutoConfigForm";
 
+interface ISubevent {
+  name: string;
+  start_time: Date;
+  end_time: Date;
+  date: Date;
+  active: boolean;
+}
 
 export const EditSubEventDialog = ({
   el,
@@ -13,12 +21,14 @@ export const EditSubEventDialog = ({
   index,
   updateState,
 }: {
-  el: object;
+  el: ISubevent;
   setUpdate: React.Dispatch<any>;
   update: (str: any, value: any) => void;
   index: number;
   updateState: any;
 }) => {
+
+ 
   return (
     <Dialog>
       <DialogTrigger>

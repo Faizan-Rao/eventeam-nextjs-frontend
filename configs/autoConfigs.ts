@@ -17,7 +17,7 @@ const autoConfigSteps = [
     icon: Check,
   },
   {
-    title: "Add Form Settings",
+    title: "Advance Form Settings",
     description: "basic information about event",
     icon: Check,
   },
