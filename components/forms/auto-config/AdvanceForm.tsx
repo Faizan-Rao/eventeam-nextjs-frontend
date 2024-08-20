@@ -2,7 +2,7 @@ import React from "react";
 import { Control, Controller } from "react-hook-form";
 import { IAutoConfig } from "./AutoConfigForm";
 import AdvanceFormOption from "./AdvanceFormOption";
-import { Banknote, MapPin } from "lucide-react";
+import { Banknote, MapPin, CreditCard, Notebook } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 
 interface IAdvanceForm {
@@ -50,7 +50,7 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
       <AdvanceFormOption
         title={"Show regulations on forms?"}
         description="Description of the option"
-        icon={<Banknote />}
+        icon={<Notebook />}
       >
         <Controller
           name="advance_form.show_regulations"
@@ -64,10 +64,11 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
           )}
         />
       </AdvanceFormOption>
+      
       <AdvanceFormOption
         title={"Show stripe on the form?"}
         description="Description of the option"
-        icon={<MapPin />}
+        icon={<CreditCard />}
       >
         <Controller
           name="advance_form.show_stripe"

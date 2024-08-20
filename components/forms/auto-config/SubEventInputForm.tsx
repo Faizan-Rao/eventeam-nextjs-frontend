@@ -27,7 +27,7 @@ export const SubEventInput = ({
     return (
       <div className="flex flex-col  gap-6 p-4">
         {/* Dynamic Events */}
-        <span className="flex gap-2 flex-wrap">
+        <span className="flex gap-5 flex-wrap">
           {fields.map((el, index) => {
             return (
               <div
@@ -35,7 +35,7 @@ export const SubEventInput = ({
                 key={el.id}
               >
                 {/* Card Content */}
-                <div className="flex gap-1  ">
+                <div className="flex gap-6  ">
                   <div className="flex  text-white flex-col place-items-center  p-4  bg-[#7655fa] ">
                     <span>{format(el.date, "MMM")}</span>
                     <span className="text-4xl">{format(el.date, "dd")}</span>
