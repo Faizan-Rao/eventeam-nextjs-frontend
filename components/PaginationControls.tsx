@@ -1,16 +1,27 @@
 import clsx from "clsx";
 import React from "react";
 
-const PaginationControls = ({ table }: any) => {
-  console.log(table.getState().pagination);
+const PaginationControls = ({
+  table,
+  totalRecords,
+}: {
+  table: any;
+  totalRecords: number;
+}) => {
   return (
     <div className="flex justify-between flex-wrap items-center">
-
-      
-
       {/* Pagination Controls */}
-      <span className="font-semibold text-nowrap text-[#4a4a4a]">
-        Current Page: {table.getState().pagination.pageIndex + 1}
+      <span className="font-semibold flex  gap-4 text-nowrap text-[#4a4a4a]">
+        <p className="text-[#4a4a4a] flex-1">
+          Page: {" "}
+          <span className="text-[#7655fa]">
+            {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </span>
+        </p>
+        <p className="text-[#4a4a4a] flex-1">
+          Total Records: <span className="text-[#7655fa]">{totalRecords} </span>
+        </p>
       </span>
 
       <span className="flex items-center justify-end space-x-2 py-4">

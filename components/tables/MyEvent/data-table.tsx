@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
   DropdownMenu,
@@ -92,7 +92,7 @@ export function MyEventTable<TData, TValue>({
     rangeFilter.filter((el) => el > 0).length > 0 || filteredRows.length > 0;
 
   const table = useReactTable({
-    data: isFiltered ? filteredRows : data,
+    data: useMemo(() => isFiltered ? filteredRows : data,[data, filteredRows, isFiltered]),
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -127,7 +127,7 @@ export function MyEventTable<TData, TValue>({
             className="max-w-sm outline-none"
           />
         </span>
-
+     
         <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
             <button className="flex text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
@@ -237,7 +237,7 @@ export function MyEventTable<TData, TValue>({
         </button>
       </div>
 
-      <PaginationControls table={table} />
+      <PaginationControls table={table} totalRecords={data.length} />
 
       {/* Data Table */}
 
@@ -295,15 +295,7 @@ export function MyEventTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <span className="gap-7 mr-5 text-nowrap flex-wrap flex my-4  font-semibold ">
-        <p className="text-[#4a4a4a] flex-1">Total Records: {data.length}</p>
-        <p className="text-[#4a4a4a]">
-          Selected Rows: {table.getSelectedRowModel().rows.length}
-        </p>
-        <span className="font-semibold text-nowrap justify-self-end text-[#4a4a4a]">
-          Total Page: {table.getPageCount()}
-        </span>
-      </span>
+    
     </>
   );
 }

@@ -1,5 +1,12 @@
 "use client";
-import React, { useState, useDeferredValue, useId, use, useMemo, useEffect } from "react";
+import React, {
+  useState,
+  useDeferredValue,
+  useId,
+  use,
+  useMemo,
+  useEffect,
+} from "react";
 import autoConfigSteps from "@/configs/autoConfigs";
 import clsx from "clsx";
 
@@ -42,12 +49,14 @@ export interface IAutoConfig {
       title: string;
       time_type: string;
       before_time: number;
+      fixed_time: string;
       status: boolean;
     }[];
     two_prayer: {
       title: string;
       time_type: string;
       before_time: number;
+      fixed_time: string;
       status: boolean;
     }[];
   };
@@ -82,6 +91,8 @@ const defaultValues = {
         time_type: "",
         status: false,
         before_time: 0,
+
+        fixed_time: "",
       },
     ],
     two_prayer: [
@@ -90,6 +101,8 @@ const defaultValues = {
         time_type: "",
         status: false,
         before_time: 0,
+
+        fixed_time: "",
       },
     ],
   },
@@ -99,9 +112,9 @@ const AutoConfigForm = () => {
   const deferStep = useDeferredValue(currentStep);
 
   const id = useId();
-  
+
   const methods = useForm<IAutoConfig>({
-    defaultValues:defaultValues,
+    defaultValues: defaultValues,
   });
 
   const {
@@ -110,9 +123,7 @@ const AutoConfigForm = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  
 
- 
   const handleStepInc = (e: React.MouseEvent) => {
     e.preventDefault();
     if (deferStep < autoConfigSteps.length - 1) {
