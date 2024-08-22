@@ -33,10 +33,16 @@ export interface IAutoConfig {
   tickets: { ticket: string }[];
   sub_events: {
     name: string;
-    start_time: Date;
-    end_time: Date;
+    start_time: string;
+    description?: string;
     date: Date;
     active: boolean;
+    ticket_type: {
+      name: string;
+      price: string;
+    }[];
+    address?: string;
+    max_capcity?: string;
   }[];
   advance_form: {
     show_address: boolean;
@@ -49,6 +55,7 @@ export interface IAutoConfig {
       title: string;
       time_type: string;
       before_time: number;
+      after_time: number;
       fixed_time: string;
       status: boolean;
     }[];
@@ -56,6 +63,7 @@ export interface IAutoConfig {
       title: string;
       time_type: string;
       before_time: number;
+      after_time: number;
       fixed_time: string;
       status: boolean;
     }[];
@@ -66,15 +74,6 @@ const defaultValues = {
   tickets: [
     {
       ticket: "Male",
-    },
-  ],
-  sub_events: [
-    {
-      name: "Sub Event",
-      start_time: new Date(),
-      end_time: new Date(),
-      date: new Date(),
-      active: true,
     },
   ],
   advance_form: {
@@ -88,20 +87,20 @@ const defaultValues = {
     one_prayer: [
       {
         title: "",
-        time_type: "",
+        time_type: "fixed-time",
         status: false,
         before_time: 0,
-
+        after_time: 0,
         fixed_time: "",
       },
     ],
     two_prayer: [
       {
         title: "",
-        time_type: "",
+        time_type: "fixed-time",
         status: false,
         before_time: 0,
-
+        after_time: 0,
         fixed_time: "",
       },
     ],

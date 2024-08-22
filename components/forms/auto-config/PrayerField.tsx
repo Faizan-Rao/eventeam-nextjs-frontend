@@ -33,7 +33,7 @@ const PrayerField: React.FC<IPrayerField> = ({
     name: prayer === 1 ? `prayer_time.one_prayer` : `prayer_time.two_prayer`,
   });
 
-  console.log(prayerFields);
+ 
   return (
     <div className="flex px-4 justify-center flex-col gap-4 ">
       <label className="text-[#7655fa] font-semibold">{title}</label>
@@ -134,8 +134,56 @@ const PrayerField: React.FC<IPrayerField> = ({
                 </div>
               </span>
             )}
-            
-            {prayerFields[index]?.time_type !== "before-sunset" && (
+            {prayerFields[index]?.time_type === "after-sunset" && (
+              <span className="flex   flex-col gap-1">
+                <label className="text-sm ">After Time</label>
+                <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
+                  <Controller
+                    name={
+                      prayer === 1
+                        ? `prayer_time.one_prayer.${index}.after_time`
+                        : `prayer_time.two_prayer.${index}.after_time`
+                    }
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <CirclePlus
+                          onClick={() =>
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value + 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                        <input
+                          type="number"
+                          className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
+                          onChange={(e: ChangeEvent) =>
+                            field.onChange((e.target as any).value)
+                          }
+                          value={field.value ?? 0}
+                          defaultValue={0}
+                          min={0}
+                        />
+                        <CircleMinus
+                          onClick={() =>
+                            field.value > 0 &&
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value - 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                      </>
+                    )}
+                  />
+                </div>
+              </span>
+            )}
+
+            {prayerFields[index]?.time_type === "fixed-time" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">Fixed Time</label>
                 <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
@@ -209,7 +257,7 @@ const PrayerField: React.FC<IPrayerField> = ({
           onClick={() =>
             append({
               title: "",
-              time_type: "",
+              time_type: "fixed-time",
               status: false,
               before_time: 0,
             })
