@@ -13,7 +13,7 @@ export const SubEventInput = ({
 }: {
   control: Control<IAutoConfig, any>;
 }) => {
-  const { fields, append, remove, update } = useFieldArray({
+  const { fields, append, replace, remove } = useFieldArray({
     control,
     name: "sub_events",
   });
@@ -80,13 +80,18 @@ export const SubEventInput = ({
                 {/* Card Controls */}
                 <div className="flex mx-3  h-auto  self-stretch items-center flex-1 justify-end gap-4 p-2  my-1">
                   <EditSubEventDialog index={index} />
-                  {
+                  
                     <CircleX
-                      onClick={() => remove(index)}
+                      onClick={() => {
+                        const newArr = watch.sub_events?.filter(
+                          (_, i) => i !== index
+                        );
+                        replace(newArr as any);
+                      }}
                       className="text-[red] cursor-pointer"
                       strokeWidth={1}
                     />
-                  }
+                  
                 </div>
               </div>
             );
