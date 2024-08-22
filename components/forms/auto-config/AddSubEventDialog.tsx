@@ -23,7 +23,7 @@ import { format } from "date-fns";
 import { UseFieldArrayAppend } from "react-hook-form";
 import { IAutoConfig } from "./AutoConfigForm";
 
-// import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
 
 const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   open,
@@ -65,7 +65,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
       ticket_type: [...ticket.slice(0, ticket.length - 1)],
     });
   };
-  console.log(field);
+ 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="lg:max-w-4xl">

@@ -1,66 +1,83 @@
 "use client";
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  ChevronDown,
+  CircleX,
+  DollarSign,
+  PenBoxIcon,
+  PencilLine,
+  Plus,
+} from "lucide-react";
+import React, { ChangeEvent, useState } from "react";
 
-import { PenBoxIcon } from "lucide-react";
-import { ChangeEvent, SyntheticEvent } from "react";
+import AddSubEventGenInfo from "./AddSubEventGenInfo";
+import { Calendar } from "@/components/ui/calendar";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { format } from "date-fns";
+import {
+  useFieldArray,
+  UseFieldArrayAppend,
+  UseFieldArrayUpdate,
+  useFormContext,
+  useWatch,
+} from "react-hook-form";
 import { IAutoConfig } from "./AutoConfigForm";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 
-interface ISubevent {
-  name: string;
-  start_time: Date;
-  end_time: Date;
-  date: Date;
-  active: boolean;
-}
-
-export const EditSubEventDialog = ({
-  el,
-  setUpdate,
-  update,
-  index,
-  updateState,
-}: {
-  el: ISubevent;
-  setUpdate: React.Dispatch<any>;
-  update: (str: any, value: any) => void;
-  index: number;
-  updateState: any;
-}) => {
-
- 
+const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
+  const { control } = useFormContext<IAutoConfig>();
+  const { fields, update } = useFieldArray({ control, name: "sub_events" });
+  const watch = useWatch({ control });
+  const [isSettingOpen, setSettingOpen] = useState(false);
+  const [field, setField] = useState(fields[index]);
+  const [open, setOpen] = useState(false);
+  const handleAddTicket = () => {
+    const ticket = field.ticket_type;
+    setField({ ...field, ticket_type: [...ticket, { name: "", price: "" }] });
+  };
+  const handleRemoveTicket = () => {
+    const ticket = field.ticket_type;
+    setField({
+      ...field,
+      ticket_type: [...ticket.slice(0, ticket.length - 1)],
+    });
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <PenBoxIcon className="cursor-pointer" strokeWidth={1} />
+        <PencilLine
+          onClick={() => setOpen(true)}
+          className=" cursor-pointer"
+          strokeWidth={1}
+        />
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="lg:max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold mx-auto">
-            {(el as any).name}
+          <DialogTitle className="text-xl mx-auto font-semibold ">
+           {field.name}
           </DialogTitle>
-          <DialogDescription>
-            <div className="flex flex-col gap-6 p-4">
-              {/* Event Name */}
-              <span className="flex gap-2 flex-col">
-                <label className={"text-[#4a4a4a] font-semibold"}>
-                  Event Name
-                </label>
-                <input
-                  type="text"
-                  defaultValue={(el as any).name}
-                  onChange={(e: ChangeEvent) =>
-                    setUpdate({...updateState, name: (e.target as any).value })
-                  }
-                  className="border-[2px] outline-none p-2 w-full"
-                  placeholder="Enter Name"
-                />
-              </span>
-
-              {/* Event Dates */}
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-4">
-                  <span className="flex-1 flex gap-3 flex-col">
+          <DialogDescription className=" overflow-y-scroll max-h-[600px]">
+            <div className="flex flex-col gap-6 p-4 ">
+              <h1 className="font-semibold text-xl">General Information</h1>
+              <div className="flex flex-1 flex-wrap gap-4">
+                <AddSubEventGenInfo field={field} setField={setField} />
+                <span className="border-2 self-center rounded-md mx-4">
+                  <Calendar
+                    mode="single"
+                    selected={field.date}
+                    onSelect={(value: any) =>
+                      setField({ ...field, date: value })
+                    }
+                    className="max-h-[400px]"
+                  />
+                  <span className=" flex  flex-col gap-2 m-3 ">
                     <label className={"text-[#4a4a4a] font-semibold"}>
                       Start Time
                     </label>
@@ -68,55 +85,146 @@ export const EditSubEventDialog = ({
                     <input
                       type="time"
                       defaultValue={"00:00"}
-                      onChange={(e: ChangeEvent) => {
-                        const hour = (e.target as any).value.split(":")[0];
-                        const min = (e.target as any).value.split(":")[1];
-                        const date = new Date(Date.now());
-                        date.setHours(hour);
-                        date.setMinutes(min);
-                        setUpdate({...updateState, start_time: date });
+                      onChange={(e) => {
+                        setField({
+                          ...field,
+                          start_time: format(
+                            new Date(`1/1/2024 ${e.target.value}`),
+                            "hh:mm aa"
+                          ),
+                        });
                       }}
                       className="border-[2px] outline-none p-2 w-full cursor-pointer"
                     />
                   </span>
-                  <span className="flex-1 flex gap-3 flex-col">
+                </span>
+              </div>
+              <h1 className="font-semibold text-xl">Ticket Types</h1>
+              <div className="flex flex-col  gap-6 ">
+                {/* Event Name */}
+                <span className="flex gap-2 flex-col">
+                  <label className={"text-[#4a4a4a] font-semibold"}>
+                    Ticket Names
+                  </label>
+                  {Array(field.ticket_type.length)
+                    .fill({ name: "", price: "" })
+                    .map((el, index) => {
+                      return (
+                        <div
+                          className="flex gap-4 items-center"
+                          key={index + (el as any).name}
+                        >
+                          <input
+                            type="text"
+                            className="border-[2px] outline-none p-2 max-w-[40%] flex-1"
+                            placeholder="Enter Ticket Name"
+                            value={field.ticket_type[index].name}
+                            onChange={(e) => {
+                              const ticket = field.ticket_type;
+
+                              const newArr = [...ticket];
+                              const item = newArr.find(
+                                (_, i) => i === index
+                              ) ?? { name: "" };
+                              item.name = e.target.value;
+                              setField({ ...field, ticket_type: newArr });
+                            }}
+                          />
+                          <span className="flex gap-4  border-[2px] items-center px-3 max-w-[40%]">
+                            <input
+                              type="number"
+                              className=" outline-none p-2 flex-1"
+                              placeholder="Enter Price"
+                              value={field.ticket_type[index].price}
+                              onChange={(e) => {
+                                const ticket = field.ticket_type;
+                                const newArr = [...ticket];
+                                const item = newArr.find(
+                                  (_, i) => i === index
+                                ) ?? { price: "" };
+                                item.price = e.target.value;
+                                setField({ ...field, ticket_type: newArr });
+                              }}
+                            />
+                            <DollarSign size={18} />
+                          </span>
+                          {index > 0 && (
+                            <CircleX
+                              onClick={() => {
+                                handleRemoveTicket();
+                                const newArr = field.ticket_type.filter(
+                                  (_, i) => index !== i
+                                );
+                                setField({ ...field, ticket_type: newArr });
+                              }}
+                              className="text-[red] cursor-pointer"
+                              strokeWidth={1}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
+                  <div>
+                    <button
+                      onClick={handleAddTicket}
+                      className="flex items-center gap-4 my-4  justify-self-start  text-[#7655fA]"
+                    >
+                      {" "}
+                      <Plus /> <span>Add Another Ticket</span>
+                    </button>
+                  </div>
+                </span>
+              </div>
+              <h1
+                className="font group cursor-pointer font-semibold flex items-center gap-4 text-xl"
+                onClick={() => setSettingOpen(!isSettingOpen)}
+              >
+                Advance Settings{" "}
+                <ChevronDown
+                  className=" font-semibold group-hover:rotate-180"
+                  size={18}
+                />
+              </h1>
+              {isSettingOpen && (
+                <>
+                  <span className="flex gap-2 flex-col">
                     <label className={"text-[#4a4a4a] font-semibold"}>
-                      End Time
+                      Location Address{" "}
+                      <span className="text-[gray]">(optional)</span>
                     </label>
                     <input
-                      type="time"
-                      defaultValue={"00:00"}
-                      onChange={(e: ChangeEvent) => {
-                        const hour = (e.target as any).value.split(":")[0];
-                        const min = (e.target as any).value.split(":")[1];
-                        const date = new Date(Date.now());
-                        date.setHours(hour);
-                        date.setMinutes(min);
-                        setUpdate({ ...updateState, end_time: date });
-                      }}
-                      className="border-[2px] outline-none p-2 w-full "
+                      type="text"
+                      className="border-[2px] outline-none p-2 w-full"
+                      value={field.address}
+                      onChange={(e) =>
+                        setField({ ...field, address: e.target.value })
+                      }
                     />
                   </span>
-                </div>
+                  <span className="flex gap-2 flex-col">
+                    <label className={"text-[#4a4a4a] font-semibold"}>
+                      Max Capacity{" "}
+                      <span className="text-[gray]">(optional)</span>
+                    </label>
+                    <input
+                      type="number"
+                      className="border-[2px] outline-none p-2 w-full"
+                      value={field.max_capcity}
+                      onChange={(e) =>
+                        setField({ ...field, max_capcity: e.target.value })
+                      }
+                    />
+                  </span>
+                </>
+              )}
 
-                <span className="flex  gap-1 my-3 flex-col">
-                  <label className={"text-[#4a4a4a] font-semibold"}>Date</label>
-                  <input
-                    type="date"
-                    defaultValue={(el as any).date}
-                    onChange={(e: ChangeEvent) => {
-                      setUpdate({...updateState,
-                        date: new Date((e.target as any).value),
-                      });
-                    }}
-                    className="border-[2px] outline-none p-2 w-full "
-                  />
-                </span>
+              <div className="flex sticky left-0 bottom-0 p-4 flex-1 bg-[white]">
                 <button
-                  className="bg-[#7655fa] px-6 py-2 text-white rounded-full"
+                  className="bg-[#7655fa] justify-stretch px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
-                    update(index, {...el , ...updateState} as any);
+                    update(index, field);
+                    setOpen(false);
                   }}
                 >
                   Save
@@ -127,6 +235,25 @@ export const EditSubEventDialog = ({
         </DialogHeader>
       </DialogContent>
     </Dialog>
-   
   );
 };
+
+export default EditSubEventDialog;
+
+// interface IFieldElement {
+//   name: string;
+//   start_time: string;
+//   description?: string;
+//   date: Date;
+//   active: boolean;
+//   ticket_type: {
+//     name: string;
+//     price: string;
+//   }[];
+//   address?: string;
+//   max_capcity?: string;
+// }
+
+interface EditSubEventDialog {
+  index: number;
+}

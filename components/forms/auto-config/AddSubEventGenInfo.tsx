@@ -6,7 +6,7 @@ import { IFieldElement } from "./AddSubEventDialog";
 
 interface IAddSubEnventGenInfo {
   field : IFieldElement,
-  setField: React.Dispatch<IFieldElement>
+  setField: any
 }
 const AddSubEventGenInfo : React.FC<IAddSubEnventGenInfo>= ({
   field,
