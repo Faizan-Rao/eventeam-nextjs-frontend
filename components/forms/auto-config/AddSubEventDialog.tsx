@@ -1,6 +1,12 @@
 "use client";
 
-import { ChevronDown, CircleX, DollarSign, PenBoxIcon, Plus } from "lucide-react";
+import {
+  ChevronDown,
+  CircleX,
+  DollarSign,
+  PenBoxIcon,
+  Plus,
+} from "lucide-react";
 import React, { ChangeEvent, useState } from "react";
 
 import AddSubEventGenInfo from "./AddSubEventGenInfo";
@@ -13,16 +19,29 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { format } from "date-fns";
+import { UseFieldArrayAppend } from "react-hook-form";
+import { IAutoConfig } from "./AutoConfigForm";
 
 // import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
-  const [tickets, setTickets] = useState([
+const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
+  open,
+  setOpen,
+  append,
+}) => {
+  const [tickets, setTickets] = useState<
     {
-      name: "Ticket",
-      price: "2",
+      name: string;
+      price: string;
+    }[]
+  >([
+    {
+      name: "",
+      price: "",
     },
   ]);
+
   const defaultValue: IFieldElement = {
     name: "",
     active: false,
@@ -36,17 +55,15 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
   const [field, setField] = useState<IFieldElement>(defaultValue);
   const [isSettingOpen, setSettingOpen] = useState(false);
   const handleAddTicket = () => {
-    setTickets([
-      ...tickets,
-      {
-        name: "Ticket",
-        price: "2",
-      },
-    ]);
+    const ticket = field.ticket_type;
+    setField({ ...field, ticket_type: [...ticket, { name: "", price: "" }] });
   };
   const handleRemoveTicket = () => {
-    tickets.pop();
-    setTickets([...tickets]);
+    const ticket = field.ticket_type;
+    setField({
+      ...field,
+      ticket_type: [...ticket.slice(0, ticket.length - 1)],
+    });
   };
   console.log(field);
   return (
@@ -60,7 +77,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
             <div className="flex flex-col gap-6 p-4 ">
               <h1 className="font-semibold text-xl">General Information</h1>
               <div className="flex flex-1 flex-wrap gap-4">
-                <AddSubEventGenInfo />
+                <AddSubEventGenInfo field={field} setField={setField} />
                 <span className="border-2 self-center rounded-md mx-4">
                   <Calendar
                     mode="single"
@@ -78,7 +95,15 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                     <input
                       type="time"
                       defaultValue={"00:00"}
-                      onChange={(e: ChangeEvent) => {}}
+                      onChange={(e) => {
+                        setField({
+                          ...field,
+                          start_time: format(
+                            new Date(`1/1/2024 ${e.target.value}`),
+                            "hh:mm aa"
+                          ),
+                        });
+                      }}
                       className="border-[2px] outline-none p-2 w-full cursor-pointer"
                     />
                   </span>
@@ -91,35 +116,64 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                   <label className={"text-[#4a4a4a] font-semibold"}>
                     Ticket Names
                   </label>
-                  {tickets.map((el, index) => {
-                    return (
-                      <div
-                        className="flex gap-4 items-center"
-                        key={index + (el as any).name}
-                      >
-                        <input
-                          type="text"
-                          className="border-[2px] outline-none p-2 max-w-[40%] flex-1"
-                          placeholder="Enter Ticket Name"
-                        />
-                        <span className="flex gap-4  border-[2px] items-center px-3 max-w-[40%]">
+                  {Array(field.ticket_type.length)
+                    .fill({ name: "", price: "" })
+                    .map((el, index) => {
+                      return (
+                        <div
+                          className="flex gap-4 items-center"
+                          key={index + (el as any).name}
+                        >
                           <input
                             type="text"
-                            className=" outline-none p-2 flex-1"
-                            placeholder="Enter Price"
+                            className="border-[2px] outline-none p-2 max-w-[40%] flex-1"
+                            placeholder="Enter Ticket Name"
+                            value={field.ticket_type[index].name}
+                            onChange={(e) => {
+                              const ticket = field.ticket_type;
+
+                              const newArr = [...ticket];
+                              const item = newArr.find(
+                                (_, i) => i === index
+                              ) ?? { name: "" };
+                              item.name = e.target.value;
+                              setTickets(newArr as any);
+                            }}
                           />
-                          <DollarSign size={18} />
-                        </span>
-                        {index > 0 && (
-                          <CircleX
-                            onClick={handleRemoveTicket}
-                            className="text-[red] cursor-pointer"
-                            strokeWidth={1}
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
+                          <span className="flex gap-4  border-[2px] items-center px-3 max-w-[40%]">
+                            <input
+                              type="number"
+                              className=" outline-none p-2 flex-1"
+                              placeholder="Enter Price"
+                              value={field.ticket_type[index].price}
+                              onChange={(e) => {
+                                const ticket = field.ticket_type;
+                                const newArr = [...ticket];
+                                const item = newArr.find(
+                                  (_, i) => i === index
+                                ) ?? { price: "" };
+                                item.price = e.target.value;
+                                setTickets(newArr as any);
+                              }}
+                            />
+                            <DollarSign size={18} />
+                          </span>
+                          {index > 0 && (
+                            <CircleX
+                              onClick={() => {
+                                handleRemoveTicket();
+                                const newArr = tickets.filter(
+                                  (_, i) => index !== i
+                                );
+                                setTickets(newArr);
+                              }}
+                              className="text-[red] cursor-pointer"
+                              strokeWidth={1}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
                   <div>
                     <button
                       onClick={handleAddTicket}
@@ -135,7 +189,11 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                 className="font group cursor-pointer font-semibold flex items-center gap-4 text-xl"
                 onClick={() => setSettingOpen(!isSettingOpen)}
               >
-                Advance Settings <ChevronDown className=" font-semibold group-hover:rotate-180" size={18} />
+                Advance Settings{" "}
+                <ChevronDown
+                  className=" font-semibold group-hover:rotate-180"
+                  size={18}
+                />
               </h1>
               {isSettingOpen && (
                 <>
@@ -147,7 +205,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                     <input
                       type="text"
                       className="border-[2px] outline-none p-2 w-full"
-                      placeholder="Enter Name"
+                      onChange={(e) =>
+                        setField({ ...field, address: e.target.value })
+                      }
                     />
                   </span>
                   <span className="flex gap-2 flex-col">
@@ -156,9 +216,11 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                       <span className="text-[gray]">(optional)</span>
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       className="border-[2px] outline-none p-2 w-full"
-                      placeholder="Enter Name"
+                      onChange={(e) =>
+                        setField({ ...field, max_capcity: e.target.value })
+                      }
                     />
                   </span>
                 </>
@@ -169,6 +231,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({ open, setOpen }) => {
                   className="bg-[#7655fa] justify-stretch px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
+                    append({ ...field, ticket_type: tickets });
+                    setOpen(false);
+                    setField(defaultValue);
                   }}
                 >
                   Add Event
@@ -191,15 +256,15 @@ export interface IFieldElement {
   date: Date;
   active: boolean;
   ticket_type: {
-    name: string;
-    price: string;
+    name?: string;
+    price?: string;
   }[];
   address?: string;
   max_capcity?: string;
 }
 
 export interface AddSubEventDialog {
-  append: (value: IFieldElement) => void;
+  append: UseFieldArrayAppend<IAutoConfig, "sub_events">;
   open: boolean;
   setOpen: React.Dispatch<boolean>;
 }

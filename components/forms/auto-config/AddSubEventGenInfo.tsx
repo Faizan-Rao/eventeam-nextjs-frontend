@@ -2,9 +2,18 @@ import { Switch } from "@/components/ui/switch";
 import { joditConfig } from "@/configs/joditConfig";
 import JoditEditor from "jodit-react";
 import React from "react";
+import { IFieldElement } from "./AddSubEventDialog";
 
+interface IAddSubEnventGenInfo {
+  field : IFieldElement,
+  setField: React.Dispatch<IFieldElement>
+}
+const AddSubEventGenInfo : React.FC<IAddSubEnventGenInfo>= ({
+  field,
+  setField
+}) => {
 
-const AddSubEventGenInfo = () => {
+  
   return (
     <div className="flex flex-col gap-4 flex-1">
       <span className="flex gap-2 flex-col">
@@ -13,6 +22,8 @@ const AddSubEventGenInfo = () => {
           type="text"
           className="border-[2px] outline-none p-2 w-full"
           placeholder="Enter Name"
+          value={field.name}
+          onChange={(e : React.ChangeEvent)=>setField({...field , name : (e.target as any).value})}
         />
       </span>
 
@@ -25,7 +36,8 @@ const AddSubEventGenInfo = () => {
         <div className="flex   border-2 p-2">
           <span>Active</span>
           <Switch
-            onCheckedChange={(value) => null}
+          defaultChecked={field.active}
+            onCheckedChange={(value) => setField({...field, active : value})}
             className="text-[white] ml-auto justify-self-end cursor-pointer"
           />
         </div>
@@ -37,8 +49,8 @@ const AddSubEventGenInfo = () => {
                 Event Description
               </label>
               <JoditEditor
-                
-                value={""}
+                onChange={(value)=>setField({...field, description: value})}
+                value={field.description ?? ""}
                 config={joditConfig as any}
                
               />

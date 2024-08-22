@@ -48,7 +48,7 @@ export const SubEventInput = ({
                   <h1 className="text-xl font-semibold">{el.name}</h1>
 
                   <h1 className="text-sm text-[#4a4a4a] font-semibold">
-                    {format(el.start_time, "KK:mm aa")} s
+                    {el.start_time}
                   </h1>
 
                   <div className="flex gap-1 text-sm ">
@@ -91,7 +91,7 @@ export const SubEventInput = ({
                   index={index}
                   updateState={updateState}
                 />
-                {index > 0 && (
+                {(
                   <CircleX
                     onClick={() => remove(index)}
                     className="text-[red] cursor-pointer"
