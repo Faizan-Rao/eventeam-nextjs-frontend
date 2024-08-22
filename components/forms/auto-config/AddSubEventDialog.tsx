@@ -87,8 +87,8 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     }
                     className="max-h-[400px]"
                   />
-                  <span className=" flex  flex-col gap-2 m-3 ">
-                    <label className={"text-[#4a4a4a] font-semibold"}>
+                  <span className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
+                    <label className={"text-white font-semibold"}>
                       Start Time
                     </label>
 
@@ -104,7 +104,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                           ),
                         });
                       }}
-                      className="border-[2px] outline-none p-2 w-full cursor-pointer"
+                      className=" rounded-md outline-none p-2 w-full cursor-pointer"
                     />
                   </span>
                 </span>
@@ -126,7 +126,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                         >
                           <input
                             type="text"
-                            className="border-[2px] outline-none p-2 max-w-[40%] flex-1"
+                            className="border-[2px] outline-none p-2  flex-1"
                             placeholder="Enter Ticket Name"
                             value={field.ticket_type[index].name}
                             onChange={(e) => {
@@ -140,7 +140,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                               setTickets(newArr as any);
                             }}
                           />
-                          <span className="flex gap-4  border-[2px] items-center px-3 max-w-[40%]">
+                          <span className="flex gap-4  border-[2px] items-center px-3 flex-1">
                             <input
                               type="number"
                               className=" outline-none p-2 flex-1"
@@ -158,7 +158,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                             />
                             <DollarSign size={18} />
                           </span>
-                          {index > 0 && (
+                          
                             <CircleX
                               onClick={() => {
                                 handleRemoveTicket();
@@ -170,7 +170,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                               className="text-[red] cursor-pointer"
                               strokeWidth={1}
                             />
-                          )}
+                        
                         </div>
                       );
                     })}

@@ -77,8 +77,8 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                     }
                     className="max-h-[400px]"
                   />
-                  <span className=" flex  flex-col gap-2 m-3 ">
-                    <label className={"text-[#4a4a4a] font-semibold"}>
+                  <span className=" flex  flex-col gap-2 m-3 p-4 rounded-md bg-[#7655fa]">
+                    <label className={"text-white font-semibold"}>
                       Start Time
                     </label>
 
@@ -94,7 +94,8 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                           ),
                         });
                       }}
-                      className="border-[2px] outline-none p-2 w-full cursor-pointer"
+                      className="
+                       outline-none p-2 w-full rounded-md cursor-pointer"
                     />
                   </span>
                 </span>
@@ -111,12 +112,12 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                     .map((el, index) => {
                       return (
                         <div
-                          className="flex gap-4 items-center"
+                          className="flex gap-4 items-center "
                           key={index + (el as any).name}
                         >
                           <input
                             type="text"
-                            className="border-[2px] outline-none p-2 max-w-[40%] flex-1"
+                            className="border-[2px] outline-none p-2 flex-1  "
                             placeholder="Enter Ticket Name"
                             value={field.ticket_type[index].name}
                             onChange={(e) => {
@@ -130,7 +131,7 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                               setField({ ...field, ticket_type: newArr });
                             }}
                           />
-                          <span className="flex gap-4  border-[2px] items-center px-3 max-w-[40%]">
+                          <span className="flex gap-4  border-[2px] items-center px-3  flex-1">
                             <input
                               type="number"
                               className=" outline-none p-2 flex-1"
@@ -148,7 +149,8 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                             />
                             <DollarSign size={18} />
                           </span>
-                          {index > 0 && (
+                        
+                         
                             <CircleX
                               onClick={() => {
                                 handleRemoveTicket();
@@ -160,7 +162,7 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
                               className="text-[red] cursor-pointer"
                               strokeWidth={1}
                             />
-                          )}
+                        
                         </div>
                       );
                     })}
@@ -240,19 +242,7 @@ const EditSubEventDialog: React.FC<EditSubEventDialog> = ({ index }) => {
 
 export default EditSubEventDialog;
 
-// interface IFieldElement {
-//   name: string;
-//   start_time: string;
-//   description?: string;
-//   date: Date;
-//   active: boolean;
-//   ticket_type: {
-//     name: string;
-//     price: string;
-//   }[];
-//   address?: string;
-//   max_capcity?: string;
-// }
+
 
 interface EditSubEventDialog {
   index: number;

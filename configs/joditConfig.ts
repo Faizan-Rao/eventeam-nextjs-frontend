@@ -5,9 +5,11 @@ export const joditConfig = {
     language: i18n.language,
     i18n,
     hidePoweredByJodit: true,
+    addNewLine: false,
     readonly: false, // Set to true to make editor read-only
     useSplitMode: false,
     disablePlugins: [
+      'break',
       "code",
       "source",
       "print",
