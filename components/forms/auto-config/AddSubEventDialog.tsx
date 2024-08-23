@@ -7,7 +7,7 @@ import {
   PenBoxIcon,
   Plus,
 } from "lucide-react";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import AddSubEventGenInfo from "./AddSubEventGenInfo";
 import { Calendar } from "@/components/ui/calendar";
@@ -20,8 +20,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { UseFieldArrayAppend } from "react-hook-form";
+import { UseFieldArrayAppend, useFormContext } from "react-hook-form";
 import { IAutoConfig } from "./AutoConfigForm";
+import { useWatch } from "react-hook-form";
 
 
 
@@ -30,6 +31,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   setOpen,
   append,
 }) => {
+
+  const {control } = useFormContext<IAutoConfig>()
+  const watch = useWatch({control})
   const [tickets, setTickets] = useState<
     {
       name: string;
@@ -65,7 +69,18 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
       ticket_type: [...ticket.slice(0, ticket.length - 1)],
     });
   };
- 
+
+  useEffect(()=>{
+    const newArr = watch.tickets?.map((el) => {
+      return {
+        name: el.ticket,
+        price: ""
+      }
+    })
+    setField({...field, ticket_type: (newArr as any)})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="lg:max-w-4xl">

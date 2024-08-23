@@ -77,7 +77,7 @@ const SearchInput = () => {
                      onClick={()=> setOpen(false)}
                      
                    >
-                     {nav.icon && <span className="mx-4">{nav.icon}</span>}
+                     {nav.icon && <span className="mx-4"><nav.icon/></span>}
                      <p className="font-semibold text-lg">{t(nav.name)}</p>
                    </Link>
                 </>
