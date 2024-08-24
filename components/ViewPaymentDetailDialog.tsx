@@ -136,7 +136,7 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
                               </h1>
                               <div className="flex flex-wrap gap-1">
                                 {el.events.map((item) => (
-                                  <p className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold">
+                                  <p className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold" key={i + item}>
                                     {item}
                                   </p>
                                 ))}
@@ -156,7 +156,7 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               {row.original.event_reg.price_breakdown.map((el, i) => {
                 return (
-                  <div className="flex gap-4 text-base justify-between">
+                  <div className="flex gap-4 text-base justify-between" key={i + el.value}>
                     <p className="font-semibold px-2">{el.type}</p>
                     <p className="font-semibold px-2">{el.value}</p>
                   </div>
