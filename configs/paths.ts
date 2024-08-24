@@ -33,7 +33,7 @@ export const paths =  [
     },
     {
         name:"Payment Details",
-        path:"/dashboard/payments",
+        path:"/dashboard/payment-details",
         icon: CircleDollarSign
     },
     {

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "abcedfg",
+    "name": "The New Year Eve",
+    "date": "Jan 1 2024",
+    "method": "Stripe",
+    "payment": "120.00",
+    "status": "Pending",
+    "event_reg": {
+      "guest": [
+        {
+          "name": "Ramzan Zahoor",
+          "phone": "+923000000000",
+          "email": "something@gmail.com",
+          "ticket_type": "Men",
+          "events": ["Day 1", "Day 2","Day 1", "Day 2"]
+        },
+        {
+            "name": "Sabir",
+            "phone": "+923000000000",
+            "email": "something@gmail.com",
+            "ticket_type": "Men",
+            "events": ["Day 1", "Day 2"]
+          }
+      ],
+      "price_breakdown": [
+        {
+          "type": "2x-MEN - Day 1",
+          "value": "$60.0"
+        },
+        {
+          "type": "2x-MEN - Day 2",
+          "value": "$60.0"
+        }
+      ],
+      "total_amount": "$120.00"
+    }
+  },
+  {
+    "id": "abcedfg2",
+    "name": "The New Year Eve",
+    "date": "Jan 1 2024",
+    "method": "On Spot",
+    "payment": "220.00",
+    "status": "Pending",
+    "event_reg": {
+      "guest": [
+        {
+          "name": "Ramzan Zahoor",
+          "phone": "+923000000000",
+          "email": "something@gmail.com",
+          "ticket_type": "Men",
+          "events": ["Day 1", "Day 2","Day 1", "Day 2"]
+        },
+        {
+            "name": "Sabir",
+            "phone": "+923000000000",
+            "email": "something@gmail.com",
+            "ticket_type": "Men",
+            "events": ["Day 1", "Day 2"]
+          }
+      ],
+      "price_breakdown": [
+        {
+          "type": "2x-MEN - Day 1",
+          "value": "$60.0"
+        },
+        {
+          "type": "2x-MEN - Day 2",
+          "value": "$60.0"
+        }
+      ],
+      "total_amount": "$120.00"
+    }
+  },
+  {
+    "id": "abcedfg1",
+    "name": "Eid",
+    "date": "Jan 1 2024",
+    "method": "Cash",
+    "payment": "120.00",
+    "status": "Cleared",
+    "event_reg": {
+      "guest": [
+        {
+          "name": "Ramzan Zahoor",
+          "phone": "+923000000000",
+          "email": "something@gmail.com",
+          "ticket_type": "Men",
+          "events": ["Day 1", "Day 2"]
+        }
+      ],
+      "price_breakdown": [
+        {
+          "type": "2x-MEN - Day 1",
+          "value": "$60.0"
+        },
+        {
+          "type": "2x-MEN - Day 2",
+          "value": "$60.0"
+        }
+      ],
+      "total_amount": "$120.00"
+    }
+  }
+]

@@ -3,13 +3,7 @@ import React from "react";
 import KPICard from "./KPICard";
 // import Calendar from "./icons/Calendar";
 import { useTranslation } from "react-i18next";
-import CalendarBlank from "./icons/CalendarBlank";
-import Circuitary from "./icons/Circuitary";
-import UserCirclePlus from "./icons/UserCirclePlus";
-import UserFour from "./icons/UserFour";
-import Money from "./icons/Money";
-// import HandCoins from "./icons/HandCoins";
-import ReciepeX from "./icons/ReciepeX";
+
 import { Calendar, CircuitBoard, UserPlus, UsersRound, CircleDollarSign, HandCoins, Banknote } from "lucide-react";
 const KPIContainer = () => {
   const { t } = useTranslation();
