@@ -25,7 +25,7 @@ const SideBar = () => {
     <div
       className={clsx(
         !isHover && "w-[50px] items-center ",
-        "w-[20rem] container-fluid min-h-[100vh]  bg-[#fffefe] border-t-2 transition-all duration-300 p-1 flex justify-between  flex-col  "
+        "w-[20rem] container-fluid min-h-[100vh] sticky top-0 left-0  bg-[#fffefe] border-t-2 transition-all duration-300 p-1 flex justify-between  flex-col  "
       )}
       onMouseEnter={() => handleHover(true)}
       onMouseLeave={() => handleHover(false)}

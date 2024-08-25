@@ -1,11 +1,10 @@
 import React from "react";
 import UpcomingEventCard from "./UpcomingEventCard";
 
-import ArrowDownWhite from "./icons/ArrowDownWhite";
 import ArrowDown from "./icons/ArrowDown";
 const UpcomingEvents = () => {
   return (
-    <div className=" flex flex-col rounded-md container max-h-[100vh]  gap-4  p-4  bg-[white]">
+    <div className=" flex flex-col sticky top-0 right-0 rounded-md container max-h-[100vh]  gap-4  p-4  bg-[white]">
       <h1 className="font-semibold text-[#4A4A4A] text-xl">Upcoming Events</h1>
       <div className="flex flex-col gap-5 max-h-[700px] overflow-auto ">
         <UpcomingEventCard />

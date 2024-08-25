@@ -2,7 +2,7 @@
 
 
 
-import {Blocks , Building2, Calendar, CircleDollarSign, Crown, SlidersVertical} from 'lucide-react'
+import {Blocks , Building2, Calendar, CircleDollarSign, Crown, SlidersVertical, Workflow} from 'lucide-react'
 
 export const paths =  [
     {
@@ -42,9 +42,9 @@ export const paths =  [
         icon: SlidersVertical,
         children: [
             {
-                name:"Add Event",
-                path:"/dashboard/events/add-event",
-                icon: Blocks,
+                name:"Automatic Forms",
+                path:"/dashboard/automatic",
+                icon: Workflow,
             },
             {
                 name:"Add Event",
