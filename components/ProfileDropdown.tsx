@@ -36,7 +36,10 @@ const ProfileDropdown = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={handleOpen}>
-            <Link href={"/dashboard/company-profile"} className="flex gap-4">
+            <Link
+              href={"/dashboard/company-profile"}
+              className="flex justify-between items-center gap-6"
+            >
               <User size={18} />
               <span>Profile</span>
             </Link>
