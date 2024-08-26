@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ArrowDown from "@/components/icons/ArrowDown";
@@ -8,10 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { User } from "lucide-react";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = ()=> setOpen(false)
+  const handleOpen = () => setOpen(false);
   return (
     <>
       <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
@@ -23,7 +25,9 @@ const ProfileDropdown = () => {
             </Avatar>
 
             <div className="flex flex-col text-left  ">
-              <h4 className="text-[14px] text-[#4A4A4A] font-semibold">User Name</h4>
+              <h4 className="text-[14px] text-[#4A4A4A] font-semibold">
+                User Name
+              </h4>
               <p className="text-[12px] text-[#999999]">Company</p>
             </div>
 
@@ -31,11 +35,14 @@ const ProfileDropdown = () => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          
-          <DropdownMenuItem onClick={handleOpen} >Profile</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleOpen} >Billing</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleOpen} >Team</DropdownMenuItem>
-          
+          <DropdownMenuItem onClick={handleOpen}>
+            <Link href={"/dashboard/company-profile"} className="flex gap-4">
+              <User size={18} />
+              <span>Profile</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={handleOpen}>Billing</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleOpen}>Team</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
