@@ -47,9 +47,9 @@ export const paths =  [
                 icon: Workflow,
             },
             {
-                name:"Add Event",
-                path:"/dashboard/events/add-event",
-                icon: Blocks,
+                name:"Form Field",
+                path:"/dashboard/form-field",
+                icon: Workflow,
             }
         ],
     },
