@@ -4,15 +4,18 @@ import UpcomingEvents from "./UpcomingEvents";
 
 const DashboardGrid = () => {
   return (
-  <div className={"flex container p-4 gap-4 sm:flex-wrap md:flex-nowrap"}>
+    <>
+  <div className={"flex p-8 gap-4 overflow-x-auto  sm:flex-wrap md:flex-nowrap"}>
    
         <MainContainer/>
    
    
-        <UpcomingEvents/>
 
+        <UpcomingEvents/>
     
   </div>
+    
+    </>
   );
 };
 
