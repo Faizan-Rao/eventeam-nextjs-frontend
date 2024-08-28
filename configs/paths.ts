@@ -50,6 +50,11 @@ export const paths =  [
                 name:"Form Field",
                 path:"/dashboard/form-field",
                 icon: Workflow,
+            },
+            {
+                name:"Donations",
+                path:"/dashboard/donations",
+                icon: Workflow,
             }
         ],
     },
