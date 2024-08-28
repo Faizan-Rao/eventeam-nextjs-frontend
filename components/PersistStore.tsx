@@ -12,9 +12,9 @@ const PersistStore: React.FC<IPersistStore> = ({ children }) => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <Suspense fallback={<Loading/>}>
+      
         {children}
-      </Suspense>
+     
       </PersistGate>
     </Provider>
   );
