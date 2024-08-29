@@ -12,7 +12,6 @@ const AddEventGrid = () => {
     <MainContentGrid>
         <PageTitleContainer
           title="Add New Event"
-          className="mt-0 justify-center "
         />
         <AutoConfigForm />
       

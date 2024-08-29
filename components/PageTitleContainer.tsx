@@ -48,7 +48,7 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
 
   return (
     <div
-      className={clsx("flex mt-7  justify-between  items-center", className)}
+      className={clsx("flex my-6  justify-between  items-center", className)}
     >
       <div className="flex flex-col gap-1">
         <p className="text-sm font-semibold text-[#999999]">
@@ -69,7 +69,7 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
                     "bg-[#7655fa26] px-4 py-2 rounded-full  "
                 )}
               >
-                <el.icon />
+               
                 <span className="text-base ">{el.name}</span>
               </Link>
             );
