@@ -12,9 +12,9 @@ interface IAutmaticEventCard {
 }
 const AutomaticEventCard: React.FC<IAutmaticEventCard> = ({ event }) => {
   return (
-    <div className="flex flex-col gap-4 sm:flex-grow md:flex-grow lg:flex-grow-0 md:min-w-[400px]  border-[1px] rounded-md min-h-[200px] p-6">
+    <div className="flex-1 flex flex-col gap-4 w-full max-w-[400px]  border-[1px] rounded-md  p-6">
       <div className="flex justify-between items-center gap-4">
-        <div className="flex flex-col ">
+        <div className="flex flex-col text-nowrap ">
           <h1 className="text-[#4a4a4a] text-2xl font-semibold">{event.title}</h1>
           <h1 className="text-[#4a4a4a]">{event.description}</h1>
         </div>

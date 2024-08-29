@@ -35,7 +35,7 @@ const DonationMainCont = () => {
 
       </div>
 
-      <div className="flex  p-3  gap-4 flex-wrap ">
+      <div className="flex mx-4 p-3  gap-4 flex-wrap ">
         <DonationCard/>
         <DonationCard/>
         <DonationCard/>

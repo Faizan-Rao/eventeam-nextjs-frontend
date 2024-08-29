@@ -11,12 +11,12 @@ const AutomaticForm = () => {
     <MainContentGrid>
       <PageTitleContainer title="Automatic Forms" />
       <div className="flex flex-col gap-4 p-6 bg-white rounded-md">
-        <h1 className="text-2xl my-4 font-semibold text-[#4a4a4a]">
+        <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
           Nearest Upcoming Auto form
         </h1>
         <EventDashContainer />
         <div className="flex gap-4 justify-between items-center">
-          <h1 className="text-2xl my-4 font-semibold text-[#4a4a4a]">
+          <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events
           </h1>
           <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
@@ -29,7 +29,7 @@ const AutomaticForm = () => {
           </span>
         </div>
 
-        <div className="flex justify-evenly gap-4 flex-wrap">
+        <div className="flex  gap-4 p-4 flex-wrap">
           {Array(10)
             .fill({
               title: "The New Year Eve",
