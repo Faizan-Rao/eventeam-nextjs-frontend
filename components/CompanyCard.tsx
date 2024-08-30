@@ -40,7 +40,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
               )}
             />
             <span className="text-sm font-semibold text-[#999999]">
-              {loggedin ? "Action" : "Inactive"}
+              {loggedin ? "Active" : "Inactive"}
             </span>
           </div>
         </div>
