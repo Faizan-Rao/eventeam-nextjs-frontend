@@ -1,8 +1,24 @@
 "use client";
 import { clsx } from "clsx";
-import { AtSign, MapPin, Phone, Smartphone } from "lucide-react";
+import {
+  AtSign,
+  EllipsisVertical,
+  MapPin,
+  Phone,
+  Smartphone,
+} from "lucide-react";
 import Image from "next/image";
 import React from "react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 interface ICompanyCard {
   logo?: string;
   name: string;
@@ -22,28 +38,36 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   stripe = false,
 }) => {
   return (
-    <div className=" flex-1  max-w-[450px] flex gap-10 p-6 flex-col bg-white rounded-lg">
-      <div className="flex items-center border-b-[1px] pb-5 gap-4">
-        <Image
-          src={logo}
-          height={50}
-          width={50}
-          alt="profile logo"
-        />
-        <div className="flex flex-col">
-          <span className="text-[#4a4a4a] font-semibold text-lg">{name}</span>
-          <div className="flex items-center gap-2">
-            <div
-              className={clsx(
-                " h-[10px] w-[10px] rounded-full",
-                loggedin ? "bg-[#41F468]" : "bg-[#e40303]"
-              )}
-            />
-            <span className="text-sm font-semibold text-[#999999]">
-              {loggedin ? "Active" : "Inactive"}
-            </span>
+    <div className="  flex  gap-10 p-6 flex-col bg-white rounded-lg">
+      <div className="flex justify-between">
+        <div className="flex items-center border-b-[1px] pb-5 gap-4">
+          <Image src={logo} height={50} width={50} alt="profile logo" />
+          <div className="flex flex-col">
+            <span className="text-[#4a4a4a] font-semibold text-lg">{name}</span>
+            <div className="flex items-center gap-2">
+              <div
+                className={clsx(
+                  " h-[10px] w-[10px] rounded-full",
+                  loggedin ? "bg-[#41F468]" : "bg-[#e40303]"
+                )}
+              />
+              <span className="text-sm font-semibold text-[#999999]">
+                {loggedin ? "Active" : "Inactive"}
+              </span>
+            </div>
           </div>
         </div>
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center self-center p-1 transition-all rounded-full  ">
+            <EllipsisVertical strokeWidth={1} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="flex">
         <div className="flex-1 flex items-center gap-4">
