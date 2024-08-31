@@ -55,6 +55,11 @@ export const paths =  [
                 name:"Donations",
                 path:"/dashboard/donations",
                 icon: Workflow,
+            },
+            {
+                name:"Payment Methods",
+                path:"/dashboard/payment-method",
+                icon: Workflow,
             }
         ],
     },
