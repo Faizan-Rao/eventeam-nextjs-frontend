@@ -16,7 +16,7 @@ const PaginationControls = ({
           Page: {" "}
           <span className="text-[#7655fa]">
             {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            {table.getPageCount() || "1"}
           </span>
         </p>
         <p className="text-[#4a4a4a] flex-1">

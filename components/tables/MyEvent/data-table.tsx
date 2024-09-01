@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
+import Link from "next/link";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -56,8 +57,8 @@ export function MyEventTable<TData, TValue>({
         data.filter((el) => {
           return (
             parseInt(rangeFilter[0] as any) <=
-              parseInt((el as any).registrations) &&
-            parseInt((el as any).registrations) <=
+              parseInt((el as any).gen_info.registrations) &&
+            parseInt((el as any).gen_info.registrations) <=
               parseInt(rangeFilter[1] as any)
           );
         })
@@ -75,15 +76,18 @@ export function MyEventTable<TData, TValue>({
 
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
-    if (col === "is-active") {
+    console.log(filteredRows)
+    if (col === "gen_info_active") {
       if (text === "active") {
-        setFilteredRows(data.filter((el) => (el as any)["is-active"]));
+        setFilteredRows(
+          data.filter((el) => (el as any).gen_info.active)
+        );
       } else {
-        setFilteredRows(data.filter((el) => !(el as any)["is-active"]));
+        setFilteredRows(data.filter((el) => !(el as any).gen_info.active));
       }
     } else {
       setFilteredRows(
-        data.filter((el) => (el as any)["status"].toLowerCase() === text)
+        data.filter((el) => (el as any).gen_info.status.toLowerCase() === text)
       );
     }
   };
@@ -92,7 +96,10 @@ export function MyEventTable<TData, TValue>({
     rangeFilter.filter((el) => el > 0).length > 0 || filteredRows.length > 0;
 
   const table = useReactTable({
-    data: useMemo(() => isFiltered ? filteredRows : data,[data, filteredRows, isFiltered]),
+    data: useMemo(
+      () => (isFiltered ? filteredRows : data),
+      [data, filteredRows, isFiltered]
+    ),
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -117,17 +124,19 @@ export function MyEventTable<TData, TValue>({
           <input
             placeholder={"Search Event..."}
             onChange={(event) => {
+              
               if (filteredRows.length > 0) {
                 setFilteredRows([]);
               }
               table
-                .getColumn("title")
+                .getColumn("gen_info_event_name")
                 ?.setFilterValue(event.target.value ?? "");
             }}
             className="max-w-sm outline-none"
+            
           />
         </span>
-     
+
         <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
             <button className="flex text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
@@ -140,14 +149,16 @@ export function MyEventTable<TData, TValue>({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("active", "is-active")}
+              onClick={() => handleDropDownFilter("active", "gen_info_active")}
             >
               <span>Active</span>
               <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("inactive", "is-active")}
+              onClick={() =>
+                handleDropDownFilter("inactive", "gen_info_active")
+              }
             >
               <span>Inactive</span>
               <CircleCheckBig size={15} />
@@ -157,21 +168,25 @@ export function MyEventTable<TData, TValue>({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("operational", "status")}
+              onClick={() =>
+                handleDropDownFilter("operational", "gen_info.status")
+              }
             >
               <span>Operational</span>
               <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("ended", "status")}
+              onClick={() => handleDropDownFilter("ended", "gen_info.status")}
             >
               <span>Ended</span>
               <CircleCheckBig size={15} />
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("pending approval", "status")}
+              onClick={() =>
+                handleDropDownFilter("pending approval", "gen_info.status")
+              }
             >
               <span>Pending Approval</span>
               <CircleCheckBig size={15} />
@@ -230,11 +245,12 @@ export function MyEventTable<TData, TValue>({
             </span>
           </DropdownMenuContent>
         </DropdownMenu>
-
+        <Link href={"/dashboard/add-event"}>
         <button className="flex gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
           <Plus />
           <span>Add New Event</span>
         </button>
+        </Link>
       </div>
 
       <PaginationControls table={table} totalRecords={data.length} />
@@ -245,7 +261,10 @@ export function MyEventTable<TData, TValue>({
         <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="border-b-[8px] text-nowrap">
+              <TableRow
+                key={headerGroup.id}
+                className="border-b-[8px] text-nowrap"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -295,7 +314,6 @@ export function MyEventTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-    
     </>
   );
 }

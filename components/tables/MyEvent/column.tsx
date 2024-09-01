@@ -1,23 +1,17 @@
 "use client";
 import ActionDropDown from "@/components/ActionDropDown";
+import { IAutoConfig } from "@/components/forms/auto-config/AutoConfigForm";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
+import { keys } from "lodash";
 import { ArrowUpDown } from "lucide-react";
 
-type Payment = {
-  id: string;
-  title: string;
-  "start-date": string;
-  "end-date": string;
-  registrations: string;
-  "is-active": false;
-  status: string;
-};
 
-export const columns: ColumnDef<Payment>[] = [
+
+export const columns: ColumnDef<IAutoConfig>[] = [
   {
-    accessorKey: "id",
+    
     id: "select",
     header: ({ table }) => (
       <div className="flex gap-3 items-center ">
@@ -32,21 +26,23 @@ export const columns: ColumnDef<Payment>[] = [
         <p>ID</p>
       </div>
     ),
-    cell: ({ row }) => (
+    cell: ({ row }) => {
+      let random = Math.floor(Math.random() * 100)
+      return (
       <span className="flex items-center gap-3">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
         />
-        <span className="flex items-center">Event-{row.original.id}</span>
+        <span className="flex items-center">Event-{random}</span>
       </span>
-    ),
+    )},
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "gen_info.event_name",
     header: ({ column }) => {
       return (
         <button
@@ -60,17 +56,15 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
   {
-    accessorKey: "start-date",
+    accessorKey: "gen_info.start_date",
     header: "Start Date",
+    cell: ({row}) => {
+      return row.original.gen_info.start_date.toString()
+    },
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "end-date",
-    header: "End Date",
-    enableGlobalFilter: false,
-  },
-  {
-    accessorKey: "registrations",
+    accessorKey: "gen_info.registrations",
     header: ({ column }) => {
       return (
         <button
@@ -82,10 +76,13 @@ export const columns: ColumnDef<Payment>[] = [
         </button>
       );
     },
+    cell: ({row}) => {
+      return row.original.gen_info.registrations
+    },
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "is-active",
+    accessorKey: "gen_info.active",
     header: ({ column }) => {
       return (
         <button
@@ -98,21 +95,22 @@ export const columns: ColumnDef<Payment>[] = [
       );
     },
     cell: ({ row }) => {
+     
       return (
         <span
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap",
-            (row.getValue("is-active") as any) && "bg-[#C2FFCC]",
-            !(row.getValue("is-active") as any) && "bg-[#FFC2C2]"
+            (row.original.gen_info.active as any) && "bg-[#C2FFCC]",
+            !(row.original.gen_info.active as any) && "bg-[#FFC2C2]"
           )}
         >
-          {row.getValue("is-active") ? "Active" : "Inactive"}
+          {row.original.gen_info.active ? "Active" : "Inactive"}
         </span>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "gen_info.status",
     header: ({ column }) => {
       return (
         <button
@@ -129,21 +127,22 @@ export const columns: ColumnDef<Payment>[] = [
         <span
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap ",
-            row.getValue("status") === ("Operational" as any) && "bg-[#C2FFCC]",
-            row.getValue("status") === ("Ended" as any) && "bg-[#FFC2C2]",
-            row.getValue("status") === ("Pending Approval" as any) &&
+            row.original.gen_info.status === ("Operational" as any) && "bg-[#C2FFCC]",
+            row.original.gen_info.status === ("Ended" as any) && "bg-[#FFC2C2]",
+            row.original.gen_info.status === ("Pending Approval" as any) &&
               "bg-[#FFEFAF]"
           )}
         >
-          {row.getValue("status")}
+          {row.original.gen_info.status}
         </span>
       );
     },
   },
   {
     header: "Action",
-    cell: ({ row }) => {
-      return <ActionDropDown />;
+    cell: ({ row, table, column }) => {
+      const selectedRows = Object.keys(table.getSelectedRowModel().rowsById)
+      return <ActionDropDown  row={row.original} id={selectedRows} table={table}/>;
     },
   },
 ];

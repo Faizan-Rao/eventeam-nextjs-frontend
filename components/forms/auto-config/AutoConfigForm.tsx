@@ -22,6 +22,9 @@ import { SubEventInput } from "./SubEventInputForm";
 import AdvanceForm from "./AdvanceForm";
 import StepperSection from "./StepperSection";
 import PrayerTimeForm from "./PrayerTimeForm";
+import { useDispatch } from "react-redux";
+import { addAutoConfig, selectAutoConfig } from "@/slices/autoConfigSlice";
+
 
 export interface IAutoConfig {
   gen_info: {
@@ -29,6 +32,9 @@ export interface IAutoConfig {
     start_date: Date;
     end_date: Date;
     event_desc: string;
+    status?: string,
+    active?: boolean
+    registrations?: string;
   };
   tickets: { ticket: string }[];
   sub_events: {
@@ -112,10 +118,11 @@ const AutoConfigForm = () => {
 
   const id = useId();
 
+  
   const methods = useForm<IAutoConfig>({
     defaultValues: defaultValues,
   });
-
+  const dispatch = useDispatch()
   const {
     control,
     register,
@@ -140,7 +147,11 @@ const AutoConfigForm = () => {
   const onSubmit: SubmitHandler<IAutoConfig> = (data, e) => {
     e?.preventDefault();
 
-    console.log(data);
+    const payload = {...data}
+    payload.gen_info.active = false,
+    payload.gen_info.registrations = "0",
+    payload.gen_info.status = "Pending Approval",
+    dispatch(addAutoConfig(payload))
   };
   return (
     <FormProvider {...methods}>
