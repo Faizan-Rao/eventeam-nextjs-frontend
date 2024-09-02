@@ -27,7 +27,7 @@ export const columns: ColumnDef<IAutoConfig>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      let random = Math.floor(Math.random() * 100)
+      // let random = Math.floor(Math.random() * 100)
       return (
       <span className="flex items-center gap-3">
         <Checkbox
@@ -35,7 +35,7 @@ export const columns: ColumnDef<IAutoConfig>[] = [
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
         />
-        <span className="flex items-center">Event-{random}</span>
+        <span className="flex items-center">Event-{ parseInt(row.id) + 1}</span>
       </span>
     )},
     enableSorting: false,

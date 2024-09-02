@@ -97,9 +97,9 @@ export function MyEventTable<TData, TValue>({
 
   const table = useReactTable({
     data: useMemo(
-      () => (isFiltered ? filteredRows : data),
+      () => (isFiltered  ? filteredRows : data),
       [data, filteredRows, isFiltered]
-    ),
+    ) ??  [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
