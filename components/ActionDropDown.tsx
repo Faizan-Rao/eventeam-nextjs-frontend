@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { removeAutoConfig } from "@/slices/autoConfigSlice";
 import { Table } from "@tanstack/react-table";
 import EventDeleteDialog from "./EventDeleteDialog";
+import EventEditDialog from "./EventEditDialog";
 
 const ActionDropDown = ({}: {
   row?: IAutoConfig;
@@ -20,7 +21,8 @@ const ActionDropDown = ({}: {
   table?: Table<IAutoConfig>;
 }) => {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  const [openDelete, setDeleteOpen] = useState(false);
+  const [openEditOpen, setEditOpen] = useState(false);
   return (
     <>
       <DropdownMenu modal={false}>
@@ -28,14 +30,15 @@ const ActionDropDown = ({}: {
           <DotThreeVertical />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="text-sm">Edit Event</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm" onClick={() => setEditOpen(true)}>Edit Event</DropdownMenuItem>
           <DropdownMenuItem className="text-sm">View Event</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
             Delete Event
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <EventDeleteDialog setOpen={setOpen} open={open} />
+      <EventDeleteDialog setOpen={setDeleteOpen} open={openDelete} />
+      <EventEditDialog setOpen={setEditOpen} open={openEditOpen}/>
     </>
   );
 };
