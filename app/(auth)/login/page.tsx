@@ -31,7 +31,7 @@ const Login = () => {
             transition={{
               ease: "easeInOut",
               duration: 0.3,
-              x: { duration: 0.3 },
+              x: { duration: 0.4 },
             }}
             className="flex-1 flex justify-center items-center z-20"
           >
@@ -52,7 +52,7 @@ const Login = () => {
             transition={{
               ease: "easeInOut",
               duration: 0.3,
-              x: { duration: 0.3 },
+              x: { duration: 0.5 },
               opacity: { duration: 0.3 },
             }}
             className="flex-1 "
@@ -69,7 +69,7 @@ const Login = () => {
             transition={{
               ease: "easeInOut",
               duration: 0.3,
-              x: { duration: 0.3 },
+              x: { duration: 0.5 },
               opacity: { duration: 0.3 },
             }}
             className="flex-1 "
@@ -82,7 +82,7 @@ const Login = () => {
             transition={{
               ease: "easeInOut",
               duration: 0.3,
-              x: { duration: 0.3 },
+              x: { duration: 0.4 },
               opacity: { duration: 0.3 },
             }}
             className="flex-1 flex justify-center items-center z-20"
