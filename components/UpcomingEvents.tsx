@@ -4,9 +4,9 @@ import UpcomingEventCard from "./UpcomingEventCard";
 import ArrowDown from "./icons/ArrowDown";
 const UpcomingEvents = () => {
   return (
-    <div className=" flex flex-col rounded-md container max-h-[100vh]  gap-4  p-4  bg-[white]">
+    <div className="flex flex-col sm:min-w-[100vw] md:min-w-[350px]  rounded-md  max-h-[700px] gap-4  p-6  bg-[white]">
       <h1 className="font-semibold text-[#4A4A4A] text-xl">Upcoming Events</h1>
-      <div className="flex flex-col gap-5 max-h-[700px] overflow-auto ">
+      <div className="flex  flex-1 flex-col gap-5 overflow-auto ">
         <UpcomingEventCard />
         <UpcomingEventCard />
         <UpcomingEventCard />

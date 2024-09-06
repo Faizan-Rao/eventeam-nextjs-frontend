@@ -39,12 +39,25 @@ const SideBar = ({
   }, [setNavOpen]);
 
   return (
+
+    <>
+    {!isNavOpen &&  <button
+        className={clsx(
+          "text-[#4a4a4a] mx-2 my-2 self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
+        )}
+        onClick={() => {
+          setIsHover(false);
+          setNavOpen((prev) => !prev);
+        }}
+      >
+        <ChevronDown size={22} strokeWidth={1.5} />
+      </button>}
     <div
       className={clsx(
-        "sm:w-full   sm:fixed md:min-h-auto left-0  md:sticky    md:top-0    sm:min-h-screen       md:w-[20rem]     bg-[#ffffff]   duration-300 transition-all p-1 flex justify-between  flex-col  ",
+        "sm:w-full   sm:fixed md:min-h-auto left-0  md:sticky z-10   md:top-[-20px]    sm:min-h-screen       md:w-[20rem]     bg-[#ffffff]   duration-300 transition-all p-1 flex justify-between  flex-col  ",
         !isHover && "sm:w-full md:w-[50px] items-center ",
-        isNavOpen && "sm:flex sm:h-auto  sm:min-h-[90vh] md:min-h-[100vh]  p-6   min-w-full ",
-        !isNavOpen && "sm:min-h-0  bg-[transparent] sm:h-0   "
+        isNavOpen && "sm:flex sm:h-auto  sm:min-h-[90.8vh] md:min-h-[100vh]  p-6   min-w-full ",
+        !isNavOpen && "sm:min-h-0  bg-[transparent]   sm:invisible "
       )}
       onMouseEnter={() => {
         if (window.innerWidth > mobileWidth && isNavOpen === true)
@@ -207,6 +220,7 @@ const SideBar = ({
         <ChevronDown size={22} strokeWidth={1.5} />
       </button>
     </div>
+    </>
   );
 };
 

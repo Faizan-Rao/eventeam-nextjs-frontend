@@ -5,19 +5,19 @@ import ChartsMain from "./ChartsMain";
 import RecentRegMain from "./RecentRegMain";
 const MainContainer = () => {
   return (
-    <div className="grid   p-4  gap-4 bg-[#fffefe] rounded-lg grid-col-12 ">
-      <div className="col-span-12 ">
+    <div className="flex flex-col gap-4  sm:p-1  md:p-4   bg-[#fffefe] rounded-lg grid-col-12 ">
+      <div className="flex-1 ">
         <KPIContainer />
       </div>
-      <div className="col-span-12">
+      <div className="flex-1">
         <EventDashContainer />
       </div>
 
-      <div className="sm:col-span-12 lg:col-span-4">
+      <div className="flex-1">
         <ChartsMain/>
       </div>
 
-      <div className="sm:col-span-12 lg:col-span-8">
+      <div className="flex-1">
     <RecentRegMain/>
       </div>
     </div>

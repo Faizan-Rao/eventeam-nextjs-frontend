@@ -4,7 +4,7 @@ import ViewEye from "./icons/ViewEye";
 
 const RecentRegMain = () => {
   return (
-    <div className="flex flex-col gap-5  h-full w-full p-6 max-h-[600px] overflow-scroll overflow-x-hidden">
+    <div className="flex flex-1 flex-col gap-5 justify-center  sm:mx-auto h-full w-full p-6 sm:max-w-[380px] md:max-w-full  max-h-[600px] overflow-auto">
       <h1 className="font-semibold text-xl">Recent Registrations</h1>
       <table cellSpacing={4} cellPadding={9} >
         <thead className="text-base text-center sticky top-[-22px] left-0 bg-[#ffffff]">
