@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
@@ -8,12 +8,15 @@ interface IMainLayoutGrid {
 }
 
 const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
+
+  const [isNavOpen , setNavOpen] = useState(true)
+  
   return (
     <>
-      <Header />
+      <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
       <div className="flex">
-        <div className="z-50">
-          <SideBar />
+        <div className="">
+          <SideBar isNavOpen={isNavOpen} setNavOpen={setNavOpen}/>
         </div>
         {children}
       </div>

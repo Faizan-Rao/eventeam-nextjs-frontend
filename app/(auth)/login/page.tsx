@@ -14,12 +14,7 @@ const Login = () => {
     <>
       <div
         data-state={isLeft}
-        className="bg-[#7655fa]   aspect-square transition-all 
-      duration-500
-      fixed 
-      w-full
-      left-[50px]
-      rounded-full translate-y-[-50%]  [&[data-state=right]]:translate-x-[50%]  [&[data-state=left]]:translate-x-[-60%]"
+        className="bg-[#7655fa]   aspect-square transition-all  duration-700 fixed w-full  rounded-full translate-y-[-50%]  [&[data-state=right]]:translate-x-[50%]  [&[data-state=left]]:translate-x-[-60%]"
       >
         Hello
       </div>

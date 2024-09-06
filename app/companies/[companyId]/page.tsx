@@ -123,8 +123,8 @@ const CompaniesEvent = () => {
             <h1 className=" text-lg">Copyright © 2024. All rights reserved</h1>
             <div className="flex gap-4">
             <Link href={"#"} className="text-white">Privacy Policy</Link>
-            <Link href={"#"} className="text-white">Terms & Conditions</Link>
-            <Link href={"#"} className="text-white">Return Policy</Link>
+            <Link href={"#"} className="text-white">Terms of Service</Link>
+            <Link href={"#"} className="text-white">Cookie Settings</Link>
             </div>
           </div>
         </div>

@@ -31,7 +31,7 @@ const SideBarNav: React.FC<ISidebarNav> = ({
         {icon}
           </span>
         )}
-        {isHover && <p className="font-semibold">{value}</p>}
+        { <p className={clsx("font-semibold block", isHover && "md:block", !isHover && "md:hidden" )}>{value}</p>}
       </Link>
     </>
   );
