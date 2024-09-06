@@ -13,12 +13,9 @@ const MainContainer = () => {
         <EventDashContainer />
       </div>
 
-      <div className="flex-1">
-        <ChartsMain/>
-      </div>
-
-      <div className="flex-1">
-    <RecentRegMain/>
+      <div className="flex-1 flex gap-5 sm:flex-col md:flex-row sm:items-center flex-wrap">
+        <ChartsMain />
+        <RecentRegMain />
       </div>
     </div>
   );
