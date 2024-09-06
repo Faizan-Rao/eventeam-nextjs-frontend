@@ -10,7 +10,7 @@ import ArrowDown from "./icons/ArrowDown";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ProfileDropdown from "./ProfileDropdown";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 export const mobileWidth = 500;
 const SideBar = ({
   isNavOpen,
@@ -27,12 +27,9 @@ const SideBar = ({
   const toggleList = (id: number) => {
     ref.current[id].classList.toggle("hidden");
   };
- 
-
-
 
   useEffect(() => {
-    if (window.innerWidth > mobileWidth ) {
+    if (window.innerWidth > mobileWidth) {
       setIsHover(false);
       setNavOpen(false);
     } else {
@@ -41,34 +38,26 @@ const SideBar = ({
     }
   }, [setNavOpen]);
 
-
-
   return (
     <div
       className={clsx(
         "sm:w-full   sm:fixed md:min-h-auto left-0  md:sticky    md:top-0    sm:min-h-screen       md:w-[20rem]     bg-[#ffffff]   duration-300 transition-all p-1 flex justify-between  flex-col  ",
         !isHover && "sm:w-full md:w-[50px] items-center ",
-        isNavOpen &&
-          "sm:flex sm:h-auto  sm:min-h-[100vh]  p-6   min-w-full ",
+        isNavOpen && "sm:flex sm:h-auto  sm:min-h-[90vh] md:min-h-[100vh]  p-6   min-w-full ",
         !isNavOpen && "sm:min-h-0  bg-[transparent] sm:h-0   "
       )}
       onMouseEnter={() => {
-        if (window.innerWidth > mobileWidth && (isNavOpen === true)) handleHover(true);
+        if (window.innerWidth > mobileWidth && isNavOpen === true)
+          handleHover(true);
       }}
       onMouseLeave={() => {
-        if (window.innerWidth > mobileWidth ) handleHover(false);
+        if (window.innerWidth > mobileWidth) handleHover(false);
       }}
     >
-       <button
-            className="text-[#4a4a4a] sm:hidden md:block  bg-white rounded-full"
-            onClick={() => setNavOpen((prev) => !prev)}
-          >
-            <ChevronDown/>
-          </button>
       <div
         className={clsx(
           "flex flex-col my-auto  gap-4",
-         isNavOpen && "sm:h-auto",
+          isNavOpen && "sm:h-auto",
           !isNavOpen && "sm:h-0 hidden"
         )}
       >
@@ -138,22 +127,25 @@ const SideBar = ({
         ))}
       </div>
 
+{/* Profile Section */}
       <span
         className={clsx(
           " overflow-hidden sm:flex md:hidden  items-center text-nowrap",
           isHover && "block",
-          
+
           !isNavOpen && "sm:h-0 "
         )}
       >
+        
         <ProfileDropdown />
         <LanguageSelector />
-      </span>
-
-      <div className={clsx("flex  mt-4 gap-4",
-          
+        <div
+        className={clsx(
+          "flex gap-4",
+          isNavOpen && "sm:h-auto self-center block",
           !isNavOpen && "sm:h-0 hidden"
-      )}>
+        )}
+      >
         <Link
           href={"#"}
           className="flex text-[#4A4A4A]  p-2 transition-all duration-300 rounded-md   gap-4 "
@@ -164,17 +156,56 @@ const SideBar = ({
 
           <p
             className={clsx(
-              " sm:block md:hidden text-nowrap font-semibold",
+              "  text-nowrap font-semibold",
               isHover && "block",
-              !isHover && "hidden",
-               isNavOpen && " sm:h-full ",
-          !isNavOpen && "sm:h-0 "
+              !isHover && "hidden"
             )}
           >
             {t("Help & Support")}
           </p>
         </Link>
       </div>
+      </span>
+
+     {/* Help & Information */}
+     {isHover && isNavOpen && <div
+        className={clsx(
+          "flex gap-4",
+          isNavOpen && "sm:h-auto  block",
+          !isNavOpen && "sm:h-0 hidden"
+        )}
+      >
+        <Link
+          href={"#"}
+          className="flex text-[#4A4A4A]  p-2 transition-all duration-300 rounded-md   gap-4 "
+        >
+          <span className="mx-4">
+            <Info />
+          </span>
+
+          <p
+            className={clsx(
+              "  text-nowrap font-semibold",
+              isHover && "block",
+              !isHover && "hidden"
+            )}
+          >
+            {t("Help & Support")}
+          </p>
+        </Link>
+      </div>}
+
+      <button
+        className={clsx(
+          "text-[#4a4a4a] self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
+        )}
+        onClick={() => {
+          setIsHover(false);
+          setNavOpen((prev) => !prev);
+        }}
+      >
+        <ChevronDown size={22} strokeWidth={1.5} />
+      </button>
     </div>
   );
 };

@@ -8,9 +8,9 @@ import { Menu } from "lucide-react";
 
 const Header = ({
   setNavOpen,
-  isNavOpen
+  isNavOpen,
 }: {
-  isNavOpen: boolean,
+  isNavOpen: boolean;
   setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   useEffect(() => {
@@ -32,23 +32,21 @@ const Header = ({
           <h1 className="text-[#4A4A4A]  text-xl font-bold ">EvenTeam</h1>
         </div>
 
-        {
-          <div className="sm:hidden md:block">
-            <SearchInput />
-          </div>
-        }
+        <div className="md:block sm:hidden">
+          <SearchInput />
+        </div>
+
         <span className="sm:hidden md:flex    flex-wrap">
           <ProfileDropdown />
           <LanguageSelector />
         </span>
 
-          <button
-            className="text-black sm:block md:hidden"
-            onClick={() => setNavOpen((prev) => !prev)}
-          >
-            <Menu/>
-          </button>
-        
+        <div className="text-black  gap-4 items-center sm:flex md:hidden">
+            <SearchInput />
+          <div className="cursor-pointer" onClick={() => setNavOpen((prev) => !prev)}>
+          <Menu />
+          </div>
+        </div>
       </div>
     </>
   );
