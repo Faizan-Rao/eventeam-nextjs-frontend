@@ -143,7 +143,7 @@ const SideBar = ({
 {/* Profile Section */}
       <span
         className={clsx(
-          " overflow-hidden sm:flex md:hidden  items-center text-nowrap",
+          " overflow-hidden sm:flex md:hidden sm:mb-10  items-center text-nowrap",
           isHover && "block",
 
           !isNavOpen && "sm:h-0 "
