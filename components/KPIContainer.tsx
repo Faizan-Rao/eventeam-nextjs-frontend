@@ -29,7 +29,7 @@ const KPIContainer = () => {
 <div className="sm:block md:hidden sm:max-w-[90vw]">
       <Swiper
         slidesPerView={2}
-        spaceBetween={30}
+        spaceBetween={70}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
