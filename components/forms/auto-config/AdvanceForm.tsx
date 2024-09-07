@@ -10,7 +10,7 @@ interface IAdvanceForm {
 }
 const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
   return (
-    <div className="flex flex-col gap-4 my-4">
+    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
       <AdvanceFormOption
         title={"Show address for all subevents?"}
         description="Description of the option"

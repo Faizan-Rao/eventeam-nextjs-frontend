@@ -78,7 +78,7 @@ export interface IAutoConfig {
 const defaultValues = {
   tickets: [
     {
-      ticket: "Male",
+      ticket: "Men",
     },
   ],
   advance_form: {
@@ -90,24 +90,10 @@ const defaultValues = {
 
   prayer_time: {
     one_prayer: [
-      {
-        title: "",
-        time_type: "fixed-time",
-        status: false,
-        before_time: 0,
-        after_time: 0,
-        fixed_time: "",
-      },
+      
     ],
     two_prayer: [
-      {
-        title: "",
-        time_type: "fixed-time",
-        status: false,
-        before_time: 0,
-        after_time: 0,
-        fixed_time: "",
-      },
+     
     ],
   },
 };
@@ -144,12 +130,12 @@ const AutoConfigForm = () => {
 
   const onSubmit: SubmitHandler<IAutoConfig> = (data, e) => {
     e?.preventDefault();
-
     const payload = { ...data };
     (payload.gen_info.active = false),
-      (payload.gen_info.registrations = "0"),
-      (payload.gen_info.status = "Pending Approval"),
-      dispatch(addAutoConfig(payload));
+    (payload.gen_info.registrations = "0"),
+    (payload.gen_info.status = "Pending Approval"),
+    // dispatch(addAutoConfig(payload));
+    console.log(payload)
   };
   return (
     <FormProvider {...methods}>

@@ -21,7 +21,7 @@ export const SubEventInput = ({
 
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col  gap-6 sm:p-0 md:p-4">
+    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 sm:p-0 md:p-4">
       {/* Dynamic Events */}
       <span className="flex gap-5  flex-wrap">
         {watch.sub_events &&

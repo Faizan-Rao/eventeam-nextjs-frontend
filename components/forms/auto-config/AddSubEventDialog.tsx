@@ -83,13 +83,13 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="lg:max-w-4xl">
+      <DialogContent className=" overflow-auto sm:max-w-full lg:max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-xl mx-auto font-semibold ">
+          <DialogTitle className="text-xl font-semibold ">
             Add New Subevent
           </DialogTitle>
-          <DialogDescription className=" overflow-y-scroll max-h-[600px]">
-            <div className="flex flex-col gap-6 p-4 ">
+          <DialogDescription className=" overflow-auto max-h-[600px]">
+            <div className="flex flex-col gap-6 sm:p-0 md:p-4 ">
               <h1 className="font-semibold text-xl">General Information</h1>
               <div className="flex flex-1 flex-wrap gap-4">
                 <AddSubEventGenInfo field={field} setField={setField} />
@@ -136,12 +136,12 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     .map((el, index) => {
                       return (
                         <div
-                          className="flex gap-4 items-center"
+                          className="flex gap-4 items-center flex-wrap"
                           key={index + (el as any).name}
                         >
                           <input
                             type="text"
-                            className="border-[2px] outline-none p-2  flex-1"
+                            className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
                             placeholder="Enter Ticket Name"
                             value={field.ticket_type[index].name}
                             onChange={(e) => {
@@ -155,10 +155,10 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                               setTickets(newArr as any);
                             }}
                           />
-                          <span className="flex gap-4  border-[2px] items-center px-3 flex-1">
+                          <span className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
                             <input
                               type="number"
-                              className=" outline-none p-2 flex-1"
+                              className=" outline-none p-2 flex-1 "
                               placeholder="Enter Price"
                               value={field.ticket_type[index].price}
                               onChange={(e) => {
@@ -243,7 +243,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
               <div className="flex sticky left-0 bottom-0 p-4 flex-1 bg-[white]">
                 <button
-                  className="bg-[#7655fa] justify-stretch px-6 w-full  py-2 text-white rounded-full"
+                  className="bg-[#7655fa] justify-stretch md:px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
                     append({ ...field, ticket_type: tickets });

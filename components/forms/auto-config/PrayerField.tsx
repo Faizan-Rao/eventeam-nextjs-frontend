@@ -198,6 +198,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                       <>
                         <input
                           type="time"
+                          value={prayerFields[index].fixed_time.split(" ")[0]}
                           className=" bg-transparent outline-none"
                           onChange={(e: ChangeEvent) =>
                             field.onChange(
@@ -239,7 +240,7 @@ const PrayerField: React.FC<IPrayerField> = ({
               </div>
             </span>
             <div className="flex self-end">
-              {index > 0 && (
+             
                 <CircleX
                   onClick={() => {
                     remove(index);
@@ -247,7 +248,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                   className="text-[red] mb-3 cursor-pointer"
                   strokeWidth={1}
                 />
-              )}
+              
             </div>
           </div>
         </div>
