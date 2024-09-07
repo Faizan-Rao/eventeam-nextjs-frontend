@@ -10,9 +10,12 @@ const AddEventGrid = () => {
 
   return (
     <MainContentGrid>
+      <div className="sm:hidden md:block">
         <PageTitleContainer
           title="Add New Event"
         />
+
+      </div>
         <AutoConfigForm />
       
     </MainContentGrid>

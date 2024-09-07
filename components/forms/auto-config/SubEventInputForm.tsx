@@ -21,21 +21,21 @@ export const SubEventInput = ({
 
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col  gap-6 p-4">
+    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 sm:p-0 md:p-4">
       {/* Dynamic Events */}
       <span className="flex gap-5  flex-wrap">
         {watch.sub_events &&
           (watch.sub_events as any[]).map((el, index) => {
             return (
               <div
-                className="flex gap-1 px-4  items-center bg-[#f6f6f6]  rounded-lg    flex-1 "
+                className="flex gap-1 px-4    items-center  bg-[#f6f6f6]  rounded-lg sm:max-w-[360px] "
                 key={el.id}
               >
                 {/* Card Content */}
                 <div className="flex  ">
-                  <div className="flex  mt-5 rounded-md  h-[90px] w-auto text-white flex-col justify-center items-center px-6  bg-[#7655fa] ">
+                  <div className="flex sm:my-4  md:mt-5 rounded-md   md:h-[90px] w-auto text-white flex-col justify-center items-center px-6  bg-[#7655fa] ">
                     <span>{format(el.date, "MMM")}</span>
-                    <span className="text-4xl font-semibold">
+                    <span className="sm:text-2xl md:text-4xl font-semibold">
                       {format(el.date, "dd")}
                     </span>
                   </div>
@@ -46,7 +46,7 @@ export const SubEventInput = ({
                       {el.start_time}
                     </h1>
 
-                    <div className="flex gap-1 text-sm ">
+                    <div className="flex gap-1  text-sm ">
                       <Controller
                         control={control}
                         name={`sub_events.${index}.active`}
@@ -78,7 +78,7 @@ export const SubEventInput = ({
                   </div>
                 </div>
                 {/* Card Controls */}
-                <div className="flex mx-3  h-auto  self-stretch items-center flex-1 justify-end gap-4 p-2  my-1">
+                <div className="flex mx-3  h-auto sm:flex-col md:flex-row  self-stretch items-center flex-1 justify-end gap-4 p-2  my-1">
                   <EditSubEventDialog index={index} />
                   
                     <CircleX

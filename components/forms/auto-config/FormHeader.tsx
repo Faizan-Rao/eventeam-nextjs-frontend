@@ -8,10 +8,10 @@ export const FormHeader = ({
     totalSteps: number;
   }) => {
     return (
-      <div className="flex justify-between items-center p-4 my-4">
-        <h1 className="text-3xl font-semibold text-[#4a4a4a]">{title}</h1>
+      <div className="flex sm:flex-col-reverse md:flex-row justify-between items-center p-4 my-4">
+        <h1 className="sm:text-xl md:text-3xl font-semibold text-[#4a4a4a]">{title}</h1>
   
-        <span className="text-[#7655FA] font-semibold">
+        <span className="text-[#7655FA] sm:text-sm md:text-base font-semibold">
           Steps {currentStep} of {totalSteps}
         </span>
       </div>

@@ -54,9 +54,9 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
         <p className="text-sm font-semibold text-[#999999]">
           {pageLinkFormat()}
         </p>
-        <h1 className="font-semibold text-4xl">{title}</h1>
+        <h1 className="font-semibold sm:text-2xl md:text-4xl">{title}</h1>
       </div>
-      <div className="flex  gap-4">
+      <div className="sm:hidden md:flex  gap-4">
         {subPaths.length > 0 &&
           subPaths.map((el) => {
             return (
