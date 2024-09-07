@@ -31,10 +31,10 @@ const SideBar = ({
   useEffect(() => {
     if (window.innerWidth > mobileWidth) {
       setIsHover(false);
-      setNavOpen(false);
+      setNavOpen(true);
     } else {
       setIsHover(false);
-      setNavOpen(true);
+      setNavOpen(false);
     }
   }, [setNavOpen]);
 
@@ -75,9 +75,10 @@ const SideBar = ({
         )}
       >
         {paths.map((nav, index) => (
-          <div key={(nav as any).path + index}>
+          <div key={ index + +3}>
             {!nav.children && (
               <SideBarNav
+              setNavOpen={setNavOpen}
                 href={nav.path}
                 value={t(nav.name)}
                 icon={<nav.icon strokeWidth={1} />}
@@ -90,7 +91,7 @@ const SideBar = ({
             {nav.children && (
               <>
                 <div
-                  key={(nav as any).path + index}
+                  key={index + +1}
                   onClick={() => toggleList(index)}
                   className="flex text-[#4A4A4A]   p-2 transition-all rounded-md  items-center cursor-pointer overflow-none text-nowrap  gap-4 "
                 >
@@ -115,7 +116,7 @@ const SideBar = ({
                 </div>
                 {
                   <div
-                    key={(nav as any).path + index}
+                    key={ index + +2}
                     ref={(elref) => (ref.current[index] = elref) as any}
                     className={clsx(
                       "border-[2px] hidden overflow-hidden transition-all bg-[#efefef] rounded-md mx-4 ",
@@ -124,6 +125,7 @@ const SideBar = ({
                   >
                     {nav.children.map((subnav, index) => (
                       <SideBarNav
+                      setNavOpen={setNavOpen}
                         href={subnav.path}
                         value={t(subnav.name)}
                         icon={<nav.icon strokeWidth={1} />}

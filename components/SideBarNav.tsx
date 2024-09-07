@@ -1,5 +1,6 @@
+'use client'
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo, SetStateAction } from "react";
 import clsx from "clsx";
 
 interface ISidebarNav {
@@ -8,10 +9,12 @@ interface ISidebarNav {
   href?: string;
   className?: string;
   icon?: any;
+  setNavOpen : React.Dispatch<SetStateAction<boolean>>
 }
 
 const SideBarNav: React.FC<ISidebarNav> = ({
   isHover = false,
+  setNavOpen,
   value = "",
   href = "#",
   className = "",
@@ -21,6 +24,12 @@ const SideBarNav: React.FC<ISidebarNav> = ({
     <>
       <Link
         href={href}
+      onClick={(event)=>{
+        if(window.innerWidth <= 500)
+        {
+          setNavOpen(false)
+        }
+      }}
         className={clsx(
           "flex text-[#4A4A4A]  hover:bg-[#7655FA] p-2 transition-all rounded-md hover:text-[white] overflow-none text-nowrap  gap-4 ",
           className

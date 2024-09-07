@@ -15,10 +15,10 @@ export const GeneralInfoInput = ({
     errors: string[];
   }) => {
     return (
-      <div className="flex flex-col gap-6 p-4">
+      <div className="flex flex-col gap-6 p-4 w-full">
         {/* Event Name */}
         <span className="flex gap-2 flex-col">
-          <label className={"text-[#4a4a4a] font-semibold"}>Event Name</label>
+          <label className={"text-[#4a4a4a] sm:text-sm md:text-base font-semibold"}>Event Name</label>
           <input
             type="text"
             className="border-[2px] outline-none p-2 w-full"
@@ -28,9 +28,9 @@ export const GeneralInfoInput = ({
         </span>
   
         {/* Event Dates */}
-        <div className="flex gap-3">
+        <div className="flex sm:flex-col md:flex-row gap-3">
           <span className="flex-1 flex gap-3 flex-col">
-            <label className={"text-[#4a4a4a] font-semibold"}>Start Date</label>
+            <label className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}>Start Date</label>
             <input
               type="date"
               className="border-[2px] outline-none p-2 w-full cursor-pointer"
@@ -38,7 +38,7 @@ export const GeneralInfoInput = ({
             />
           </span>
           <span className="flex-1 flex gap-3 flex-col">
-            <label className={"text-[#4a4a4a] font-semibold"}>End Date</label>
+            <label className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}>End Date</label>
             <input
               type="date"
               className="border-[2px] outline-none p-2 w-full "
@@ -52,7 +52,7 @@ export const GeneralInfoInput = ({
           control={control}
           render={({ field }) => (
             <div className="flex flex-col gap-4">
-              <label htmlFor={id} className={"text-[#4a4a4a] font-semibold"}>
+              <label htmlFor={id} className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}>
                 Event Description
               </label>
               <JoditEditor

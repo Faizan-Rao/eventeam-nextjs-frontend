@@ -15,7 +15,7 @@ export const TicketTypes = ({
       name: "tickets",
     });
     return (
-      <div className="flex flex-col  gap-6 p-4">
+      <div className="flex sm:min-w-[90vw] md:min-w-full flex-col   gap-6 p-4  ">
         {/* Event Name */}
         <span className="flex gap-2 flex-col">
           <label className={"text-[#4a4a4a] font-semibold"}>Ticket Names</label>
@@ -24,7 +24,7 @@ export const TicketTypes = ({
               <div className="flex gap-4 items-center" key={el.id}>
                 <input
                   type="text"
-                  className="border-[2px] outline-none p-2 max-w-[90%] flex-1"
+                  className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-[90%] flex-1"
                   placeholder="Enter Ticket Name"
                   {...register(`tickets.${index}.ticket`, {
                     required: true,

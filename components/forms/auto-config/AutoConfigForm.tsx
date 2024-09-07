@@ -25,15 +25,14 @@ import PrayerTimeForm from "./PrayerTimeForm";
 import { useDispatch } from "react-redux";
 import { addAutoConfig, selectAutoConfig } from "@/slices/autoConfigSlice";
 
-
 export interface IAutoConfig {
   gen_info: {
     event_name: string;
     start_date: Date;
     end_date: Date;
     event_desc: string;
-    status?: string,
-    active?: boolean
+    status?: string;
+    active?: boolean;
     registrations?: string;
   };
   tickets: { ticket: string }[];
@@ -118,11 +117,10 @@ const AutoConfigForm = () => {
 
   const id = useId();
 
-  
   const methods = useForm<IAutoConfig>({
     defaultValues: defaultValues,
   });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     control,
     register,
@@ -147,19 +145,21 @@ const AutoConfigForm = () => {
   const onSubmit: SubmitHandler<IAutoConfig> = (data, e) => {
     e?.preventDefault();
 
-    const payload = {...data}
-    payload.gen_info.active = false,
-    payload.gen_info.registrations = "0",
-    payload.gen_info.status = "Pending Approval",
-    dispatch(addAutoConfig(payload))
+    const payload = { ...data };
+    (payload.gen_info.active = false),
+      (payload.gen_info.registrations = "0"),
+      (payload.gen_info.status = "Pending Approval"),
+      dispatch(addAutoConfig(payload));
   };
   return (
     <FormProvider {...methods}>
       <div className="flex gap-5   container p-0">
-        <StepperSection currentStep={currentStep} />
+        <div className="sm:hidden md:block">
+          <StepperSection currentStep={currentStep} />
+        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-[white] container p-4 rounded-md"
+          className="bg-[white] md:container p-4 rounded-md"
         >
           {deferStep === 0 && (
             <>
