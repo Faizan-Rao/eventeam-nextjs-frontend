@@ -26,10 +26,10 @@ const KPIContainer = () => {
       <KPICard title={t("Pending Earnings")} icon={<Banknote size={28}/>} value={"0"} currency="$"/>
     </div>
 
-<div className="sm:block md:hidden sm:max-w-[90vw]">
+<div className="sm:flex gap-4 md:hidden sm:max-w-[92vw]">
       <Swiper
         slidesPerView={2}
-        spaceBetween={70}
+        spaceBetween={10}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -48,7 +48,6 @@ const KPIContainer = () => {
         <SwiperSlide  > <KPICard title={t("Total Registrations")} icon={<UserPlus  size={28}/>} value={"0"} /></SwiperSlide>
         <SwiperSlide  >  <KPICard title={t("All Time Guests")} icon={<UsersRound size={28}/>} value={"0"} /></SwiperSlide>
         <SwiperSlide  > <KPICard title={t("All Time Earnings")} icon={<CircleDollarSign size={28}/>} value={"0"} currency="$" /></SwiperSlide>
-        <SwiperSlide  ><KPICard title={t("Cleared Earnings")} icon={<HandCoins size={28}/>} value={"0"} currency="$"/></SwiperSlide>
         <SwiperSlide  ><KPICard title={t("Cleared Earnings")} icon={<HandCoins size={28}/>} value={"0"} currency="$"/></SwiperSlide>
         <SwiperSlide  >   <KPICard title={t("Pending Earnings")} icon={<Banknote size={28}/>} value={"0"} currency="$"/></SwiperSlide>
       </Swiper>

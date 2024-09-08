@@ -15,8 +15,8 @@ const KPICard : React.FC<IKPICard> = ({
     currency
 }) => {
   return (
-    <div className='flex  sm:min-w-[200px] hover:bg-[#7655fa] group   text-[#4A4A4A] hover:text-white  flex-1 transition-all  sm:gap-2 md:gap-5 p-4  bg-[#F7F6F9] rounded-md'>
-        <div className='flex aspect-square h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md'>
+    <div className='flex sm:min-w-[180px] md:min-w-[200px]     hover:bg-[#7655fa] group   text-[#4A4A4A] hover:text-white  flex-1 transition-all  sm:gap-2 md:gap-5 p-4  bg-[#F7F6F9] rounded-md'>
+        <div className='flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md'>
            { icon && icon}
         </div>
 

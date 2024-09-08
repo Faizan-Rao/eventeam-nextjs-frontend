@@ -8,7 +8,7 @@ interface IMainContentGrid {
 }
 
 const MainContentGrid: React.FC<IMainContentGrid> = ({ children, className }) => {
-  return <div className={clsx("flex flex-col  md:container overflow-x-auto gap-4", className)}>{children}</div>;
+  return <div className={clsx("flex flex-col  md:container overflow-auto gap-4", className)}>{children}</div>;
 };
 
 export default MainContentGrid;

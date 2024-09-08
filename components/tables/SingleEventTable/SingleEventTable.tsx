@@ -1,25 +1,28 @@
 import React from "react";
-import UserCirclePlus from "./icons/UserCirclePlus";
-import ViewEye from "./icons/ViewEye";
+import UserCirclePlus from "../../icons/UserCirclePlus";
+import ViewEye from "../../icons/ViewEye";
 
-const RecentRegMain = () => {
+const SingleEventTable = () => {
   return (
-    <div className="flex flex-1 flex-col gap-5 justify-center  sm:mx-auto h-full w-full p-6 sm:max-w-[360px] md:max-w-full  max-h-[600px] overflow-auto">
-      <h1 className="font-semibold text-xl">Recent Registrations</h1>
+    <div className="flex flex-col gap-4 p-4 max-h-[1200px] overflow-auto    rounded-md    bg-white">
+
+      <h1 className="font-semibold text-xl mb-4">Recent Registrations</h1>
+    <div className="flex  flex-col gap-5 justify-center    overflow-auto   ">
       <table cellSpacing={4} cellPadding={4} >
-        <thead className="text-base text-center sticky top-[-22px] left-0 bg-[#ffffff]">
+        <thead className="text-base text-center sticky top-[-25px]  bg-[#ffffff]">
           <tr className="text-[#999999] text-[13px] text-nowrap border-b-[1px]">
-            <td className="font-semibold mx-4 "></td>
-            <td className="font-semibold mx-4 ">Event Name</td>
-            <td className="font-semibold mx-4 ">Payment Method</td>
-            <td className="font-semibold mx-4 ">Seats</td>
-            <td className="font-semibold mx-4 ">Total Amount</td>
-            <td className="font-semibold mx-4 ">View Details</td>
+            <th className="font-semibold mx-4 "></th>
+            <th className="font-semibold mx-4 ">Event Name</th>
+            <th className="font-semibold mx-4 ">Payment Method</th>
+            <th className="font-semibold mx-4 ">Seats</th>
+            <th className="font-semibold mx-4 ">Total Amount</th>
+            <th className="font-semibold mx-4 ">View Details</th>
           </tr>
         </thead>
   
-        <tbody className=" text-[14px] h-[400px] text-center" >
-          <tr className="border-b-[1px] ">
+        <tbody className=" text-[14px] max-h-[600px] max-w-[400px] overflow-auto  text-center" >
+            
+          <tr className="border-b-[1px]">
             <td>
               <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
                 <UserCirclePlus />
@@ -296,7 +299,9 @@ const RecentRegMain = () => {
       
       </table>
     </div>
+    
+    </div>
   );
 };
 
-export default RecentRegMain;
+export default SingleEventTable;
