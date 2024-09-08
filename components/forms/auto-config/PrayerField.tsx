@@ -198,7 +198,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                       <>
                         <input
                           type="time"
-                          value={prayerFields[index].fixed_time.split(" ")[0]}
+                          value={prayerFields[index].fixed_time?.split(" ")[0] ?? "00:00"}
                           className=" bg-transparent outline-none"
                           onChange={(e: ChangeEvent) =>
                             field.onChange(
