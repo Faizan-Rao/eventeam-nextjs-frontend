@@ -11,7 +11,7 @@ const SingleEvent = () => {
   return (
     <div className="flex flex-col">
       {/* Mobile Tab Btns */}
-      <div className="sm:flex md:hidden py-4 bg-[white] w-[99vw] px-10 font-semibold items-center gap-4">
+      <div className="sm:flex md:hidden py-4 bg-[white] w-full px-10 font-semibold items-center gap-4">
         <button
           onClick={() => setTab("event")}
           className={clsx(

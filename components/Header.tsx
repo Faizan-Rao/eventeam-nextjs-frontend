@@ -23,7 +23,7 @@ const Header = ({
     <>
       <div
         className={clsx(
-          " bg-white  container min-w-[100vw]  text-white   flex justify-between items-center",
+          " bg-white  container  flex-1 min-w-[100vw] max-w-[100%]  text-white   flex justify-between items-center",
           isNavOpen && "sm:sticky sm:top-0 md:relative sm:z-10"
         )}
       >

@@ -4,10 +4,10 @@ import ViewEye from "../../icons/ViewEye";
 
 const SingleEventTable = () => {
   return (
-    <div className="flex flex-col gap-4 p-4 max-h-[1200px] overflow-auto    rounded-md    bg-white">
+    <div className="flex-1 flex flex-col max-w-[100vw] gap-4 p-4 max-h-[1200px] overflow-auto    rounded-md    bg-white">
 
       <h1 className="font-semibold text-xl mb-4">Recent Registrations</h1>
-    <div className="flex  flex-col gap-5 justify-center    overflow-auto   ">
+    <div className="flex  flex-col gap-5 justify-center sm:max-w-[360px] md:max-w-full    overflow-auto   ">
       <table cellSpacing={4} cellPadding={4} >
         <thead className="text-base text-center sticky top-[-25px]  bg-[#ffffff]">
           <tr className="text-[#999999] text-[13px] text-nowrap border-b-[1px]">
@@ -20,7 +20,7 @@ const SingleEventTable = () => {
           </tr>
         </thead>
   
-        <tbody className=" text-[14px] max-h-[600px] max-w-[400px] overflow-auto  text-center" >
+        <tbody className=" text-[14px]  overflow-auto  text-center" >
             
           <tr className="border-b-[1px]">
             <td>
