@@ -4,7 +4,7 @@ import ViewEye from "../../icons/ViewEye";
 
 const SingleEventTable = () => {
   return (
-    <div className="flex-1 flex flex-col max-w-[100vw] gap-4 p-4 max-h-[1200px] overflow-auto    rounded-md    bg-white">
+    <div className="flex-1 flex flex-col sm:max-w-[100vw] md:max-w-[400px] gap-4 p-4 max-h-[1200px] overflow-auto    rounded-md    bg-white">
 
       <h1 className="font-semibold text-xl mb-4">Recent Registrations</h1>
     <div className="flex  flex-col gap-5 justify-center sm:max-w-[360px] md:max-w-full    overflow-auto   ">
