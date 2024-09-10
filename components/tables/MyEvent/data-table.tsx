@@ -35,6 +35,7 @@ import {
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
 import Link from "next/link";
+import MyEventCard from "@/components/MyEventCard";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -76,12 +77,10 @@ export function MyEventTable<TData, TValue>({
 
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
-    console.log(filteredRows)
+    console.log(filteredRows);
     if (col === "gen_info_active") {
       if (text === "active") {
-        setFilteredRows(
-          data.filter((el) => (el as any).gen_info.active)
-        );
+        setFilteredRows(data.filter((el) => (el as any).gen_info.active));
       } else {
         setFilteredRows(data.filter((el) => !(el as any).gen_info.active));
       }
@@ -96,10 +95,11 @@ export function MyEventTable<TData, TValue>({
     rangeFilter.filter((el) => el > 0).length > 0 || filteredRows.length > 0;
 
   const table = useReactTable({
-    data: useMemo(
-      () => (isFiltered  ? filteredRows : data),
-      [data, filteredRows, isFiltered]
-    ) ??  [],
+    data:
+      useMemo(
+        () => (isFiltered ? filteredRows : data),
+        [data, filteredRows, isFiltered]
+      ) ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -114,17 +114,17 @@ export function MyEventTable<TData, TValue>({
     },
   });
 
+  console.log(data)
   return (
     <>
       {/* Filters & Actions */}
 
       <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
-        <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
+        <span className="sm:flex-1 md:flex-grow-0  flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
             placeholder={"Search Event..."}
             onChange={(event) => {
-              
               if (filteredRows.length > 0) {
                 setFilteredRows([]);
               }
@@ -132,132 +132,142 @@ export function MyEventTable<TData, TValue>({
                 .getColumn("gen_info_event_name")
                 ?.setFilterValue(event.target.value ?? "");
             }}
-            className="max-w-sm outline-none"
-            
+            className="max-w-sm outline-none sm:flex-1 md:flex-grow-0  "
           />
         </span>
+        <div className="sm:flex  items-center gap-4">
+          <span className="flex flex-1">
+            <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
+              <DropdownMenuTrigger>
+                <button className=" flex flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
+                  <ListFilter size={20} />
+                  Filter
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="overflow-auto max-h-[300px]">
+                <DropdownMenuLabel>Active State</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="flex items-center justify-between"
+                  onClick={() =>
+                    handleDropDownFilter("active", "gen_info_active")
+                  }
+                >
+                  <span>Active</span>
+                  <CircleCheckBig size={15} />
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="flex items-center justify-between"
+                  onClick={() =>
+                    handleDropDownFilter("inactive", "gen_info_active")
+                  }
+                >
+                  <span>Inactive</span>
+                  <CircleCheckBig size={15} />
+                </DropdownMenuItem>
 
-        <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger>
-            <button className="flex text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
-              <ListFilter size={20} />
-              Filter
+                <DropdownMenuLabel>Operational State</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="flex items-center justify-between"
+                  onClick={() =>
+                    handleDropDownFilter("operational", "gen_info.status")
+                  }
+                >
+                  <span>Operational</span>
+                  <CircleCheckBig size={15} />
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="flex items-center justify-between"
+                  onClick={() =>
+                    handleDropDownFilter("ended", "gen_info.status")
+                  }
+                >
+                  <span>Ended</span>
+                  <CircleCheckBig size={15} />
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="flex items-center justify-between"
+                  onClick={() =>
+                    handleDropDownFilter("pending approval", "gen_info.status")
+                  }
+                >
+                  <span>Pending Approval</span>
+                  <CircleCheckBig size={15} />
+                </DropdownMenuItem>
+
+                <DropdownMenuLabel>Registrations</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="flex gap-2 px-4 my-4">
+                  <span className="flex flex-col">
+                    Min :
+                    <input
+                      placeholder="Min"
+                      defaultValue={0}
+                      value={rangeFilter[0]}
+                      onChange={(event) => {
+                        (rangeFilter[0] as any) =
+                          parseInt(event.target.value) || 0;
+                        handleRangeFilter();
+                      }}
+                      className="max-w-sm rounded-md text-sm p-1 border-[2px] "
+                    />
+                  </span>
+
+                  <span className="flex flex-col">
+                    Max :
+                    <input
+                      placeholder="Max"
+                      defaultValue={0}
+                      value={rangeFilter[1]}
+                      onChange={(event) => {
+                        (rangeFilter[1] as any) =
+                          parseInt(event.target.value) || 0;
+                        handleRangeFilter();
+                      }}
+                      className="max-w-sm border-[2px] rounded-md text-sm p-1"
+                    />
+                  </span>
+                </div>
+                <span className="sticky bottom-0 bg-white flex gap-3 flex-1">
+                  <button
+                    className=" text-[#FF2727] my-4 px-4 py-1"
+                    onClick={() => {
+                      handleClear();
+                      setOpen(false);
+                    }}
+                  >
+                    Clear Filters
+                  </button>
+
+                  <button
+                    className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    Close
+                  </button>
+                </span>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </span>
+          <Link href={"/dashboard/add-event"}>
+            <button className="flex gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
+              <Plus />
+              <span>Add New Event</span>
             </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Active State</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("active", "gen_info_active")}
-            >
-              <span>Active</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() =>
-                handleDropDownFilter("inactive", "gen_info_active")
-              }
-            >
-              <span>Inactive</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-
-            <DropdownMenuLabel>Operational State</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() =>
-                handleDropDownFilter("operational", "gen_info.status")
-              }
-            >
-              <span>Operational</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("ended", "gen_info.status")}
-            >
-              <span>Ended</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() =>
-                handleDropDownFilter("pending approval", "gen_info.status")
-              }
-            >
-              <span>Pending Approval</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-
-            <DropdownMenuLabel>Registrations</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <div className="flex gap-2 px-4 my-4">
-              <span className="flex flex-col">
-                Min :
-                <input
-                  placeholder="Min"
-                  defaultValue={0}
-                  value={rangeFilter[0]}
-                  onChange={(event) => {
-                    (rangeFilter[0] as any) = parseInt(event.target.value) || 0;
-                    handleRangeFilter();
-                  }}
-                  className="max-w-sm rounded-md text-sm p-1 border-[2px] "
-                />
-              </span>
-
-              <span className="flex flex-col">
-                Max :
-                <input
-                  placeholder="Max"
-                  defaultValue={0}
-                  value={rangeFilter[1]}
-                  onChange={(event) => {
-                    (rangeFilter[1] as any) = parseInt(event.target.value) || 0;
-                    handleRangeFilter();
-                  }}
-                  className="max-w-sm border-[2px] rounded-md text-sm p-1"
-                />
-              </span>
-            </div>
-            <span className="flex gap-3 flex-1">
-              <button
-                className=" text-[#FF2727] my-4 px-4 py-1"
-                onClick={() => {
-                  handleClear();
-                  setOpen(false);
-                }}
-              >
-                Clear Filters
-              </button>
-
-              <button
-                className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                Close
-              </button>
-            </span>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Link href={"/dashboard/add-event"}>
-        <button className="flex gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
-          <Plus />
-          <span>Add New Event</span>
-        </button>
-        </Link>
+          </Link>
+        </div>
       </div>
 
-      <PaginationControls table={table} totalRecords={data.length} />
+      <div className="sm:hidden md:block">
+        <PaginationControls table={table} totalRecords={data.length} />
+      </div>
 
       {/* Data Table */}
 
-      <div className="my-5 rounded-md  order-collapse border-spacing-0">
+      <div className=" md:block sm:hidden my-5 rounded-md  order-collapse border-spacing-0">
         <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -313,6 +323,15 @@ export function MyEventTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+
+      <div className="sm:flex md:hidden flex-col gap-4">
+      <MyEventCard/>
+      <MyEventCard/>
+      <MyEventCard/>
+      <MyEventCard/>
+      <MyEventCard/>
+
       </div>
     </>
   );

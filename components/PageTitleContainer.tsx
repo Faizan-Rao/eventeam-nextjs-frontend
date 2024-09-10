@@ -46,15 +46,16 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
     return path;
   };
 
+  
   return (
     <div
-      className={clsx("flex my-6  justify-between  items-center", className)}
+      className={clsx("flex sm:my-2 md:my-6  justify-between  items-center", className)}
     >
-      <div className="flex flex-col gap-1">
+      <div className="flex sm:p-4 md:p-2 flex-col gap-1">
         <p className="text-sm font-semibold text-[#999999]">
           {pageLinkFormat()}
         </p>
-        <h1 className="font-semibold sm:text-2xl md:text-4xl">{title}</h1>
+        <h1 className="font-semibold  sm:text-2xl md:text-4xl">{title}</h1>
       </div>
       <div className="sm:hidden md:flex  gap-4">
         {subPaths.length > 0 &&
