@@ -48,7 +48,7 @@ const MyEventCard = ({
           index === selectedRecord && "bg-[#7655fa]"
         )}
       >
-        <AccordionTrigger onFocus={()=>setSelectedRecord(index)} className="px-4  text-left">
+        <AccordionTrigger  className="px-4  text-left">
           <div className="flex items-center min-w-full justify-between ">
             <div
              
@@ -86,7 +86,7 @@ const MyEventCard = ({
                 </div>
               </Link>
             </div>
-            <div className={clsx("flex gap-2 items-center",  index === selectedRecord && "text-[white]")}>
+            <div onClick={()=>setSelectedRecord(index)} className={clsx("flex gap-2 items-center",  index === selectedRecord && "text-[white]")}>
               <EllipsisVertical
                 size={20}
                 className="  justify-self-end"
