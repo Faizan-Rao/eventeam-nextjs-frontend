@@ -50,7 +50,7 @@ export function MyEventTable<TData, TValue>({
   const [rangeFilter, setFilter] = useState<[0, 0]>([0, 0]);
   const [filteredRows, setFilteredRows] = useState<TData[] & any>([]);
   const [open, setOpen] = useState(false);
-
+  const [selectedRecord, setSelectedRecord] = useState(0);
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
     setTimeout(() => {
@@ -77,7 +77,7 @@ export function MyEventTable<TData, TValue>({
 
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
-    console.log(filteredRows);
+   
     if (col === "gen_info_active") {
       if (text === "active") {
         setFilteredRows(data.filter((el) => (el as any).gen_info.active));
@@ -114,7 +114,7 @@ export function MyEventTable<TData, TValue>({
     },
   });
 
-  console.log(data)
+ 
   return (
     <>
       {/* Filters & Actions */}
@@ -326,12 +326,11 @@ export function MyEventTable<TData, TValue>({
       </div>
 
       <div className="sm:flex md:hidden flex-col gap-4">
-      <MyEventCard/>
-      <MyEventCard/>
-      <MyEventCard/>
-      <MyEventCard/>
-      <MyEventCard/>
-
+        {(data as any[]).map((element, index) => {
+          return (
+            <MyEventCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element.gen_info} index={index} />
+          );
+        })}
       </div>
     </>
   );
