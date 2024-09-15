@@ -9,7 +9,7 @@ const DashboardGrid = () => {
   return (
     <div className="flex flex-col ">
       {/* Mobile Tab Btns */}
-      <div className="sm:flex md:hidden py-4 bg-[white] px-10 font-semibold items-center gap-4">
+      <div className="sm:flex md:hidden py-4 bg-[white] px-4 font-semibold items-center gap-4">
         <button
           onClick={() => setTab("dashboard")}
           className={clsx(
