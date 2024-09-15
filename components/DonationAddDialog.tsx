@@ -29,9 +29,9 @@ const DonationAddDialog = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+        <div className="flex items-center sm:gap-1 md:gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
           <Plus />
-          <span>Add New Donation</span>
+          <span className="sm:text-sm">Add New Donation</span>
         </div>
       </DialogTrigger>
       <DialogContent>
