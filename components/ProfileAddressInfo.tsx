@@ -71,7 +71,7 @@ const ProfileAddressInfo = () => {
       {element && (
         <div
           dangerouslySetInnerHTML={{ __html: element() }}
-          className="my-4 max-h-[450px]  max-w-auto overflow-y-scroll"
+          className="my-4 sm:max-h-auto sm:max-w-[82vw] md:max-h-[460px] md:max-w-auto md:max-w-[100%]  overflow-y-scroll"
         />
       )}
     </div>

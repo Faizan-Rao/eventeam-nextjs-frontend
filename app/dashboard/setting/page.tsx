@@ -8,7 +8,7 @@ const Setting = () => {
   return (
     <MainContentGrid>
         <PageTitleContainer title='General Settings'/>
-        <div className='flex justify-between gap-4'>
+        <div className='flex justify-between gap-4 md:flex-nowrap sm:flex-wrap'>
             <EditProfileGenInfo/>
             <EditProfileAddressInfo/>
         </div>

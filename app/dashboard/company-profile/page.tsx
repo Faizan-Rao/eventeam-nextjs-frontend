@@ -7,14 +7,27 @@ import React from 'react'
 
 const CompanyProfile = () => {
   return (
-    <MainContentGrid>
+    <>
+    {/* Web Template */}
+    <MainContentGrid className='sm:hidden md:flex'>
         <PageTitleContainer title='Company Profile'/>
         <ProfileHeader/>
-        <div className='flex justify-between  gap-4'>
+        <div className='flex justify-between  gap-4  '>
             <ProfileGeneralInfo/>
             <ProfileAddressInfo/>
         </div>
     </MainContentGrid>
+
+    {/* Mobile Template */}
+    <div className='sm:flex md:hidden flex-col'>
+    <PageTitleContainer title='Company Profile'/>
+        <ProfileHeader/>
+        <div className='flex-1 flex justify-between min-w-sm  md:gap-4 sm:flex-wrap md:flex-nowrap '>
+            <ProfileGeneralInfo/>
+            <ProfileAddressInfo/>
+        </div>
+    </div>
+    </>
   )
 }
 
