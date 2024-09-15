@@ -1,11 +1,12 @@
 'use client'
-import EditProfileAddressInfo from '@/components/forms/edit-address-info/EditProfileAddressInfo'
-import EditProfileGenInfo from '@/components/forms/edit-general-info/EditProfileGenInfo'
-import EditSecurityForm from '@/components/forms/edit-security-info/EditSecurityInfo'
 import MainContentGrid from '@/components/MainContentGrid'
 import PageTitleContainer from '@/components/PageTitleContainer'
 import { clsx } from 'clsx'
 import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+const EditProfileAddressInfo =  dynamic( ()=> import('@/components/forms/edit-address-info/EditProfileAddressInfo')) 
+const EditProfileGenInfo = dynamic( ()=> import('@/components/forms/edit-general-info/EditProfileGenInfo')) 
+const EditSecurityForm = dynamic( ()=> import( '@/components/forms/edit-security-info/EditSecurityInfo'))
 
 const Setting = () => {
   const [tab, setTab] = useState("gen-info");
@@ -22,6 +23,7 @@ const Setting = () => {
 
         </div>
     </MainContentGrid>
+
     <div className="sm:block md:hidden ">
       <PageTitleContainer title="Form Fields" />
       <div className="sm:flex md:hidden py-4 bg-[white] px-4 font-semibold min-w-[100vw] items-center gap-4">
@@ -55,9 +57,12 @@ const Setting = () => {
           Security
         </button>
       </div>
+      <div>
         {tab === "gen-info" && <EditProfileGenInfo />}
         {tab === "address-info" && <EditProfileAddressInfo />}
         {tab === "security-info" && <EditSecurityForm />}
+
+      </div>
       </div>
       
     </>

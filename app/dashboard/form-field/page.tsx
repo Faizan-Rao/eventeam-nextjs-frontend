@@ -1,11 +1,12 @@
-"use client";
-import ApplicationFeeForm from "@/components/forms/form-fields/ApplicationFeeForm";
-import FormFieldForm from "@/components/forms/form-fields/FormFieldForm";
-import GuestFieldForm from "@/components/forms/form-fields/GuestFieldForm";
+'use client'
 import MainContentGrid from "@/components/MainContentGrid";
 import PageTitleContainer from "@/components/PageTitleContainer";
 import { clsx } from "clsx";
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
+const ApplicationFeeForm = dynamic(()=> import("@/components/forms/form-fields/ApplicationFeeForm")) ;
+const FormFieldForm = dynamic(()=> import("@/components/forms/form-fields/FormFieldForm"));
+const GuestFieldForm = dynamic(()=> import("@/components/forms/form-fields/GuestFieldForm"));
 
 const FormField = () => {
   const [tab, setTab] = useState("form-field");
