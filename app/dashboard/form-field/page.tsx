@@ -55,8 +55,8 @@ const FormField = () => {
       </div>
     </MainContentGrid>
       {/* Mobile Template */}
-      <div className="sm:block md:hidden ">
-      <PageTitleContainer title="Form Fields" />
+      <div className="sm:block md:hidden  ">
+      <PageTitleContainer title="Form Fields"  className="sm:min-w-auto  md:min-w-[80vw] md:max-w-[100%]"/>
       <div className="sm:flex md:hidden py-4 bg-[white] px-4 font-semibold min-w-[100vw] items-center gap-4">
         <button
           onClick={() => setTab("form-field")}

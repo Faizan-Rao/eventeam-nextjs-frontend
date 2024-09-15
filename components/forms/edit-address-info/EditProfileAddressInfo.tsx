@@ -14,7 +14,7 @@ const EditProfileAddressInfo = () => {
   } = methods;
 
   return (
-    <div className="flex-1 flex flex-col gap-4 p-10 rounded-md bg-white ">
+    <div className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">Address</h1>
       </div>

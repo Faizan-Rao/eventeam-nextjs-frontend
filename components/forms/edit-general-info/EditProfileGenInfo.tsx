@@ -53,7 +53,7 @@ const EditProfileGenInfo = () => {
     setFileUrl("");
   };
   return (
-    <div className="flex-1 flex flex-col gap-4 p-10 rounded-md bg-white ">
+    <div className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white sm:flex-wrap md:flex-nowrap ">
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           General Information
@@ -64,7 +64,7 @@ const EditProfileGenInfo = () => {
       <span className="text-[#999999] text-sm font-semibold">
         Upload Profile Pic
       </span>
-      <div className="flex  items-center rounded-md border-[1px] p-4 gap-4">
+      <div className="flex sm:flex-col md:flex-row  items-center rounded-md border-[1px] p-4 gap-4">
         <input
           type="file"
           ref={hiddenInputRef}
