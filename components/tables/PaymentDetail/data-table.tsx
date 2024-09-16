@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
+import PaymentCard from "@/components/PaymentCard";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -99,13 +100,13 @@ export function PaymentDetailsTable<TData, TValue>({
       columnFilters: columnFilters,
     },
   });
-
+  const [selectedRecord, setSelectedRecord] = useState(0);
   return (
     <>
       {/* Filters & Actions */}
 
       <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
-        <span className="flex place-items-center gap-2 rounded-md border-[2px] p-1">
+        <span className="sm:flex-1 md:flex-none flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
             placeholder={"Search Event..."}
@@ -117,7 +118,7 @@ export function PaymentDetailsTable<TData, TValue>({
                 .getColumn("name")
                 ?.setFilterValue(event.target.value ?? "");
             }}
-            className="max-w-sm outline-none"
+            className=" flex-1 outline-none"
           />
         </span>
      
@@ -128,7 +129,7 @@ export function PaymentDetailsTable<TData, TValue>({
               Filter
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="overflow-y-auto max-h-[300px]">
             <DropdownMenuLabel>Active State</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
@@ -201,7 +202,7 @@ export function PaymentDetailsTable<TData, TValue>({
                 />
               </span>
             </div>
-            <span className="flex gap-3 flex-1">
+            <span className="flex sticky bottom-0 bg-white gap-3 flex-1">
               <button
                 className=" text-[#FF2727] my-4 px-4 py-1"
                 onClick={() => {
@@ -226,12 +227,15 @@ export function PaymentDetailsTable<TData, TValue>({
 
      
       </div>
+      
+      <span className="md:block sm:hidden">
 
       <PaginationControls table={table} totalRecords={data.length} />
+      </span>
 
       {/* Data Table */}
 
-      <div className="my-5 rounded-md  order-collapse border-spacing-0">
+      <div className="sm:hidden md:block my-5 rounded-md  order-collapse border-spacing-0">
         <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -284,6 +288,17 @@ export function PaymentDetailsTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+
+      <div className="sm:flex md:hidden flex-col gap-4">
+      <div className="sm:flex md:hidden flex-col gap-4">
+        {(data as any[]).map((element, index) => {
+          return (
+            <PaymentCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element} index={index} />
+          );
+        })}
+      </div>
+
       </div>
     
     </>

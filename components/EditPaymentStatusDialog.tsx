@@ -24,14 +24,14 @@ import { clsx } from "clsx";
 import { PaymentDetailContext } from "@/context/PaymentDetailProvider";
 
 const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
-  const [status, setSetStatus] = useState(row.original.status);
+  const [status, setSetStatus] = useState(row?.original?.status);
   const [open, setOpen] = useState(false);
   const { data, setData } : any = useContext(PaymentDetailContext);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <PencilLine className="text-[#c2c2c2]" />
+        <PencilLine className="text-[#c2c2c2] " />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -44,10 +44,10 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
                     Registration Details
                   </h1>
                   <h1 className="  font-semibold text-3xl text-black">
-                    {row.original.name}
+                    {row?.original?.name}
                   </h1>
                   <p className="text-sm text-[#tatata] font-semibold">
-                    {row.original.date}
+                    {row?.original?.date}
                   </p>
                 </div>
 
@@ -55,19 +55,19 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
                   <span
                     className={clsx(
                       " px-4 py-1 rounded-full text-black text-center text-nowrap",
-                      row.getValue("status") === "Pending" && "bg-[#FBE394]",
-                      row.getValue("status") !== "Pending" && "bg-[#C2FFCC]"
+                      row?.original?.status === "Pending" && "bg-[#FBE394]",
+                      row?.original?.status !== "Pending" && "bg-[#C2FFCC]"
                     )}
                   >
-                    {row.getValue("status") === "Pending"
+                    { row?.original?.status === "Pending"
                       ? "Pending"
                       : "Cleared"}
                   </span>
                   <p className="text-sm text-[#tatata] font-semibold">
-                    {row.getValue("date")}
+                    { row?.original?.date}
                   </p>
                   <p className="text-sm text-[#tatata] font-semibold">
-                    {`Reg-${row.original.id}`}
+                    {`Reg-${row?.original?.id}`}
                   </p>
                 </div>
               </div>
@@ -77,8 +77,8 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
                   <SelectTrigger >
                     <SelectValue
                     className="text-base"
-                      placeholder={row.getValue("status")}
-                      defaultValue={row.getValue("status")}
+                      placeholder={ row?.original?.status}
+                      defaultValue={ row?.original?.status}
                     />
                   </SelectTrigger>
                   <SelectContent className="text-base" >
@@ -99,7 +99,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
                   const newArr = [...data];
 
                   const item: any = newArr.find(
-                    (el) => el.id === row.original.id
+                    (el) => el.id === row?.original?.id
                   );
                   item.status = status;
                   setData(newArr);

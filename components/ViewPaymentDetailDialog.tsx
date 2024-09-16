@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { Children, useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -36,15 +36,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
-  const [status, setSetStatus] = useState(row.original.status);
+const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, children? : React.ReactNode }) => {
+  const [status, setSetStatus] = useState(row?.original?.status as any);
   const [open, setOpen] = useState(false);
   const { data, setData }: any = useContext(PaymentDetailContext);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog  open={open} onOpenChange={setOpen}>
       <DialogTrigger>
+        <span className="md:block sm:hidden">
         <EyeIcon className="text-[#c2c2c2]" />
+
+        </span>
+        <span className="sm:flex flex-col items-start md:hidden">{children}</span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -58,10 +62,10 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
                   Registration Details
                 </h1>
                 <h1 className="  font-semibold text-3xl text-black">
-                  {row.original.name}
+                  {row?.original?.name}
                 </h1>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {row.original.date}
+                  {row?.original?.date}
                 </p>
               </div>
 
@@ -69,17 +73,17 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
                 <span
                   className={clsx(
                     " px-4 py-1 rounded-full text-black text-center text-nowrap",
-                    row.getValue("status") === "Pending" && "bg-[#FBE394]",
-                    row.getValue("status") !== "Pending" && "bg-[#C2FFCC]"
+                    row?.original?.status === "Pending" && "bg-[#FBE394]",
+                    row?.original?.status !== "Pending" && "bg-[#C2FFCC]"
                   )}
                 >
-                  {row.getValue("status") === "Pending" ? "Pending" : "Cleared"}
+                  {row?.original?.status === "Pending" ? "Pending" : "Cleared"}
                 </span>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {row.getValue("date")}
+                  {row?.original?.date}
                 </p>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {`Reg-${row.original.id}`}
+                  {`Reg-${row?.original?.id}`}
                 </p>
               </div>
             </div>
@@ -88,7 +92,7 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
               Guest List
             </h1>
             <div className=" flex flex-col gap-3 w-full flex-1">
-              {row.original.event_reg.guest.map((el, i) => {
+              {row?.original?.event_reg.guest.map((el, i) => {
                 return (
                   <Accordion type="single" collapsible key={i + el.name}>
                     <AccordionItem
@@ -154,7 +158,7 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
               Price Breakdown
             </h1>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
-              {row.original.event_reg.price_breakdown.map((el, i) => {
+              {row?.original?.event_reg.price_breakdown.map((el, i) => {
                 return (
                   <div className="flex gap-4 text-base justify-between" key={i + el.value}>
                     <p className="font-semibold px-2">{el.type}</p>
@@ -166,7 +170,7 @@ const ViewPaymentDetailDialog = ({ row }: { row: Row<Payment> }) => {
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">Total</p>
-                <p className="font-semibold px-2">{row.original.event_reg.total_amount}</p>
+                <p className="font-semibold px-2">{row?.original?.event_reg.total_amount}</p>
               </div>
               
             </div>
