@@ -57,8 +57,8 @@ const LeadsCard: React.FC<ICompanyCard> = ({
         </div>
         <button><Trash color="red"/></button>
       </div>
-      <div className="flex justify-center gap-4 items-center">
-        <div className="flex-1 max-w-[50%] flex items-center gap-4">
+      <div className="flex gap-4 flex-wrap">
+        <div className=" flex-1 flex items-start gap-4">
           <span className="p-2 bg-[#36ACCD] rounded-full">
             <Smartphone className="text-white" />
           </span>
@@ -66,10 +66,10 @@ const LeadsCard: React.FC<ICompanyCard> = ({
             <span className="text-sm font-semibold text-[#999999]">
               Phone Number
             </span>
-            <p className="text-[#4a4a4a] font-semibold text-base">{phone}</p>
+            <p className="text-[#4a4a4a] font-semibold text-sm">{phone}</p>
           </div>
         </div>
-        <div className="flex-1 flex items-center gap-4">
+        <div className="flex-1 flex  items-center gap-4">
           <span className="p-2 bg-[#C655FA] rounded-full">
             <AtSign className="text-white" />
           </span>
@@ -80,7 +80,7 @@ const LeadsCard: React.FC<ICompanyCard> = ({
         </div>
       </div>
 
-      <div className="flex ">
+      <div className="flex  flex-wrap">
       <div className="flex-1 flex items-center gap-4">
         <span className="p-2 bg-[#7655FA] rounded-full">
           <Ticket className="text-white" />

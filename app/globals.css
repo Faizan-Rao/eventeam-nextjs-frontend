@@ -21,24 +21,27 @@ input::-webkit-inner-spin-button {
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
+  scrollbar-width: thin;
 }
-::-webkit-scrollbar :horizontal {
+::-webkit-scrollbar:horizontal {
   width: 7px;
+  scrollbar-width: thin;
 }
 ::-webkit-scrollbar:vertical {
-  width: 7px;
+  scrollbar-width: thin;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: white;
   border-radius: 25px;
+  width: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #e1e1e1;
-  border-radius: 25px;
+  border-radius: 4px;
 }
 
 /* Handle on hover */
