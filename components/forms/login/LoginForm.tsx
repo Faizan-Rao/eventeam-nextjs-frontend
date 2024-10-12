@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Auth } from "@/configs/apiRoutes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+
 const schema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().min(5).required(),
@@ -31,6 +32,7 @@ const LoginForm = () => {
       router.replace('/dashboard')
 
     } catch (error) {
+      console.log(error)
       toast("Login Failed", {type: "error"})
     }
   }

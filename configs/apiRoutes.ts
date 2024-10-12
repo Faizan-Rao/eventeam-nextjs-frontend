@@ -5,5 +5,8 @@ export const Auth = {
         const response = await axiosWithoutToken.post("/login", data)
         return response
     },
-    signup : async () => {},
+    signup : async (data : any) => {
+        const response = await axiosWithoutToken.post("/register", data)
+        return response
+    },
 }
