@@ -13,62 +13,45 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import _ from "lodash";
+import { useQuery, keepPreviousData,  } from "@tanstack/react-query";
+import { Companies, Dashboard } from "@/configs/apiRoutes";
+import { AxiosResponse } from "axios";
 
-const data = [
-  {
-    logo: "/profile_logo.svg",
-    name: "evenTeam",
-    loggedin: false,
-    phone: "+920000000",
-    address: "789 Willowbrook Lane, Apt 22B, Los Angeles, CA",
-    email: "company@mail.com",
-    stripe: true,
-  },
-  {
-    logo: "/profile_logo.svg",
-    name: "evenTeam",
-    loggedin: false,
-    phone: "+920000000",
-    address: "789 Willowbrook Lane, Apt 22B, Los Angeles, CA",
-    email: "company@mail.com",
-    stripe: true,
-  },
-  {
-    logo: "/profile_logo.svg",
-    name: "Meta",
-    loggedin: true,
-    phone: "+920000000",
-    address: "789 Willowbrook Lane, Apt 22B, Los Angeles, CA",
-    email: "company@mail.com",
-    stripe: false,
-  },
-  {
-    logo: "/profile_logo.svg",
-    name: "Steam",
-    loggedin: false,
-    phone: "+920000000",
-    address: "789 Willowbrook Lane, Apt 22B, Los Angeles, CA",
-    email: "company@mail.com",
-    stripe: true,
-  },
-];
 
 const CompaniesMainCont = () => {
   const [open, setOpen] = useState(false);
-  const [filteredData, setFilteredData] = useState<any>([]);
 
+  const {
+    isPending: isCompaniesPending,
+    isError: isCompaniesError,
+    data: companies,
+    error: companiesError,
+  } = useQuery({
+    queryKey: ["companies"],
+    queryFn: Companies.get,
+  });
+
+  const {
+    isPending: kpiResponsePending,
+    data: kpis,
+    error: kpiError,
+  } = useQuery({
+    queryKey: ["kpis"],
+    queryFn: Dashboard.getKPI,
+  });
+  const [filteredData, setFilteredData] = useState([]);
+
+ 
+
+
+  console.log(kpis);
   const handleSearch = (value: any, name: string) => {
     if (_.isString(value)) {
-      const searchedData = data.filter((el, index) => {
+      const searchedData = (companies?.data['data'] as any).filter((el : any, index: number) => {
         return (el as any)[name].toLowerCase().includes(value.toLowerCase());
       });
       setFilteredData(searchedData as any);
-    } else {
-      const searchedData = data.filter((el, index) => {
-        return (el as any)[name] === value;
-      });
-      setFilteredData(searchedData as any);
-    }
+    } 
   };
 
   return (
@@ -76,25 +59,25 @@ const CompaniesMainCont = () => {
       <div className="flex gap-4">
         <KPICard
           title="Total Companies"
-          value="0"
+          value={kpis?.data.data['total_users'] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Active Companies"
-          value="0"
+          value={kpis?.data.data['active_users'] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Inactive Companies"
-          value="0"
+          value={kpis?.data.data['inactive_users'] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Stripe Connected"
-          value="0"
+          value={kpis?.data.data['stripe_connected'] || "0"}
           currency=""
           icon={<Building2 />}
         />
@@ -103,14 +86,18 @@ const CompaniesMainCont = () => {
       <div className="flex mt-6 justify-between gap-4">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           All Companies{" "}
-          {`(${filteredData.length > 0 ? filteredData.length : data.length})`}
+          {`(${
+            filteredData.length > 0
+              ? filteredData.length
+              : companies?.data.data.length || 0
+          })`}
         </h1>
         <div className="flex gap-4">
           <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
-              onChange={(event) => handleSearch(event.target.value, "name")}
+              onChange={(event) => handleSearch(event.target.value, "full_name")}
               className="max-w-sm outline-none text-base bg-transparent "
             />
           </span>
@@ -127,14 +114,14 @@ const CompaniesMainCont = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(true, "loggedin")}
+                onClick={() => handleSearch("1", "is_active")}
               >
                 <span>Active</span>
                 <CircleCheckBig size={15} />
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(false, "loggedin")}
+                onClick={() => handleSearch("0", "is_active")}
               >
                 <span>Inactive</span>
                 <CircleCheckBig size={15} />
@@ -144,14 +131,14 @@ const CompaniesMainCont = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(true, "stripe")}
+                onClick={() => handleSearch("1", "stripe_account_status")}
               >
                 <span>Connected</span>
                 <CircleCheckBig size={15} />
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(false, "stripe")}
+                onClick={() => handleSearch("0", "stripe_account_status")}
               >
                 <span>Disconnected</span>
                 <CircleCheckBig size={15} />
@@ -188,33 +175,34 @@ const CompaniesMainCont = () => {
         <div className="flex gap-4 flex-wrap">
           {(filteredData as any[]).map((el, key) => (
             <CompanyCard
-              key={key}
-              name={el.name}
-              phone={el.phone}
-              address={el.address}
-              email={el.email}
-              loggedin={el.loggedin}
-              stripe={el.stripe}
-              logo={el.logo}
-            />
+                key={key}
+                name={el["full_name"]}
+                phone={el["phone"] || "No Phone"}
+                address={el["address"] || "No Address"}
+                email={el["email"]}
+                isActive={el["is_active"]}
+                stripe={el["stripe_account_status"]}
+                logo={el["photo"] || ""}
+              />
           ))}
         </div>
       )}
 
       {filteredData.length <= 0 && (
         <div className="flex  gap-4 flex-wrap">
-          {data.map((el, key) => (
-            <CompanyCard
-              key={key}
-              name={el.name}
-              phone={el.phone}
-              address={el.address}
-              email={el.email}
-              loggedin={el.loggedin}
-              stripe={el.stripe}
-              logo={el.logo}
-            />
-          ))}
+          {companies &&
+            (companies.data.data as any[]).map((el: any, key: number) => (
+              <CompanyCard
+                key={key}
+                name={el["full_name"]}
+                phone={el["phone"] || "No Phone"}
+                address={el["address"] || "No Address"}
+                email={el["email"]}
+                isActive={el["is_active"]}
+                stripe={el["stripe_account_status"]}
+                logo={el["photo"] || ""}
+              />
+            ))}
         </div>
       )}
     </>
