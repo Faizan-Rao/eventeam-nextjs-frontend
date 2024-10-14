@@ -4,8 +4,9 @@ import Calendar from "./icons/Calendar";
 import DotThreeVertical from "./icons/DotThreeVertical";
 import ViewEye from "./icons/ViewEye";
 import UserFour from "./icons/UserFour";
+import { format } from "date-fns";
 
-const UpcomingEventCard = () => {
+const UpcomingEventCard = ({data} : {data: any}) => {
   const status = true;
   return (
     <div className="flex flex-col container  gap-4 p-4 bg-[#F7F6F9] rounded-md">
@@ -13,17 +14,17 @@ const UpcomingEventCard = () => {
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-center">
           <h1 className="font-semibold text-[#4A4A4A] text-base">
-            The New Year Eve
+            {data['title']}
           </h1>
           <span className="flex place-items-center gap-5">
             <span
               className={clsx(
                 "h-[10px] w-[10px] rounded-full bg-[#1EFF00]",
-                !status && "bg-[#FF0000]"
+                data['status'] === "0" && "bg-[#FF0000]"
               )}
             />
             <span className="font-semibold text-sm text-[#999999]">
-              {status ? "Active" : "Inactive"}
+              {data['status'] === '1' ? "Active" : "Inactive"}
             </span>
           </span>
         </div>
@@ -42,7 +43,7 @@ const UpcomingEventCard = () => {
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Dates</p>
             <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
-              Dec 31-Jan 1
+             {format(new Date(data['start_date']), 'LLL d') + " - " + format(new Date(data['end_date']), 'LLL d')}
             </p>
           </div>
         </div>

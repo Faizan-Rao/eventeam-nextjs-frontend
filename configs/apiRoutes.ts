@@ -54,6 +54,9 @@ export const Dashboard = {
         "pending_cash",
         "total_earnings",
         "total_guests",
+        "total_registrations",
+        "active_users",
+        "inactive_users"
       ],
       daterange: `2020/01/01 - ${currentDate}`,
     };
@@ -62,4 +65,10 @@ export const Dashboard = {
     
     return response
   },
+
+  getDashboard: async () => {
+    const response = await axiosWithToken.get("");
+    
+    return response
+  }
 };

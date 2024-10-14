@@ -41,10 +41,6 @@ const CompaniesMainCont = () => {
   });
   const [filteredData, setFilteredData] = useState([]);
 
- 
-
-
-  console.log(kpis);
   const handleSearch = (value: any, name: string) => {
     if (_.isString(value)) {
       const searchedData = (companies?.data['data'] as any).filter((el : any, index: number) => {

@@ -27,10 +27,10 @@ const SignupForm = () => {
     try {
       console.log(data)
 
-      if(data['confirm_password'] !== data['password'])
+      if(data['confirm_password'] !== data['regpassword'])
       {
           toast("Password Missmatched", {type: "warning"})
-          throw new Error("Password Missmatched")
+          throw new Error("Password Mismatched")
       }
       const response = await Auth.signup(data)
       console.log(response)
@@ -103,6 +103,7 @@ const SignupForm = () => {
             className="text-[#4a4a4a] text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
             {...register("regpassword", {required : true, minLength: 5})}
           />
+          {errors.regpassword && <span className="text-red-700">Password is Required</span>}
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">Confirm Password</span>
