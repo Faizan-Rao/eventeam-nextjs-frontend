@@ -8,7 +8,7 @@ const UpcomingEvents = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col sm:min-w-[100vw] md:min-w-[350px]  rounded-md  max-h-[700px] gap-4  p-6  bg-[white]">
       <h1 className="font-semibold text-[#4A4A4A] text-xl">Upcoming Events</h1>
-      <div className="flex  flex-1 flex-col gap-5 overflow-auto ">
+      <div className="flex  flex-1 flex-col gap-5 overflow-auto md:overflow-x-hidden ">
         {/* Skeleton Loader */}
         {(data?.data["upcoming_events"] || []).length <= 0 && (
           <div className="flex flex-col space-y-3">

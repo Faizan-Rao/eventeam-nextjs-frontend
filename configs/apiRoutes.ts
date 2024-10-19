@@ -72,3 +72,13 @@ export const Dashboard = {
     return response
   }
 };
+
+
+export const Leads = {
+  getLeads: async () => {
+
+    const response = await axiosWithToken.get("/leads/list");
+    
+    return response
+  },
+}

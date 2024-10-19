@@ -56,7 +56,7 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Guests</p>
             <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
-              0
+              {data['registrations'].length}
             </p>
           </div>
         </div>

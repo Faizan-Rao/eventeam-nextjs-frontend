@@ -31,6 +31,8 @@ interface ICompanyCard {
   address: string;
   email: string;
   stripe: boolean;
+  event:string,
+  date: string,
 }
 const LeadsCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
@@ -40,9 +42,11 @@ const LeadsCard: React.FC<ICompanyCard> = ({
   email = "No Email",
   phone = "No Phone",
   stripe = false,
+  event="",
+  date=""
 }) => {
   return (
-    <div className="  flex  gap-10 p-6 flex-col bg-white rounded-lg">
+    <div className="flex-1 min-w-[350px]  flex  gap-10 p-6 flex-col bg-white rounded-lg">
       <div className="flex justify-between">
         <div className="flex items-center border-b-[1px] pb-5 gap-4">
             <div className="bg-[#7655FA] rounded-full text-white p-2">
@@ -51,11 +55,11 @@ const LeadsCard: React.FC<ICompanyCard> = ({
             </div>
           <div className="flex flex-col">
             <span className="text-[#4a4a4a] font-semibold text-lg">{name}</span>
-            <span className=" text-[#7655FA] font-semibold text-sm">Event</span>
+            <span className=" text-[#7655FA] font-semibold text-sm">{event}</span>
            
           </div>
         </div>
-        <button><Trash color="red"/></button>
+        {/* <button><Trash color="red"/></button> */}
       </div>
       <div className="flex gap-4 flex-wrap">
         <div className=" flex-1 flex items-start gap-4">
@@ -96,7 +100,7 @@ const LeadsCard: React.FC<ICompanyCard> = ({
         </span>
         <div className="flex flex-col ">
           <span className="text-sm font-semibold text-[#999999]">Event Date</span>
-          <p className="text-[#4a4a4a] font-semibold text-base">23/12/24</p>
+          <p className="text-[#4a4a4a] font-semibold text-base">{date}</p>
         </div>
       </div>
       </div>

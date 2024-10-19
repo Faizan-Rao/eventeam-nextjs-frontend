@@ -1,13 +1,17 @@
 
 import React from "react";
 import BarChartJSX from "./BarChart";
-import data from '@/dummy/bar_data.json'
+
 import data2 from '@/dummy/earning_bar_data.json'
-const ChartsMain = () => {
+import { Skeleton } from "./ui/skeleton";
+const ChartsMain = ({chartData}: {chartData: any}) => {
+  console.log(chartData)
   return (
     <div className="flex flex-col justify-center  flex-wrap ">
-     <BarChartJSX data={data} title="Guests Per Event" barName="guest" />
-     <BarChartJSX data={data2} title="Earnings Per Event" barName="earnings" />
+    {!chartData && <Skeleton className="h-[225px] m-4 w-[250px] rounded-xl" />}
+    {!chartData && <Skeleton className="h-[225px] m-4 w-[250px] rounded-xl" />}
+    {chartData && <BarChartJSX data={chartData} title="Guests Per Event" barName="guest" />}
+    {chartData && <BarChartJSX data={chartData} title="Earnings Per Event" barName="earnings" />}
 
     </div>
   );
