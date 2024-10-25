@@ -55,24 +55,29 @@ export interface IAutoConfig {
     show_regulations: boolean;
     show_stripe: boolean;
   };
-  prayer_time: {
-    one_prayer: {
-      title: string;
-      time_type: string;
-      before_time: number;
-      after_time: number;
-      fixed_time: string;
-      status: boolean;
-    }[];
-    two_prayer: {
-      title: string;
-      time_type: string;
-      before_time: number;
-      after_time: number;
-      fixed_time: string;
-      status: boolean;
-    }[];
-  };
+  prayer: any
+  // prayer_time: {
+  //   one_prayer: {
+  //     title: string;
+  //     time_type: string;
+  //     before_time: number;
+  //     after_time: number;
+  //     before_candle: number;
+  //     after_candle: number;
+  //     fixed_time: string;
+  //     status: boolean;
+  //   }[];
+  //   two_prayer: {
+  //     title: string;
+  //     time_type: string;
+  //     before_time: number;
+  //     after_time: number;
+  //     fixed_time: string;
+  //     status: boolean;
+  //   }[];
+  // };
+
+  prayer_time?: any
 }
 
 const defaultValues = {
@@ -88,14 +93,7 @@ const defaultValues = {
     show_stripe: false,
   },
 
-  prayer_time: {
-    one_prayer: [
-      
-    ],
-    two_prayer: [
-     
-    ],
-  },
+  prayer_time: {},
 };
 const AutoConfigForm = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);

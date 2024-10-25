@@ -30,10 +30,9 @@ const PrayerField: React.FC<IPrayerField> = ({
   const { control, register, resetField } = useFormContext<IAutoConfig>();
   const prayerFields = useWatch({
     control,
-    name: prayer === 1 ? `prayer_time.one_prayer` : `prayer_time.two_prayer`,
+    name: `prayer_time.${prayer}`,
   });
 
- 
   return (
     <div className="flex px-4 justify-center flex-col gap-4 ">
       <label className="text-[#7655fa] font-semibold">{title}</label>
@@ -47,9 +46,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 className="border-[1px] p-[4.5px] outline-none rounded-md "
                 placeholder="Enter Title"
                 {...register(
-                  prayer === 1
-                    ? `prayer_time.one_prayer.${index}.title`
-                    : `prayer_time.two_prayer.${index}.title`,
+                  `prayer_time.${prayer}.${index}.title`,
                   {
                     required: true,
                   }
@@ -61,9 +58,7 @@ const PrayerField: React.FC<IPrayerField> = ({
 
               <Controller
                 name={
-                  prayer === 1
-                    ? `prayer_time.one_prayer.${index}.time_type`
-                    : `prayer_time.two_prayer.${index}.time_type`
+                 `prayer_time.${prayer}.${index}.time_type`
                 }
                 control={control}
                 render={({ field }) => (
@@ -80,21 +75,25 @@ const PrayerField: React.FC<IPrayerField> = ({
                       </SelectItem>
                       <SelectItem value="fixed-time">Fixed Time</SelectItem>
                       <SelectItem value="after-sunset">After Sunset</SelectItem>
+                      <SelectItem value="before-candle">
+                        Before Candle Light
+                      </SelectItem>
+                      <SelectItem value="after-candle">
+                        After Candle Light
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 )}
               />
             </span>
-
+            {/* Before Sunset */}
             {prayerFields[index]?.time_type === "before-sunset" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">Before Time</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      prayer === 1
-                        ? `prayer_time.one_prayer.${index}.before_time`
-                        : `prayer_time.two_prayer.${index}.before_time`
+                      `prayer_time.${prayer}.${index}.before_time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -134,15 +133,109 @@ const PrayerField: React.FC<IPrayerField> = ({
                 </div>
               </span>
             )}
+            {/* Before Candle Light */}
+            {prayerFields[index]?.time_type === "before-candle" && (
+              <span className="flex   flex-col gap-1">
+                <label className="text-sm ">Before Candle Light</label>
+                <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
+                  <Controller
+                    name={
+                      `prayer_time.${prayer}.${index}.before_candle`
+                    }
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <CirclePlus
+                          onClick={() =>
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value + 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                        <input
+                          type="number"
+                          className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
+                          onChange={(e: ChangeEvent) =>
+                            field.onChange((e.target as any).value)
+                          }
+                          value={field.value ?? 0}
+                          defaultValue={0}
+                          min={0}
+                        />
+                        <CircleMinus
+                          onClick={() =>
+                            field.value > 0 &&
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value - 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                      </>
+                    )}
+                  />
+                </div>
+              </span>
+            )}
+
+            {/* After Candle Light */}
+            {prayerFields[index]?.time_type === "after-candle" && (
+              <span className="flex   flex-col gap-1">
+                <label className="text-sm ">After Candle Light</label>
+                <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
+                  <Controller
+                    name={
+                      `prayer_time.${prayer}.${index}.after_candle`
+                    }
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <CirclePlus
+                          onClick={() =>
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value + 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                        <input
+                          type="number"
+                          className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
+                          onChange={(e: ChangeEvent) =>
+                            field.onChange((e.target as any).value)
+                          }
+                          value={field.value ?? 0}
+                          defaultValue={0}
+                          min={0}
+                        />
+                        <CircleMinus
+                          onClick={() =>
+                            field.value > 0 &&
+                            field.onChange(
+                              Number.isNaN(field.value) ? 0 : field.value - 1
+                            )
+                          }
+                          className="text-[white] cursor-pointer"
+                          size={18}
+                        />
+                      </>
+                    )}
+                  />
+                </div>
+              </span>
+            )}
+            {/* after sunset */}
             {prayerFields[index]?.time_type === "after-sunset" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">After Time</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      prayer === 1
-                        ? `prayer_time.one_prayer.${index}.after_time`
-                        : `prayer_time.two_prayer.${index}.after_time`
+                      `prayer_time.${prayer}.${index}.after_time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -189,16 +282,17 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      prayer === 1
-                        ? `prayer_time.one_prayer.${index}.fixed_time`
-                        : `prayer_time.two_prayer.${index}.fixed_time`
+                     `prayer_time.${prayer}.${index}.fixed_time`
                     }
                     control={control}
                     render={({ field }) => (
                       <>
                         <input
                           type="time"
-                          value={prayerFields[index].fixed_time?.split(" ")[0] ?? "00:00"}
+                          value={
+                            prayerFields[index].fixed_time?.split(" ")[0] ??
+                            "00:00"
+                          }
                           className=" bg-transparent outline-none"
                           onChange={(e: ChangeEvent) =>
                             field.onChange(
@@ -221,9 +315,7 @@ const PrayerField: React.FC<IPrayerField> = ({
               <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
                 <Controller
                   name={
-                    prayer === 1
-                      ? `prayer_time.one_prayer.${index}.status`
-                      : `prayer_time.two_prayer.${index}.status`
+                    `prayer_time.${prayer}.${index}.status`
                   }
                   control={control}
                   render={({ field }) => (
@@ -240,15 +332,13 @@ const PrayerField: React.FC<IPrayerField> = ({
               </div>
             </span>
             <div className="flex self-end">
-             
-                <CircleX
-                  onClick={() => {
-                    remove(index);
-                  }}
-                  className="text-[red] mb-3 cursor-pointer"
-                  strokeWidth={1}
-                />
-              
+              <CircleX
+                onClick={() => {
+                  remove(index);
+                }}
+                className="text-[red] mb-3 cursor-pointer"
+                strokeWidth={1}
+              />
             </div>
           </div>
         </div>
@@ -258,7 +348,7 @@ const PrayerField: React.FC<IPrayerField> = ({
           onClick={() =>
             append({
               title: "",
-              time_type: "fixed-time",
+              time_type: "",
               status: false,
               before_time: 0,
             })

@@ -41,7 +41,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
   const { control, register, resetField } = useFormContext<IAutoConfig>();
   const prayerFields = useWatch({
     control,
-    name: prayer === 1 ? `prayer_time.one_prayer` : `prayer_time.two_prayer`,
+    name: prayer === 1 ? `prayer_time.${prayer}` : `prayer_time.${prayer}`,
   });
 
   const [data, setData] = useState({
@@ -105,6 +105,12 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                           <SelectItem value="fixed-time">Fixed Time</SelectItem>
                           <SelectItem value="after-sunset">
                             After Sunset
+                          </SelectItem>
+                          <SelectItem value="before-candle">
+                            Before candle light
+                          </SelectItem>
+                          <SelectItem value="after-candle">
+                           After candle light
                           </SelectItem>
                         </SelectContent>
                       </Select>

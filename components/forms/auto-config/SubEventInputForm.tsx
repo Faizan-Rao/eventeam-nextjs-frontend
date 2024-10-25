@@ -28,7 +28,7 @@ export const SubEventInput = ({
           (watch.sub_events as any[]).map((el, index) => {
             return (
               <div
-                className="flex gap-1 px-4    items-center  bg-[#f6f6f6]  rounded-lg sm:max-w-[360px] "
+                className="flex gap-1 px-4    items-center  bg-[#f6f6f6]  rounded-lg w-auto "
                 key={el.id}
               >
                 {/* Card Content */}
