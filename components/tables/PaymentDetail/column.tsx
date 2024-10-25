@@ -7,32 +7,32 @@ import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
 import { ArrowUpDown } from "lucide-react";
 
-export type Payment = {
-  id: string;
-  name: string;
-  date: string;
-  method: string;
-  payment: string;
-  status: string;
-  event_reg: {
-    guest: {
-      name: string;
-      phone: string;
-      email: string;
-      ticket_type: string;
-      events: string[];
-    }[];
-    price_breakdown: {
-      type: string;
-      value: string;
-    }[];
-    total_amount: string;
-  };
-};
+// export type Payment = {
+//   id: string;
+//   name: string;
+//   date: string;
+//   method: string;
+//   payment: string;
+//   status: string;
+//   event_reg: {
+//     guest: {
+//       name: string;
+//       phone: string;
+//       email: string;
+//       ticket_type: string;
+//       events: string[];
+//     }[];
+//     price_breakdown: {
+//       type: string;
+//       value: string;
+//     }[];
+//     total_amount: string;
+//   };
+// };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "reg_id",
     id: "select",
     header: ({ table }) => (
       <div className="flex gap-3 items-center ">
@@ -54,14 +54,14 @@ export const columns: ColumnDef<Payment>[] = [
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
         />
-        <span className="flex items-center">Event-{row.original.id}</span>
+        <span className="flex items-center">{row.original.reg_id}</span>
       </span>
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "event.title",
     header: ({ column }) => {
       return (
         <button
@@ -78,9 +78,14 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "date",
     header: "Date",
     enableGlobalFilter: false,
+    cell: ({ row }) => (
+     
+        <span className="flex items-center">{row.original.created_at.split("T")[0]}</span>
+    
+    ),
   },
   {
-    accessorKey: "method",
+    accessorKey: "payment_method",
     header: ({ column }) => {
         return (
           <button
@@ -95,7 +100,7 @@ export const columns: ColumnDef<Payment>[] = [
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "payment",
+    accessorKey: "total_amount",
     header: ({ column }) => {
       return (
         <button

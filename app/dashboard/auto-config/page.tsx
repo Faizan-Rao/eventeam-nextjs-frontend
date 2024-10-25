@@ -1,8 +1,8 @@
 import React from 'react'
-import AutoConfigGrid from '@/components/AddEventGrid'
+import AddEventGrid from '@/components/AutomaticConfigurations'
 const AddEvent = () => {
   return (
-    <AutoConfigGrid/>
+    <AddEventGrid/>
   )
 }
 

@@ -25,7 +25,7 @@ import {
   UserRound,
 } from "lucide-react";
 
-import { Payment } from "./tables/PaymentDetail/column";
+
 import { Row } from "@tanstack/react-table";
 import { clsx } from "clsx";
 import { PaymentDetailContext } from "@/context/PaymentDetailProvider";
@@ -36,10 +36,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, children? : React.ReactNode }) => {
-  const [status, setSetStatus] = useState(row?.original?.status as any);
+const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<any>, children? : React.ReactNode }) => {
+console.log(row?.original)
   const [open, setOpen] = useState(false);
-  const { data, setData }: any = useContext(PaymentDetailContext);
+
 
   return (
     <Dialog  open={open} onOpenChange={setOpen}>
@@ -62,10 +62,10 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
                   Registration Details
                 </h1>
                 <h1 className="  font-semibold text-3xl text-black">
-                  {row?.original?.name}
+                  {row?.original?.event.title}
                 </h1>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {row?.original?.date}
+                  {row?.original?.created_at.split("T")[0]}
                 </p>
               </div>
 
@@ -73,17 +73,17 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
                 <span
                   className={clsx(
                     " px-4 py-1 rounded-full text-black text-center text-nowrap",
-                    row?.original?.status === "Pending" && "bg-[#FBE394]",
-                    row?.original?.status !== "Pending" && "bg-[#C2FFCC]"
+                    row?.original?.payment_clear === "0" && "bg-[#FBE394]",
+                    row?.original?.payment_clear === "1" && "bg-[#C2FFCC]"
                   )}
                 >
-                  {row?.original?.status === "Pending" ? "Pending" : "Cleared"}
+                  {row?.original?.payment_clear === "0" ? "Pending" : "Cleared"}
                 </span>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {row?.original?.date}
+                  {row?.original?.created_at.split("T")[0]}
                 </p>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {`Reg-${row?.original?.id}`}
+                  {`${row?.original?.reg_id}`}
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
               Guest List
             </h1>
             <div className=" flex flex-col gap-3 w-full flex-1">
-              {row?.original?.event_reg.guest.map((el, i) => {
+            {row?.original?.guests?.map((el : any, i : number) => {
                 return (
                   <Accordion type="single" collapsible key={i + el.name}>
                     <AccordionItem
@@ -125,7 +125,7 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
                               <h1 className=" font-semibold text-sm">
                                 Ticket Type
                               </h1>
-                              <p className="text-lg font-semibold">
+                              <p className="text-base font-semibold">
                                 {el.ticket_type}
                               </p>
                             </div>
@@ -139,9 +139,12 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
                                 Events Attending
                               </h1>
                               <div className="flex flex-wrap gap-1">
-                                {el.events.map((item) => (
+                                {el.guest_details.map((item :any ) => (
                                   <p className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold" key={i + item}>
-                                    {item}
+                                    {row?.original.event.sub_events.map((el : any)=>{
+                                       
+                                        return item.sub_event_id === `${el.id}` && el.title  
+                                    })}
                                   </p>
                                 ))}
                               </div>
@@ -158,19 +161,23 @@ const ViewPaymentDetailDialog = ({ row, children }: { row?: Row<Payment>, childr
               Price Breakdown
             </h1>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
-              {row?.original?.event_reg.price_breakdown.map((el, i) => {
-                return (
-                  <div className="flex gap-4 text-base justify-between" key={i + el.value}>
-                    <p className="font-semibold px-2">{el.type}</p>
-                    <p className="font-semibold px-2">{el.value}</p>
-                  </div>
-                );
+            {row?.original?.event.sub_events.map((el:any, i:number) => {
+               return row?.original.price_breakdown[`${el.id} - ${el.title}`]?.['guests'].map((item:any, i:number) => {
+
+                    return (
+                      <div className="flex gap-4 text-base justify-between" key={i + item.value}>
+                        <p className="font-semibold px-2">{`${item.total_seats} x ${item.ticket_type} `}</p>
+                        <p className="font-semibold px-2">${item.total_price}</p>
+                      </div>
+                    );
+
+                })
               })}
             </div>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">Total</p>
-                <p className="font-semibold px-2">{row?.original?.event_reg.total_amount}</p>
+                <p className="font-semibold px-2">{row?.original?.total_amount}</p>
               </div>
               
             </div>

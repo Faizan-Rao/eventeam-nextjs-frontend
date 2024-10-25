@@ -101,6 +101,8 @@ export function PaymentDetailsTable<TData, TValue>({
     },
   });
   const [selectedRecord, setSelectedRecord] = useState(0);
+
+  console.log(table.getRowModel())
   return (
     <>
       {/* Filters & Actions */}

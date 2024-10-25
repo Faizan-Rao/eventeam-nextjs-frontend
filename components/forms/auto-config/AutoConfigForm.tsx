@@ -104,6 +104,8 @@ const AutoConfigForm = () => {
   const id = useId();
 
   const methods = useForm<IAutoConfig>({
+    mode:"onChange",
+    reValidateMode:"onChange",
     defaultValues: defaultValues,
   });
   const dispatch = useDispatch();

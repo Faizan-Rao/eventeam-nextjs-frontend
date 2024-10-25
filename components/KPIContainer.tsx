@@ -36,10 +36,12 @@ const KPIContainer = () => {
     <>
       <div className="sm:hidden md:flex  items-center sm:justify-center lg:justify-center gap-4 flex-wrap">
         {isKpiPending && (<>
-          <Skeleton className="flex-1 h-[50px] w-[150px] rounded-xl" />
-          <Skeleton className="flex-1 h-[50px] w-[150px] rounded-xl" />
-          <Skeleton className="flex-1 h-[50px] w-[150px] rounded-xl" />
-          <Skeleton className="flex-1 h-[50px] w-[150px] rounded-xl" />
+          <Skeleton className="h-[82px] w-[314px]"/>
+          <Skeleton className="h-[82px] w-[314px]"/>
+          <Skeleton className="h-[82px] w-[314px]"/>
+          <Skeleton className="h-[82px] w-[314px]"/>
+          <Skeleton className="h-[82px] w-[314px]"/>
+          <Skeleton className="h-[82px] w-[314px]"/>
          
         </>)}
         

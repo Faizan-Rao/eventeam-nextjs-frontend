@@ -47,6 +47,11 @@ export const paths =  [
                 icon: Workflow,
             },
             {
+                name:"Auto Config",
+                path:"/dashboard/auto-config",
+                icon: Workflow,
+            },
+            {
                 name:"Form Field",
                 path:"/dashboard/form-field",
                 icon: Workflow,

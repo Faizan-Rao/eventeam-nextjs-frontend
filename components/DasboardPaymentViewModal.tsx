@@ -25,7 +25,7 @@ import {
   UserRound,
 } from "lucide-react";
 
-import { Payment } from "./tables/PaymentDetail/column";
+
 import { Row } from "@tanstack/react-table";
 import { clsx } from "clsx";
 import { PaymentDetailContext } from "@/context/PaymentDetailProvider";

@@ -82,3 +82,13 @@ export const Leads = {
     return response
   },
 }
+
+
+export const Payments  = {
+  get: async () => {
+
+    const response = await axiosWithToken.get("/payments/list");
+    
+    return response
+  },
+}
