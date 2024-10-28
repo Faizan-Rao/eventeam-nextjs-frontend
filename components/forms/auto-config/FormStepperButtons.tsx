@@ -2,7 +2,7 @@
 import autoConfigSteps from "@/configs/autoConfigs";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import {toast} from 'react-toastify'
+
 export const FormStepperButtons = ({
   currentStep,
   handleStepInc,
@@ -33,7 +33,7 @@ export const FormStepperButtons = ({
         <button
           type="submit"
           className="bg-[#7655FA] mx-4 select-none text-white px-7 py-2 rounded-full"
-          onClick={()=>toast.success("Form Submitted...!" )}
+          
         >
           Submit
         </button>

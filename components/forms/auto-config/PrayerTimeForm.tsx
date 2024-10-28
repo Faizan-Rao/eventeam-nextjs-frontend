@@ -14,6 +14,7 @@ import AddPrayerTimeDialog from "./AddPrayerTimeDialog";
 import { CircleX } from "lucide-react";
 import EditPrayerTimeDialog from "./EditPrayerTImeDialog";
 import SubEventWebActivity from "./SubEventWebActivity";
+import PrayerForm from "./PrayerForm";
 
 interface IPrayerTime {
   control: Control<IAutoConfig, any>;
@@ -29,30 +30,19 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
 
 
 
-    // const useHookfieldArray = Array(watch.sub_events?.length).map((el, i)=>{
-    //   console.log("hook number", i)
-    //   // eslint-disable-next-line react-hooks/rules-of-hooks
-    //   return useFieldArray({
-    //     name: `prayer_time.${i}`,
-    //     control,
-    //   });
-    // }) 
-    // // setSubActivities(useHookfieldArray)
-    // console.log(useHookfieldArray)
-
-
 
   console.log("Watched state", watch);
   return (
     <>
       {/* Web Interface */}
-      <div className="sm:hidden md:block">
-      {/* <SubEventWebActivity  subEventId={1}/>
-      <SubEventWebActivity  subEventId={1}/>
-      <SubEventWebActivity  subEventId={1}/> */}
+      <div className="sm:hidden md:flex flex-col gap-4">
+     {(watch.sub_events || []).length > 0 && <PrayerForm/>}
+      {
+        (watch.sub_events || []).length <= 0 && <p className="text-lg text-center">No Subevents Right Now...</p>
+      }
       {
        (watch.sub_events || []).map((_, i)=>{
-          console.log(i)
+         
          return <SubEventWebActivity key={i} subEventId={i}/>
         })
       }

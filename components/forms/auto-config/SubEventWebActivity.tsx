@@ -10,7 +10,7 @@ const SubEventWebActivity = ({ subEventId }: { subEventId: number }) => {
     control,
   });
 
-  console.log("Fields", "Helelo")
+ 
   return (
     <PrayerField
       title={`Subevent #${subEventId + 1} `}

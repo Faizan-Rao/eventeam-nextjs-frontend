@@ -93,7 +93,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      `prayer_time.${prayer}.${index}.before_time`
+                      `prayer_time.${prayer}.${index}.time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -140,7 +140,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      `prayer_time.${prayer}.${index}.before_candle`
+                      `prayer_time.${prayer}.${index}.time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -188,7 +188,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      `prayer_time.${prayer}.${index}.after_candle`
+                      `prayer_time.${prayer}.${index}.time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -235,7 +235,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                      `prayer_time.${prayer}.${index}.after_time`
+                      `prayer_time.${prayer}.${index}.time`
                     }
                     control={control}
                     render={({ field }) => (
@@ -282,7 +282,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
                   <Controller
                     name={
-                     `prayer_time.${prayer}.${index}.fixed_time`
+                     `prayer_time.${prayer}.${index}.fix_time`
                     }
                     control={control}
                     render={({ field }) => (

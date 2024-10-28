@@ -24,6 +24,7 @@ import StepperSection from "./StepperSection";
 import PrayerTimeForm from "./PrayerTimeForm";
 import { useDispatch } from "react-redux";
 import { addAutoConfig, selectAutoConfig } from "@/slices/autoConfigSlice";
+import { autoConfigPostStruct } from "@/configs/autoConfigPost";
 
 export interface IAutoConfig {
   gen_info: {
@@ -55,29 +56,9 @@ export interface IAutoConfig {
     show_regulations: boolean;
     show_stripe: boolean;
   };
-  prayer: any
-  // prayer_time: {
-  //   one_prayer: {
-  //     title: string;
-  //     time_type: string;
-  //     before_time: number;
-  //     after_time: number;
-  //     before_candle: number;
-  //     after_candle: number;
-  //     fixed_time: string;
-  //     status: boolean;
-  //   }[];
-  //   two_prayer: {
-  //     title: string;
-  //     time_type: string;
-  //     before_time: number;
-  //     after_time: number;
-  //     fixed_time: string;
-  //     status: boolean;
-  //   }[];
-  // };
+  prayer: any;
 
-  prayer_time?: any
+  prayer_time?: any;
 }
 
 const defaultValues = {
@@ -93,7 +74,9 @@ const defaultValues = {
     show_stripe: false,
   },
 
-  prayer_time: {},
+  prayer_time: {
+    calculate_via_api: "1",
+  },
 };
 const AutoConfigForm = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -102,8 +85,6 @@ const AutoConfigForm = () => {
   const id = useId();
 
   const methods = useForm<IAutoConfig>({
-    mode:"onChange",
-    reValidateMode:"onChange",
     defaultValues: defaultValues,
   });
   const dispatch = useDispatch();
@@ -130,12 +111,15 @@ const AutoConfigForm = () => {
 
   const onSubmit: SubmitHandler<IAutoConfig> = (data, e) => {
     e?.preventDefault();
-    const payload = { ...data };
-    (payload.gen_info.active = false),
-    (payload.gen_info.registrations = "0"),
-    (payload.gen_info.status = "Pending Approval"),
-    // dispatch(addAutoConfig(payload));
-    console.log(payload)
+
+    
+      if (!data) {
+        throw new Error("Data Not Present");
+      }
+
+      let payload = autoConfigPostStruct(data);
+      
+      console.log(payload)
   };
   return (
     <FormProvider {...methods}>
