@@ -92,3 +92,18 @@ export const Payments  = {
     return response
   },
 }
+
+export const FormFields = {
+  updateFormField : async (data : any) =>{
+    const response = await axiosWithToken.post("/company/settings/save", data)
+    return response
+  },
+  updateApplication : async (data : any) =>{
+    const response = await axiosWithToken.post("/company/settings/save", data)
+    return response
+  },
+  updateGuestField: async (data : any) =>{
+    const response = await axiosWithToken.post("/company/settings/save", data)
+    return response
+  }
+}

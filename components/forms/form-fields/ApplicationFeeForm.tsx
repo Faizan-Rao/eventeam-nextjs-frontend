@@ -7,9 +7,18 @@ import { DollarSign } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { FormFields } from "@/configs/apiRoutes";
+import { useMutation } from "@tanstack/react-query";
+
+interface ApplicationField {
+  plateform_fee : "20",
+  is_show_app_fee : 0,
+  is_default_app_fee: 0,
+  application_fee_text : string
+}
 
 const ApplicationFeeForm = () => {
-  const hiddenInputRef = useRef(null);
+  
   const methods = useForm();
   const {
     control,
@@ -18,8 +27,43 @@ const ApplicationFeeForm = () => {
     formState: { errors },
   } = methods;
 
+  const mutation = useMutation({
+    mutationFn: FormFields.updateApplication,
+    onSuccess: () => {
+      toast("Application Fields Saved" , {
+        type : "success"
+      })
+    },
+    onError: ()=>{
+      toast("Application Fields Not Saved" , {
+        type : "error"
+      })
+    }
+  })
+  const onSubmit = (data : any) => {
+    try {
+
+      if(!data)
+      {
+        throw new Error("Data is Empty...!")
+      }
+
+      mutation.mutate(data)
+
+    }
+    catch (error)
+    {
+      console.error(error)
+      toast("Application Fields Not Saved" , {
+        type : "error"
+      })
+    }
+    
+  }
+
+
   return (
-    <form className=" flex flex-col gap-4 p-10 rounded-md bg-white ">
+    <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           Application Fee Settings
