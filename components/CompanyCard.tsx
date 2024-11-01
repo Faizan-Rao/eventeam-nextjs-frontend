@@ -82,12 +82,12 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="flex">
+      <div className="flex flex-col gap-10">
         <div className="flex-1 flex items-center gap-4">
           <span className="p-2 bg-[#36ACCD] rounded-full">
             <Smartphone className="text-white" />
           </span>
-          <div className="flex  max-w-[150px] flex-col ">
+          <div className="flex   flex-col ">
             <span className="text-sm font-semibold text-[#999999]">
               Phone Number
             </span>
@@ -98,7 +98,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           <span className="p-2 bg-[#C655FA] rounded-full">
             <AtSign className="text-white" />
           </span>
-          <div className="flex flex-1  max-w-[150px] flex-col ">
+          <div className="flex flex-1   flex-col ">
             <span className="text-sm font-semibold text-[#999999]">Email</span>
             <p className="text-[#4a4a4a] font-semibold text-base break-words text-wrap">{email}</p>
           </div>

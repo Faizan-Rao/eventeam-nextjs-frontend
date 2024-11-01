@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,31 +7,71 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {  DollarSign, PencilLine, Plus } from "lucide-react";
+import { DollarSign, PencilLine, Plus } from "lucide-react";
 
 import { Switch } from "@/components/ui/switch";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { Donations } from "@/configs/apiRoutes";
+import { toast } from "react-toastify";
+import { queryClient } from "./MainLayoutGrid";
 
-const DonationEditDialog = () => {
-  const methods = useForm();
+const DonationEditDialog = ({ data }: { data: any }) => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = methods;
+  } = useForm({
+    defaultValues: {
+      title: data.title,
+      description: data.description,
+      amount: data.amount,
+      status: data.status,
+    },
+  });
+
+  const watch = useWatch({ control });
+
+  const mutate = useMutation({
+    mutationFn: Donations.update,
+    onSuccess: ()=>{
+      queryClient.invalidateQueries({queryKey: ["donations"]})
+      toast("Updated Successfully...", {
+        type: "success"
+      })
+      setOpen(false)
+    },
+    onError: ()=>{
+      toast("Updation Failed...", {
+        type: "error"
+      })
+    }
+  })
+  const onSubmit = (formData: any) => {
+    let payload = {...formData}
+    payload["status"] = payload.status ? 1 : 0
+    payload["id"] = data.id
+    // console.log(payload)
+    mutate.mutate(payload)
+  };
+
+  const [open , setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <span className="flex p-2 items-center hover:bg-[#7655fa26] rounded-full justify-center">
-        <PencilLine className="text-[#7655fa]"/>
+          <PencilLine className="text-[#7655fa]" />
         </span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Donation</DialogTitle>
           <DialogDescription>
-            <form className="flex flex-col my-4 gap-4 ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col my-4 gap-4 "
+            >
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
                   Donation Name
@@ -40,12 +80,24 @@ const DonationEditDialog = () => {
                   type="text"
                   placeholder="Company Name"
                   className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+                  {...register("title")}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <span className="text-[#4a4a4a] text-sm font-semibold">
+                  Donation Description
+                </span>
+                <textarea
+                  placeholder="Description"
+                  className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+                  {...register("description")}
                 />
               </div>
 
               <div className="flex flex-col gap-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                Amount
+                  Amount
                 </span>
 
                 <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
@@ -53,7 +105,9 @@ const DonationEditDialog = () => {
                     type="number"
                     className=" outline-none p-2 flex-1"
                     placeholder="Enter Price"
-                    value={0}
+                    min={0}
+                    {...register("amount")}
+                    defaultValue={watch.amount}
                     onChange={(e) => null}
                   />
                   <DollarSign size={18} />
@@ -67,13 +121,12 @@ const DonationEditDialog = () => {
                 <div className="flex justify-between border-[1px] rounded-md p-2">
                   <span className="text-[#4a4a4a] flex-1">Active</span>
                   <Controller
-                    name="advance_form.cash_payment"
+                    name="status"
                     control={control}
                     render={({ field }) => (
                       <Switch
-                        checked={field.value}
+                        defaultChecked={data.status === 1 ? true : false}
                         onCheckedChange={field.onChange}
-                        name={"advance_form.show_address"}
                       />
                     )}
                   />
@@ -83,7 +136,7 @@ const DonationEditDialog = () => {
               <div className="flex justify-end items-center gap-4">
                 <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
-               Save Changes
+                  Save Changes
                 </button>
               </div>
             </form>

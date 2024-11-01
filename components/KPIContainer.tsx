@@ -21,6 +21,7 @@ import {
 import { Dashboard } from "@/configs/apiRoutes";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
+import { USDollar } from "@/configs/currentFormat";
 const KPIContainer = () => {
   const { t } = useTranslation();
   const {
@@ -31,6 +32,7 @@ const KPIContainer = () => {
     queryKey: ["kpis"],
     queryFn: Dashboard.getKPI,
   });
+
 
   return (
     <>
@@ -75,20 +77,21 @@ const KPIContainer = () => {
             <KPICard
               title={t("All Time Earnings")}
               icon={<CircleDollarSign size={28} />}
-              value={kpis?.data.data["total_earnings"] || "0"}
-              currency="$"
+              value={ USDollar.format(kpis?.data.data["total_earnings"])  || "0"}
+             
+              currency=""
             />
             <KPICard
               title={t("Cleared Earnings")}
               icon={<HandCoins size={28} />}
-              value={kpis?.data.data["cleared_cash"] || "0"}
-              currency="$"
+              value={USDollar.format(kpis?.data.data["cleared_cash"])  || "0"}
+              currency=""
             />
             <KPICard
               title={t("Pending Earnings")}
               icon={<Banknote size={28} />}
-              value={kpis?.data.data["pending_cash"] || "0"}
-              currency="$"
+              value={USDollar.format(kpis?.data.data["pending_cash"])  || "0"}
+              currency=""
             />
           </>
         )}

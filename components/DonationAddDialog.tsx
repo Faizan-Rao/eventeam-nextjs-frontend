@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,18 +16,46 @@ import {
   SelectItem,
 } from "@radix-ui/react-select";
 import { Switch } from "@/components/ui/switch";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { Donations } from "@/configs/apiRoutes";
+import { queryClient } from "./MainLayoutGrid";
+import { toast } from "react-toastify";
 
 const DonationAddDialog = () => {
-  const methods = useForm();
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = methods;
+  } = useForm();
+
+  const mutate = useMutation({
+    mutationFn: Donations.add,
+    onSuccess: ()=>{
+      queryClient.invalidateQueries({queryKey: ["donations"]})
+      toast("Created Successfully...", {
+        type:"success"
+      })
+     reset()
+     setOpen(false)
+    },
+    onError: ()=>{
+      toast("Creation Failed...", {
+        type:"error"
+      })
+    }
+  })
+  const onSubmit = (data: any)=>{
+    let payload = {...data}
+    payload['amount'] = `${parseInt(data.amount)}`
+    mutate.mutate(payload)
+  }
+
+  const [open ,setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <div className="flex items-center sm:gap-1 md:gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
           <Plus />
@@ -38,7 +66,7 @@ const DonationAddDialog = () => {
         <DialogHeader>
           <DialogTitle>Add New Donation</DialogTitle>
           <DialogDescription>
-            <form className="flex flex-col my-4 gap-4 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col my-4 gap-4 ">
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
                   Donation Name
@@ -47,9 +75,22 @@ const DonationAddDialog = () => {
                   type="text"
                   placeholder="Company Name"
                   className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+                  {...register("title", {required: true})}
                 />
+                {errors.title && <span className="text-red-800">This field is required.</span>}
               </div>
 
+              <div className="flex flex-col gap-2">
+                <span className="text-[#4a4a4a] text-sm font-semibold">
+                  Donation Description
+                </span>
+                <textarea
+                  placeholder="Company Name"
+                  className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+                  {...register("description")}
+                />
+                {errors.description && <span className="text-red-800">This field is required.</span>}
+              </div>
               <div className="flex flex-col gap-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
                 Amount
@@ -60,11 +101,16 @@ const DonationAddDialog = () => {
                     type="number"
                     className=" outline-none p-2 flex-1"
                     placeholder="Enter Price"
-                    value={0}
-                    onChange={(e) => null}
+                    min={0}
+                    defaultValue={0}
+                    {...register("amount", {
+                      required: true,
+                      valueAsNumber: true,
+                    })}
                   />
                   <DollarSign size={18} />
                 </div>
+                {errors.amount && <span className="text-red-800">This field is required.</span>}
               </div>
 
               <div className="flex flex-col gap-2 flex-1">
@@ -74,13 +120,13 @@ const DonationAddDialog = () => {
                 <div className="flex justify-between border-[1px] rounded-md p-2">
                   <span className="text-[#4a4a4a] flex-1">Active</span>
                   <Controller
-                    name="advance_form.cash_payment"
+                    name="status"
                     control={control}
                     render={({ field }) => (
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        name={"advance_form.show_address"}
+                        
                       />
                     )}
                   />

@@ -46,7 +46,7 @@ const LeadsCard: React.FC<ICompanyCard> = ({
   date=""
 }) => {
   return (
-    <div className="flex-1 min-w-[350px]  flex  gap-10 p-6 flex-col bg-white rounded-lg">
+    <div className="flex-1 min-w-[450px]  flex  gap-5 p-6 flex-col bg-white rounded-lg">
       <div className="flex justify-between">
         <div className="flex items-center border-b-[1px] pb-5 gap-4">
             <div className="bg-[#7655FA] rounded-full text-white p-2">
@@ -61,7 +61,7 @@ const LeadsCard: React.FC<ICompanyCard> = ({
         </div>
         {/* <button><Trash color="red"/></button> */}
       </div>
-      <div className="flex gap-4 flex-wrap">
+      <div className="grid grid-cols-2  gap-5 ">
         <div className=" flex-1 flex items-start gap-4">
           <span className="p-2 bg-[#36ACCD] rounded-full">
             <Smartphone className="text-white" />
@@ -77,15 +77,16 @@ const LeadsCard: React.FC<ICompanyCard> = ({
           <span className="p-2 bg-[#C655FA] rounded-full">
             <AtSign className="text-white" />
           </span>
-          <div className="flex flex-col ">
+          <div className="flex flex-wrap flex-col ">
             <span className="text-sm font-semibold text-[#999999]">Email</span>
             <p className="text-[#4a4a4a] text-wrap font-semibold break-words text-sm">{email}</p>
           </div>
         </div>
       </div>
 
-      <div className="flex  flex-wrap">
-      <div className="flex-1 flex items-center gap-4">
+      {/* <div className="flex flex-row gap-5  flex-wrap"> */}
+      <div className="grid grid-cols-2 gap-5  place-content-center">
+      <div className="flex-1 flex items-center gap-4"> 
         <span className="p-2 bg-[#7655FA] rounded-full">
           <Ticket className="text-white" />
         </span>

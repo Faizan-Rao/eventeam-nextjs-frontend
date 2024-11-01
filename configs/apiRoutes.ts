@@ -107,3 +107,28 @@ export const FormFields = {
     return response
   }
 }
+
+
+export const Donations = {
+  getList : async (data : any) =>{
+    const response = await axiosWithToken.get("/donations/list")
+    return response
+  },
+  add : async (data : any) =>{
+    const response = await axiosWithToken.post("/donations/create", data)
+    return response
+  },
+  update : async (data : any) =>{
+    const response = await axiosWithToken.put(`/donations/update/${data.id}`, data)
+    return response
+  },
+  status : async ( data : any) =>{
+    const response = await axiosWithToken.patch(`/donations/is-active/${data.id}`, data.data)
+    return response
+  },
+  delete : async (id: number) =>{
+    const response = await axiosWithToken.delete(`/donations/delete/${id}`)
+    return response
+  },
+}
+
