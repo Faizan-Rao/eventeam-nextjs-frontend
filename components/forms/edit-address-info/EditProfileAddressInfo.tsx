@@ -4,7 +4,7 @@ import JoditEditor from "jodit-react";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
-const EditProfileAddressInfo = () => {
+const EditProfileAddressInfo = ({profile} : {profile: any}) => {
   const methods = useForm();
   const {
     control,

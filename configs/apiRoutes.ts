@@ -132,3 +132,20 @@ export const Donations = {
   },
 }
 
+export const Profile = {
+  get : async () =>{
+    const response = await axiosWithToken.get("/users/logged-in")
+    return response
+  },
+  
+  updateGenInfo : async (data : any) =>{
+    const response = await axiosWithToken.post(`/profile-save`, data)
+    return response
+  },
+
+  updateAddress : async (data : any) =>{
+    const response = await axiosWithToken.put(`/donations/update/${data.id}`, data)
+    return response
+  },
+  
+}

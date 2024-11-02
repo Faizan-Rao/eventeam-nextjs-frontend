@@ -20,6 +20,7 @@ export default function RootLayout({
  
   return (
     <html lang="en">
+
       <head>
     
         {(process.env.NODE_ENV === "development" ||
@@ -32,7 +33,7 @@ export default function RootLayout({
           />
           
         )}
-        
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
 

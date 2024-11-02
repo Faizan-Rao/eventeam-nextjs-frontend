@@ -7,23 +7,21 @@ interface IMainLayoutGrid {
   children: React.ReactNode;
 }
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient();
 
 const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
-
-  const [isNavOpen , setNavOpen] = useState(true)
+  const [isNavOpen, setNavOpen] = useState(true);
   return (
     <>
-      <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
-      <div className="flex">
-        <div className="">
-          <SideBar isNavOpen={isNavOpen} setNavOpen={setNavOpen}/>
+      <QueryClientProvider client={queryClient}>
+        <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
+        <div className="flex">
+          <div className="">
+            <SideBar isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
+          </div>
+          {children}
         </div>
-        <QueryClientProvider client={queryClient}>
-        {children}
-        </QueryClientProvider>
-       
-      </div>
+      </QueryClientProvider>
     </>
   );
 };
