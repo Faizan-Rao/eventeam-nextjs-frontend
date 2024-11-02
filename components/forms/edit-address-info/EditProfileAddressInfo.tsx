@@ -170,6 +170,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
                 Object.values(citiesData).map((el: any, i: number) => {
                   return (
                     <p
+                    key={i}
                       onClick={() => handleDefaultCity(el)}
                       className="mt-4 cursor-pointer hover:bg-[#7655fa] hover:text-[white] py-1 px-2 rounded-sm"
                     >{`${el.geonameid}-${el.city_name}-${el.region_name}`}</p>
