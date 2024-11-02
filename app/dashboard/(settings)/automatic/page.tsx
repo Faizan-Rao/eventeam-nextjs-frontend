@@ -1,6 +1,6 @@
 "use client";
 import AutomaticEventCard from "@/components/AutomaticEventCard";
-import EventDashContainer from "@/components/EventDashContainer";
+// import EventDashContainer from "@/components/EventDashContainer";
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import MainContentGrid from "@/components/MainContentGrid";
 import PageTitleContainer from "@/components/PageTitleContainer";
@@ -20,7 +20,7 @@ const AutomaticForm = () => {
         <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
           Nearest Upcoming Auto form
         </h1>
-        <EventDashContainer />
+        {/* <EventDashContainer /> */}
         <div className="flex gap-4 sm:flex-col md:flex-row justify-between md:items-center">
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events

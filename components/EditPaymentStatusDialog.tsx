@@ -18,12 +18,12 @@ import {
 
 import { PencilLine } from "lucide-react";
 
-import { Payment } from "./tables/PaymentDetail/column";
+
 import { Row } from "@tanstack/react-table";
 import { clsx } from "clsx";
 import { PaymentDetailContext } from "@/context/PaymentDetailProvider";
 
-const EditPaymentStatusDialog = ({ row }: { row: Row<Payment> }) => {
+const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
   const [status, setSetStatus] = useState(row?.original?.status);
   const [open, setOpen] = useState(false);
   const { data, setData } : any = useContext(PaymentDetailContext);

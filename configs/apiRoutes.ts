@@ -147,5 +147,15 @@ export const Profile = {
     const response = await axiosWithToken.put(`/donations/update/${data.id}`, data)
     return response
   },
+
+  searchCity : async (data : any) =>{
+    const response = await axiosWithToken.post(`/search-cities`, data)
+    return response
+  },
+
+  saveCity : async (data : any) =>{
+    const response = await axiosWithToken.post(`/company/settings/save`, data)
+    return response
+  },
   
 }

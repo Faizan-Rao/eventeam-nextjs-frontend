@@ -6,11 +6,10 @@ import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useQuery } from '@tanstack/react-query'
 import { Profile } from '@/configs/apiRoutes'
-import  EditProfileAddressInfo from '@/components/forms/edit-address-info/EditProfileAddressInfo'
 import { Skeleton } from '@/components/ui/skeleton'
-const EditProfileGenInfo = dynamic( ()=> import('@/components/forms/edit-general-info/EditProfileGenInfo')) 
-const EditSecurityForm = dynamic( ()=> import( '@/components/forms/edit-security-info/EditSecurityInfo'))
-
+const  EditProfileAddressInfo = dynamic(()=> import('@/components/forms/edit-address-info/EditProfileAddressInfo'))
+ const EditProfileGenInfo = dynamic(()=>import('@/components/forms/edit-general-info/EditProfileGenInfo')) 
+ const EditSecurityForm  = dynamic(()=>import('@/components/forms/edit-security-info/EditSecurityInfo')) 
 const Setting = () => {
   const [tab, setTab] = useState("gen-info");
   const { data: profile , isError, isPending} = useQuery({
@@ -27,7 +26,7 @@ const Setting = () => {
             {profileData && <EditProfileGenInfo profile={profileData}/>}
             {!profileData &&  <Skeleton className="h-[825px] w-[850px] rounded-xl" />}
            
-           { profileData && <div className='flex flex-col gap-4 overflow-y-auto max-h-screen'>
+           { profileData && <div className='flex flex-col gap-4 overflow-y-auto h-auto'>
             <EditProfileAddressInfo profile={profileData}/>
             <EditSecurityForm/>
             </div>}

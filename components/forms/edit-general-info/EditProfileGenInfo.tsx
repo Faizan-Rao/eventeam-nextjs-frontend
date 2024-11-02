@@ -202,9 +202,9 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex mt-4 flex-col gap-4">
               <div className="flex-1 flex flex-col">
-                <span className="text-[#999999] text-sm font-semibold">
+                <span className="text-[#999999] text-sm mb-1 font-semibold">
                   About
                 </span>
                 <Controller

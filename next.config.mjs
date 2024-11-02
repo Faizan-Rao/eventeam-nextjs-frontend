@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['dev.eventeam.online', "lh5.googleusercontent.com"],
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "dev.eventeam.online" },
+      {
+        protocol: "https",
+        hostname: "lh5.googleusercontent.com",
       },
-    crossOrigin:"anonymous"
+    ],
+  },
+  crossOrigin: "anonymous",
 };
 
 export default nextConfig;
