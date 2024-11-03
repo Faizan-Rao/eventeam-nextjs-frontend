@@ -9,7 +9,7 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
   return (
     <div
       className={clsx(
-        "flex flex-1 min-w-[140px] p-5 flex-col  gap-2 aspect-square object-cover",
+        "flex flex-1 min-w-[140px] m-4 p-5 flex-col  gap-2  ",
         className
       )}
     >

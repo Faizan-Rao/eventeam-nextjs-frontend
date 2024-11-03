@@ -47,11 +47,11 @@ const EventDashContainer = ({ data }: { data: any }) => {
           <div ref={ref} className="hidden">
             <div className="flex gap-4 my-2">
               <span className="font-bold text-4xl">“”</span>
-              <p className="text-center m-4">{parse(data.description)}</p>
+              <p className="text-center m-4">{data.description && parse(data.description)}</p>
               <span className="font-bold text-4xl self-end">“”</span>
             </div>
 
-            <div className="flex items-center justify-center container  flex-wrap">
+            <div className="flex  justify-center container  flex-wrap">
               {
                 data.sub_events.map((el:any , i: number)=>{
                   return (

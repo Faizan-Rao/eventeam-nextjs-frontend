@@ -5,9 +5,11 @@ import DotThreeVertical from "./icons/DotThreeVertical";
 import ViewEye from "./icons/ViewEye";
 import UserFour from "./icons/UserFour";
 import { format } from "date-fns";
+import UpcomingSubeventPreviewDialog from "./UpcomingSubeventPreviewDialog";
 
 const UpcomingEventCard = ({data} : {data: any}) => {
   const status = true;
+  console.log("upcoming event data", data)
   return (
     <div className="flex flex-col container  gap-4 p-4 bg-[#F7F6F9] rounded-md">
       {/* header */}
@@ -16,15 +18,15 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           <h1 className="font-semibold text-[#4A4A4A] text-base">
             {data['title']}
           </h1>
-          <span className="flex place-items-center gap-5">
+          <span className="flex place-items-center gap-2 mt-2">
             <span
               className={clsx(
                 "h-[10px] w-[10px] rounded-full bg-[#1EFF00]",
-                data['status'] === "0" && "bg-[#FF0000]"
+                data['status'] === 0 && "bg-[#FF0000]"
               )}
             />
             <span className="font-semibold text-sm text-[#999999]">
-              {data['status'] === '1' ? "Active" : "Inactive"}
+              {data['status'] === 1 ? "Active" : "Inactive"}
             </span>
           </span>
         </div>
@@ -61,9 +63,7 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           </div>
         </div>
         {status && (
-          <span className="cursor-pointer justify-self-end self-center">
-            <ViewEye />
-          </span>
+         <UpcomingSubeventPreviewDialog data={data}/>
         )}
       </div>
     </div>

@@ -11,21 +11,21 @@ import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
 
 interface ApplicationField {
-  plateform_fee : "20",
-  is_show_app_fee : 0,
-  is_default_app_fee: 0,
+  plateform_fee : string,
+  is_show_app_fee : string,
+  is_default_app_fee: boolean,
   application_fee_text : string
 }
 
 const ApplicationFeeForm = () => {
   
-  const methods = useForm();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = methods;
+  } = useForm<ApplicationField>();
+
 
   const mutation = useMutation({
     mutationFn: FormFields.updateApplication,
@@ -47,8 +47,20 @@ const ApplicationFeeForm = () => {
       {
         throw new Error("Data is Empty...!")
       }
+      let payload = {...data}
+      if(payload["is_show_app_fee"] !== "1")
+      {
+        payload["is_default_app_fee"] = 1
+        payload["is_show_app_fee"] = 0
+      }
+      else
+      {
+        payload["is_show_app_fee"] = 1
+        payload["is_default_app_fee"] = 0
+      }
 
-      mutation.mutate(data)
+      
+      mutation.mutate(payload)
 
     }
     catch (error)
@@ -80,39 +92,37 @@ const ApplicationFeeForm = () => {
             type="number"
             className=" outline-none p-2 flex-1"
             placeholder="Enter Price"
-            value={0}
-            onChange={(e) => null}
+           {...register("plateform_fee")}
           />
           <DollarSign size={18} />
         </div>
       </div>
 
-      <div className="flex justify-between  items-center gap-4">
-        <div className="flex flex-col gap-2 flex-1">
-          <span className="text-[#4a4a4a] text-sm font-semibold">
-            Show application fee on event {"(%)"}
-          </span>
-          <div className="flex justify-between border-[1px] rounded-md p-2">
-            <span className="text-[#4a4a4a] flex-1">Active</span>
-            <Controller
-              name="advance_form.cash_payment"
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  name={"advance_form.show_address"}
-                />
-              )}
-            />
-          </div>
-        </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-[#4a4a4a] text-sm font-semibold">
+          Application fee text
+        </span>
 
+        <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
+          <input
+            type="text"
+            className=" outline-none p-2 flex-1"
+            placeholder="Enter application fee text"
+           {...register("application_fee_text")}
+          />
+         
+        </div>
+      </div>
+
+      
+
+      <div className="flex justify-between  items-center gap-4">
+        
         <span className="flex flex-col gap-2 flex-1">
-              <label className="text-sm text-[#4a4a4a] font-semibold">Default state / Behaviour</label>
+              <label className="text-sm text-[#4a4a4a] font-semibold">Select Application Fee Mode</label>
 
               <Controller
-                name=""
+                name="is_show_app_fee"
                 control={control}
                 render={({ field }) => (
                   <Select
@@ -120,14 +130,11 @@ const ApplicationFeeForm = () => {
                     onValueChange={(value) => field.onChange(value)}
                   >
                     <SelectTrigger >
-                      <SelectValue placeholder="Select Time.." />
+                      <SelectValue placeholder="Select Mode..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="before-sunset" defaultChecked>
-                        Before Sunset
-                      </SelectItem>
-                      <SelectItem value="fixed-time">Fixed Time</SelectItem>
-                      <SelectItem value="after-sunset">After Sunset</SelectItem>
+                      <SelectItem value={"1"}>Show application fee</SelectItem>
+                      <SelectItem value={"0"}>Show default fee</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

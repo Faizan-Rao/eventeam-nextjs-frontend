@@ -48,8 +48,16 @@ const CompaniesMainCont = () => {
       });
       setFilteredData(searchedData as any);
     } 
+    else
+    {
+      const searchedData = (companies?.data['data'] as any).filter((el : any, index: number) => {
+        return (el as any)[name] === value;
+      });
+      setFilteredData(searchedData as any);
+    }
   };
 
+  console.log("companies", companies)
   return (
     <>
       <div className="flex gap-4">
@@ -110,14 +118,14 @@ const CompaniesMainCont = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch("1", "is_active")}
+                onClick={() => handleSearch(1, "is_active")}
               >
                 <span>Active</span>
                 <CircleCheckBig size={15} />
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch("0", "is_active")}
+                onClick={() => handleSearch(0, "is_active")}
               >
                 <span>Inactive</span>
                 <CircleCheckBig size={15} />
@@ -127,14 +135,14 @@ const CompaniesMainCont = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch("1", "stripe_account_status")}
+                onClick={() => handleSearch(1, "stripe_account_status")}
               >
                 <span>Connected</span>
                 <CircleCheckBig size={15} />
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch("0", "stripe_account_status")}
+                onClick={() => handleSearch(0, "stripe_account_status")}
               >
                 <span>Disconnected</span>
                 <CircleCheckBig size={15} />

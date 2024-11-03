@@ -16,7 +16,7 @@ const MyEventMainCont = () => {
 
  
   return (
-    <div className='flex flex-col  bg-[#fffefe] flex-1 p-5 rounded-md'>
+    <div className='flex flex-col min-h-[100vh]  bg-[#fffefe] flex-1 p-5 rounded-md'>
         <MyEventKPICont/>
         <MyEventTable data={data} columns={(columns as any)}/>
     </div>

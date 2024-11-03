@@ -22,16 +22,16 @@ import {
 interface ICompanyCard {
   logo?: string;
   name: string;
-  isActive: string;
+  isActive: number;
   phone: string;
   address: string;
   email: string;
-  stripe: string;
+  stripe: number;
 }
 const CompanyCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
   name = "No Name",
-  isActive = "0",
+  isActive = 0,
   address = "No address",
   email = "No Email",
   phone = "No Phone",
@@ -61,11 +61,11 @@ const CompanyCard: React.FC<ICompanyCard> = ({
               <div
                 className={clsx(
                   " h-[10px] w-[10px] rounded-full",
-                  isActive === "1" ? "bg-[#41F468]" : "bg-[#e40303]"
+                  isActive === 1 ? "bg-[#41F468]" : "bg-[#e40303]"
                 )}
               />
               <span className="text-sm font-semibold text-[#999999]">
-                {isActive === "1" ? "Active" : "Inactive"}
+                {isActive === 1 ? "Active" : "Inactive"}
               </span>
             </div>
           </div>
