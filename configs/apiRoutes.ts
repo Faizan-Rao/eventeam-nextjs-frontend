@@ -159,3 +159,15 @@ export const Profile = {
   },
   
 }
+
+
+export const AutoFormAPI = {
+  get : async () =>{
+    const response = await axiosWithToken.get("/events/automatic-forms")
+    return response
+  },
+  save : async (data : any) =>{
+    const response = await axiosWithToken.post(`/admin-automatic-form/update/${data.id}`, data)
+    return response
+  },
+}

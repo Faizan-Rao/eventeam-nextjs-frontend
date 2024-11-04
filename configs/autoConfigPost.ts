@@ -234,7 +234,8 @@ export const autoConfigPostStruct = (data: any) => {
 
   //  prayer time
   payload.prayer_times = data.prayer;
-  payload.prayer_times.calculate_via_api = "1";
+  if(data.prayer)
+    payload.prayer_times.calculate_via_api = 1;
   // activities
 
   return payload;

@@ -11,16 +11,24 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Switch } from "@/components/ui/switch";
+import { useQuery } from "@tanstack/react-query";
+import { AutoFormAPI } from "@/configs/apiRoutes";
 
 const AutomaticForm = () => {
+
+  const {data : autoforms, isError, isPending} = useQuery({
+    queryKey:["auto_form"],
+    queryFn: AutoFormAPI.get
+  })
+const autoformData = autoforms?.data.data.events
   return (
     <MainContentGrid>
       <PageTitleContainer title="Automatic Forms" />
       <div className="flex flex-col gap-4 p-6 bg-white rounded-md">
-        <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
+        {/* <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
           Nearest Upcoming Auto form
-        </h1>
-        {/* <EventDashContainer /> */}
+        </h1> */}
+        {/* <EventDashContainer data={autoformData[0]}  /> */}
         <div className="flex gap-4 sm:flex-col md:flex-row justify-between md:items-center">
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events
@@ -52,15 +60,8 @@ const AutomaticForm = () => {
           </div>
         </div>
 
-        <div className="flex  gap-4 p-4 flex-wrap">
-          {Array(10)
-            .fill({
-              title: "The New Year Eve",
-              description: "Upcoming Event",
-              start_date: "Jan 1, 2024",
-              status: false,
-            })
-            .map((el, i) => {
+        <div className="flex  gap-4  flex-wrap">
+          {autoformData && autoformData.map((el : any, i : number) => {
               return <AutomaticEventCard event={el} key={i} />;
             })}
         </div>
