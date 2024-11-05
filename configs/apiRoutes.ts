@@ -167,7 +167,7 @@ export const AutoFormAPI = {
     return response
   },
   save : async (data : any) =>{
-    const response = await axiosWithToken.post(`/admin-automatic-form/update/${data.id}`, data)
+    const response = await axiosWithToken.put(`/admin-automatic-form/update/${data.id}`, data)
     return response
   },
 }

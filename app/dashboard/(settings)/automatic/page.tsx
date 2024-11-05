@@ -4,7 +4,7 @@ import AutomaticEventCard from "@/components/AutomaticEventCard";
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import MainContentGrid from "@/components/MainContentGrid";
 import PageTitleContainer from "@/components/PageTitleContainer";
-import React from "react";
+import React, { useState } from "react";
 import {
   HoverCard,
   HoverCardContent,
@@ -13,14 +13,26 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useQuery } from "@tanstack/react-query";
 import { AutoFormAPI } from "@/configs/apiRoutes";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AutomaticForm = () => {
+  const [filtered, setFiltered] = useState([]);
+  const {
+    data: autoforms,
+    isError,
+    isPending,
+  } = useQuery({
+    queryKey: ["auto_form"],
+    queryFn: AutoFormAPI.get,
+  });
 
-  const {data : autoforms, isError, isPending} = useQuery({
-    queryKey:["auto_form"],
-    queryFn: AutoFormAPI.get
-  })
-const autoformData = autoforms?.data.data.events
+  const autoformData = autoforms?.data.data.events;
+  const searchCard = (e: any) => {
+    const filteredData = autoformData.filter((el: any, i: number) =>
+      el.title.includes(e.target.value)
+    );
+    setFiltered(filteredData);
+  };
   return (
     <MainContentGrid>
       <PageTitleContainer title="Automatic Forms" />
@@ -37,7 +49,7 @@ const autoformData = autoforms?.data.data.events
             <ManifyingGlass />
             <input
               placeholder={"Search Event..."}
-              onChange={(event) => null}
+              onChange={searchCard}
               className="flex-1 max-w-xl outline-none"
             />
           </span>
@@ -47,9 +59,7 @@ const autoformData = autoforms?.data.data.events
               <h1 className="font-semibold ">Auto Publish</h1>
               <HoverCard>
                 <HoverCardTrigger className=" flex aspect-square bg-[#c2c2c2]   rounded-full p-1 h-6 w-6 object-cover justify-center items-center ">
-                  <h1 className=" text-white p-2 text-sm">
-                    ?
-                  </h1>
+                  <h1 className=" text-white p-2 text-sm">?</h1>
                 </HoverCardTrigger>
                 <HoverCardContent className="text-xs">
                   Auto Publish Newly Created Auto forms by Admin.
@@ -61,7 +71,23 @@ const autoformData = autoforms?.data.data.events
         </div>
 
         <div className="flex  gap-4  flex-wrap">
-          {autoformData && autoformData.map((el : any, i : number) => {
+          {!autoformData && (
+            <Skeleton className="w-[400px] h-[219px] rounded-lg" />
+          )}
+          {!autoformData && (
+            <Skeleton className="w-[400px] h-[219px] rounded-lg" />
+          )}
+          {!autoformData && (
+            <Skeleton className="w-[400px] h-[219px] rounded-lg" />
+          )}
+          {autoformData &&
+            filtered.length <= 0 &&
+            autoformData.map((el: any, i: number) => {
+              return <AutomaticEventCard event={el} key={i} />;
+            })}
+          {autoformData &&
+            filtered.length > 0 &&
+            filtered.map((el: any, i: number) => {
               return <AutomaticEventCard event={el} key={i} />;
             })}
         </div>

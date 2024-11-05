@@ -20,49 +20,43 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Switch } from "./ui/switch";
+import { queryClient } from "./MainLayoutGrid";
+import { AutoFormAPI } from "@/configs/apiRoutes";
 
-const AutoEditDialog = ({data} : {data: any}) => {
+const AutoEditDialog = ({ data }: { data: any }) => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: data.title,
+      start_date: data.start_date,
+      end_date: data.end_date ,
+      is_active: data.status === 1 ? true : false
+    },
+  });
 
-  //   const mutation = useMutation({
-  //     mutationFn: () => null,
-  //     onSuccess: () => {
-  //       toast("Application Fields Saved", {
-  //         type: "success",
-  //       });
-  //     },
-  //     onError: () => {
-  //       toast("Application Fields Not Saved", {
-  //         type: "error",
-  //       });
-  //     },
-  //   });
-  const onSubmit = (data: any) => {
-    try {
-      if (!data) {
-        throw new Error("Data is Empty...!");
-      }
-      let payload = { ...data };
-      if (payload["is_show_app_fee"] !== "1") {
-        payload["is_default_app_fee"] = 1;
-        payload["is_show_app_fee"] = 0;
-      } else {
-        payload["is_show_app_fee"] = 1;
-        payload["is_default_app_fee"] = 0;
-      }
 
-      //   mutation.mutate(payload);
-    } catch (error) {
-      console.error(error);
-      toast("Application Fields Not Saved", {
-        type: "error",
-      });
-    }
+    const mutation = useMutation({
+      mutationFn: AutoFormAPI.save,
+      onSuccess: () => {
+        queryClient.invalidateQueries({queryKey: ["auto_form"]})
+        toast("Saved changes...", {
+          type: "info",
+        });
+      },
+      onError: () => {
+        toast("Changes not saved", {
+          type: "error",
+        });
+      },
+    });
+  const onSubmit = (formData: any) => {
+   const payload = {...formData}
+   payload["id"] = data.id
+   mutation.mutate(payload)
   };
   return (
     <Dialog>
@@ -88,7 +82,8 @@ const AutoEditDialog = ({data} : {data: any}) => {
                     type="text"
                     className=" outline-none p-2 flex-1"
                     placeholder="Enter application fee text"
-                    {...register("application_fee_text")}
+                    defaultValue={data.title}
+                    {...register("title")}
                   />
                 </div>
               </div>
@@ -100,47 +95,43 @@ const AutoEditDialog = ({data} : {data: any}) => {
                 <div className="flex justify-between border-[1px] rounded-md p-2">
                   <span className="text-[#4a4a4a] flex-1">Active</span>
                   <Controller
-                    name="guest_name_required"
+                    name="is_active"
                     control={control}
+                    defaultValue
                     render={({ field }) => (
                       <Switch
-                        checked={field.value}
+                       
+                        defaultChecked={data.status === 1 ? true : false}
                         onCheckedChange={field.onChange}
-                        name={"guest_name_required"}
+                        
                       />
                     )}
                   />
                 </div>
               </div>
-              
+
               <div className="flex justify-between flex-col">
-                  <label
-                    className={
-                      "text-[#4a4a4a] mb-1 font-semibold text-sm"
-                    }
-                  >
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    className="border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
-                    {...register("gen_info.start_date", { required: true })}
-                  />
-                </div>
-                <div className="flex justify-between flex-col">
-                  <label
-                    className={
-                      "text-[#4a4a4a] mb-1 font-semibold text-sm"
-                    }
-                  >
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    className=" border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
-                    {...register("gen_info.start_date", { required: true })}
-                  />
-                </div>
+                <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  defaultValue={data.start_date}
+                  className="border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
+                  {...register("start_date")}
+                />
+              </div>
+              <div className="flex justify-between flex-col">
+                <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
+                  End Date
+                </label>
+                <input
+                  type="date"
+                  className=" border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
+                  defaultValue={data.end_date}
+                  {...register("end_date")}
+                />
+              </div>
               <div className="flex justify-end items-center gap-4">
                 <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
