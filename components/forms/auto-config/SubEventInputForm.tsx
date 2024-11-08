@@ -98,7 +98,9 @@ export const SubEventInput = ({
           })}
 
         <button
-          onClick={() => setOpen(true)}
+          onClick={(e) => {
+            e.preventDefault()
+            setOpen(true)}}
           className="flex justify-center items-center h-[128px] min-w-[340px] flex-1 aspect-video border-dashed gap-4  border-[3.5px]   "
         >
           <Plus /> <span>Add Another Subevent</span>

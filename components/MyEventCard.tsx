@@ -16,14 +16,14 @@ import {
 import Link from "next/link";
 import { set } from "lodash";
 
-interface RowData {
-  event_name: string;
-  start_data: string;
-  end_date: string;
-  active: boolean;
-  regsitration: string;
-  status: string;
-}
+// interface RowData {
+//   event_name: string;
+//   start_data: string;
+//   end_date: string;
+//   active: boolean;
+//   regsitration: string;
+//   status: string;
+// }
 
 const MyEventCard = ({
   data,
@@ -31,7 +31,7 @@ const MyEventCard = ({
   selectedRecord,
   setSelectedRecord,
 }: {
-  data: RowData;
+  data: any;
   index: number;
   selectedRecord: number;
   setSelectedRecord: React.Dispatch<SetStateAction<number>>;
@@ -71,11 +71,11 @@ const MyEventCard = ({
                 >
                   Event Name
                 </h1>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <span
                     className={clsx(
                       "h-2 text-[#4a4a4a] rounded-full w-2 aspect-square object-cover bg-[#FF0000]",
-                      data.active && "bg-[#1EFF00]",
+                      data.status === 1 && "bg-[#1EFF00]",
 
                     )}
                   />
@@ -83,7 +83,7 @@ const MyEventCard = ({
 
                   {data.active ? "Active" : "Inactive"}
                   </span>
-                </div>
+                </div> */}
               </Link>
             </div>
             <div onClick={()=>setSelectedRecord(index)} className={clsx("flex gap-2 items-center",  index === selectedRecord && "text-[white]")}>

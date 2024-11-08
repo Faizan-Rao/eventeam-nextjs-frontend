@@ -3,22 +3,22 @@ import React, { useEffect, useMemo, useState } from 'react'
 import MyEventKPICont from './MyEventKPICont'
 import { MyEventTable } from './tables/MyEvent/data-table'
 import { columns } from './tables/MyEvent/column'
-import data from '@/dummy/data_table_my_events.json'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { IAutoConfig } from './forms/auto-config/AutoConfigForm'
+
+import { useQuery } from '@tanstack/react-query'
+import { Events } from '@/configs/apiRoutes'
 
 const MyEventMainCont = () => {
-  const autoConfig = useSelector((state)=>(state as RootState).autoConfig.value)
- 
-  const data = useMemo(()=>autoConfig, [autoConfig])
+  const {data: events, isError, isPending} = useQuery({
+    queryKey: ["my-events"],
+    queryFn: Events.get
+  })
 
-
+console.log("my fetched events", events?.data.data)
  
   return (
     <div className='flex flex-col min-h-[100vh]  bg-[#fffefe] flex-1 p-5 rounded-md'>
         <MyEventKPICont/>
-        <MyEventTable data={data} columns={(columns as any)}/>
+        <MyEventTable data={events?.data.data || []} columns={(columns as any)}/>
     </div>
   )
 }

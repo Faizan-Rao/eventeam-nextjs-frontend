@@ -22,7 +22,7 @@ const AdvanceFormOption: React.FC<IAdvanceFormOption> = ({
           <p className="text-sm">{description}</p>
         </span>
       </div>
-      <span className="mx-4">
+      <span className="mx-4 flex items-center justify-center">
 
       {children}
       </span>

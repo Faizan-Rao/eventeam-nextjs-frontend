@@ -7,7 +7,7 @@ const DonationSuggestCont = ({
     isOpen = false
 }) => {
   return (
-    <div className= { clsx('flex  flex-col gap-4 bg-[#7655fa26] transition-all  p-6 rounded-md container ')}>
+    <div className= { clsx('flex  flex-col gap-4 bg-[#7655fa26] transition-all m-4 p-6 rounded-md ')}>
         <span className='text-[#4a4a4a] font-semibold text-base'>
             Donation Suggestions
         </span>
@@ -15,7 +15,7 @@ const DonationSuggestCont = ({
             <DonationSuggestCard/>
             <DonationSuggestCard/>
             <DonationSuggestCard/>
-            <DonationSuggestCard/>
+          
         </div>
     </div>
   )

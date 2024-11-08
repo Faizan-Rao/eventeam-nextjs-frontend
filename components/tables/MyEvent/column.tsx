@@ -9,7 +9,7 @@ import { ArrowUpDown } from "lucide-react";
 
 
 
-export const columns: ColumnDef<IAutoConfig>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     
     id: "select",
@@ -42,7 +42,7 @@ export const columns: ColumnDef<IAutoConfig>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "gen_info.event_name",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <button
@@ -56,33 +56,41 @@ export const columns: ColumnDef<IAutoConfig>[] = [
     },
   },
   {
-    accessorKey: "gen_info.start_date",
+    accessorKey: "start_date",
     header: "Start Date",
     cell: ({row}) => {
-      return row.original.gen_info.start_date.toString()
+      return row.original.start_date.toString()
     },
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "gen_info.registrations",
-    header: ({ column }) => {
-      return (
-        <button
-          className="flex justify-center items-center gap-1"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Registrations
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </button>
-      );
-    },
+    accessorKey: "end_date",
+    header: "End Date",
     cell: ({row}) => {
-      return row.original.gen_info.registrations
+      return row.original.end_date.toString()
     },
     enableGlobalFilter: false,
   },
+  // {
+  //   accessorKey: "gen_info.registrations",
+  //   header: ({ column }) => {
+  //     return (
+  //       <button
+  //         className="flex justify-center items-center gap-1"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Registrations
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </button>
+  //     );
+  //   },
+  //   cell: ({row}) => {
+  //     return row.original.gen_info.registrations
+  //   },
+  //   enableGlobalFilter: false,
+  // },
   {
-    accessorKey: "gen_info.active",
+    accessorKey: "status",
     header: ({ column }) => {
       return (
         <button
@@ -100,17 +108,17 @@ export const columns: ColumnDef<IAutoConfig>[] = [
         <span
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap",
-            (row.original.gen_info.active as any) && "bg-[#C2FFCC]",
-            !(row.original.gen_info.active as any) && "bg-[#FFC2C2]"
+            (row.original.status === 1 as any) && "bg-[#C2FFCC]",
+            (row.original.status === 0 as any) && "bg-[#FFC2C2]"
           )}
         >
-          {row.original.gen_info.active ? "Active" : "Inactive"}
+          {row.original.status === 1 ? "Active" : "Inactive"}
         </span>
       );
     },
   },
   {
-    accessorKey: "gen_info.status",
+    accessorKey: "current_status",
     header: ({ column }) => {
       return (
         <button
@@ -127,13 +135,13 @@ export const columns: ColumnDef<IAutoConfig>[] = [
         <span
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap ",
-            row.original.gen_info.status === ("Operational" as any) && "bg-[#C2FFCC]",
-            row.original.gen_info.status === ("Ended" as any) && "bg-[#FFC2C2]",
-            row.original.gen_info.status === ("Pending Approval" as any) &&
+            row.original.current_status === ("active" as any) && "bg-[#C2FFCC]",
+            row.original.current_status === ("inactive" as any) && "bg-[#FFC2C2]",
+            row.original.current_status === ("pending" as any) &&
               "bg-[#FFEFAF]"
           )}
         >
-          {row.original.gen_info.status}
+          {row.original.current_status}
         </span>
       );
     },

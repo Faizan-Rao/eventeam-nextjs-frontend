@@ -24,7 +24,11 @@ import StepperSection from "./StepperSection";
 import PrayerTimeForm from "./PrayerTimeForm";
 import { useDispatch } from "react-redux";
 import { addAutoConfig, selectAutoConfig } from "@/slices/autoConfigSlice";
-import { autoConfigPostStruct } from "@/configs/autoConfigPost";
+import { autoConfigPostStruct, addNewEventPostStruct } from "@/configs/autoConfigPost";
+import { usePathname } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { AutoFormAPI, Events } from "@/configs/apiRoutes";
+import { toast } from "react-toastify";
 
 export interface IAutoConfig {
   gen_info: {
@@ -55,6 +59,11 @@ export interface IAutoConfig {
     cash_payment: boolean;
     show_regulations: boolean;
     show_stripe: boolean;
+    show_donation:boolean
+    donations: {
+      is_enable_donation: boolean,
+      other_donations: any[]
+    };
   };
   prayer: any;
 
@@ -109,6 +118,34 @@ const AutoConfigForm = () => {
     }
   };
 
+  const mutateAutoConfig = useMutation({
+    mutationFn: AutoFormAPI.createAutoConfig,
+    onSuccess : ()=>{
+      toast("AutoConfig Saved Successfully...", {
+        type:"success"
+      })
+    },
+    onError : ()=>{
+      toast("AutoConfig Not Saved...", {
+        type:"error"
+      })
+    }
+  })
+
+  const mutateEvent = useMutation({
+    mutationFn: Events.createEvent,
+    onSuccess : ()=>{
+      toast("Event Saved Successfully...", {
+        type:"success"
+      })
+    },
+    onError : ()=>{
+      toast("Event Not Saved...", {
+        type:"error"
+      })
+    }
+  })
+  const pathname = usePathname()
   const onSubmit: SubmitHandler<IAutoConfig> = (data, e) => {
     e?.preventDefault();
 
@@ -117,9 +154,19 @@ const AutoConfigForm = () => {
         throw new Error("Data Not Present");
       }
 
-      let payload = autoConfigPostStruct(data);
+      if(pathname.includes("auto-config"))
+      {
+        let payload = autoConfigPostStruct(data);
+        console.log("autoconfig Payload",payload)
+        mutateAutoConfig.mutate(payload)
+      }
+      else
+      {
+        let payload = addNewEventPostStruct(data);
+        console.log("add new event payload",payload)
+        mutateEvent.mutate(payload)
+      }
       
-      console.log(payload)
   };
   return (
     <FormProvider {...methods}>

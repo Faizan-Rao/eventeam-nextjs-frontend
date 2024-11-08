@@ -29,6 +29,10 @@ const AutomaticEventCard = ({ event } : {event:any}) => {
           <h1 className="text-white text-xl font-semibold">{dateFormatter(event.start_date, 'PP')}</h1>
           <h1 className="text-[#e8e8e8] text-sm">Start date</h1>
         </div>
+        <div className="flex mx-2 flex-col ">
+          <h1 className="text-white text-xl font-semibold">{dateFormatter(event.end_date, 'PP')}</h1>
+          <h1 className="text-[#e8e8e8] text-sm">End date</h1>
+        </div>
         <span className="hover:bg-[#45309b] rounded-full aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
        <AutoEditDialog data={event}/>
        </span>

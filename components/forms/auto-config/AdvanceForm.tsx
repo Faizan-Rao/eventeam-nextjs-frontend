@@ -2,8 +2,9 @@ import React from "react";
 import { Control, Controller } from "react-hook-form";
 import { IAutoConfig } from "./AutoConfigForm";
 import AdvanceFormOption from "./AdvanceFormOption";
-import { Banknote, MapPin, CreditCard, Notebook } from "lucide-react";
+import { Banknote, MapPin, CreditCard, Notebook, HandHeart, Check } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import AutoDonationDialog from "@/components/AutoDonationDialog";
 
 interface IAdvanceForm {
   control: Control<IAutoConfig, any>;
@@ -78,6 +79,25 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
               checked={field.value}
               onCheckedChange={field.onChange}
               name={"advance_form.show_address"}
+            />
+          )}
+        />
+      </AdvanceFormOption>
+
+      <AdvanceFormOption
+        title={"Show the donations on registration form for this event?"}
+        description="Description of the option"
+        icon={<HandHeart />}
+      >
+        <AutoDonationDialog/>
+        <Controller
+          name="advance_form.show_donation"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              
             />
           )}
         />

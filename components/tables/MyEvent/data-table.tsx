@@ -328,7 +328,7 @@ export function MyEventTable<TData, TValue>({
       <div className="sm:flex md:hidden flex-col gap-4">
         {(data as any[]).map((element, index) => {
           return (
-            <MyEventCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element.gen_info} index={index} />
+            <MyEventCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element} index={index} />
           );
         })}
       </div>

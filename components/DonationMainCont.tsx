@@ -59,7 +59,7 @@ const DonationMainCont = () => {
         <DonationSuggestCont />
       </div>
 
-      <div className="flex md:mx-4 p-3  gap-4 flex-wrap ">
+      <div className="flex  p-3  gap-4 flex-wrap ">
         {filtered.length <= 0 &&
           donationData &&
           donationData.length > 0 &&

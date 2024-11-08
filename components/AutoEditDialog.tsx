@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -38,7 +39,7 @@ const AutoEditDialog = ({ data }: { data: any }) => {
     },
   });
 
-
+  const [open, setOpen] = useState(false)
     const mutation = useMutation({
       mutationFn: AutoFormAPI.save,
       onSuccess: () => {
@@ -57,9 +58,10 @@ const AutoEditDialog = ({ data }: { data: any }) => {
    const payload = {...formData}
    payload["id"] = data.id
    mutation.mutate(payload)
+   setOpen(false)
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         {" "}
         <ChevronRight className="text-white" />
