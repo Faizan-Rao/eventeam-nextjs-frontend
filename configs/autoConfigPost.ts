@@ -164,19 +164,25 @@ interface Event {
   sub_event_id: string;
   activities: Activity[];
 }
-
+interface MyObject { [key: string]: any;}
 export const autoConfigPostStruct = (data: any) => {
-  // let payload = {
-  //   advance: {},
-  //   activities: [
-  //     {
-  //       sub_event_id: "",
-  //       activities: [],
-  //     },
-  //   ],
-  // } as any;
+  let payload = {
+    advance: {
+      is_enable_donation: "0"
+    },
+    activities: [
+      {
+        sub_event_id: "",
+        activities: [],
+      },
+    ],
+    donations: {
+      is_enable_donation:0,
+      other_donations: []
+    }
+  } as { [key: string]: any; }
 
-  let payload : any;
+
   if (!data) return null;
 
   let prayer_time = [...Object.values(data.prayer_time)].filter((el) => {
@@ -224,7 +230,7 @@ export const autoConfigPostStruct = (data: any) => {
   });
 
   //    advance form
-  payload.advance.is_cash_allowed = data.advance_form.cash_payment ? "1" : "0";
+  payload.advance["is_cash_allowed"] = data.advance_form.cash_payment ? "1" : "0";
   payload.advance.is_show_address = data.advance_form.show_address ? "1" : "0";
   payload.advance.is_show_regulation = data.advance_form.show_address
     ? "1"
@@ -259,7 +265,7 @@ export const addNewEventPostStruct = (data: any) => {
       is_enable_donation:0,
       other_donations: []
     }
-  } as any | object;
+  } as { [key: string]: any; }
 
   
   if (!data) return null;
