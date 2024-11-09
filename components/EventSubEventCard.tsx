@@ -8,12 +8,12 @@ const EventSubeventCard: React.FC<ISubeventPreview> = ({ className }) => {
   return (
     <div
       className={clsx(
-        "flex min-w-[200px] max-w-[370px] p-5 flex-col  gap-2 ",
+        "flex w-auto flex-1   p-5 flex-col  gap-2 ",
         className
       )}
     >
       <div className="flex justify-between">
-        <div className="flex flex-col gap-1 ">
+        <div className="flex  flex-col  ">
           <h1 className="text-xl font-semibold">Subevent # 2</h1>
           <p className="text-sm text-[#E0A450]">17/7/2024</p>
         </div>

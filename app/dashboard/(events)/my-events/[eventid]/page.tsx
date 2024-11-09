@@ -38,7 +38,7 @@ const SingleEvent = () => {
         </div>
 
         {/* Web Template */}
-        <div className="sm:hidden md:flex gap-4">
+        <div className="sm:hidden w-full h-auto md:flex gap-4">
           <SingleEventCont />
           <SingleEventTable />
         </div>

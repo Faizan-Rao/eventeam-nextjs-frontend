@@ -9,14 +9,35 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Trash } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Events } from "@/configs/apiRoutes";
+import { toast } from "react-toastify";
+import { queryClient } from "./MainLayoutGrid";
 
 const EventDeleteDialog = ({
   open,
   setOpen,
+  data,
 }: {
+  data : any
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+
+  const mutate = useMutation({
+    mutationFn: Events.delete,
+    onSuccess: ()=>{
+      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      toast("Delete Successfull", {
+        type:"info"
+      })
+    },
+    onError : ()=>{
+      toast("Delete Failed..", {
+        type:"error"
+      })
+    }
+  })
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
@@ -45,7 +66,7 @@ const EventDeleteDialog = ({
                 Close
               </button>
 
-              <button className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2">
+              <button onClick={()=>{mutate.mutate(data.id)}} className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2">
                 Delete
               </button>
             </div>

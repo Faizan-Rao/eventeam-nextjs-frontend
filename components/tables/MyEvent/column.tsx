@@ -71,24 +71,24 @@ export const columns: ColumnDef<any>[] = [
     },
     enableGlobalFilter: false,
   },
-  // {
-  //   accessorKey: "gen_info.registrations",
-  //   header: ({ column }) => {
-  //     return (
-  //       <button
-  //         className="flex justify-center items-center gap-1"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Registrations
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </button>
-  //     );
-  //   },
-  //   cell: ({row}) => {
-  //     return row.original.gen_info.registrations
-  //   },
-  //   enableGlobalFilter: false,
-  // },
+  {
+    accessorKey: "registrations_count",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Registrations
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
+    cell: ({row}) => {
+      return row.original.registrations_count
+    },
+    enableGlobalFilter: false,
+  },
   {
     accessorKey: "status",
     header: ({ column }) => {
@@ -136,12 +136,12 @@ export const columns: ColumnDef<any>[] = [
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap ",
             row.original.current_status === ("active" as any) && "bg-[#C2FFCC]",
-            row.original.current_status === ("inactive" as any) && "bg-[#FFC2C2]",
+            row.original.current_status === ("ended" as any) && "bg-[#FFC2C2]",
             row.original.current_status === ("pending" as any) &&
               "bg-[#FFEFAF]"
           )}
         >
-          {row.original.current_status}
+          {row.original.current_status[0].toUpperCase() + row.original.current_status.slice(1,)}
         </span>
       );
     },

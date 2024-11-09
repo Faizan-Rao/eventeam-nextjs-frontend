@@ -14,15 +14,18 @@ import { removeAutoConfig } from "@/slices/autoConfigSlice";
 import { Table } from "@tanstack/react-table";
 import EventDeleteDialog from "./EventDeleteDialog";
 import EventEditDialog from "./EventEditDialog";
+import Link from "next/link";
 
-const ActionDropDown = ({}: {
-  row?: IAutoConfig;
+const ActionDropDown = ({row, id, table}: {
+  row?: any;
   id?: string[];
-  table?: Table<IAutoConfig>;
+  table?: Table<any>;
 }) => {
   const dispatch = useDispatch();
   const [openDelete, setDeleteOpen] = useState(false);
   const [openEditOpen, setEditOpen] = useState(false);
+
+  console.log("row data af", row, "id data af", id, "table af", table)
   return (
     <>
       <DropdownMenu modal={false}>
@@ -31,14 +34,14 @@ const ActionDropDown = ({}: {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem className="text-sm" onClick={() => setEditOpen(true)}>Edit Event</DropdownMenuItem>
-          <DropdownMenuItem className="text-sm">View Event</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm"><Link href={`/dashboard/my-events/${row.id}`}>View Event</Link></DropdownMenuItem>
           <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
             Delete Event
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <EventDeleteDialog setOpen={setDeleteOpen} open={openDelete} />
-      <EventEditDialog setOpen={setEditOpen} open={openEditOpen}/>
+      <EventDeleteDialog data={row} setOpen={setDeleteOpen} open={openDelete} />
+      <EventEditDialog data={row} setOpen={setEditOpen} open={openEditOpen}/>
     </>
   );
 };

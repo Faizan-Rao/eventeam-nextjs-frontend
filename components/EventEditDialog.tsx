@@ -16,30 +16,69 @@ import {
 } from "@/components/ui/select";
 import { Controller, useForm } from "react-hook-form";
 import { Switch } from "./ui/switch";
+import { queryClient } from "./MainLayoutGrid";
+import { useMutation } from "@tanstack/react-query";
+import { Events } from "@/configs/apiRoutes";
+import { toast } from "react-toastify";
 
 const EventEditDialog = ({
   open,
   setOpen,
+  data
 }: {
+  data:any
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { control } = useForm<any>();
+  const { control, handleSubmit } = useForm<any>({
+    defaultValues: {
+      status: data.status,
+      current_status: data.current_status
+    }
+  });
+
+  const mutate = useMutation({
+    mutationFn: Events.save,
+    onSuccess: ()=>{
+      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      toast("Update Successfull", {
+        type:"info"
+      })
+    },
+    onError : ()=>{
+      toast("Update Failed..", {
+        type:"error"
+      })
+    }
+  })
+  const onSubmit = (formData:any)=>{
+    console.log(formData)
+    let payload = {...formData}
+    payload.status = payload.status ? 1 : 0;
+    payload.id = data.id
+    mutate.mutate(payload)
+  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Event</DialogTitle>
           <DialogDescription>
-            <div className="flex flex-col gap-4  my-4 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4  my-4 ">
               <span className=" flex-1 rounde-md flex flex-col gap-1">
                 <label className="text-sm font-semibold ">Activate Event</label>
                 <span className="flex   border-2 p-2">
                   <span>Active</span>
-                  <Switch
-                    defaultChecked={true}
-                    onCheckedChange={() => null}
-                    className="text-[white] ml-auto justify-self-end cursor-pointer"
+                  <Controller
+                    name={"status"}
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        defaultChecked={data.status === 1 ? true : false}
+                        onCheckedChange={(data) => field.onChange(data)}
+                        className="text-[white] ml-auto justify-self-end cursor-pointer"
+                      />
+                    )}
                   />
                 </span>
               </span>
@@ -47,24 +86,21 @@ const EventEditDialog = ({
                 <label className="text-sm font-semibold ">Status Type</label>
 
                 <Controller
-                  name={""}
+                  name={"current_status"}
                   control={control}
                   render={({ field }) => (
                     <Select
-                      defaultValue={field.value}
+                      defaultValue={data.current_status}
                       onValueChange={(value) => field.onChange(value)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select Status.." />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Operational" defaultChecked>
-                          Operational
+                        <SelectItem value="active">
+                          Active
                         </SelectItem>
-                        <SelectItem value="Ended">Ended</SelectItem>
-                        <SelectItem value="Pending Approval">
-                          Pending Approval
-                        </SelectItem>
+                        <SelectItem value="ended">Ended</SelectItem>
                       </SelectContent>
                     </Select>
                   )}
@@ -83,7 +119,7 @@ const EventEditDialog = ({
                   Save Changes
                 </button>
               </div>
-            </div>
+            </form>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

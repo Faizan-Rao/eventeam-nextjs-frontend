@@ -49,7 +49,7 @@ const SingleEventCont = () => {
   const { t } = useTranslation();
   const status = true;
   return (
-    <div className="flex-1  flex-col flex bg-[white] rounded-md justify-between gap-4 p-4">
+    <div className="flex-1  w-full flex-col flex bg-[white] rounded-md justify-between gap-4 p-4">
       {/* Header */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col ">
@@ -187,8 +187,9 @@ const SingleEventCont = () => {
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
-              <div className="flex items-center justify-center container  flex-wrap">
-                <EventSubeventCard />
+              <div className="flex items-center justify-between   flex-wrap">
+             
+                <EventSubeventCard  />
                 <EventSubeventCard className="bg-[#F7F6F9] rounded-md" />
                 <EventSubeventCard />
               </div>
@@ -204,7 +205,7 @@ const SingleEventCont = () => {
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
-              <div className="flex items-center justify-center container  flex-wrap">
+              <div className="flex items-center justify-between  flex-wrap">
                 <EventSubeventCard />
                 <EventSubeventCard className="bg-[#F7F6F9] rounded-md" />
                 <EventSubeventCard />
@@ -219,7 +220,7 @@ const SingleEventCont = () => {
         <h1 className="text-[#7655fa] font-semibold text-sm">
           Application Settings
         </h1>
-        <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
+        <div className=" w-auto sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
           <AdvanceFormOption
             title={"Show address for all subevents?"}
             description="Description of the option"
