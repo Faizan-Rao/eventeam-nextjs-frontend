@@ -20,6 +20,7 @@ import { queryClient } from "./MainLayoutGrid";
 import { useMutation } from "@tanstack/react-query";
 import { Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
+import { usePathname } from "next/navigation";
 
 const EventEditDialog = ({
   open,
@@ -34,15 +35,16 @@ const EventEditDialog = ({
 }) => {
   const { control, handleSubmit } = useForm<any>({
     defaultValues: {
-      status: data?.status || 0,
-      current_status: data?.current_status || "ended"
+      status: data?.status ,
+      current_status: data?.current_status 
     }
   });
 
+  const pathname = usePathname()
   const mutate = useMutation({
     mutationFn: Events.save,
     onSuccess: ()=>{
-      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      queryClient.invalidateQueries({queryKey: ["my-events", 'event']})
       toast("Update Successfull", {
         type:"info"
       })
