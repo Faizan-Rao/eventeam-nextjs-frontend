@@ -181,6 +181,10 @@ export const Events = {
     const response = await axiosWithToken.get("/events/list")
     return response
   },
+  getOne : async (data : any) =>{
+    const response = await axiosWithToken.get(`/events/detail/${data}`)
+    return response
+  },
   delete : async (data: any) =>{
     const response = await axiosWithToken.delete(`/events/delete/${data}`)
     return response

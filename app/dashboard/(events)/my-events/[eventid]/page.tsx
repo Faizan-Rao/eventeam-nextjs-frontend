@@ -3,11 +3,19 @@ import MainContentGrid from "@/components/MainContentGrid";
 import PageTitleContainer from "@/components/PageTitleContainer";
 import SingleEventCont from "@/components/SingleEventCont";
 import SingleEventTable from "@/components/tables/SingleEventTable/SingleEventTable";
+import { Events } from "@/configs/apiRoutes";
+import { useQuery } from "@tanstack/react-query";
 import { clsx } from "clsx";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 const SingleEvent = () => {
+  const params = useParams()
+  
   const [tab, setTab] = useState("event");
+ 
+  const { data: eventDetailData } = useQuery({queryKey: ["event"], queryFn: async ()=>Events.getOne(params.eventid)})
+  const eventDetail = eventDetailData?.data.data
   return (
     <div className="flex flex-col">
       {/* Mobile Tab Btns */}
@@ -39,13 +47,13 @@ const SingleEvent = () => {
 
         {/* Web Template */}
         <div className="sm:hidden w-full h-auto md:flex gap-4">
-          <SingleEventCont />
-          <SingleEventTable />
+          <SingleEventCont data={eventDetail} />
+          <SingleEventTable data={eventDetail} />
         </div>
 
         <div className="sm:block md:hidden">
-          {tab === "event" && <SingleEventCont />}
-          {tab === "reg-info" && <SingleEventTable />}
+          {tab === "event" && <SingleEventCont data={eventDetail} />}
+          {tab === "reg-info" && <SingleEventTable data={eventDetail} />}
         </div>
       </MainContentGrid>
     </div>

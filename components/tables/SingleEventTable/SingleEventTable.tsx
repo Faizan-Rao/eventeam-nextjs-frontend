@@ -1,8 +1,9 @@
 import React from "react";
 import UserCirclePlus from "../../icons/UserCirclePlus";
 import ViewEye from "../../icons/ViewEye";
+import DashboardPaymentViewModal from "@/components/DasboardPaymentViewModal";
 
-const SingleEventTable = () => {
+const SingleEventTable = ({data} : {data: any}) => {
   return (
     <div className="flex-1 flex flex-col w-auto max-w-[460px] gap-4 p-4 h-auto overflow-auto    rounded-md    bg-white">
 
@@ -10,7 +11,7 @@ const SingleEventTable = () => {
     <div className="flex  flex-col gap-5 justify-center sm:max-w-[360px] md:max-w-full    overflow-auto   ">
       <table cellSpacing={4} cellPadding={4} >
         <thead className="text-base text-center sticky top-[-25px]  bg-[#ffffff]">
-          <tr className="text-[#999999] text-[13px] text-nowrap border-b-[1px]">
+          <tr className="text-[#999999] text-[13px]  border-b-[1px]">
             <th className="font-semibold mx-4 "></th>
             <th className="font-semibold mx-4 ">Event Name</th>
             <th className="font-semibold mx-4 ">Payment Method</th>
@@ -22,278 +23,27 @@ const SingleEventTable = () => {
   
         <tbody className=" text-[14px]  overflow-auto  text-center" >
             
-          <tr className="border-b-[1px]">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
-          <tr className="border-b-[1px] ">
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
-                <UserCirclePlus />
-              </div>
-            </td>
-            <td>Eid Ul Fitr</td>
-            <td>Cash</td>
-            <td>5</td>
-            <td>$80</td>
-            <td>
-              <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-center cursor-pointer items-center  rounded-full">
-                <ViewEye />
-              </div>
-            </td>
-          </tr>
+        {data?.registrations &&
+            (data.registrations as any[]).map((el, index) => {
+              return (
+                <tr className="border-b-[1px] " key={index}>
+                  <td>
+                    <div className="flex overflow-hidden aspect-square max-h-[35px] object-cover bg-[#7655FA26] justify-center items-center p-1 rounded-full">
+                      <UserCirclePlus />
+                    </div>
+                  </td>
+                  <td>{data.event.title}</td>
+                  <td>{el.payment_method}</td>
+                  <td>{el.guests.length}</td>
+                  <td>${el.total_amount}</td>
+                  <td>
+                      <DashboardPaymentViewModal row={el}/>
+                    
+                  </td>
+                </tr>
+              );
+            })}
+         
         </tbody>
 
       

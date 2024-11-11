@@ -24,16 +24,18 @@ import { toast } from "react-toastify";
 const EventEditDialog = ({
   open,
   setOpen,
-  data
+  data,
+  children
 }: {
+  children? :React.ReactNode
   data:any
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { control, handleSubmit } = useForm<any>({
     defaultValues: {
-      status: data.status,
-      current_status: data.current_status
+      status: data?.status || 0,
+      current_status: data?.current_status || "ended"
     }
   });
 
@@ -60,6 +62,7 @@ const EventEditDialog = ({
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger> {children} </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Event</DialogTitle>
@@ -74,7 +77,7 @@ const EventEditDialog = ({
                     control={control}
                     render={({ field }) => (
                       <Switch
-                        defaultChecked={data.status === 1 ? true : false}
+                        defaultChecked={data && data.status === 1 ? true : false}
                         onCheckedChange={(data) => field.onChange(data)}
                         className="text-[white] ml-auto justify-self-end cursor-pointer"
                       />
@@ -115,7 +118,7 @@ const EventEditDialog = ({
                   Close
                 </button>
 
-                <button className="bg-[#7655fa] font-semibold  text-base rounded-full px-6 text-white py-2">
+                <button onClick={() => setOpen(false)} className="bg-[#7655fa] font-semibold  text-base rounded-full px-6 text-white py-2">
                   Save Changes
                 </button>
               </div>
