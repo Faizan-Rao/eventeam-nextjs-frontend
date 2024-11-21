@@ -19,7 +19,7 @@ const EditEmailTemplate = () => {
     <div className='flex flex-col gap-4 p-4'>
          <PageTitleContainer title={`Edit Email Template`} />
          <div className='flex h-auto flex-1 gap-4'>
-                <EmailTemplateView template={template} data={emailBody} />
+                <EmailTemplateView  data={emailBody} />
                 <EmailTempaleEditForm template={template} data={emailBody} setData={setEmailBody}/>
          </div>
     </div>
