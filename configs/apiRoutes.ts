@@ -199,3 +199,19 @@ export const Events = {
   },
 }
 
+
+export const EmailTempApi = {
+  get : async () =>{
+    const response = await axiosWithToken.get("/email-templates")
+    return response
+  },
+  updateStatus : async (data : any) =>{
+    const response = await axiosWithToken.patch(`/email-templates/is-active/${data.id}`, data)
+    return response
+  },
+  save : async (data : any) =>{
+    const response = await axiosWithToken.put(`/email-templates/update/${data.id}`, data)
+    return response
+  },
+}
+

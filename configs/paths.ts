@@ -2,7 +2,7 @@
 
 
 
-import {Blocks , Building2, Calendar, CircleDollarSign, Crown, SlidersVertical, Workflow} from 'lucide-react'
+import {Blocks , Building2, Calendar, AlbumIcon ,CircleDollarSign, Crown, SlidersVertical, Workflow} from 'lucide-react'
 
 export const paths =  [
     {
@@ -72,6 +72,11 @@ export const paths =  [
         name:"Leads",
         path:"/dashboard/leads",
         icon: Crown
+    },
+    {
+        name:"Email Templates",
+        path:"/dashboard/email-template",
+        icon: AlbumIcon
     },
 ]
 
