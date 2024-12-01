@@ -97,10 +97,10 @@ const KPIContainer = () => {
         )}
       </div>
 
-      <div className="sm:flex gap-4 md:hidden sm:max-w-[92vw]">
+      <div className="sm:flex gap-4 md:hidden sm:max-w-[98vw]">
         <Swiper
           slidesPerView={2}
-          spaceBetween={10}
+          spaceBetween={6}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,

@@ -19,7 +19,7 @@ const CompaniesEvent = () => {
     <div className="flex flex-col flex-wrap">
     <CompanyHeader/>
       {/* Main Event Publish Container */}
-      <div className="container flex flex-wrap  gap-10">
+      <div className="container flex flex-wrap sm:gap-3  md:gap-10">
         <CompanyEventCard />
         <CompanyEventCard />
         <CompanyEventCard />

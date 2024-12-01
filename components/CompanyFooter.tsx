@@ -43,9 +43,9 @@ const CompanyFooter = () => {
         </div>
       </div>
 
-      <div className="flex-1 flex justify-between items-center gap-4 pb-4 my-8 text-white">
-        <h1 className=" text-lg">Copyright © 2024. All rights reserved</h1>
-        <div className="flex gap-4">
+      <div className="flex-1 flex justify-between sm:flex-col md:flex-row  md:items-center sm:items-start gap-4 pb-4 my-8 text-white">
+        <h1 className=" sm:text-base md:text-base">Copyright © 2024. All rights reserved</h1>
+        <div className="flex sm:flex-col md:flex-row gap-4">
         <Link href={"#"} className="text-white">Privacy Policy</Link>
         <Link href={"#"} className="text-white">Terms of Service</Link>
         <Link href={"#"} className="text-white">Cookie Settings</Link>

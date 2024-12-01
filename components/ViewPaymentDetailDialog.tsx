@@ -54,8 +54,8 @@ console.log(row?.original)
         <DialogHeader>
           <DialogTitle>View Payment Details</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="flex-1 max-h-[600px] px-2 overflow-y-scroll">
-          <div className="  flex flex-col gap-4  o">
+        <DialogDescription className="flex-1 max-h-[600px] sm:px-0 md:px-2 overflow-auto">
+          <div className="  flex flex-col gap-4  ">
             <div className="flex border-b-[1px] pb-5 justify-between mt-4 gap-4">
               <div className="flex flex-col gap-2">
                 <h1 className="text-[#7655fa] font-semibold text-sm">
@@ -100,7 +100,7 @@ console.log(row?.original)
                       className=" max-w-[600px] bg-[#7655FA26] px-2 rounded-md border-2"
                     >
                       <AccordionTrigger className="text-left">
-                        <div className="flex px-5 py-1 items-center no-underline gap-4">
+                        <div className="flex sm:px-2 md:px-5 py-1 items-center no-underline gap-4">
                           <div className="bg-[#7655fa] p-2 rounded-full">
                             <User size={26} className="text-white" />
                           </div>

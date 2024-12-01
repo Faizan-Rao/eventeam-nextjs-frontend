@@ -6,9 +6,9 @@ import DashboardPaymentViewModal from "./DasboardPaymentViewModal";
 const RecentRegMain = ({ regData }: { regData: any }) => {
   console.log(regData);
   return (
-    <div className="flex flex-1 flex-col gap-5  p-2     md:w-auto   overflow-auto">
+    <div className="flex flex-1 flex-col gap-5  p-2     md:w-full   overflow-auto">
       <h1 className="font-semibold text-xl">Recent Registrations</h1>
-      <table cellSpacing={10}  cellPadding={10}>
+      <table cellSpacing={10}  cellPadding={8}>
         <thead className="text-base text-center sticky top-[-22px] left-0 bg-[#ffffff]">
           <tr className="text-[#999999] text-[13px]  border-b-[1px]">
             <td className="font-semibold ms-5 "></td>
