@@ -1,9 +1,25 @@
-
+"use client";
+import { StripeAPI } from "@/configs/apiRoutes";
+import { ArrowLeftCircle } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useEffect } from "react";
 
+const ApprovalPage = () => {
+  const { method } = useParams();
+  useEffect(() => {
+    (async () => {
+      try {
+        if (method === "stripe") {
+          let response = await StripeAPI.completeOnBoarding();
+          console.log(response.data.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [method]);
 
-const PendingApprovalPage = () => {
   return (
     <div className="relative overflow-hidden min-h-screen h-full flex flex-col justify-between items-center">
       <div className="md:hidden sm:flex justify-center items-center gap-2  my-4">
@@ -27,15 +43,18 @@ const PendingApprovalPage = () => {
         alt="office-manage"
       />
       <div className="flex  flex-1 flex-col gap-4 justify-start items-center z-[1]  my-auto">
-        <h1 className=" sm:text-2xl md:text-4xl font-semibold">
-          Thank you for registration!
+        <h1 className=" sm:text-2xl md:text-3xl font-semibold">
+          Your Payment Method Connected Successfully!
         </h1>
         <p className=" text-center sm:text-sm md:text-base max-w-[470px]">
-          We are reviewing your registration. You will get a confirmation email
-          soon. If you’re facing an issue email us at{" "}
-          <span className="text-[#7655fa] font-semibold">
-            support@eventeam.com
-          </span>
+          To go back to the payment methods Click here{" "}
+          <a
+            href="/dashboard/payment-method"
+            className="text-[#7655fa] font-semibold flex justify-center items-center gap-2 my-3"
+          >
+            {" "}
+            <ArrowLeftCircle className="inline" /> <span>Back</span>
+          </a>
         </p>
       </div>
 
@@ -43,7 +62,7 @@ const PendingApprovalPage = () => {
         <Image
           src={"/logo.svg"}
           className={
-            "sm:w-[3.2em] sm:h-[3.2em] md:w-[3.2em] md:h-[3.2em] z-[1]"
+            "sm:w-[3.2em] sm:h-[3.2em] md:w-[2.8em] md:h-[2.8em] z-[1]"
           }
           height={200}
           width={200}
@@ -55,4 +74,4 @@ const PendingApprovalPage = () => {
   );
 };
 
-export default PendingApprovalPage;
+export default ApprovalPage;

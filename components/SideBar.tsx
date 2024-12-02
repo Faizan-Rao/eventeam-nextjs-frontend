@@ -111,7 +111,7 @@ const SideBar = ({
                   >
                     {nav.icon && (
                       <span className="mx-4">
-                        {<nav.icon strokeWidth={1} />}
+                        {<nav.icon strokeWidth={1}  />}
                       </span>
                     )}
                     {
@@ -135,7 +135,7 @@ const SideBar = ({
                       key={index + +2}
                       ref={(elref) => (ref.current[index] = elref) as any}
                       className={clsx(
-                        "border-[2px] hidden overflow-hidden transition-all bg-[#efefef] rounded-md mx-4 ",
+                        "border-[1px] hidden overflow-hidden transition-all  bg-[#fbfbfb72]    w-full rounded-lg ",
                         !isHover && "hidden"
                       )}
                     >
@@ -144,7 +144,7 @@ const SideBar = ({
                           setNavOpen={setNavOpen}
                           href={subnav.path}
                           value={t(subnav.name)}
-                          icon={<nav.icon strokeWidth={1} />}
+                          icon={<nav.icon strokeWidth={1} size={18} className="mr-2" />}
                           isHover={isHover}
                           key={subnav.path + index}
                           className="rounded-none"
