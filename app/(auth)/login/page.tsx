@@ -20,7 +20,7 @@ const Login = () => {
       </div>
 
       {isLeft === "left" && (
-        <div className="flex  min-h-screen bg-[white] justify-center border-[2px] ">
+        <div className="flex w-full  min-h-screen bg-[white] justify-center border-[2px] ">
           <motion.div
             animate={{ x: ["-100%", "0%"], opacity: [0, 1] }}
             transition={{
@@ -50,23 +50,23 @@ const Login = () => {
               x: { duration: 0.5 },
               opacity: { duration: 0.3 },
             }}
-            className="flex-1 "
+            className="flex-1"
           >
              
-            <button
-                className=" sm:block md:hidden min-w-full my-4 border-[#7655fa]  mx-auto border-[2px] px-4 py-2 rounded-full text-[#7655fa] font-semibold"
-                onClick={() => setLeft("right")}
-              >
-                New here Sign up now
-              </button>
             
             <LoginForm />
+            <button
+                className=" sm:block md:hidden  mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
+                onClick={() => setLeft("right")}
+              >
+                New Here? Sign up now
+              </button>
           </motion.span>
         </div>
       )}
 
       {isLeft === "right" && (
-        <div className="flex  min-h-screen bg-[white] justify-center border-[2px] ">
+        <div className="flex w-full  min-h-screen bg-[white] justify-center border-[2px] ">
           <motion.span
             animate={{ x: ["-100%", "0%"], opacity: [0, 1] }}
             transition={{
@@ -77,13 +77,13 @@ const Login = () => {
             }}
             className="flex-1 "
           >
+            <SignupForm />
            <button
-                className=" sm:block md:hidden min-w-full my-4 border-[#7655fa]  mx-auto border-[2px] px-4 py-2 rounded-full text-[#7655fa] font-semibold"
+                className=" sm:block md:hidden  mt-4  w-auto mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
                 onClick={() => setLeft("left")}
               >
                 Already Member? Sign in now
               </button>
-            <SignupForm />
           </motion.span>
 
           <motion.div

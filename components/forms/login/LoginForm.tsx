@@ -39,26 +39,26 @@ const LoginForm = () => {
 
   return (
    
-    <div className=" flex flex-col justify-center items-center   min-h-[90vh] ">
-      <form onSubmit={handleSubmit(onSubmit)} className="min-w-[400px] p-4 justify-center flex flex-col gap-4 ">
+    <div className=" flex flex-col justify-center items-center   ">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full px-4 pt-4 justify-center flex flex-col gap-4 ">
         <div className="flex items-center gap-4">
           <Image src={"/logo.svg"} alt="log" height={40} width={40} />
           <h1 className="text-[#4a4a4a] text-xl font-bold">EvenTeam</h1>
         </div>
 
-        <h1 className="text-[#4a4a4a] text-4xl font-bold">Sign In</h1>
+        <h1 className="text-[#4a4a4a] sm:text-3xl md:text-4xl font-bold">Sign In</h1>
 
-        <div className="flex flex-col gap-4">
-          <div className=" flex flex-col">
-            <span className="text-[#4a4a4a]  font-semibold">Email</span>
+        <div className="flex flex-col gap-4 flex-1">
+          <div className=" flex flex-col gap-2">
+            <span className="text-[#4a4a4a] text-sm font-semibold">Email</span>
             {/* Login Input */}
             <input className="p-2 outline-[#7655fa] border-[2px] rounded-md" placeholder="Enter Email" type="text" {...register("email", {required : true, minLength: 5})} />
             {/* Error Message */}
             {errors.email && <span className="text-red-700">Email is Required</span>}
 
           </div>
-          <div className=" flex flex-col">
-            <span className="text-[#4a4a4a]  font-semibold">Password</span>
+          <div className=" flex flex-col flex-1 gap-2">
+            <span className="text-[#4a4a4a] text-sm font-semibold">Password</span>
             <input className="p-2 outline-[#7655fa] border-[2px] rounded-md" placeholder="Enter password" type="password" {...register("password", {required : true, minLength: 5})} />
             {errors.password && <span className="text-red-700">Password is Required</span>}
           </div>

@@ -161,19 +161,22 @@ const SideBar = ({
         {/* Profile Section */}
         <span
           className={clsx(
-            " overflow-hidden sm:flex md:hidden sm:mb-10  items-center text-nowrap",
+            " overflow-hidden sm:block md:hidden mt-10 sm:mb-10  items-center  text-nowrap",
             isHover && "block",
 
             !isNavOpen && "sm:h-0 "
           )}
         >
+          <div className="flex ">
+
           <ProfileDropdown />
           <LanguageSelector />
+          </div>
           <div
             className={clsx(
-              "flex gap-4",
+              " gap-4 hidden mx-auto",
               isNavOpen && "sm:h-auto self-center block",
-              !isNavOpen && "sm:h-0 hidden"
+              !isNavOpen && "sm:h-0 hidden sm:mx-auto"
             )}
           >
             <Link

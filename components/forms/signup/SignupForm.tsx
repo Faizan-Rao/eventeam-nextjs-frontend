@@ -49,14 +49,14 @@ const SignupForm = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center   min-h-[90vh]">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col my-4 gap-4 ">
+    <div className="flex flex-col justify-center items-center w-auto  overflow-y-auto    md:min-h-[90vh]">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col mt-4 gap-4 ">
       <div className="flex items-center gap-4">
           <Image src={"/logo.svg"} alt="log" height={40} width={40} />
           <h1 className="text-[#4a4a4a] text-xl font-bold">EvenTeam</h1>
         </div>
 
-        <h1 className="text-[#4a4a4a] text-4xl font-bold">Sign Up Now</h1>
+        <h1 className="text-[#4a4a4a] sm:text-3xl md:text-4xl font-bold">Sign Up Now</h1>
 
         <div className="flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
@@ -71,7 +71,7 @@ const SignupForm = () => {
           {errors.full_name && <span className="text-red-700">Name is Required</span>}
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-1">
           <div className="flex flex-col gap-2">
             <span className="text-[#4a4a4a] text-sm font-semibold">Email</span>
             <input
@@ -116,7 +116,7 @@ const SignupForm = () => {
             {errors.confirm_password && <span className="text-red-700">Confirm Password is Required</span>}
         </div>
     
-          <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
+          <button className="px-4 py-2 bg-[#7655fa] font-semibold text-white rounded-full">
             {" "}
             Sign Up
           </button>
