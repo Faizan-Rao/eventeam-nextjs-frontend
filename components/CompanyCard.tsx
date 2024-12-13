@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 interface ICompanyCard {
   logo?: string;
@@ -27,6 +28,7 @@ interface ICompanyCard {
   address: string;
   email: string;
   stripe: number;
+  slug: string,
 }
 const CompanyCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
@@ -36,11 +38,12 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   email = "No Email",
   phone = "No Phone",
   stripe = "0",
+  slug=""
 }) => {
 
   const dummyImage =  "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw"
   return (
-    <div className="  flex flex-1 md:min-w-[400px]  gap-10 p-6 flex-col bg-white rounded-lg">
+    <div className="  flex flex-1  w-auto  gap-10 p-6 m-3 flex-col bg-white rounded-lg">
       <div className="flex justify-between">
         <div className="flex items-center border-b-[1px] pb-5 gap-4">
           <Image
@@ -75,10 +78,10 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             <EllipsisVertical strokeWidth={1} />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/companies/${slug}`}>Company Events</Link>
+            </DropdownMenuItem>
+           
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

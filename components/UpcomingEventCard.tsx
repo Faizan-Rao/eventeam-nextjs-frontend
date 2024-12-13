@@ -11,7 +11,7 @@ const UpcomingEventCard = ({data} : {data: any}) => {
   const status = true;
   console.log("upcoming event data", data)
   return (
-    <div className="flex flex-col container  gap-4 p-4 bg-[#F7F6F9] rounded-md">
+    <div className="grid grid-cols-1  p-4 bg-[#F7F6F9] rounded-md">
       {/* header */}
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-center">
@@ -45,7 +45,7 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Dates</p>
             <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
-             {format(new Date(data['start_date']), 'LLL d') + " - " + format(new Date(data['end_date']), 'LLL d')}
+             {data['start_date'] && format(new Date(data['start_date']), 'LLL d') + " - " + format(new Date(data['end_date']), 'LLL d')}
             </p>
           </div>
         </div>
@@ -58,7 +58,7 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Guests</p>
             <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
-              {data['registrations'].length}
+              {data['registrations']?.length}
             </p>
           </div>
         </div>

@@ -60,7 +60,7 @@ const CompaniesMainCont = () => {
   console.log("companies", companies)
   return (
     <>
-      <div className="flex gap-4">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         <KPICard
           title="Total Companies"
           value={kpis?.data.data['total_users'] || "0"}
@@ -87,7 +87,7 @@ const CompaniesMainCont = () => {
         />
       </div>
 
-      <div className="flex mt-6 justify-between gap-4">
+      <div className="grid items-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mx-2">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           All Companies{" "}
           {`(${
@@ -96,7 +96,7 @@ const CompaniesMainCont = () => {
               : companies?.data.data.length || 0
           })`}
         </h1>
-        <div className="flex gap-4">
+        <div className="flex justify-self-end sm:gap-1 md:gap-4">
           <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
             <Search size={18} />
             <input
@@ -108,7 +108,7 @@ const CompaniesMainCont = () => {
 
           <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger>
-              <button className="flex text-base bg-white  place-items-center gap-2 px-4 rounded-md py-2 border-[2px]">
+              <button className="flex sm:text-sm md:text-base bg-white  place-items-center gap-2 px-4 rounded-md py-2 border-[2px]">
                 <ListFilter size={20} />
                 Filter
               </button>
@@ -176,7 +176,7 @@ const CompaniesMainCont = () => {
       </div>
 
       {filteredData.length > 0 && (
-        <div className="flex gap-4 flex-wrap">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {(filteredData as any[]).map((el, key) => (
             <CompanyCard
                 key={key}
@@ -187,13 +187,14 @@ const CompaniesMainCont = () => {
                 isActive={el["is_active"]}
                 stripe={el["stripe_account_status"]}
                 logo={el["photo"] || ""}
+                slug={el['slug']}
               />
           ))}
         </div>
       )}
 
       {filteredData.length <= 0 && (
-        <div className="flex  gap-4 flex-wrap">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
           {companies &&
             (companies.data.data as any[]).map((el: any, key: number) => (
               <CompanyCard
@@ -205,6 +206,7 @@ const CompaniesMainCont = () => {
                 isActive={el["is_active"]}
                 stripe={el["stripe_account_status"]}
                 logo={el["photo"] || ""}
+                slug={el['slug']}
               />
             ))}
         </div>

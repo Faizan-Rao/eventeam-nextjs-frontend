@@ -6,7 +6,7 @@ import {format as dateFormatter} from 'date-fns'
 import AutoEditDialog from "./AutoEditDialog";
 const AutomaticEventCard = ({ event } : {event:any}) => {
   return (
-    <div className="flex-1 flex flex-col gap-4 w-auto min-w-[350px]  border-[1px] rounded-md  p-6">
+    <div className="flex-1 flex flex-col gap-4 w-auto min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col text-nowrap ">
           <h1 className="text-[#4a4a4a] text-2xl font-semibold">{event.title.length > 15 ? event.title.slice(0, 15) + "..." : event.title}</h1>

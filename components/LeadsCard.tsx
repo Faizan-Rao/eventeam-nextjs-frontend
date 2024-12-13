@@ -33,6 +33,7 @@ interface ICompanyCard {
   stripe: boolean;
   event:string,
   date: string,
+  ticket: string
 }
 const LeadsCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
@@ -43,10 +44,11 @@ const LeadsCard: React.FC<ICompanyCard> = ({
   phone = "No Phone",
   stripe = false,
   event="",
-  date=""
+  date="",
+  ticket=""
 }) => {
   return (
-    <div className="flex-1 min-w-[450px]  flex  gap-5 p-6 flex-col bg-white rounded-lg">
+    <div className="flex-1 min-w-[350px] sm:max-w-[90%] md:max-w-[50%]  flex  gap-5 p-6 flex-col bg-white rounded-lg">
       <div className="flex justify-between">
         <div className="flex items-center border-b-[1px] pb-5 gap-4">
             <div className="bg-[#7655FA] rounded-full text-white p-2">
@@ -61,7 +63,7 @@ const LeadsCard: React.FC<ICompanyCard> = ({
         </div>
         {/* <button><Trash color="red"/></button> */}
       </div>
-      <div className="grid grid-cols-2  gap-5 ">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2  gap-5 ">
         <div className=" flex-1 flex items-start gap-4">
           <span className="p-2 bg-[#36ACCD] rounded-full">
             <Smartphone className="text-white" />
@@ -85,14 +87,14 @@ const LeadsCard: React.FC<ICompanyCard> = ({
       </div>
 
       {/* <div className="flex flex-row gap-5  flex-wrap"> */}
-      <div className="grid grid-cols-2 gap-5  place-content-center">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-5  place-content-center">
       <div className="flex-1 flex items-center gap-4"> 
         <span className="p-2 bg-[#7655FA] rounded-full">
           <Ticket className="text-white" />
         </span>
         <div className="flex flex-col ">
           <span className="text-sm font-semibold text-[#999999]">Ticket Type</span>
-          <p className="text-[#4a4a4a] font-semibold text-base">male</p>
+          <p className="text-[#4a4a4a] font-semibold text-base">{ticket}</p>
         </div>
       </div>
       <div className="flex-1 flex items-center gap-4">

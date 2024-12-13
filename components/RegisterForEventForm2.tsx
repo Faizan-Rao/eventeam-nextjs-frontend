@@ -5,9 +5,9 @@ import RegisterForEventRadioGroup from "./RegisterForEventRadioGroup";
 import { Checkbox } from "./ui/checkbox";
 import RegsiterForEventDonation from "./RegsiterForEventDonation";
 
-const RegisterForEventForm2 = () => {
+const RegisterForEventForm2 = ({data}:{data:any}) => {
   return (
-    <div className="flex-1 max-w-[400px] rounded-md bg-[white] p-4 min-h-screen">
+    <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] p-4 min-h-screen">
       <RegsiterForEventDonation/>
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>

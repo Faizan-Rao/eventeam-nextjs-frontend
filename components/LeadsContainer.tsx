@@ -17,12 +17,15 @@ import LeadsCard from "./LeadsCard";
 import { useQuery } from "@tanstack/react-query";
 import { Leads } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
-
+import {CSVLink} from 'react-csv'
+import { format } from "date-fns";
 
 
 const LeadsContainer = () => {
   const [open, setOpen] = useState(false);
   const [filteredData, setFilteredData] = useState<any>([]);
+
+
 
   const {
     isPending: isLeadsPending,
@@ -34,41 +37,53 @@ const LeadsContainer = () => {
   });
 
   console.log(leads)
+  const headers = [
+    { label: 'Name', key: 'name' },
+    { label: 'Event', key: 'registration.event.title' },
+    { label: 'Phone', key: 'phone' },
+    { label: 'Ticket', key: 'ticket_type' },
+    { label: 'Date', key: 'registration.event.created_at' },
+  ];
+  
 
-  // const handleSearch = (value: any, name: string) => {
-  //   if (_.isString(value)) {
-  //     const searchedData = data.filter((el, index) => {
-  //       return (el as any)[name].toLowerCase().includes(value.toLowerCase());
-  //     });
-  //     setFilteredData(searchedData as any);
-  //   } else {
-  //     const searchedData = data.filter((el, index) => {
-  //       return (el as any)[name] === value;
-  //     });
-  //     setFilteredData(searchedData as any);
-  //   }
-  // };
+  const handleSearch = (value: any, name: string) => {
+    const leadData = leads?.data.data.leads
+    if (_.isString(value)) {
+      // console.log(value)
+      const searchedData =  leadData.filter((el: any, index:number) => {
+        console.log(el)
+        return (el as any)[name].toLowerCase().includes(value.toLowerCase());
+      });
+      setFilteredData(searchedData as any);
+    } 
+    // else {
+    //   const searchedData = (leads as any || []).filter((el: any, index) => {
+    //     return (el as any)[name] === value;
+    //   });
+    //   setFilteredData(searchedData as any);
+    // }
+  };
 
   return (
     <>
       
 
-      <div className="flex  justify-between gap-4">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">
+      <div className="flex flex-wrap sm:px-5 md:px-0  justify-between gap-4">
+        <h1 className="text-[#4a4a4a] self-center text-lg font-semibold">
           All Leads{" "}
-          {/* {`(${filteredData.length > 0 ? filteredData.length : leads?.data.total_leads})`} */}
+          {`(${filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads})`}
         </h1>
-        <div className="flex gap-4">
+        <div className="flex  gap-4">
           <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
-              // onChange={(event) => handleSearch(event.target.value, "name")}
-              className="max-w-sm outline-none text-base bg-transparent "
+              onChange={(event) => handleSearch(event.target.value, "name")}
+              className="sm:max-w-xs md:max-w-lg outline-none text-base bg-transparent "
             />
           </span>
 
-          <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
+          {/* <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger>
               <button className="flex text-base bg-white  place-items-center gap-2 px-4 rounded-md py-2 border-[2px]">
                 <ListFilter size={20} />
@@ -132,30 +147,33 @@ const LeadsContainer = () => {
                 </button>
               </span>
             </DropdownMenuContent>
-          </DropdownMenu>
-          <button className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+          </DropdownMenu> */}
+          <CSVLink headers={headers}  filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white">
         
-          <span>Export Leads as CSV</span>
-        </button>
+          Export CSV
+        </CSVLink>
         </div>
       </div>
 
-      {/* {filteredData.length > 0 && (
-        <div className="flex gap-4 flex-wrap">
+      {filteredData.length > 0 && (
+        <div className="flex  justify-center items-center gap-4 flex-wrap">
           {(filteredData as any[]).map((el, key) => (
             <LeadsCard
-              key={key}
-              name={el.name}
-              phone={el.phone}
-              address={el.address}
-              email={el.email}
-              loggedin={el.loggedin}
-              stripe={el.stripe}
-              logo={el.logo}
+            key={key}
+            name={el.name}
+            phone={el.phone}
+            address={el.address}
+            email={el.email}
+            loggedin={el.loggedin}
+            stripe={el.stripe}
+            logo={el.logo}
+            ticket={el.ticket_type}
+            event={el.registration.event.title}
+            date={el.registration.event.created_at.split('T')[0]}
             />
           ))}
         </div>
-      )} */}
+      )}
 
         {isLeadsPending && (<div className="flex gap-4 flex-wrap">
           <Skeleton className="flex-1 h-[280px] w-[350px] rounded-xl" />
@@ -164,7 +182,7 @@ const LeadsContainer = () => {
 
         </div>)}
       {filteredData.length <= 0 && (
-        <div className="flex  gap-4 flex-wrap">
+        <div className="flex justify-center items-center  gap-4 flex-wrap">
           {leads && leads?.data.data.leads.map((el:any, key:number) => (
             <LeadsCard
               key={key}
@@ -175,6 +193,7 @@ const LeadsContainer = () => {
               loggedin={el.loggedin}
               stripe={el.stripe}
               logo={el.logo}
+              ticket={el.ticket_type}
               event={el.registration.event.title}
               date={el.registration.event.created_at.split('T')[0]}
             />

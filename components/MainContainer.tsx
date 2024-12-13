@@ -6,7 +6,7 @@ import RecentRegMain from "./RecentRegMain";
 import { Skeleton } from "./ui/skeleton";
 const MainContainer = ({data}: {data: any}) => {
   return (
-    <div className="flex flex-col gap-4  sm:p-0  md:p-4   bg-[#fffefe] rounded-lg grid-col-12 ">
+    <div className="grid col-span-3 grid-cols-1 gap-4   sm:p-0  md:p-4   bg-[#fffefe] rounded-lg ">
       <div className="flex-1 ">
         <KPIContainer />
       </div>

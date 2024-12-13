@@ -56,7 +56,7 @@ const SideBar = ({
 
       <div
         className={clsx(
-          "sm:w-full overflow-hidden  sm:fixed md:min-h-full left-0  md:sticky z-10   md:top-[-20px]     sm:min-h-screen       md:w-[20rem]     bg-[#ffffff]   duration-300 transition-all p-1 flex   flex-col  ",
+          "sm:w-full overflow-hidden  sm:absolute  md:min-h-full left-0  md:sticky z-10   md:top-[-20px]     sm:min-h-[100%]       md:w-[20rem]     bg-[#ffffff]   duration-300 transition-all p-1 flex   flex-col  ",
           !isHover && "sm:w-full md:w-[50px] items-center ",
           isNavOpen &&
             "sm:flex sm:h-auto  sm:min-h-[90.8vh] md:min-h-[100vh]   p-6   min-w-full ",

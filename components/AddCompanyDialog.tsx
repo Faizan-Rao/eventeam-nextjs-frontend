@@ -61,7 +61,7 @@ const CompanyAddDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+        <div className="flex sm:text-sm md:text-base gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
           <Plus />
           <span>Add New Company</span>
         </div>

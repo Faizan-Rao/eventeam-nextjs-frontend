@@ -37,7 +37,7 @@ const EmailTemplateItem: React.FC<Option> = ({
   return (
     <div
       className={clsx(
-        "flex justify-center flex-col items-center h-full min-w-[300px] min-h-[500px] rounded-2xl flex-1 p-4 text-center gap-4 m-4",
+        "flex justify-center max-h-[40%] flex-col sm:justify-center items-center h-full min-w-[300px] max-w-[50%] min-h-[500px] rounded-2xl flex-1 p-4 text-center gap-4 m-4",
         heading === "Signup Template" && "bg-[#FFCEED]",
         heading === "Access Verfication" && "bg-[#DBE1FF]",
         heading === "Event Completion" && "bg-[#DAC7EF]",

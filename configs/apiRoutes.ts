@@ -32,6 +32,11 @@ export const Companies = {
     const response = await axiosWithToken.patch(`/users/status/${id}`);
     return response;
   },
+
+  getCompaniesEvents: async (id: number | string) => {
+    const response = await axiosWithToken.get(`/show/events/${id}`);
+    return response;
+  },
 };
 
 export const Dashboard = {
@@ -237,3 +242,14 @@ export const StripeAPI = {
   },
 }
 
+
+export const EventReg = {
+  singleEvent : async ( company:string, id:string )=>{
+    const response = await axiosWithToken.get(`/show/events/${company}/event/${id}/book-spot`)
+    return response
+  },
+  eventRegistration : async ( data:any, company:string, id:number )=>{
+    const response = await axiosWithToken.post(`/show/events/${company}/event/${id}/book-spot`, data)
+    return response
+  }
+}

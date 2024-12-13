@@ -55,7 +55,7 @@ const DashboardGrid = () => {
       {/* Web Template */}
       <div
         className={
-          "md:flex sm:hidden p-8 pb-0 gap-4 overflow-x-auto  sm:flex-wrap md:flex-nowrap"
+          "sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-4 m-4 sm:hidden md:grid "
         }
       >
         <MainContainer data={dashboard?.data}/>

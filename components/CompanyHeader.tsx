@@ -1,8 +1,8 @@
-import { AtSign, Phone, MapPin } from 'lucide-react'
+import { AtSign, Phone, MapPin, Book } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
-const CompanyHeader = () => {
+const CompanyHeader = ({data} : {data : any}) => {
   return (
     <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[450px]">
     {/* Header Container*/}
@@ -11,13 +11,13 @@ const CompanyHeader = () => {
         <h1 className="font-semibold sm:text-xl md:text-2xl">EvenTeam</h1>
         <h1 className="font-semibold sm:hidden md:block text-lg">Event Management System</h1>
       </div>
-
-      <div className="flex-1 min-h-[250px] flex sm:flex-col md:flex-row justify-between items-center gap-10 pb-4   text-white">
+    
+     {data && <div className="flex-1 min-h-[250px] flex sm:flex-col md:flex-row justify-between items-center gap-10 pb-4   text-white">
         {/* Company Name & Logo */}
         <div className="flex gap-4 items-center">
-          <span className="flex justify-center items-center ">
+          <span className="flex justify-center rounded-full overflow-hidden items-center ">
             <Image
-              src={"/profile_logo.svg"}
+              src={data?.photo || ""}
               className='sm:w-[3.2em] sm:h-[3.2em] md:w-[3.2em] md:h-[3.2em]'
               height={75}
               width={75}
@@ -27,7 +27,7 @@ const CompanyHeader = () => {
 
           <div className="flex flex-col my-10">
             <h1 className="text-white font-semibold sm:text-2xl md:text-3xl">
-              Company Name
+             {data?.full_name || ""}
             </h1>
             <h1 className="text-[#FFFFFFB2] font-semibold text-base">
               Company events
@@ -40,24 +40,24 @@ const CompanyHeader = () => {
             <span className="flex gap-4">
               <AtSign className="text-white" />
               <span className="text-white font-white sm:text-sm md:text-base ">
-                company@gmail.com
+                {data?.email || ""}
               </span>
             </span>
             <span className="flex gap-4">
               <Phone className="text-white" />
               <span className="text-white font-white sm:text-sm md:text-base ">
-                company@gmail.com
+                {data?.phone || ""}
               </span>
             </span>
           </div>
-          <span className="flex gap-4">
-            <MapPin className="text-white" />
+          <span className="flex items-center gap-4">
+            <Book className="text-white" />
             <span className="text-white font-white sm:text-sm md:text-base">
-              789 Willowbrook Lane, Apt 22B, New Jersey Street, New York{" "}
+              {data?.about || ""}
             </span>
           </span>
         </div>
-      </div>
+      </div>}
     </div>
   </div>
   )

@@ -70,7 +70,7 @@ const AutomaticForm = () => {
           </div>
         </div>
 
-        <div className="flex  gap-4  flex-wrap">
+        <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
           {!autoformData && (
             <Skeleton className="w-[400px] h-[219px] rounded-lg" />
           )}
