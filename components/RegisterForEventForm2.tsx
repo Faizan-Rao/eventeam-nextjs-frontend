@@ -8,7 +8,7 @@ import RegsiterForEventDonation from "./RegsiterForEventDonation";
 const RegisterForEventForm2 = ({data}:{data:any}) => {
   return (
     <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] p-4 min-h-screen">
-      <RegsiterForEventDonation/>
+      <RegsiterForEventDonation data={data}/>
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
         <div className="flex gap-4 text-base justify-between">

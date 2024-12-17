@@ -11,36 +11,14 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 const formDefaultValue = {
-  "donation_field": "20",
+  "donation_field": "0",
   "other_donation": 0,
   "platformFee": "",
   "guests": [
-      {
-          "name": "sas",
-          "email": "asas@gmail.com",
-          "phone": "asas",
-          "ticketType": [
-              "men"
-          ],
-          "subEvents": [
-              "863",
-              "864"
-          ]
-      },
-      {
-          "name": "asas",
-          "email": "aswdsaas@gmail.com",
-          "phone": "sdsd",
-          "ticketType": [
-              "women"
-          ],
-          "subEvents": [
-              "863",
-              "864"
-          ]
-      }
+     
+      
   ],
-  "totalAmount": "80.00",
+  "totalAmount": "00.00",
   "accept_cash_terms": false,
   "paymentMethod": "cash" //fpr stripe PM we must need stripeToken param as well
 }
@@ -63,7 +41,9 @@ const RegisterEvent = () => {
   const singleEvent = event?.data.data;
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const methods = useForm({
-    defaultValues : formDefaultValue
+    defaultValues : formDefaultValue,
+    reValidateMode: "onChange",
+    
   });
   const { handleSubmit } = methods;
   const onSubmit = (data: any) => console.log(data);

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import {
   Dialog,
@@ -19,33 +19,63 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { USDollar } from "@/configs/currentFormat";
+import { CircleCheck, PencilIcon, PencilLine } from "lucide-react";
+import clsx from "clsx";
+import joi from "joi";
 
 const AddRegistrantDialog = ({
-  data,
   formData,
+  type,
+  editData,
 }: {
-  data?: any;
   formData: any;
+  type?: string;
+  editData?: any;
 }) => {
+  const schema = joi.object({
+    name: joi.string().required(),
+    email: joi
+      .string()
+      .email({ tlds: { allow: false } })
+      .required(),
+    phone: joi.string().min(4).required(),
+    ticketType: joi.array<string>().min(1).required(),
+    subEvents: joi.array<number>().min(1).required(),
+  });
+
+  
+  
+  const [ticketTypes, setTicketTypes] = useState<string[]>([]);
+  const [tickets, setTickets] = useState([]);
+  const [selectedTicket, setSeletedTickets] = useState<string>(
+    ""
+  );
   const defaultFormState = {
     name: "",
     email: "",
     phone: "",
-    ticketType: [] as string[],
+    ticketType: [``] as string[],
     subEvents: [] as string[],
   };
-  const formContext = useFormContext();
   const [guestData, setGuestData] = useState(
-    (data && data) || defaultFormState
+    type === "edit" ? editData : defaultFormState
   );
+  const [total, setTotal] = useState(0);
+  const [error, setErrors] = useState<any>();
+  const [isOpen, setOpen] = useState<any>(false);
 
-  const [ticketTypes, setTicketTypes] = useState<string[]>([]);
   const {
     register,
     control,
-    formState: { errors },
-  } = formContext;
+    setValue,
+    trigger,
+    // formState: { errors },
+  } = useFormContext();
+  const { replace, swap, remove, append } = useFieldArray({ control, name: "guests" });
+  const watch = useWatch({ control });
+  
 
   const handleFieldChange = (e: any) =>
     setGuestData({ ...guestData, [e.target.name]: e.target.value });
@@ -62,22 +92,105 @@ const AddRegistrantDialog = ({
     });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => filterTicketTypes(), []);
+  const getTicketsWithPrices = () => {
+    let tickets = formData.sub_events.map((el: any, i: number) => {
+      return el.products.map((el2: any, j: number) => {
+        if(guestData.ticketType[0])
+        {
+          return el2.title !== (guestData.ticketType[0]) && el2;
+        }
+      });
+    });
 
-  console.log(guestData);
+    let products = tickets.flat().filter((e: any) => e && e) || [];
+    if(products.includes(tickets[0]))
+    {
+      setTickets([])
+     
+      setTotal(0);
+    }
+    else
+    {
+      setTickets(products);
+      setTotal(0);
+    }
+  };
+  console.log("tickets",ticketTypes)
+  const addSubEventInGuest = (data: any) => {
+    const element = { ...guestData };
+    if (!element.subEvents.includes(data.id)) {
+      if (tickets.length > element.subEvents.length ) {
+      element.subEvents.push(data.id);
+      setTotal((prev) => (prev += data.price));
+      setGuestData(element);
+      }
+    } else {
+      const filtered = element.subEvents.filter((el: any) => el !== data.id);
+      element.subEvents = filtered;
+      if (total > 0) {
+        setTotal((prev) => (prev -= data.price));
+      }
+      setGuestData(element);
+    }
+  };
+
+  const addGuest = (e: any) => {
+    e.preventDefault();
+
+    const { value, error } = schema.validate(guestData, { abortEarly: false });
+    const errors = error?.details.map((el: any) => {
+      return el.path[0];
+    });
+
+    setErrors(errors);
+    // Code for Addition
+    if (((errors || []).length as any) <= 0 && type !== "edit") {
+     
+      append(guestData);
+     
+      setOpen(false);
+      setValue("totalAmount", `${parseFloat(watch.totalAmount) + total}`);
+      setTotal(0);
+      setGuestData(defaultFormState);
+    }
+    // Code for Guest edition
+    if (((errors || []).length as any) <= 0 && type === "edit") {
+      const guests = [...watch.guests];
+      let find = guests.findIndex((el: any) => {
+        return el.email === guestData.email;
+      });
+      if (find !== -1) {
+       guests[find] = guestData;
+      }
+      replace(guests);
+      setOpen(false);
+      setValue("totalAmount", `${parseFloat(watch.totalAmount) + total}`);
+      setTotal(0);
+    }
+  };
+  useLayoutEffect(() => {
+    filterTicketTypes();
+    const timeout = setTimeout(()=>getTicketsWithPrices(),1000)
+    return () => clearTimeout(timeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] rounded-full p-2 font-semibold">
-          Add New Guest
-        </button>
+        {type === "edit" ? (
+          <PencilLine className="text-[#7655fa]" strokeWidth={1.2} />
+        ) : (
+          <button className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] rounded-full p-2 font-semibold">
+            Add New Guest
+          </button>
+        )}
       </DialogTrigger>
       <DialogContent className="md:min-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="my-2">Add New Guest</DialogTitle>
+          <DialogTitle className="my-2">{type === "edit" ? "Edit Guest" : "Add New Guest"}</DialogTitle>
           <DialogDescription>
-            <div className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="full_name">Full Name</label>
                 <input
@@ -87,7 +200,12 @@ const AddRegistrantDialog = ({
                   onChange={handleFieldChange}
                   placeholder="name"
                   name="name"
+                  defaultValue={guestData.name}
+                  required
                 />
+                {error && error.includes("name") && (
+                  <span className="text-red-700">This field is required</span>
+                )}
               </div>
 
               <div className="flex sm:flex-col md:flex-row gap-2 ">
@@ -99,7 +217,13 @@ const AddRegistrantDialog = ({
                     onChange={handleFieldChange}
                     placeholder="email"
                     name="email"
+                    defaultValue={guestData.email}
+                    disabled={type === "edit"}
+                    required
                   />
+                  {error && error.includes("email") && (
+                    <span className="text-red-700">This field is required</span>
+                  )}
                 </div>
                 <div className="flex flex-col flex-1 gap-2">
                   <label htmlFor="full_name">Phone</label>
@@ -109,18 +233,30 @@ const AddRegistrantDialog = ({
                     onChange={handleFieldChange}
                     placeholder="phone"
                     name="phone"
+                    defaultValue={guestData.phone}
+                    required
                   />
+                  {error && error.includes("phone") && (
+                    <span className="text-red-700">This field is required</span>
+                  )}
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              { <div className="flex flex-col gap-2">
                 <label htmlFor="full_name">Ticket Type</label>
-                <Select onValueChange={(value) => setGuestData({...guestData, ticketType: [value] })}>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={ticketTypes[0]}
-                      placeholder="Select Ticket Type"
-                    />
+                <Select
+                disabled={type === "edit"}
+                  required
+                  defaultValue={guestData.ticketType[0] || formData.sub_events[0].products[0].title}
+                  onValueChange={(value) => {
+                    getTicketsWithPrices();
+                    setGuestData({ ...guestData, ticketType: [value] });
+                    setSeletedTickets(value as string);
+
+                  }}
+                >
+                  <SelectTrigger className="open:border-[#7655fa]">
+                    <SelectValue placeholder={"Select Ticket Type..."} />
                   </SelectTrigger>
                   <SelectContent>
                     {ticketTypes.map((el, i) => {
@@ -136,13 +272,66 @@ const AddRegistrantDialog = ({
                     })}
                   </SelectContent>
                 </Select>
+              </div>}
+              <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-2">
+                {type !== "edit"   && tickets.length > 0 && tickets.map((el: any, i: number) => {
+                  return (
+                    formData.sub_events[i] && <div
+                      key={i}
+                      onClick={() => {
+                        addSubEventInGuest(el);
+                      }}
+                      className={clsx(
+                        "grid grid-cols-2  gap-2 border-[2px] px-4 py-2 rounded-lg cursor-pointer",
+                        guestData.subEvents.includes(el.id) &&
+                          "border-[#7655fa]"
+                      )}
+                    >
+                      <div className="grid grid-cols-1 gap-1">
+                        <h1 className="text-2xl font-semibold">
+                          {USDollar.format(el.price)}
+                        </h1>
+                        <p className="text-sm">
+                          {formData.sub_events[i] && formData.sub_events[i].title } {el.title}
+                        </p>
+                      </div>
+                      <div
+                        className={clsx(
+                          "justify-self-end self-center",
+                          guestData.subEvents.includes(el.id) &&
+                            "bg-[#7655fa] text-white rounded-full"
+                        )}
+                      >
+                        <CircleCheck strokeWidth={1.2} />
+                      </div>
+                    </div>
+                  );
+                })}
+                {error && error.includes("subEvents") && total === 0 && (
+                  <span className="text-red-700">
+                    This field is required select atleast one
+                  </span>
+                )}
               </div>
-              {/* <div className="grid sm:grid-col-1 md:grid-col-3 ">
-                    {
-                        formData.
-                    }
-              </div> */}
-            </div>
+
+             {type !== "edit" && <div className="flex border-b-[1px] justify-between">
+                <h1 className="text-[#7655fa] text-base font-semibold">
+                  Total
+                </h1>
+                <h1 className="text-[#4a4a4a] text-base font-semibold">
+                  {USDollar.format(total)}
+                </h1>
+              </div>}
+
+              <button
+                className="p-2 rounded-full bg-[#7655fa] text-white"
+                onClick={(e) => {
+                  addGuest(e);
+                }}
+              >
+                {type === "edit" ? "Edit Guest" : "Add New Guest"}
+              </button>
+            </form>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
