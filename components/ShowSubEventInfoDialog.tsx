@@ -21,7 +21,7 @@ const ShowSubEventInfoDialog = ({ data }: { data: any }) => {
       </DialogTrigger>
       <DialogContent className="md:min-w-[600px]">
         <DialogHeader>
-          {/* <DialogTitle>Subevent Info</DialogTitle> */}
+          <DialogTitle className="hidden">Subevent Info</DialogTitle>
           <DialogDescription>
             <div className="flex flex-col gap-4 mt-4 ">
               <div className="flex flex-col border-b-[1px] my-1 ">

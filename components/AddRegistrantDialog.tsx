@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 import {
   Dialog,
@@ -80,7 +80,7 @@ const AddRegistrantDialog = ({
   const handleFieldChange = (e: any) =>
     setGuestData({ ...guestData, [e.target.name]: e.target.value });
 
-  const filterTicketTypes = () => {
+  const filterTicketTypes = useCallback( () => {
     formData.sub_events.map((el: any, i: number) => {
       const products = new Set(
         el.products.map((el2: any, j: number) => {
@@ -90,14 +90,15 @@ const AddRegistrantDialog = ({
 
       setTicketTypes([...products] as string[]);
     });
-  };
+  }
+  , [formData]);
 
-  const getTicketsWithPrices = () => {
+  const getTicketsWithPrices = useCallback(() => {
     let tickets = formData.sub_events.map((el: any, i: number) => {
       return el.products.map((el2: any, j: number) => {
         if(guestData.ticketType[0])
         {
-          return el2.title !== (guestData.ticketType[0]) && el2;
+          return el2.title === (guestData.ticketType[0]) && el2;
         }
       });
     });
@@ -114,8 +115,8 @@ const AddRegistrantDialog = ({
       setTickets(products);
       setTotal(0);
     }
-  };
-  console.log("tickets",ticketTypes)
+  }, [guestData.ticketType, formData]);
+  
   const addSubEventInGuest = (data: any) => {
     const element = { ...guestData };
     if (!element.subEvents.includes(data.id)) {
@@ -170,10 +171,8 @@ const AddRegistrantDialog = ({
   };
   useLayoutEffect(() => {
     filterTicketTypes();
-    const timeout = setTimeout(()=>getTicketsWithPrices(),1000)
-    return () => clearTimeout(timeout)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getTicketsWithPrices()
+  }, [filterTicketTypes, getTicketsWithPrices]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
@@ -181,9 +180,9 @@ const AddRegistrantDialog = ({
         {type === "edit" ? (
           <PencilLine className="text-[#7655fa]" strokeWidth={1.2} />
         ) : (
-          <button className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] rounded-full p-2 font-semibold">
+          <p  className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] rounded-full p-2 font-semibold">
             Add New Guest
-          </button>
+          </p>
         )}
       </DialogTrigger>
       <DialogContent className="md:min-w-[600px]">

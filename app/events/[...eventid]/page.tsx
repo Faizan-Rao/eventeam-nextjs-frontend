@@ -6,10 +6,11 @@ import PageTitleContainer from "@/components/PageTitleContainer";
 import RegisterForEventForm1 from "@/components/RegisterForEventForm1";
 import RegisterForEventForm2 from "@/components/RegisterForEventForm2";
 import { Companies, EventReg } from "@/configs/apiRoutes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 const formDefaultValue = {
   "donation_field": "0",
   "other_donation": 0,
@@ -31,7 +32,7 @@ const RegisterEvent = () => {
   });
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events?.company;
-
+console.log(params)
   const { data: event } = useQuery({
     queryKey: ["single-event"],
     queryFn: () => EventReg.singleEvent(params.eventid[0], params.eventid[1]),
@@ -42,11 +43,20 @@ const RegisterEvent = () => {
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const methods = useForm({
     defaultValues : formDefaultValue,
-    reValidateMode: "onChange",
+    
     
   });
   const { handleSubmit } = methods;
-  const onSubmit = (data: any) => console.log(data);
+  const mutate = useMutation({
+    mutationFn: ()=>EventReg.eventRegistration(data, params.eventid[0], params.eventid[1]),
+    onSuccess :()=>{
+      toast("Payment Successful", {type:  "success"})
+    },
+    onError : ()=>{
+      toast("Payment Failed...!", {type:  "error"})
+    }
+  })
+  const onSubmit = (data: any) => mutate.mutate(data);
   return (
     <>
       <CompanyHeader data={companies} />

@@ -71,7 +71,7 @@ const DeleteEventRegistrantDialog = ({
                 </span>
               </span>
               <div className="flex flex-1 flex-col">
-                <h1 className="font-semibold text-lg text-[#4a4a4a] ">
+                <h1 className=" text-lg text-[#4a4a4a] ">
                   Are you sure you want to delete event?
                 </h1>
               </div>

@@ -10,7 +10,7 @@ import AddRegistrantDialog from "./AddRegistrantDialog";
 const RegisterForEventForm1 = ({ data }: { data: any }) => {
   const {control} = useFormContext();
   const watch = useWatch({control})
-  console.log(watch)
+  
   return (
     <div className="grid grid-cols-1 rounded-md sm:w-[100%] md:w-[100%] lg:w-[70%] gap-4  bg-[white] p-4 min-h-screen">
       <div className="grid sm:grid-cols-1  md:grid-cols-1 lg:grid-cols-2 gap-4  p-4 items-center">
@@ -77,7 +77,7 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
         <div className="grid grid-cols-1 overflow-y-auto overflow-x-hidden max-h-[300px] gap-4">
           {
             watch.guests.length > 0 && watch.guests.map((el:any, i:number) => {
-            return <RegisterForEventGuestCard key={i} data={el} formData={data.event}/>
+            return <RegisterForEventGuestCard index={i+1} key={i} data={el} formData={data.event}/>
           }) || "No Guests"
 
           }

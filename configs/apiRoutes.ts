@@ -248,7 +248,7 @@ export const EventReg = {
     const response = await axiosWithToken.get(`/show/events/${company}/event/${id}/book-spot`)
     return response
   },
-  eventRegistration : async ( data:any, company:string, id:number )=>{
+  eventRegistration : async ( data:any, company:string, id:string )=>{
     const response = await axiosWithToken.post(`/show/events/${company}/event/${id}/book-spot`, data)
     return response
   }
