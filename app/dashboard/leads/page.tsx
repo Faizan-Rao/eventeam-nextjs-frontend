@@ -2,11 +2,12 @@ import CompaniesMainCont from '@/components/CompaniesMainCont'
 import LeadsContainer from '@/components/LeadsContainer'
 import MainContentGrid from '@/components/MainContentGrid'
 import PageTitleContainer from '@/components/PageTitleContainer'
+import { user } from '@/configs/axios'
 import React from 'react'
 
 const Companies = () => {
   return (
-    <MainContentGrid>
+   <MainContentGrid>
       <PageTitleContainer title='Leads'/>
       <LeadsContainer/>
     </MainContentGrid>

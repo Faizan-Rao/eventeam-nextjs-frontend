@@ -15,7 +15,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   const { control, setValue } = formContext;
   const watch = useWatch({ control });
 
-  console.log(watch)
+  
   return (
     <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] p-4 min-h-screen">
       <RegsiterForEventDonation data={data} />
@@ -29,20 +29,22 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             {"$" + watch.totalAmount}
           </p>
         </div>
-        <div className="flex gap-4 text-base justify-between">
+       {data.settings &&
+          data.settings.show_donation_fields_on_forms === "1"  && <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">Donations</p>
           <p className="font-semibold px-2 text-[#999999] text-sm">
             {"$" + watch.donation_field}
           </p>
-        </div>
-        <div className="flex gap-4 text-base justify-between">
+        </div>}
+       {data.settings &&
+          data.settings.enable_other_donations === "1" && <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">
             Custom Donation
           </p>
           <p className="font-semibold px-2 text-[#999999] text-sm">
             {"$" + watch.other_donation}
           </p>
-        </div>
+        </div>}
 
         <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
           <div className="flex gap-4 text-base justify-between">
@@ -60,7 +62,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
 
       <div className="flex flex-col border-b-[1px]  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Payment Method</h1>
-        <RegisterForEventRadioGroup />
+        <RegisterForEventRadioGroup settings={data.settings}/>
       </div>
 
       <div className="flex flex-col  my-4 px-4 pb-4 gap-4">
@@ -72,7 +74,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             checked={watch.accept_cash_terms}
           />
           <span className="text-[#999999] text-sm ">
-            I agree to Terms & condition, Privacy policy & Return policy
+           {data.settings && data.settings.regulation_text}
           </span>
         </div>
       </div>

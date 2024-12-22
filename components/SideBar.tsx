@@ -11,7 +11,10 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ProfileDropdown from "./ProfileDropdown";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import {user} from '@/configs/axios'
+
 export const mobileWidth = 500;
+
 const SideBar = ({
   isNavOpen,
   setNavOpen,
@@ -38,6 +41,7 @@ const SideBar = ({
     }
   }, [setNavOpen]);
 
+  
   return (
     <>
       {!isNavOpen && (
@@ -89,8 +93,8 @@ const SideBar = ({
             <ChevronDown size={22} strokeWidth={1.5} />
           </button>
           {paths.map((nav, index) => (
-            <div key={index + +3}>
-              {!nav.children && (
+        nav.role.includes(user.role) &&  <div key={index + +3}>
+              {!nav.children &&   (
                 <SideBarNav
                   setNavOpen={setNavOpen}
                   href={nav.path}
@@ -102,7 +106,7 @@ const SideBar = ({
                 />
               )}
 
-              {nav.children && (
+              {nav.children &&  (
                 <>
                   <div
                     key={index + +1}
@@ -140,7 +144,7 @@ const SideBar = ({
                       )}
                     >
                       {nav.children.map((subnav, index) => (
-                        <SideBarNav
+                        subnav.role.includes(user.role) && <SideBarNav
                           setNavOpen={setNavOpen}
                           href={subnav.path}
                           value={t(subnav.name)}

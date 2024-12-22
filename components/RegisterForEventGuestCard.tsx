@@ -9,10 +9,12 @@ const RegisterForEventGuestCard = ({
   index,
   data,
   formData,
+  
 }: {
   data: any;
   formData: any;
   index: number,
+  
 }) => {
   const [subevents, setSubevents] = useState<any>([])
  
@@ -46,13 +48,13 @@ const RegisterForEventGuestCard = ({
           <User size={26} className="text-white" />
         </div>
         <div className="flex flex-wrap flex-col  ">
-          <h1 className=" text-lg font-semibold line-clamp-1">{data.name}</h1>
+          <h1 className=" text-lg font-semibold line-clamp-1">{data.name || ""}</h1>
           <span className="flex flex-col  gap-1 flex-wrap">
             <p className=" text-sm text-[#999999] font-semibold">
-              {data.email}
+              {data.email || ""}
             </p>
             <p className=" text-sm text-[#999999] font-semibold">
-              {data.phone}
+              {data.phone || ""}
             </p>
           </span>
         </div>

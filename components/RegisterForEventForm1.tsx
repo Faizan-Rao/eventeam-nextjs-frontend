@@ -77,14 +77,14 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
         <div className="grid grid-cols-1 overflow-y-auto overflow-x-hidden max-h-[300px] gap-4">
           {
             watch.guests.length > 0 && watch.guests.map((el:any, i:number) => {
-            return <RegisterForEventGuestCard index={i+1} key={i} data={el} formData={data.event}/>
+            return <RegisterForEventGuestCard index={i+1} key={i} data={el} formData={data.event} />
           }) || "No Guests"
 
           }
          
         </div>
 
-       <AddRegistrantDialog formData={data.event}/>
+       <AddRegistrantDialog formData={data.event} settings={data.settings}/>
       </div>
     </div>
   );

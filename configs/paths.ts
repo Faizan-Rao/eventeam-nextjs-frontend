@@ -8,75 +8,90 @@ export const paths =  [
     {
         name: "Dashboard",
         path:"/dashboard",
-        icon: Blocks
+        icon: Blocks,
+        role: ["admin", "company"]
     },
     {
         name:"Companies",
         path:"/dashboard/companies",
-        icon: Building2
+        icon: Building2,
+        role: ["admin"]
     },
     {
         name:"Events",
         icon: Calendar,
+        role: ["company", "admin"],
         children: [
             {
                 name:"My Events",
                 path:"/dashboard/my-events",
                 icon: Calendar,
+                role: [ "company"]
             },
             {
                 name:"Add Event",
                 path:"/dashboard/add-event",
                 icon: Calendar,
-            }
+                role: [ "company"]
+            },
+            {
+                name:"Automatic Forms",
+                path:"/dashboard/automatic",
+                icon: Workflow,
+                role: ["admin", "company"]
+            },
         ],
     },
     {
         name:"Payment Details",
         path:"/dashboard/payment-details",
-        icon: CircleDollarSign
+        icon: CircleDollarSign,
+        role: ["admin", "company"]
     },
     {
         name: "General Settings",
         path:"/dashboard/settings",
         icon: SlidersVertical,
+        role: ["admin", "company"],
         children: [
-            {
-                name:"Automatic Forms",
-                path:"/dashboard/automatic",
-                icon: Workflow,
-            },
+          
             {
                 name:"Auto Config",
                 path:"/dashboard/auto-config",
                 icon: Workflow,
+                role: ["admin", "company"]
             },
             {
                 name:"Form Field",
                 path:"/dashboard/form-field",
                 icon: Workflow,
+                role: ["admin", "company"]
             },
             {
                 name:"Donations",
                 path:"/dashboard/donations",
                 icon: Workflow,
+                role: ["admin", "company"]
             },
             {
                 name:"Payment Methods",
                 path:"/dashboard/payment-method",
                 icon: Workflow,
+                role: ["company"]
             }
         ],
     },
     {
         name:"Leads",
         path:"/dashboard/leads",
-        icon: Crown
+        icon: Crown,
+        role: ["admin"]
     },
     {
         name:"Email Templates",
         path:"/dashboard/email-template",
-        icon: AlbumIcon
+        icon: AlbumIcon,
+        role: ["admin", "company"]
     },
 ]
 

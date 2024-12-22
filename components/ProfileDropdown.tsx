@@ -13,11 +13,12 @@ import { User } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Profile } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
+import { useRouter } from "next/navigation";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(false);
-
+  const router = useRouter()
   const { data: profile , isError, isPending} = useQuery({
     queryKey: ["profile"],
     queryFn: Profile.get
@@ -64,7 +65,15 @@ const ProfileDropdown = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleOpen}>Billing</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleOpen}>Team</DropdownMenuItem>
+          <DropdownMenuItem onClick={()=>{
+            localStorage.removeItem("user")
+            let local = localStorage.getItem("user")
+            if(!local)
+            {
+              router.replace("/login")
+            }
+            handleOpen()
+          }}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>}
     </>

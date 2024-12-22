@@ -4,6 +4,7 @@ import PageTitleContainer from "@/components/PageTitleContainer";
 import SingleEventCont from "@/components/SingleEventCont";
 import SingleEventTable from "@/components/tables/SingleEventTable/SingleEventTable";
 import { Events } from "@/configs/apiRoutes";
+import { user } from "@/configs/axios";
 import { useQuery } from "@tanstack/react-query";
 import { clsx } from "clsx";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +18,7 @@ const SingleEvent = () => {
   const { data: eventDetailData } = useQuery({queryKey: ["event"], queryFn: async ()=>Events.getOne(params.eventid)})
   const eventDetail = eventDetailData?.data.data
   return (
-    <div className="flex flex-col">
+   <div className="flex flex-col">
       {/* Mobile Tab Btns */}
       <div className="sm:flex md:hidden py-4 bg-[white] w-full px-10 font-semibold items-center gap-4">
         <button

@@ -6,7 +6,7 @@ export const axiosWithoutToken = axios.create({
   baseURL: process.env.NEXT_PUBLIC_PROD_BASE_URL,
 });
 
-let user = {} as any
+export let user = {} as any
 if(typeof window !== "undefined")
 {
   user =  JSON.parse(window.localStorage?.getItem("user") || "{}")
