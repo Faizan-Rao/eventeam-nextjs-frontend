@@ -8,7 +8,7 @@ import {
   PencilLine,
   Plus,
 } from "lucide-react";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import AddSubEventGenInfo from "./AddSubEventGenInfo";
 import { Calendar } from "@/components/ui/calendar";
@@ -85,7 +85,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
     console.log(errors);
   }, [field]);
 
-  useEffect(() => {
+  const fillTicketTypesAddSubEvent = useCallback(() => {
     if (type === "add") {
       const newArr = watch.tickets?.map((el: any) => {
         return {
@@ -94,21 +94,20 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
           description: "",
         };
       });
-      setField({ ...field, ticket_types:[...newArr as any] });
-      // setTickets([...newArr]);
+
+      setField({ ...field, ticket_types: newArr });
+
       console.log("new Arr tickets", newArr);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    
+  useEffect(() => {
+    fillTicketTypesAddSubEvent();
+  }, [fillTicketTypesAddSubEvent]);
 
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
-
-  console.log("current field",field)
   const [selectedDate, setSelectedDate] = useState<string>();
   const [date, setDate] = useState<Date | null>();
-
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -144,6 +143,8 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
               <h1 className="font-semibold text-xl">General Information</h1>
               <div className="flex flex-1 flex-wrap gap-4">
                 <AddSubEventGenInfo
+                  index={index}
+                  type={type}
                   errors={customErrors}
                   field={field}
                   setField={setField}
@@ -167,6 +168,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       <input
                         type="time"
                         defaultValue={"00:00"}
+                         min="00:00" max="24:00"
                         onChange={(e) => {
                           console.log(e.target.value);
 
@@ -182,104 +184,65 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       />
                     </div>
                   )}
+
+                  <p className="text-[#7655fa] p-2">{`*Select Date First Then Time`}</p>
                 </div>
               </div>
               <h1 className="font-semibold text-xl">Ticket Types</h1>
               <div className="flex flex-col  gap-6 ">
                 {/* Event Name */}
-                <span className="flex gap-2 flex-col">
+                <div className="flex gap-2 flex-col">
                   <label className={"text-[#4a4a4a] font-semibold"}>
                     Tickets
                   </label>
-                  {(type === "edit"
-                    ? field.ticket_types
-                    : field.ticket_types).map((el: any, index: number) => {
-                        return (
-                          <div
-                            className="flex gap-4 items-center flex-wrap"
-                            key={index}
-                          >
+                  {(type === "edit" ? field.ticket_types : watch.tickets).map(
+                    (el: any, index: number) => {
+                      return (
+                        <div
+                          className="flex gap-4 items-center flex-wrap"
+                          key={index}
+                        >
+                          <input
+                            type="text"
+                            className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
+                            placeholder="Enter Ticket Name"
+                            value={el.title}
+                            disabled={true}
+                          />
+                          <div className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
                             <input
-                              type="text"
-                              className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
-                              placeholder="Enter Ticket Name"
-                              value={el.title}
-                              // onChange={(e) => {
-                              //   const ticket = field.ticket_types;
+                              type="number"
+                              className=" outline-none p-2 flex-1 "
+                              placeholder="Enter Price"
+                              defaultValue={
+                                type === "edit" &&
+                                data?.ticket_types[index]?.price
+                              }
+                              onChange={(e) => {
+                                const newArr = [...field.ticket_types];
+                                let obj = {
+                                  title: el.title as string,
+                                  price: e.target.value as string,
+                                  description: "" as string,
+                                };
 
-                              //   const newArr = [...ticket];
-                              //   const item = newArr.find(
-                              //     (_, i) => i === index
-                              //   ) ?? { name: "" };
-                              //   item.name = e.target.value;
-                              //   setTickets(newArr as any);
-                              // }}
-                              disabled={true}
+                                newArr[index] = obj as any;
+                                setField({
+                                  ...field,
+                                  ticket_types: [...newArr],
+                                });
+                              }}
                             />
-                            <span className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
-                              <input
-                                type="number"
-                                className=" outline-none p-2 flex-1 "
-                                placeholder="Enter Price"
-                                defaultValue={
-                                  type === "edit" &&
-                                  data?.ticket_types[index]?.price
-                                }
-                                onChange={(e) => {
-                                    if(type === "edit")
-
-                                    {
-
-                                      const newArr = [...field.ticket_types];
-                                      let index = -1;
-                                      const item = newArr.find(
-                                        (eln, i) => { if(eln.title === el.title){
-                                          index = i;
-                                          return true
-                                        }}
-                                      );
-                                      
-                                      if (item) {
-                                        
-                                        item.title = el.title
-                                        item.price = e.target.value;
-                                        newArr[index as number] = item
-                                      }
-                                      
-                                      setField({ ...field, ticket_types: newArr });
-                                      // setTickets);
-
-                                    }
-                                    if(type === "add")
-                                    {
-                                      const newArr = [...field.ticket_types];
-                                      let index = -1;
-                                      const item = newArr.find(
-                                        (eln, i) => { if(eln.title === el.title){
-                                          index = i;
-                                          return true
-                                        }}
-                                      );
-                                      
-                                      if (item) {
-                                        
-                                        item.title = el.title
-                                        item.price = e.target.value;
-                                        newArr[index as number] = item
-                                      }
-                                      console.log("add newArr",newArr)
-                                      setField({ ...field, ticket_types: [...newArr] });
-                                    }
-
-                                
-                                }}
-                              />
-                              <DollarSign size={18} />
-                            </span>
+                            <DollarSign size={18} />
                           </div>
-                        );
-                      })}
-                </span>
+                        </div>
+                      );
+                    }
+                  )}
+                  {customErrors?.includes("ticket_types") && (
+                    <p className="text-red-800">{`Fill All Ticket Prices`}</p>
+                  )}
+                </div>
               </div>
               <h1
                 className="font group cursor-pointer font-semibold flex items-center gap-4 text-xl"
@@ -330,18 +293,17 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   className="bg-[#7655fa] justify-stretch md:px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
+                    let emptyTicket = field.ticket_types.find(
+                      (el) => el.price === ""
+                    );
                     if (type === "add") {
-                      let emptyTicket = field.ticket_types.find(
-                        (el) => el.price === ""
-                      );
-
+                      
                       if (
-                        
                         emptyTicket === undefined &&
-                        field.date !== ""
+                        field.date !== "" &&
+                        field.title !== ""
                       ) {
-                        append({ ...field, ticket_types: tickets });
-                        // append(field);
+                        append(field);
                         setOpen(false);
                         setField(defaultValue);
                         setSelectedDate("");
@@ -349,17 +311,20 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     }
 
                     if (type === "edit") {
-                      const newArr = [...watch.sub_events];
-                      const item = newArr.find((_, i) => i === index);
-                      if (item) {
-                        console.log("index", index);
-                        // newArr.splice(index as number, 1)
-                        newArr[index as number] = field;
-                        console.log("new Array ", newArr);
-                        replace(newArr);
-                        
+                      if (
+                        emptyTicket === undefined &&
+                        field.date !== "" &&
+                        field.title !== ""
+                      ) {
+                        const newArr = [...watch.sub_events];
+                        const item = newArr.find((_, i) => i === index);
+                        if (item) {
+                          newArr[index as number] = field;
+
+                          replace(newArr);
+                        }
+                        setOpen(false);
                       }
-                      setOpen(false);
                     }
                   }}
                 >
