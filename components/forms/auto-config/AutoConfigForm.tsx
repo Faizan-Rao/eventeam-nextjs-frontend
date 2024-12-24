@@ -32,45 +32,6 @@ import { AutoFormAPI, Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { autoForm, autoFormDefaults, autoFormType,  } from "@/configs/autoFormValidation";
 import {joiResolver} from "@hookform/resolvers/joi"
-// export interface IAutoConfig {
-//   gen_info: {
-//     event_name: string;
-//     start_date: Date;
-//     end_date: Date;
-//     event_desc: string;
-//     status?: string;
-//     active?: boolean;
-//     registrations?: string;
-//   };
-//   tickets: { ticket: string }[];
-//   sub_events: {
-//     name: string;
-//     start_time: string;
-//     description?: string;
-//     date: Date;
-//     active: boolean;
-//     ticket_type: {
-//       name: string;
-//       price: string;
-//     }[];
-//     address?: string;
-//     max_capcity?: string;
-//   }[];
-//   advance_form: {
-//     show_address: boolean;
-//     cash_payment: boolean;
-//     show_regulations: boolean;
-//     show_stripe: boolean;
-//     show_donation:boolean
-//     donations: {
-//       is_enable_donation: boolean,
-//       other_donations: any[]
-//     };
-//   };
-//   prayer: any;
-
-//   prayer_time?: any;
-// }
 
 const defaultValues = {
   tickets: [
@@ -246,7 +207,7 @@ const AutoConfigForm = () => {
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
-              <AdvanceForm control={control} />
+              <AdvanceForm />
             </>
           )}
 

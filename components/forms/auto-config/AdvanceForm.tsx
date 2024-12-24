@@ -1,15 +1,15 @@
 import React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, useFormContext, useWatch } from "react-hook-form";
 
 import AdvanceFormOption from "./AdvanceFormOption";
 import { Banknote, MapPin, CreditCard, Notebook, HandHeart, Check } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import AutoDonationDialog from "@/components/AutoDonationDialog";
 
-interface IAdvanceForm {
-  control: Control<any, any>;
-}
-const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
+
+const AdvanceForm = () => {
+  const {control, formState: {errors}} = useFormContext()
+  const watch = useWatch({control})
   return (
     <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
       <AdvanceFormOption
@@ -18,13 +18,16 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
         icon={<MapPin />}
       >
         <Controller
-          name="advance_form.show_address"
+          name="advance.is_show_address"
           control={control}
           render={({ field }) => (
             <Switch
-              checked={field.value}
-              onCheckedChange={field.onChange}
-              name={"advance_form.show_address"}
+            checked={watch.advance.is_show_address === "1" ? true : false}
+              onCheckedChange={(value)=>{
+
+                field.onChange(value ? "1" : "0")
+              }}
+              name={"advance.is_show_address"}
             />
           )}
         />
@@ -36,13 +39,16 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
         icon={<Banknote />}
       >
         <Controller
-          name="advance_form.cash_payment"
+          name="advance.is_cash_allowed"
           control={control}
           render={({ field }) => (
             <Switch
-              checked={field.value}
-              onCheckedChange={field.onChange}
-              name={"advance_form.show_address"}
+            checked={watch.advance.is_cash_allowed === "1" ? true : false}
+            onCheckedChange={(value)=>{
+
+              field.onChange(value ? "1" : "0")
+            }}
+              name={"advance.is_cash_allowed"}
             />
           )}
         />
@@ -54,12 +60,15 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
         icon={<Notebook />}
       >
         <Controller
-          name="advance_form.show_regulations"
+          name="advance.is_show_regulation"
           control={control}
           render={({ field }) => (
             <Switch
-              checked={field.value}
-              onCheckedChange={field.onChange}
+            checked={watch.advance.is_show_regulation === "1" ? true : false}
+            onCheckedChange={(value)=>{
+
+              field.onChange(value ? "1" : "0")
+            }}
              className="bg-yellow-200"
             />
           )}
@@ -72,13 +81,16 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
         icon={<CreditCard />}
       >
         <Controller
-          name="advance_form.show_stripe"
+          name="advance.is_show_stripe"
           control={control}
           render={({ field }) => (
             <Switch
-              checked={field.value}
-              onCheckedChange={field.onChange}
-              name={"advance_form.show_address"}
+            checked={watch.advance.is_show_stripe === "1" ? true : false}
+            onCheckedChange={(value)=>{
+
+              field.onChange(value ? "1" : "0")
+            }}
+              name={"advance.is_show_stripe"}
             />
           )}
         />
@@ -91,13 +103,15 @@ const AdvanceForm: React.FC<IAdvanceForm> = ({ control }) => {
       >
         <AutoDonationDialog/>
         <Controller
-          name="advance_form.show_donation"
+          name="advance.is_donation_allowed"
           control={control}
           render={({ field }) => (
             <Switch
-              checked={field.value}
-              onCheckedChange={field.onChange}
-              
+            checked={watch.advance.is_donation_allowed === "1" ? true : false}
+            onCheckedChange={(value)=>{
+
+              field.onChange(value ? "1" : "0")
+            }}
             />
           )}
         />

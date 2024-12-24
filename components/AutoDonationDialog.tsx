@@ -31,8 +31,7 @@ const AutoDonationDialog = () => {
   const [open, setOpen] = useState(false);
 
   const pathname = usePathname();
-  const wt_form = watch()
-  
+  const wt_form = watch();
 
   useEffect(() => {
     if (donation) {
@@ -82,16 +81,40 @@ const AutoDonationDialog = () => {
         <DialogHeader>
           <DialogTitle>Select donations for form</DialogTitle>
           <DialogDescription>
-            <div className="flex flex-col mt-4 gap-2">
+          <div className="flex my-4 flex-col gap-2 ">
+                <span className="text-[#4a4a4a] text-sm font-semibold">
+                  Enable Custom Donations
+                </span>
+                <div className="flex justify-between border-[1px] rounded-md p-2">
+                  <span className="text-[#4a4a4a] flex-1">Active</span>
+                  <Controller
+                    name="advance.donations.is_enable_donation"
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        checked={
+                          wt_form.advance.donations?.is_enable_donation === "1"
+                            ? true
+                            : false
+                        }
+                        onCheckedChange={(value) => {
+                          field.onChange(value ? "1" : "0");
+                        }}
+                      />
+                    )}
+                  />
+                </div>
+              </div>
+            <div className="flex max-h-[500px] overflow-y-auto flex-col mt-4 gap-2">
               {donations.map((el: any, i: number) => {
                 return (
                   <div
                     key={i}
                     onClick={() => selectDonation(el)}
                     className={clsx(
-                      "flex justify-between items-center border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px] overflow-auto",
+                      "flex justify-between items-center border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px]",
                       selectedDonations.findIndex(
-                        (item:any) => item.id === el.id
+                        (item: any) => item.id === el.id
                       ) !== -1 && "border-[#7655fa]"
                     )}
                   >
@@ -114,7 +137,7 @@ const AutoDonationDialog = () => {
                         className={clsx(
                           "border-[2px] text-[#7655fa] border-[#7655fa] p-1 rounded-full",
                           selectedDonations.findIndex(
-                            (item:any) => item.id === el.id
+                            (item: any) => item.id === el.id
                           ) !== -1 &&
                             "bg-[#7655fa] rounded-full p-1 text-base text-white"
                         )}
@@ -123,30 +146,18 @@ const AutoDonationDialog = () => {
                   </div>
                 );
               })}
-              <div className="flex flex-col gap-2 ">
-                <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Enable Custom Donations
-                </span>
-                <div className="flex justify-between border-[1px] rounded-md p-2">
-                  <span className="text-[#4a4a4a] flex-1">Active</span>
-                  <Controller
-                    name="advance_form.donations.is_enable_donation"
-                    control={control}
-                    render={({ field }) => (
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                </div>
+              
+              <div className="sticky bottom-0 bg-white">
+                <button
+                  className="   px-4 py-2 self-end mt-4 text-red-700 rounded-full"
+                  onClick={() => {
+                    setSelectedDonations([]);
+                    setValue("advance_form.donations.other_donations", []);
+                  }}
+                >
+                  Clear Donations
+                </button>
               </div>
-              <button className="px-4 py-2 self-end mt-4 text-red-700 rounded-full" onClick={()=>{
-                setSelectedDonations([])
-                setValue("advance_form.donations.other_donations", [])
-              }}>
-                Clear Donations
-              </button>
             </div>
           </DialogDescription>
         </DialogHeader>
