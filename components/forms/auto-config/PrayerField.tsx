@@ -1,6 +1,6 @@
 "use client";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { IAutoConfig } from "./AutoConfigForm";
+
 import {
   Select,
   SelectTrigger,
@@ -27,7 +27,7 @@ const PrayerField: React.FC<IPrayerField> = ({
   remove,
   prayer,
 }) => {
-  const { control, register, resetField } = useFormContext<IAutoConfig>();
+  const { control, register, resetField } = useFormContext<any>();
   const prayerFields = useWatch({
     control,
     name: `prayer_time.${prayer}`,

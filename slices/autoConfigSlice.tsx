@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/store/store";
-import { IAutoConfig } from "@/components/forms/auto-config/AutoConfigForm";
+
 import _ from "lodash";
-const initialState = { value: [] as IAutoConfig[] };
+const initialState = { value: [] as any[] };
 
 const autoConfigSlice = createSlice({
   name: "autoConfig",
   initialState,
   reducers: {
-    addAutoConfig: (state, action: PayloadAction<IAutoConfig>) => {
+    addAutoConfig: (state, action: PayloadAction<any>) => {
       const arr = [...state.value, action.payload];
       state.value = arr;
     },
@@ -23,7 +23,7 @@ const autoConfigSlice = createSlice({
         state.value = filteredArr;
       }
     },
-    setAutoConfig: (state, action: PayloadAction<IAutoConfig[]>) => {
+    setAutoConfig: (state, action: PayloadAction<any[]>) => {
       const arr = [...action.payload];
       state.value = arr;
     },

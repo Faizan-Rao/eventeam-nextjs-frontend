@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import DotThreeVertical from "./icons/DotThreeVertical";
-import { IAutoConfig } from "./forms/auto-config/AutoConfigForm";
+
 import { useDispatch } from "react-redux";
 import { removeAutoConfig } from "@/slices/autoConfigSlice";
 import { Table } from "@tanstack/react-table";

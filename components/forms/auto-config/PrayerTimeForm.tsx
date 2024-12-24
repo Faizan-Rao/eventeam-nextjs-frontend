@@ -7,7 +7,7 @@ import {
   UseFormRegister,
   useWatch,
 } from "react-hook-form";
-import { IAutoConfig } from "./AutoConfigForm";
+
 
 import PrayerField from "./PrayerField";
 import AddPrayerTimeDialog from "./AddPrayerTimeDialog";
@@ -17,8 +17,8 @@ import SubEventWebActivity from "./SubEventWebActivity";
 import PrayerForm from "./PrayerForm";
 
 interface IPrayerTime {
-  control: Control<IAutoConfig, any>;
-  register: UseFormRegister<IAutoConfig>;
+  control: Control<any, any>;
+  register: UseFormRegister<any>;
 }
 
 const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
@@ -41,7 +41,7 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
         (watch.sub_events || []).length <= 0 && <p className="text-lg text-center">No Subevents Right Now...</p>
       }
       {
-       (watch.sub_events || []).map((_, i)=>{
+       (watch.sub_events || []).map((_:any, i:number)=>{
          
          return <SubEventWebActivity key={i} subEventId={i}/>
         })

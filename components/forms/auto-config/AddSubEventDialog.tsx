@@ -102,6 +102,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
     
 
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   console.log("current field",field)

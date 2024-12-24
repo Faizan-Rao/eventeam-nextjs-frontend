@@ -5,7 +5,7 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form";
-import { IAutoConfig } from "./AutoConfigForm";
+
 import {
   Select,
   SelectTrigger,
@@ -38,7 +38,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
   remove,
   prayer,
 }) => {
-  const { control, register, resetField } = useFormContext<IAutoConfig>();
+  const { control, register, resetField } = useFormContext();
   const prayerFields = useWatch({
     control,
     name: prayer === 1 ? `prayer_time.${prayer}` : `prayer_time.${prayer}`,
