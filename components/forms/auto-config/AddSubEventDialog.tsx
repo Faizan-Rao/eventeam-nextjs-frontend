@@ -5,6 +5,7 @@ import {
   CircleX,
   DollarSign,
   PenBoxIcon,
+  PencilLine,
   Plus,
 } from "lucide-react";
 import React, { ChangeEvent, useEffect, useState } from "react";
@@ -20,20 +21,26 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { UseFieldArrayAppend, useFormContext } from "react-hook-form";
-import { IAutoConfig } from "./AutoConfigForm";
+import {
+  useFieldArray,
+  UseFieldArrayAppend,
+  useFormContext,
+} from "react-hook-form";
+// import { IAutoConfig } from "./AutoConfigForm";
 import { useWatch } from "react-hook-form";
 
-
+import { subevent, Validator } from "@/configs/autoFormValidation";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 
 const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
-  open,
-  setOpen,
-  append,
+  data,
+  type,
+  index,
 }) => {
+  const { control, trigger } = useFormContext();
+  const watch = useWatch({ control });
 
-  const {control } = useFormContext<IAutoConfig>()
-  const watch = useWatch({control})
+  const { append, replace } = useFieldArray({ control, name: "sub_events" });
   const [tickets, setTickets] = useState<
     {
       name: string;
@@ -47,157 +54,230 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   ]);
 
   const defaultValue: IFieldElement = {
-    name: "",
-    active: false,
-    date: new Date(),
-    start_time: "",
-    ticket_type: tickets,
+    title: "",
+    date: ``,
+    status: "0",
+    manage_inventory: 0,
+    event_capacity: null,
     address: "",
     description: "",
-    max_capcity: "",
+    ticket_types: [
+      {
+        title: "",
+        description: "",
+        price: "",
+      },
+    ],
   };
-  const [field, setField] = useState<IFieldElement>(defaultValue);
+  const [field, setField] = useState<IFieldElement>(
+    type === "edit" ? data : defaultValue
+  );
   const [isSettingOpen, setSettingOpen] = useState(false);
-  const handleAddTicket = () => {
-    const ticket = field.ticket_type;
-    setField({ ...field, ticket_type: [...ticket, { name: "", price: "" }] });
-  };
-  const handleRemoveTicket = () => {
-    const ticket = field.ticket_type;
-    setField({
-      ...field,
-      ticket_type: [...ticket.slice(0, ticket.length - 1)],
-    });
-  };
+  const [customErrors, setErrors] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const {
+    formState: { errors },
+  } = useFormContext();
 
-  useEffect(()=>{
-    const newArr = watch.tickets?.map((el) => {
-      return {
-        name: el.ticket,
-        price: ""
-      }
-    })
-    setField({...field, ticket_type: (newArr as any)})
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useEffect(() => {
+    const errors = Validator(field, subevent);
+    setErrors(errors);
+    console.log(errors);
+  }, [field]);
+
+  useEffect(() => {
+    if (type === "add") {
+      const newArr = watch.tickets?.map((el: any) => {
+        return {
+          title: el.title,
+          price: "",
+          description: "",
+        };
+      });
+      setField({ ...field, ticket_types:[...newArr as any] });
+      // setTickets([...newArr]);
+      console.log("new Arr tickets", newArr);
+    }
+
+    
+
+  
+  }, [open]);
+
+  console.log("current field",field)
+  const [selectedDate, setSelectedDate] = useState<string>();
+  const [date, setDate] = useState<Date | null>();
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      {type === "edit" && (
+        <DialogTrigger>
+          <PencilLine
+            // onClick={() => setOpen(true)}
+            className=" cursor-pointer text-[#7655fa]"
+            strokeWidth={1}
+          />
+        </DialogTrigger>
+      )}
+      {type === "add" && (
+        <DialogTrigger className="w-full">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setOpen(true);
+            }}
+            className="flex w-full justify-center items-center h-[128px] min-w-[340px] flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
+          >
+            <Plus /> <span>Add Another Subevent</span>
+          </button>
+        </DialogTrigger>
+      )}
       <DialogContent className=" overflow-auto sm:max-w-full lg:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold ">
-            Add New Subevent
+            {type === "edit" ? "Edit Subevent" : "Add New Subevent"}
           </DialogTitle>
           <DialogDescription className=" overflow-auto max-h-[600px]">
             <div className="flex flex-col gap-6 sm:p-0 md:p-4 ">
               <h1 className="font-semibold text-xl">General Information</h1>
               <div className="flex flex-1 flex-wrap gap-4">
-                <AddSubEventGenInfo field={field} setField={setField} />
-                <span className="border-2 self-center rounded-md mx-4">
+                <AddSubEventGenInfo
+                  errors={customErrors}
+                  field={field}
+                  setField={setField}
+                />
+                <div className="border-2 self-start rounded-md mx-4">
                   <Calendar
                     mode="single"
-                    selected={field.date}
-                    onSelect={(value: any) =>
-                      setField({ ...field, date: value })
-                    }
+                    selected={date as any}
+                    onSelect={(value: any) => {
+                      setSelectedDate(format(value, "MM/dd/yyyy"));
+                      setDate(value);
+                    }}
                     className="max-h-[400px]"
                   />
-                  <span className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
-                    <label className={"text-white font-semibold"}>
-                      Start Time
-                    </label>
+                  {selectedDate && (
+                    <div className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
+                      <label className={"text-white font-semibold"}>
+                        Start Time
+                      </label>
 
-                    <input
-                      type="time"
-                      defaultValue={"00:00"}
-                      onChange={(e) => {
-                        setField({
-                          ...field,
-                          start_time: format(
-                            new Date(`1/1/2024 ${e.target.value}`),
-                            "hh:mm aa"
-                          ),
-                        });
-                      }}
-                      className=" rounded-md outline-none p-2 w-full cursor-pointer"
-                    />
-                  </span>
-                </span>
+                      <input
+                        type="time"
+                        defaultValue={"00:00"}
+                        onChange={(e) => {
+                          console.log(e.target.value);
+
+                          setField({
+                            ...field,
+                            date: format(
+                              new Date(`${selectedDate} ${e.target.value}`),
+                              "dd/MM/yyyy HH:mm"
+                            ),
+                          });
+                        }}
+                        className=" rounded-md outline-none p-2 w-full cursor-pointer"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
               <h1 className="font-semibold text-xl">Ticket Types</h1>
               <div className="flex flex-col  gap-6 ">
                 {/* Event Name */}
                 <span className="flex gap-2 flex-col">
                   <label className={"text-[#4a4a4a] font-semibold"}>
-                    Ticket Names
+                    Tickets
                   </label>
-                  {Array(field.ticket_type.length)
-                    .fill({ name: "", price: "" })
-                    .map((el, index) => {
-                      return (
-                        <div
-                          className="flex gap-4 items-center flex-wrap"
-                          key={index + (el as any).name}
-                        >
-                          <input
-                            type="text"
-                            className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
-                            placeholder="Enter Ticket Name"
-                            value={field.ticket_type[index].name}
-                            onChange={(e) => {
-                              const ticket = field.ticket_type;
-
-                              const newArr = [...ticket];
-                              const item = newArr.find(
-                                (_, i) => i === index
-                              ) ?? { name: "" };
-                              item.name = e.target.value;
-                              setTickets(newArr as any);
-                            }}
-                          />
-                          <span className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
+                  {(type === "edit"
+                    ? field.ticket_types
+                    : field.ticket_types).map((el: any, index: number) => {
+                        return (
+                          <div
+                            className="flex gap-4 items-center flex-wrap"
+                            key={index}
+                          >
                             <input
-                              type="number"
-                              className=" outline-none p-2 flex-1 "
-                              placeholder="Enter Price"
-                              value={field.ticket_type[index].price}
-                              onChange={(e) => {
-                                const ticket = field.ticket_type;
-                                const newArr = [...ticket];
-                                const item = newArr.find(
-                                  (_, i) => i === index
-                                ) ?? { price: "" };
-                                item.price = e.target.value;
-                                setTickets(newArr as any);
-                              }}
+                              type="text"
+                              className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
+                              placeholder="Enter Ticket Name"
+                              value={el.title}
+                              // onChange={(e) => {
+                              //   const ticket = field.ticket_types;
+
+                              //   const newArr = [...ticket];
+                              //   const item = newArr.find(
+                              //     (_, i) => i === index
+                              //   ) ?? { name: "" };
+                              //   item.name = e.target.value;
+                              //   setTickets(newArr as any);
+                              // }}
+                              disabled={true}
                             />
-                            <DollarSign size={18} />
-                          </span>
-                          
-                            <CircleX
-                              onClick={() => {
-                                handleRemoveTicket();
-                                const newArr = tickets.filter(
-                                  (_, i) => index !== i
-                                );
-                                setTickets(newArr);
-                              }}
-                              className="text-[red] cursor-pointer"
-                              strokeWidth={1}
-                            />
-                        
-                        </div>
-                      );
-                    })}
-                  <div>
-                    <button
-                      onClick={handleAddTicket}
-                      className="flex items-center gap-4 my-4  justify-self-start  text-[#7655fA]"
-                    >
-                      {" "}
-                      <Plus /> <span>Add Another Ticket</span>
-                    </button>
-                  </div>
+                            <span className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
+                              <input
+                                type="number"
+                                className=" outline-none p-2 flex-1 "
+                                placeholder="Enter Price"
+                                defaultValue={
+                                  type === "edit" &&
+                                  data?.ticket_types[index]?.price
+                                }
+                                onChange={(e) => {
+                                    if(type === "edit")
+
+                                    {
+
+                                      const newArr = [...field.ticket_types];
+                                      let index = -1;
+                                      const item = newArr.find(
+                                        (eln, i) => { if(eln.title === el.title){
+                                          index = i;
+                                          return true
+                                        }}
+                                      );
+                                      
+                                      if (item) {
+                                        
+                                        item.title = el.title
+                                        item.price = e.target.value;
+                                        newArr[index as number] = item
+                                      }
+                                      
+                                      setField({ ...field, ticket_types: newArr });
+                                      // setTickets);
+
+                                    }
+                                    if(type === "add")
+                                    {
+                                      const newArr = [...field.ticket_types];
+                                      let index = -1;
+                                      const item = newArr.find(
+                                        (eln, i) => { if(eln.title === el.title){
+                                          index = i;
+                                          return true
+                                        }}
+                                      );
+                                      
+                                      if (item) {
+                                        
+                                        item.title = el.title
+                                        item.price = e.target.value;
+                                        newArr[index as number] = item
+                                      }
+                                      console.log("add newArr",newArr)
+                                      setField({ ...field, ticket_types: [...newArr] });
+                                    }
+
+                                
+                                }}
+                              />
+                              <DollarSign size={18} />
+                            </span>
+                          </div>
+                        );
+                      })}
                 </span>
               </div>
               <h1
@@ -234,7 +314,10 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       type="number"
                       className="border-[2px] outline-none p-2 w-full"
                       onChange={(e) =>
-                        setField({ ...field, max_capcity: e.target.value })
+                        setField({
+                          ...field,
+                          event_capacity: parseFloat(e.target.value),
+                        })
                       }
                     />
                   </span>
@@ -246,12 +329,40 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   className="bg-[#7655fa] justify-stretch md:px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
-                    append({ ...field, ticket_type: tickets });
-                    setOpen(false);
-                    setField(defaultValue);
+                    if (type === "add") {
+                      let emptyTicket = field.ticket_types.find(
+                        (el) => el.price === ""
+                      );
+
+                      if (
+                        
+                        emptyTicket === undefined &&
+                        field.date !== ""
+                      ) {
+                        append({ ...field, ticket_types: tickets });
+                        // append(field);
+                        setOpen(false);
+                        setField(defaultValue);
+                        setSelectedDate("");
+                      }
+                    }
+
+                    if (type === "edit") {
+                      const newArr = [...watch.sub_events];
+                      const item = newArr.find((_, i) => i === index);
+                      if (item) {
+                        console.log("index", index);
+                        // newArr.splice(index as number, 1)
+                        newArr[index as number] = field;
+                        console.log("new Array ", newArr);
+                        replace(newArr);
+                        
+                      }
+                      setOpen(false);
+                    }
                   }}
                 >
-                  Add Event
+                  {type === "edit" ? "Edit Event" : "Add Event"}
                 </button>
               </div>
             </div>
@@ -265,21 +376,22 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 export default AddSubEventDialog;
 
 export interface IFieldElement {
-  name: string;
-  start_time: string;
-  description?: string;
-  date: Date;
-  active: boolean;
-  ticket_type: {
-    name?: string;
-    price?: string;
+  title: string;
+  date: string;
+  status: string;
+  manage_inventory: number;
+  event_capacity: number | null;
+  address: string;
+  description: string;
+  ticket_types: {
+    title: string;
+    price: string;
+    description: "";
   }[];
-  address?: string;
-  max_capcity?: string;
 }
 
 export interface AddSubEventDialog {
-  append: UseFieldArrayAppend<IAutoConfig, "sub_events">;
-  open: boolean;
-  setOpen: React.Dispatch<boolean>;
+  type?: string;
+  data?: any;
+  index?: number;
 }

@@ -91,7 +91,7 @@ export const paths =  [
         name:"Email Templates",
         path:"/dashboard/email-template",
         icon: AlbumIcon,
-        role: ["admin", "company"]
+        role: ["admin"]
     },
 ]
 

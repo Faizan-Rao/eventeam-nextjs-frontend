@@ -16,11 +16,11 @@ const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
     <>
       <QueryClientProvider client={queryClient}>
         <Header setNavOpen={setNavOpen} isNavOpen={isNavOpen} />
-        <div className="md:flex  md:flex-row sm:grid sm:grid-cols-1 w-full">
+        <div className="md:flex  md:flex-row sm:grid sm:grid-cols-1">
           <div className="">
             <SideBar isNavOpen={isNavOpen} setNavOpen={setNavOpen}  />
           </div>
-          <div className={clsx(isNavOpen && "sm:hidden md:block")}>
+          <div  className={clsx("md:flex flex-1 md:justify-stretch lg:justify-stretch",isNavOpen && "sm:hidden md:flex ")}>
           {children}
 
           </div>

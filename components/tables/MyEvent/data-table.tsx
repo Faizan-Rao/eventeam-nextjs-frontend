@@ -77,7 +77,7 @@ export function MyEventTable<TData, TValue>({
 
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
-   
+
     if (col === "gen_info_active") {
       if (text === "active") {
         setFilteredRows(data.filter((el) => (el as any).gen_info.active));
@@ -114,7 +114,6 @@ export function MyEventTable<TData, TValue>({
     },
   });
 
- 
   return (
     <>
       {/* Filters & Actions */}
@@ -328,7 +327,13 @@ export function MyEventTable<TData, TValue>({
       <div className="sm:flex md:hidden flex-col gap-4">
         {(data as any[]).map((element, index) => {
           return (
-            <MyEventCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element} index={index} />
+            <MyEventCard
+              selectedRecord={selectedRecord}
+              setSelectedRecord={setSelectedRecord}
+              key={index}
+              data={element}
+              index={index}
+            />
           );
         })}
       </div>

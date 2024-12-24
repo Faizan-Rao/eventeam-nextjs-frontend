@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import {
   Dialog,
@@ -44,7 +45,8 @@ const EventEditDialog = ({
   const mutate = useMutation({
     mutationFn: Events.save,
     onSuccess: ()=>{
-      queryClient.invalidateQueries({queryKey: ["my-events", 'event']})
+      queryClient.invalidateQueries({queryKey: ["my-events", 'event']}).then((e)=>console.log(e))
+      
       toast("Update Successfull", {
         type:"info"
       })
