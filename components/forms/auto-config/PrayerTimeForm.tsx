@@ -4,6 +4,7 @@ import {
   Control,
   useFieldArray,
   useForm,
+  useFormContext,
   UseFormRegister,
   useWatch,
 } from "react-hook-form";
@@ -28,10 +29,10 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
 
   const watch = useWatch({ control });
 
+  const {formState: {errors}} = useFormContext()
 
 
-
-  console.log("Watched state", watch);
+  
   return (
     <>
       {/* Web Interface */}
@@ -41,11 +42,12 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
         (watch.sub_events || []).length <= 0 && <p className="text-lg text-center">No Subevents Right Now...</p>
       }
       {
-       (watch.sub_events || []).map((_:any, i:number)=>{
+       (watch.sub_events || []).map((el:any, i:number)=>{
          
-         return <SubEventWebActivity key={i} subEventId={i}/>
+         return <SubEventWebActivity key={i} data={el} subEventId={i}/>
         })
       }
+      {errors?.activities && <p className="text-red-800">Every sub-event must have atleast one activity</p>}
       </div>
 
       {/* Mobile Interface */}

@@ -16,7 +16,7 @@ const AddEventGrid = () => {
         />
 
       </div>
-        <AutoConfigForm />
+        <AutoConfigForm  type="add"/>
       
     </MainContentGrid>
   );

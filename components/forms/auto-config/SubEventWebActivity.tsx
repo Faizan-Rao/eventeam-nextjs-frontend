@@ -3,20 +3,15 @@ import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import PrayerField from "./PrayerField";
 
-const SubEventWebActivity = ({ subEventId }: { subEventId: number }) => {
+const SubEventWebActivity = ({ subEventId, data }: { data:any ,subEventId: number }) => {
   const { control } = useFormContext();
-  const { fields, append, remove } = useFieldArray({
-    name: `prayer_time.${subEventId}`,
-    control,
-  });
+ 
 
  
   return (
     <PrayerField
-      title={`Subevent #${subEventId + 1} `}
-      fields={fields}
-      append={append}
-      remove={remove}
+      title={`${data.title}`}
+      
       prayer={subEventId}
     />
   );

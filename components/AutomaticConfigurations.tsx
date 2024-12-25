@@ -16,7 +16,7 @@ const AutomaticConfiguration = () => {
         />
 
       </div>
-        <AutoConfigForm />
+        <AutoConfigForm type="autoForm" />
       
     </MainContentGrid>
   );

@@ -11,7 +11,7 @@ export const subevent = joi.object({
   title: joi.string().required(),
   date: joi.string().required(),
   status: joi.string().required(),
-  manage_inventory: joi.number().min(0).empty(0),
+  manage_inventory: joi.number().min(0).default(0).empty(0),
   event_capacity: joi.number().min(0).empty(null),
   address: joi.string().empty(""),
   description: joi.string().empty(""),
@@ -27,8 +27,8 @@ const activity = joi.object({
         sub_event_id: joi.string().empty(""),
         activity_title: joi.string().empty(""),
         activity_type: joi.string().required(),
-        activity_time: joi.string().required(),
-        activity_status: joi.string().required(),
+        activity_time: joi.any().required(),
+        activity_status: joi.number().required(),
       })
     )
     .min(1)
@@ -62,8 +62,8 @@ export const autoForm = joi.object({
 
 export const autoFormDefaults ={
     "title": "asasas",
-    "start_date": "24/10/2024 11:17",
-    "end_date": "30/10/2024 11:17",
+    "start_date": "2024-08-07T22:22:14.000000Z",
+    "end_date": "2024-08-07T22:22:14.000000Z",
     "event_description": "<p>ascsdcsacSDC</p",
     "tickets": [
           {

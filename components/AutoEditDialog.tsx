@@ -9,7 +9,7 @@ import {
 } from "./ui/select";
 import { ChevronRight, DollarSign } from "lucide-react";
 import { register } from "module";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -28,6 +28,7 @@ const AutoEditDialog = ({ data }: { data: any }) => {
   const {
     control,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -54,6 +55,9 @@ const AutoEditDialog = ({ data }: { data: any }) => {
         });
       },
     });
+
+    const watch = useWatch({control})
+    console.log("autoforms watch", watch)
   const onSubmit = (formData: any) => {
    const payload = {...formData}
    payload["id"] = data.id
@@ -99,7 +103,7 @@ const AutoEditDialog = ({ data }: { data: any }) => {
                   <Controller
                     name="is_active"
                     control={control}
-                    defaultValue
+                    
                     render={({ field }) => (
                       <Switch
                        
@@ -112,28 +116,36 @@ const AutoEditDialog = ({ data }: { data: any }) => {
                 </div>
               </div>
 
-              <div className="flex justify-between flex-col">
+             {watch.start_date && <div className="flex justify-between flex-col">
                 <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
                   Start Date
                 </label>
                 <input
                   type="date"
-                  defaultValue={data.start_date}
                   className="border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
-                  {...register("start_date")}
+                  // {...register("start_date")}
+                  value={`${new Date(watch.start_date)
+                    .toISOString()
+                    .split("T")[0]}`}
+                  
+                  onChange={(e) => setValue("start_date", new Date(e.target.value))}
                 />
-              </div>
-              <div className="flex justify-between flex-col">
+              </div>}
+             {watch.end_date && <div className="flex justify-between flex-col">
                 <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
                   End Date
                 </label>
                 <input
                   type="date"
                   className=" border-[1px] outline-none p-2 rounded-lg w-full cursor-pointer"
-                  defaultValue={data.end_date}
-                  {...register("end_date")}
-                />
-              </div>
+                  // {...register("end_date")}
+                  value={`${new Date(watch.end_date)
+                    .toISOString()
+                    .split("T")[0]}`}
+                 
+                  onChange={(e) => setValue("end_date", new Date(e.target.value))}
+                  />
+              </div>}
               <div className="flex justify-end items-center gap-4">
                 <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}

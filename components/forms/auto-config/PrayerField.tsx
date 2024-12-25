@@ -1,5 +1,10 @@
 "use client";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import {
+  Controller,
+  useFieldArray,
+  useFormContext,
+  useWatch,
+} from "react-hook-form";
 
 import {
   Select,
@@ -10,29 +15,33 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { CirclePlus, CircleMinus, CircleX, Plus } from "lucide-react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback, useEffect } from "react";
 import { format } from "date-fns";
-
+import _ from "lodash";
 interface IPrayerField {
   title: string;
-  fields: any[];
-  append: (val: any) => any;
-  remove: (index: number) => any;
   prayer: number;
 }
 const PrayerField: React.FC<IPrayerField> = ({
   title,
-  fields,
-  append,
-  remove,
+
   prayer,
 }) => {
   const { control, register, resetField } = useFormContext<any>();
-  const prayerFields = useWatch({
+  const { fields, append, remove } = useFieldArray({
+    name: `activities.${prayer}.activities`,
     control,
-    name: `prayer_time.${prayer}`,
   });
 
+  const prayerFields = useWatch({
+    control,
+    name: `activities.${prayer}.activities`,
+  });
+
+  const watch = useWatch({ control });
+  const { setValue } = useFormContext();
+
+  console.log("watch", _.isString("hello g") && _.isNaN("12:00"));
   return (
     <div className="flex px-4 justify-center flex-col gap-4 ">
       <label className="text-[#7655fa] font-semibold">{title}</label>
@@ -46,7 +55,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 className="border-[1px] p-[4.5px] outline-none rounded-md "
                 placeholder="Enter Title"
                 {...register(
-                  `prayer_time.${prayer}.${index}.title`,
+                  `activities.${prayer}.activities.${index}.activity_title`,
                   {
                     required: true,
                   }
@@ -57,28 +66,32 @@ const PrayerField: React.FC<IPrayerField> = ({
               <label className="text-sm ">Time Type</label>
 
               <Controller
-                name={
-                 `prayer_time.${prayer}.${index}.time_type`
-                }
+                name={`activities.${prayer}.activities.${index}.activity_type`}
                 control={control}
                 render={({ field }) => (
                   <Select
-                    defaultValue={field.value}
-                    onValueChange={(value) => field.onChange(value)}
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      setValue(
+                        `activities.${prayer}.activities.${index}.activity_type`,
+                        value
+                      );
+                    }}
                   >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Select Time.." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="before-sunset" defaultChecked>
+                      <SelectItem value="before_sunset" defaultChecked>
                         Before Sunset
                       </SelectItem>
-                      <SelectItem value="fixed-time">Fixed Time</SelectItem>
-                      <SelectItem value="after-sunset">After Sunset</SelectItem>
-                      <SelectItem value="before-candle">
+                      <SelectItem value="fixed_time">Fixed Time</SelectItem>
+                      <SelectItem value="after_sunset">After Sunset</SelectItem>
+                      <SelectItem value="before_candle">
                         Before Candle Light
                       </SelectItem>
-                      <SelectItem value="after-candle">
+                      <SelectItem value="after_candle">
                         After Candle Light
                       </SelectItem>
                     </SelectContent>
@@ -87,21 +100,21 @@ const PrayerField: React.FC<IPrayerField> = ({
               />
             </span>
             {/* Before Sunset */}
-            {prayerFields[index]?.time_type === "before-sunset" && (
+
+            {watch.activities?.[prayer].activities?.[index]?.activity_type ===
+              "before_sunset" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">Before Time</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
-                    name={
-                      `prayer_time.${prayer}.${index}.time`
-                    }
+                    name={`activities.${prayer}.activities.${index}.activity_time`}
                     control={control}
                     render={({ field }) => (
                       <>
                         <CirclePlus
                           onClick={() =>
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value + 1
+                              _.isString(field.value)  ? 0 : field.value + 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -113,7 +126,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onChange={(e: ChangeEvent) =>
                             field.onChange((e.target as any).value)
                           }
-                          value={field.value ?? 0}
+                          value={_.isString(field.value) && isNaN(parseInt(field.value)) ? 0 : field.value}
                           defaultValue={0}
                           min={0}
                         />
@@ -121,7 +134,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onClick={() =>
                             field.value > 0 &&
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value - 1
+                              _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -134,21 +147,20 @@ const PrayerField: React.FC<IPrayerField> = ({
               </span>
             )}
             {/* Before Candle Light */}
-            {prayerFields[index]?.time_type === "before-candle" && (
+            {watch.activities?.[prayer].activities?.[index]?.activity_type ===
+              "before_candle" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">Before Candle Light</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
-                    name={
-                      `prayer_time.${prayer}.${index}.time`
-                    }
+                    name={`activities.${prayer}.activities.${index}.activity_time`}
                     control={control}
                     render={({ field }) => (
                       <>
                         <CirclePlus
                           onClick={() =>
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value + 1
+                              _.isString(field.value) ? 0 : field.value + 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -160,15 +172,15 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onChange={(e: ChangeEvent) =>
                             field.onChange((e.target as any).value)
                           }
-                          value={field.value ?? 0}
-                          defaultValue={0}
+                          value={_.isString(field.value) && isNaN(parseInt(field.value)) ? 0 : field.value}
+                          defaultValue={prayerFields[index]?.activity_time}
                           min={0}
                         />
                         <CircleMinus
                           onClick={() =>
                             field.value > 0 &&
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value - 1
+                              _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -182,21 +194,20 @@ const PrayerField: React.FC<IPrayerField> = ({
             )}
 
             {/* After Candle Light */}
-            {prayerFields[index]?.time_type === "after-candle" && (
+            {watch.activities?.[prayer].activities?.[index]?.activity_type ===
+              "after_candle" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">After Candle Light</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
-                    name={
-                      `prayer_time.${prayer}.${index}.time`
-                    }
+                    name={`activities.${prayer}.activities.${index}.activity_time`}
                     control={control}
                     render={({ field }) => (
                       <>
                         <CirclePlus
                           onClick={() =>
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value + 1
+                              _.isString(field.value) ? 0 : field.value + 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -208,7 +219,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onChange={(e: ChangeEvent) =>
                             field.onChange((e.target as any).value)
                           }
-                          value={field.value ?? 0}
+                          value={_.isString(field.value) && isNaN(parseInt(field.value)) ? 0 : field.value}
                           defaultValue={0}
                           min={0}
                         />
@@ -216,7 +227,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onClick={() =>
                             field.value > 0 &&
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value - 1
+                              _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -229,21 +240,20 @@ const PrayerField: React.FC<IPrayerField> = ({
               </span>
             )}
             {/* after sunset */}
-            {prayerFields[index]?.time_type === "after-sunset" && (
+            {watch.activities?.[prayer].activities?.[index]?.activity_type ===
+              "after_sunset" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">After Time</label>
                 <div className="flex  bg-[#7655fa] rounded-md items-center px-4 py-2 ">
                   <Controller
-                    name={
-                      `prayer_time.${prayer}.${index}.time`
-                    }
+                    name={`activities.${prayer}.activities.${index}.activity_time`}
                     control={control}
                     render={({ field }) => (
                       <>
                         <CirclePlus
                           onClick={() =>
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value + 1
+                              _.isString(field.value)  ? 0 : field.value + 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -255,7 +265,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onChange={(e: ChangeEvent) =>
                             field.onChange((e.target as any).value)
                           }
-                          value={field.value ?? 0}
+                          value={_.isString(field.value) && isNaN(parseInt(field.value)) ? 0 : field.value}
                           defaultValue={0}
                           min={0}
                         />
@@ -263,7 +273,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                           onClick={() =>
                             field.value > 0 &&
                             field.onChange(
-                              Number.isNaN(field.value) ? 0 : field.value - 1
+                              _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
                           className="text-[white] cursor-pointer"
@@ -275,23 +285,25 @@ const PrayerField: React.FC<IPrayerField> = ({
                 </div>
               </span>
             )}
-
-            {prayerFields[index]?.time_type === "fixed-time" && (
+            {/* Fixed Time */}
+            {watch.activities?.[prayer].activities?.[index]?.activity_type ===
+              "fixed_time" && (
               <span className="flex   flex-col gap-1">
                 <label className="text-sm ">Fixed Time</label>
                 <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
                   <Controller
-                    name={
-                     `prayer_time.${prayer}.${index}.fix_time`
-                    }
+                    name={`activities.${prayer}.activities.${index}.activity_time`}
                     control={control}
                     render={({ field }) => (
                       <>
                         <input
                           type="time"
                           value={
-                            prayerFields[index].fixed_time?.split(" ")[0] ??
-                            "00:00"
+                            
+                              (`${prayerFields[index].activity_time}`.split(" ")[0]
+                            )
+                              // ? prayerFields[index].activity_time?.split(" ")[0]
+                              // : "00:00"
                           }
                           className=" bg-transparent outline-none"
                           onChange={(e: ChangeEvent) =>
@@ -314,17 +326,15 @@ const PrayerField: React.FC<IPrayerField> = ({
               <label className="text-sm ">Active Status</label>
               <div className="flex  border-[1px] rounded-md items-center px-4 py-2 ">
                 <Controller
-                  name={
-                    `prayer_time.${prayer}.${index}.status`
-                  }
+                  name={`activities.${prayer}.activities.${index}.activity_status`}
                   control={control}
                   render={({ field }) => (
                     <div className="flex gap-6">
                       <span>Active</span>
                       <Switch
-                        onCheckedChange={(value) => field.onChange(value)}
+                        onCheckedChange={(value) => field.onChange(value ? 1 : 0)}
                         className="text-[white] cursor-pointer"
-                        defaultChecked={field.value}
+                        checked={field.value === 1 ? true : false }
                       />
                     </div>
                   )}
@@ -334,7 +344,7 @@ const PrayerField: React.FC<IPrayerField> = ({
             <div className="flex self-end">
               <CircleX
                 onClick={() => {
-                  remove(index);
+                  remove(fields.length - 1);
                 }}
                 className="text-[red] mb-3 cursor-pointer"
                 strokeWidth={1}
@@ -347,16 +357,18 @@ const PrayerField: React.FC<IPrayerField> = ({
         <button
           onClick={() =>
             append({
-              title: "",
-              time_type: "",
-              status: false,
-              before_time: 0,
+              sub_event_id: "",
+              activity_id: "",
+              activity_title: "",
+              activity_type: "before_sunset",
+              activity_time: "0",
+              activity_status: 0,
             })
           }
           className="flex items-center text-sm gap-4 my-4  justify-self-start"
         >
           {" "}
-          <Plus /> <span>Add Another Subevent</span>
+          <Plus /> <span>Add Activity</span>
         </button>
       </div>
     </div>

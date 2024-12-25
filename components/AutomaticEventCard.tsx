@@ -34,7 +34,7 @@ const AutomaticEventCard = ({ event } : {event:any}) => {
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
         </div>
         <span className="hover:bg-[#45309b] rounded-full aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
-       <AutoEditDialog data={event}/>
+       {event && <AutoEditDialog data={event}/>}
        </span>
       </div>
     </div>

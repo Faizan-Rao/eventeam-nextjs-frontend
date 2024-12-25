@@ -45,7 +45,7 @@ const AutoDonationDialog = () => {
   }, [donation, pathname, setDonations]);
 
   const [selectedDonations, setSelectedDonations] = useState(
-    wt_form.advance_form.donations?.other_donations || []
+    wt_form.advance.donations?.other_donations || []
   );
 
   const selectDonation = (data: any) => {
@@ -60,11 +60,11 @@ const AutoDonationDialog = () => {
         }
       });
       setSelectedDonations(s_donations);
-      setValue("advance_form.donations.other_donations", s_donations);
+      setValue("advance.donations.other_donations", s_donations);
     } else {
       s_donations.push(data);
       setSelectedDonations(s_donations);
-      setValue("advance_form.donations.other_donations", s_donations);
+      setValue("advance.donations.other_donations", s_donations);
     }
     console.log(selectedDonations);
   };

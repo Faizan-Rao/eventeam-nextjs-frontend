@@ -11,7 +11,12 @@ import React, {
 import autoConfigSteps from "@/configs/autoConfigs";
 import clsx from "clsx";
 
-import { useForm, SubmitHandler, FormProvider, useWatch} from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  FormProvider,
+  useWatch,
+} from "react-hook-form";
 
 import { FormHeader } from "./FormHeader";
 
@@ -25,61 +30,70 @@ import StepperSection from "./StepperSection";
 import PrayerTimeForm from "./PrayerTimeForm";
 import { useDispatch } from "react-redux";
 import { addAutoConfig, selectAutoConfig } from "@/slices/autoConfigSlice";
-import { autoConfigPostStruct, addNewEventPostStruct } from "@/configs/autoConfigPost";
+import {
+  autoConfigPostStruct,
+  addNewEventPostStruct,
+} from "@/configs/autoConfigPost";
 import { usePathname } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { AutoFormAPI, Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
-import { autoForm, autoFormDefaults, autoFormType,  } from "@/configs/autoFormValidation";
-import {joiResolver} from "@hookform/resolvers/joi"
+import {
+  autoForm,
+  autoFormDefaults,
+  autoFormType,
+} from "@/configs/autoFormValidation";
+import { joiResolver } from "@hookform/resolvers/joi";
 
 const defaultValues = {
   tickets: [
     {
-      "title": "Men",
+      title: "Men",
     },
   ],
-  // advance_form: {
-  //   show_address: false,
-  //   cash_payment: false,
-  //   show_regulations: false,
-  //   show_stripe: false,
-  // },
-
-  // prayer_time: {
-  //   calculate_via_api: "1",
-  // },
+  advance: {
+    is_attendees_required: "1",
+    is_show_address: "1",
+    is_cash_allowed: "1",
+    is_donation_allowed: "1",
+    is_show_regulation: "1",
+    renew_advance_fields: "0",
+    is_show_stripe: "1",
+  },
+  
 };
-const AutoConfigForm = () => {
+const AutoConfigForm = ({type}: {type:string}) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [errors, setErrors] = useState<string[]>([])
+  const [errors, setErrors] = useState<string[]>([]);
   const deferStep = useDeferredValue(currentStep);
 
-  
-
   const methods = useForm<autoFormType>({
-   
     resolver: (values, context, options) => {
-      const resolver = joiResolver<typeof autoForm>(autoForm, {context: context, abortEarly:false, allowUnknown:true})
-      return resolver(values, context, options)
+      const resolver = joiResolver<typeof autoForm>(autoForm, {
+        context: context,
+        abortEarly: false,
+        allowUnknown: true,
+      });
+      return resolver(values, context, options);
     },
-   defaultValues: autoFormDefaults
-  
+    defaultValues: autoFormDefaults,
   });
-  
+
   const {
     control,
     register,
     handleSubmit,
     trigger,
-   formState: {errors:formErrors}
+    formState: { errors: formErrors },
   } = methods;
-  
-  console.log("formErrors",formErrors)
-  const watch = useWatch({control})
-  console.log(watch)
 
-  useEffect(()=>{trigger()},[trigger, watch])
+  console.log("formErrors", formErrors);
+  const watch = useWatch({ control });
+  console.log(watch);
+
+  useEffect(() => {
+    trigger();
+  }, [trigger, watch]);
 
   // const handleErrors = useCallback(() =>{
   //   const validationError = autoFormValidation(watch)
@@ -104,53 +118,69 @@ const AutoConfigForm = () => {
 
   const mutateAutoConfig = useMutation({
     mutationFn: AutoFormAPI.createAutoConfig,
-    onSuccess : ()=>{
+    onSuccess: () => {
       toast("AutoConfig Saved Successfully...", {
-        type:"success"
-      })
+        type: "success",
+      });
     },
-    onError : ()=>{
+    onError: () => {
       toast("AutoConfig Not Saved...", {
-        type:"error"
-      })
-    }
-  })
+        type: "error",
+      });
+    },
+  });
 
   const mutateEvent = useMutation({
     mutationFn: Events.createEvent,
-    onSuccess : ()=>{
+    onSuccess: () => {
       toast("Event Saved Successfully...", {
-        type:"success"
-      })
+        type: "success",
+      });
     },
-    onError : ()=>{
+    onError: () => {
       toast("Event Not Saved...", {
-        type:"error"
-      })
-    }
-  })
-  const pathname = usePathname()
-  const onSubmit: SubmitHandler<autoFormType> = (data, e) => {
+        type: "error",
+      });
+    },
+  });
+  const pathname = usePathname();
+  const onSubmit: SubmitHandler<autoFormType> = (data :any, e) => {
     e?.preventDefault();
-    console.log("submitted")
-    
-      // if (!data) {
-      //   throw new Error("Data Not Present");
-      // }
+    if(Object.keys(errors).length <= 0)
+    {
+      if(pathname.includes("add-event"))
+      {
+        console.log("add event triggerd")
+        data["description" ]  = "hamlo g" 
+        delete data["tickets"]
+        mutateEvent.mutate(data)
+      }
+      if(pathname.includes("auto-config"))
+      {
+        console.log("Autofrom triggerd")
+        data["description" ]  = "hamlo g" 
+        delete data["tickets"]
+        mutateAutoConfig.mutate(data)
+      }
 
-      // if(pathname.includes("auto-config"))
-      // {
-      //   let payload = autoConfigPostStruct(data);
-      //   console.log("autoconfig Payload",payload)
-      //   mutateAutoConfig.mutate(payload)
-      // }
-      // else
-      // {
-      //   let payload = addNewEventPostStruct(data);
-      //   console.log("add new event payload",payload)
-      //   mutateEvent.mutate(payload)
-      // }
-      
+    }
+
+    // if (!data) {
+    //   throw new Error("Data Not Present");
+    // }
+
+    // if(pathname.includes("auto-config"))
+    // {
+    //   let payload = autoConfigPostStruct(data);
+    //   console.log("autoconfig Payload",payload)
+    //   mutateAutoConfig.mutate(payload)
+    // }
+    // else
+    // {
+    //   let payload = addNewEventPostStruct(data);
+    //   console.log("add new event payload",payload)
+    //   mutateEvent.mutate(payload)
+    // }
   };
   return (
     <FormProvider {...methods}>
@@ -169,9 +199,7 @@ const AutoConfigForm = () => {
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
-              <GeneralInfoInput
-               errors={errors}
-              />
+              <GeneralInfoInput errors={errors} />
             </>
           )}
 
@@ -182,10 +210,7 @@ const AutoConfigForm = () => {
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
-              <TicketTypes
-              
-                errors={errors as any}
-              />
+              <TicketTypes errors={errors as any} />
             </>
           )}
 
@@ -214,7 +239,7 @@ const AutoConfigForm = () => {
           {deferStep === 4 && (
             <>
               <FormHeader
-                title="Prayer Time"
+                title="Activities"
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
@@ -222,7 +247,7 @@ const AutoConfigForm = () => {
             </>
           )}
           <FormStepperButtons
-          errors={errors}
+            errors={errors}
             currentStep={currentStep}
             handleStepDec={handleStepDec}
             handleStepInc={handleStepInc}

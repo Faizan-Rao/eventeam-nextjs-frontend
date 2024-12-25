@@ -22,7 +22,7 @@ const autoConfigSteps = [
     icon: Check,
   },
   {
-    title: "Prayer Time",
+    title: "Activites",
     description: "basic information about event",
     icon: Check,
   },

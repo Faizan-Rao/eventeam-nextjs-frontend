@@ -30,6 +30,9 @@ export const FormStepperButtons = ({
     if (currentStep === 2 && !errors?.sub_events) {
       handleStepInc(e);
     }
+    if (currentStep === 3) {
+      handleStepInc(e);
+    }
   };
   return (
     <span className="flex gap-6 my-6 justify-end items-center">

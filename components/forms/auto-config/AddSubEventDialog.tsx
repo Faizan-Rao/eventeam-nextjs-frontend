@@ -37,7 +37,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   type,
   index,
 }) => {
-  const { control, trigger } = useFormContext();
+  const { control, trigger, setValue } = useFormContext();
   const watch = useWatch({ control });
 
   const { append, replace } = useFieldArray({ control, name: "sub_events" });
@@ -104,6 +104,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
   useEffect(() => {
     fillTicketTypesAddSubEvent();
+   
   }, [fillTicketTypesAddSubEvent]);
 
   const [selectedDate, setSelectedDate] = useState<string>();
@@ -320,7 +321,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                         const item = newArr.find((_, i) => i === index);
                         if (item) {
                           newArr[index as number] = field;
-
+                         
                           replace(newArr);
                         }
                         setOpen(false);

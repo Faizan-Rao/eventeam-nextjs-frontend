@@ -5,10 +5,10 @@ import { Controller, useFormContext } from "react-hook-form";
 const PrayerForm = () => {
   const { control } = useFormContext();
   return (
-    <div className="flex flex-col flex-1 bg-[#ebe6fe] m-4 p-4">
-      <h1 className="text-[#7655fa] font-semibold">Prayer</h1>
+    <div className="flex flex-col flex-1 bg-[#ebe6fe] m-4 p-4 rounded-lg">
+      <h1 className="text-[#7655fa] font-semibold">Time</h1>
       <div className="flex items-center gap-4">
-        <span className="flex flex-1  flex-col gap-1">
+        <div className="flex flex-1  flex-col gap-1">
           <label className="text-sm ">Before Sunset</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
@@ -31,7 +31,7 @@ const PrayerForm = () => {
                     onChange={(e: ChangeEvent) =>
                       field.onChange((e.target as any).value)
                     }
-                    value={field.value ?? 0}
+                    value={field.value || 0}
                     defaultValue={0}
                     min={0}
                   />
@@ -49,8 +49,8 @@ const PrayerForm = () => {
               )}
             />
           </div>
-        </span>
-        <span className="flex flex-1  flex-col gap-1">
+        </div>
+        <div className="flex flex-1  flex-col gap-1">
           <label className="text-sm ">After Sunset</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
@@ -75,7 +75,7 @@ const PrayerForm = () => {
 
                         
                     }}
-                    value={parseFloat(field.value) ?? 0}
+                    value={field.value || 0}
                     defaultValue={0}
                     min={0}
                   />
@@ -93,7 +93,7 @@ const PrayerForm = () => {
               )}
             />
           </div>
-        </span>
+        </div>
         <span className="flex  flex-1  flex-col gap-1">
           <Controller
             name={`prayer.second_event_end_time`}
@@ -107,7 +107,8 @@ const PrayerForm = () => {
                   type="time"
                   className="border-[2px] rounded-lg  outline-none p-2 w-full "
                   onChange={field.onChange}
-                  value={field.value}
+                  defaultValue={0}
+                  min={0}
                 />
               </>
             )}
