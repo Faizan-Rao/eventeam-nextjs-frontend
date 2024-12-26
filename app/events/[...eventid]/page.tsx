@@ -45,8 +45,8 @@ const RegisterEvent = () => {
   });
   const { handleSubmit } = methods;
   const mutate = useMutation({
-    mutationFn: () =>
-      EventReg.eventRegistration(data, params.eventid[0], params.eventid[1]),
+    mutationFn: (formData) =>
+      EventReg.eventRegistration( params.eventid[0], params.eventid[1], formData),
     onSuccess: () => {
       toast("Event Registration Successful", { type: "success" });
     },
@@ -54,7 +54,10 @@ const RegisterEvent = () => {
       toast("Event Registration Failed", { type: "error" });
     },
   });
-  const onSubmit = (data: any) => mutate.mutate(data);
+  const onSubmit = (formData123: any) =>{
+    console.log("send formdata", formData123)
+    mutate.mutate(formData123)
+  };
   return (
     <>
       <CompanyHeader data={companies} />

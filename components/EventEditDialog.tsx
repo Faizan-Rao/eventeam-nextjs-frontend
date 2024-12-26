@@ -45,7 +45,7 @@ const EventEditDialog = ({
   const mutate = useMutation({
     mutationFn: Events.save,
     onSuccess: ()=>{
-      queryClient.invalidateQueries({queryKey: ["my-events", 'event']}).then((e)=>console.log(e))
+      queryClient.invalidateQueries({queryKey: ["my-events"], type:"all"})
       
       toast("Update Successfull", {
         type:"info"

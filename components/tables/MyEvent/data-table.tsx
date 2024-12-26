@@ -12,7 +12,7 @@ import {
   ColumnFiltersState,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { ListFilter, CircleCheckBig, Plus } from "lucide-react";
+import { ListFilter, CircleCheckBig, Plus, CircleCheck } from "lucide-react";
 
 import {
   Table,
@@ -36,6 +36,7 @@ import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
 import Link from "next/link";
 import MyEventCard from "@/components/MyEventCard";
+import clsx from "clsx";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -51,6 +52,8 @@ export function MyEventTable<TData, TValue>({
   const [filteredRows, setFilteredRows] = useState<TData[] & any>([]);
   const [open, setOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState("");
+
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
     setTimeout(() => {
@@ -58,9 +61,8 @@ export function MyEventTable<TData, TValue>({
         data.filter((el) => {
           return (
             parseInt(rangeFilter[0] as any) <=
-              parseInt((el as any).gen_info.registrations) &&
-            parseInt((el as any).gen_info.registrations) <=
-              parseInt(rangeFilter[1] as any)
+              (el as any).registrations_count &&
+            (el as any).registrations_count <= parseInt(rangeFilter[1] as any)
           );
         })
       );
@@ -78,15 +80,15 @@ export function MyEventTable<TData, TValue>({
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
 
-    if (col === "gen_info_active") {
+    if (col === "status") {
       if (text === "active") {
-        setFilteredRows(data.filter((el) => (el as any).gen_info.active));
+        setFilteredRows(data.filter((el) => (el as any).status === 1));
       } else {
-        setFilteredRows(data.filter((el) => !(el as any).gen_info.active));
+        setFilteredRows(data.filter((el) => !(el as any).status));
       }
     } else {
       setFilteredRows(
-        data.filter((el) => (el as any).gen_info.status.toLowerCase() === text)
+        data.filter((el) => (el as any).current_status.toLowerCase() === text)
       );
     }
   };
@@ -128,7 +130,7 @@ export function MyEventTable<TData, TValue>({
                 setFilteredRows([]);
               }
               table
-                .getColumn("gen_info_event_name")
+                .getColumn("title")
                 ?.setFilterValue(event.target.value ?? "");
             }}
             className="max-w-sm outline-none sm:flex-1 md:flex-grow-0  "
@@ -148,52 +150,76 @@ export function MyEventTable<TData, TValue>({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="flex items-center justify-between"
-                  onClick={() =>
-                    handleDropDownFilter("active", "gen_info_active")
-                  }
+                  onClick={() => {
+                    handleDropDownFilter("active", "status");
+                    setSelectedFilter("active");
+                  }}
                 >
                   <span>Active</span>
-                  <CircleCheckBig size={15} />
+                  <div
+                    className={clsx(
+                      selectedFilter === "active" &&
+                        "bg-[#7655fa] rounded-full text-white"
+                    )}
+                  >
+                    <CircleCheck size={18} strokeWidth={1.4} />
+                  </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="flex items-center justify-between"
-                  onClick={() =>
-                    handleDropDownFilter("inactive", "gen_info_active")
-                  }
+                  onClick={() => {
+                    handleDropDownFilter("inactive", "status");
+                    setSelectedFilter("inactive");
+                  }}
                 >
                   <span>Inactive</span>
-                  <CircleCheckBig size={15} />
+                  <div
+                    className={clsx(
+                      selectedFilter === "inactive" &&
+                        "bg-[#7655fa] rounded-full text-white"
+                    )}
+                  >
+                    <CircleCheck size={18} strokeWidth={1.4} />
+                  </div>
                 </DropdownMenuItem>
 
                 <DropdownMenuLabel>Operational State</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="flex items-center justify-between"
-                  onClick={() =>
-                    handleDropDownFilter("operational", "gen_info.status")
-                  }
+                  onClick={() => {
+                    handleDropDownFilter("active", "current_status");
+                    setSelectedFilter("operational");
+                  }}
                 >
-                  <span>Operational</span>
-                  <CircleCheckBig size={15} />
+                  <span>Active</span>
+                  <div
+                    className={clsx(
+                      selectedFilter === "operational" &&
+                        "bg-[#7655fa] rounded-full text-white"
+                    )}
+                  >
+                    <CircleCheck size={18} strokeWidth={1.4} />
+                  </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="flex items-center justify-between"
-                  onClick={() =>
-                    handleDropDownFilter("ended", "gen_info.status")
-                  }
+                  onClick={() => {
+                    handleDropDownFilter("ended", "current_status");
+                    setSelectedFilter("ended");
+                  }}
                 >
                   <span>Ended</span>
-                  <CircleCheckBig size={15} />
+                  <div
+                    className={clsx(
+                      selectedFilter === "ended" &&
+                        "bg-[#7655fa] rounded-full text-white"
+                    )}
+                  >
+                    <CircleCheck size={18} strokeWidth={1.4} />
+                  </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="flex items-center justify-between"
-                  onClick={() =>
-                    handleDropDownFilter("pending approval", "gen_info.status")
-                  }
-                >
-                  <span>Pending Approval</span>
-                  <CircleCheckBig size={15} />
-                </DropdownMenuItem>
+              
 
                 <DropdownMenuLabel>Registrations</DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -234,6 +260,7 @@ export function MyEventTable<TData, TValue>({
                     onClick={() => {
                       handleClear();
                       setOpen(false);
+                      setSelectedFilter("")
                     }}
                   >
                     Clear Filters

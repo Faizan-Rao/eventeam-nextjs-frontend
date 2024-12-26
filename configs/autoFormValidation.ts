@@ -41,8 +41,8 @@ const ticketType = joi.object({
 
 export const autoForm = joi.object({
   title: joi.string().empty(""),
-  start_date: joi.string().empty(""),
-  end_date: joi.string().empty(""),
+  start_date: joi.date().empty(""),
+  end_date: joi.date().empty(""),
   event_description: joi.string().required().label("Event Description"),
   tickets: joi.array().items(ticketType).min(1).required(),
   sub_events: joi.array().items(subevent).min(1).required(),

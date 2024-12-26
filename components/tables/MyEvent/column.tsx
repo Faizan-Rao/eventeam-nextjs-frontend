@@ -4,6 +4,7 @@ import ActionDropDown from "@/components/ActionDropDown";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
+import { format } from "date-fns";
 import { keys } from "lodash";
 import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
@@ -63,7 +64,7 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: "start_date",
     header: "Start Date",
     cell: ({ row }) => {
-      return row.original.start_date.toString();
+      return format(row.original.start_date, "dd / MM / yyyy");
     },
     enableGlobalFilter: false,
   },
@@ -71,7 +72,7 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: "end_date",
     header: "End Date",
     cell: ({ row }) => {
-      return row.original.end_date.toString();
+      return format(row.original.end_date, "dd / MM / yyyy");
     },
     enableGlobalFilter: false,
   },
