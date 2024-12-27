@@ -3,6 +3,7 @@ import ActionDropDown from "@/components/ActionDropDown";
 import EditPaymentStatusDialog from "@/components/EditPaymentStatusDialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import ViewPaymentDetailDialog from "@/components/ViewPaymentDetailDialog";
+import { user } from "@/configs/axios";
 import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
 import { ArrowUpDown } from "lucide-react";
@@ -186,10 +187,12 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    header: "Edit Status",
+    accessorKey: "edit_status",
+    header: "Event Status",
+    enableHiding: true,
     cell: ({ row }) => {
       return (
-        <div className="text-center">
+        (user && user.role === "company") && <div className="text-center">
        <EditPaymentStatusDialog row={row as any}/>
         </div>
       );

@@ -57,8 +57,8 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             alt="profile logo"
           />
           <div className="flex flex-col">
-            <span className="text-[#4a4a4a] font-semibold text-lg">
-              {name.length > 25 ? name.slice(0, 25) + "..." : name}
+            <span className="text-[#4a4a4a] font-semibold text-lg line-clamp-1">
+             {name}
             </span>
             <div className="flex items-center gap-2">
               <div

@@ -10,7 +10,12 @@ const Dashboard = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    
+    const recentLogin = localStorage.getItem("recent-login")
+    if(recentLogin === "1")
+    {
+      localStorage.setItem("recent-login", "0")
+      window.location.href = "/dashboard"
+    }
     if (!user["token"] && pathname.includes("/dashboard")) {
       if(user.role === "admin" && pathname.includes("/my-events/") && pathname.includes("/add-event"))
       {

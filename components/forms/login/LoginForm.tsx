@@ -28,6 +28,7 @@ const LoginForm = () => {
         ...response.data.data['user']
       }
       localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('recent-login', "1")
       toast("Login Successful", {type: "success"})
       router.replace('/dashboard')
 

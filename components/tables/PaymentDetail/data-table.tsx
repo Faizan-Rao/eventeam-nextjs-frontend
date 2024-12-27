@@ -36,6 +36,7 @@ import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
 import PaymentCard from "@/components/PaymentCard";
 import clsx from "clsx";
+import { user } from "@/configs/axios";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -103,10 +104,15 @@ export function PaymentDetailsTable<TData, TValue>({
       sorting,
       columnFilters: columnFilters,
     },
+    initialState:{
+      columnVisibility : {
+        "edit_status" : user.role === "company" ? true : false, 
+      }
+    }
   });
   const [selectedRecord, setSelectedRecord] = useState(0);
 
-  console.log("selected row model",table.getRowModel());
+  console.log("selected row model",table.getAllColumns());
   return (
     <>
       {/* Filters & Actions */}
