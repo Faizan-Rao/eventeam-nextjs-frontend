@@ -32,28 +32,57 @@ import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "reg_id",
+   
     id: "select",
     header: ({ table }) => (
       <div className="flex gap-3 items-center ">
-        <Checkbox
+        {/* <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
             (table.getIsSomePageRowsSelected() && "indeterminate")
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
-        />
+        /> */}
+        <p>Sr#</p>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <span className="flex items-center gap-3">
+        {/* <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        /> */}
+        <span className="flex items-center">{row.index + 1}</span>
+      </span>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "reg_id",
+    id: "select",
+    header: ({ table }) => (
+      <div className="flex gap-3 items-center ">
+        {/* <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        /> */}
         <p>Registration Id</p>
       </div>
     ),
     cell: ({ row }) => (
       <span className="flex items-center gap-3">
-        <Checkbox
+        {/* <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
-        />
+        /> */}
         <span className="flex items-center">{row.original.reg_id}</span>
       </span>
     ),
@@ -75,12 +104,23 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "created_at",
     enableGlobalFilter: false,
+    
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+         Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => (
      
-        <span className="flex items-center">{row.original.created_at.split("T")[0]}</span>
+        (row.original.created_at.split("T")[0])
     
     ),
   },
@@ -112,10 +152,14 @@ export const columns: ColumnDef<any>[] = [
         </button>
       );
     },
+    cell: ({row})=>{
+      console.log(row.original)
+      return "$" + row.original.total_amount;
+    },
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "status",
+    accessorKey: "payment_status",
     header: ({ column }) => {
       return (
         <button
@@ -132,11 +176,11 @@ export const columns: ColumnDef<any>[] = [
         <span
           className={clsx(
             " px-4 py-1 rounded-full text-center text-nowrap",
-            (row.getValue("status")  === "Pending")  && "bg-[#FBE394]",
-            (row.getValue("status") !== "Pending")  && "bg-[#C2FFCC]"
+            (row.getValue("payment_status")  === "pending")  && "bg-[#FBE394]",
+            (row.getValue("payment_status") !== "pending")  && "bg-[#C2FFCC]"
           )}
         >
-          {row.getValue('status') === "Pending" ? "Pending" : "Cleared"}
+          {row.getValue('payment_status') === "pending" ? "Pending" : "Cleared"}
         </span>
       );
     },

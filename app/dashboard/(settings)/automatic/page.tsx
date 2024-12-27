@@ -88,7 +88,7 @@ const AutomaticForm = () => {
           {autoformData &&
             filtered.length > 0 &&
             filtered.map((el: any, i: number) => {
-              return <AutomaticEventCard event={el} key={i} />;
+              return  <AutomaticEventCard event={el} key={i} />;
             })}
         </div>
       </div>

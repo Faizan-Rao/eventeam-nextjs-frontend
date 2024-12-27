@@ -96,6 +96,13 @@ export const Payments  = {
     
     return response
   },
+  updateStatus: async (id: number | string) => {
+
+    const response = await axiosWithToken.get(`/payments/is-clear/${id}`);
+    
+    return response
+  },
+
 }
 
 export const FormFields = {

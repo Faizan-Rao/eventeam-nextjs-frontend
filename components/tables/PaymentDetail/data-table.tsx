@@ -12,7 +12,7 @@ import {
   ColumnFiltersState,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { ListFilter, CircleCheckBig, Plus } from "lucide-react";
+import { ListFilter, CircleCheckBig, Plus, CircleCheck } from "lucide-react";
 
 import {
   Table,
@@ -35,6 +35,7 @@ import {
 import ManifyingGlass from "@/components/icons/ManifyingGlass";
 import PaginationControls from "@/components/PaginationControls";
 import PaymentCard from "@/components/PaymentCard";
+import clsx from "clsx";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -49,8 +50,8 @@ export function PaymentDetailsTable<TData, TValue>({
   const [rangeFilter, setFilter] = useState<[0, 0]>([0, 0]);
   const [filteredRows, setFilteredRows] = useState<TData[] & any>([]);
   const [open, setOpen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("");
 
-  
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
     setTimeout(() => {
@@ -58,8 +59,8 @@ export function PaymentDetailsTable<TData, TValue>({
         data.filter((el) => {
           return (
             parseInt(rangeFilter[0] as any) <=
-              parseInt((el as any).payment) &&
-            parseInt((el as any).payment) <=
+              parseInt((el as any).total_amount) &&
+            parseInt((el as any).total_amount) <=
               parseInt(rangeFilter[1] as any)
           );
         })
@@ -86,7 +87,10 @@ export function PaymentDetailsTable<TData, TValue>({
     rangeFilter.filter((el) => el > 0).length > 0 || filteredRows.length > 0;
 
   const table = useReactTable({
-    data: useMemo(() => isFiltered ? filteredRows : data,[data, filteredRows, isFiltered]),
+    data: useMemo(
+      () => (isFiltered ? filteredRows : data),
+      [data, filteredRows, isFiltered]
+    ),
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -102,7 +106,7 @@ export function PaymentDetailsTable<TData, TValue>({
   });
   const [selectedRecord, setSelectedRecord] = useState(0);
 
-  console.log(table.getRowModel())
+  console.log("selected row model",table.getRowModel());
   return (
     <>
       {/* Filters & Actions */}
@@ -117,13 +121,13 @@ export function PaymentDetailsTable<TData, TValue>({
                 setFilteredRows([]);
               }
               table
-                .getColumn("name")
+                .getColumn("event_title")
                 ?.setFilterValue(event.target.value ?? "");
             }}
             className=" flex-1 outline-none"
           />
         </span>
-     
+
         <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
             <button className="flex text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
@@ -136,44 +140,73 @@ export function PaymentDetailsTable<TData, TValue>({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("Pending", "status")}
+              onClick={() => {
+                setSelectedFilter("pending")
+                handleDropDownFilter("Pending", "payment_status")}}
             >
               <span>Pending</span>
-              <CircleCheckBig size={15} />
+              <div
+                className={clsx(
+                  selectedFilter === "pending" &&
+                    "bg-[#7655fa] rounded-full text-white"
+                )}
+              >
+                <CircleCheck size={18} strokeWidth={1.4} />
+              </div>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("Cleared", "status")}
+              onClick={() => {
+                setSelectedFilter("cleared")
+                handleDropDownFilter("Cleared", "payment_status")}}
             >
               <span>Cleared</span>
-              <CircleCheckBig size={15} />
+              <div
+                className={clsx(
+                  selectedFilter === "cleared" &&
+                    "bg-[#7655fa] rounded-full text-white"
+                )}
+              >
+                <CircleCheck size={18} strokeWidth={1.4} />
+              </div>
             </DropdownMenuItem>
 
             <DropdownMenuLabel>Payment Method</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("stripe", "method")}
+              onClick={() => {
+                setSelectedFilter("stripe")
+                handleDropDownFilter("stripe", "payment_method")}}
             >
               <span>Stripe</span>
-              <CircleCheckBig size={15} />
+              <div
+                className={clsx(
+                  selectedFilter === "stripe" &&
+                    "bg-[#7655fa] rounded-full text-white"
+                )}
+              >
+                <CircleCheck size={18} strokeWidth={1.4} />
+              </div>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("cash", "method")}
+              onClick={() => {
+                setSelectedFilter("cash")
+                handleDropDownFilter("cash", "payment_method")}}
             >
               <span>Cash</span>
-              <CircleCheckBig size={15} />
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex items-center justify-between"
-              onClick={() => handleDropDownFilter("on spot", "method")}
-            >
-              <span>On Spot</span>
-              <CircleCheckBig size={15} />
+              <div
+                className={clsx(
+                  selectedFilter === "cash" &&
+                    "bg-[#7655fa] rounded-full text-white"
+                )}
+              >
+                <CircleCheck size={18} strokeWidth={1.4} />
+              </div>
             </DropdownMenuItem>
 
-            <DropdownMenuLabel>Registrations</DropdownMenuLabel>
+            <DropdownMenuLabel>Total Payments</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <div className="flex gap-2 px-4 my-4">
               <span className="flex flex-col">
@@ -210,6 +243,7 @@ export function PaymentDetailsTable<TData, TValue>({
                 onClick={() => {
                   handleClear();
                   setOpen(false);
+                  setSelectedFilter("")
                 }}
               >
                 Clear Filters
@@ -226,14 +260,11 @@ export function PaymentDetailsTable<TData, TValue>({
             </span>
           </DropdownMenuContent>
         </DropdownMenu>
-
-     
       </div>
-      
-      <span className="md:block sm:hidden">
 
-      <PaginationControls table={table} totalRecords={data.length} />
-      </span>
+      <div className="md:block sm:hidden justify-self-end ">
+        <PaginationControls table={table} totalRecords={data.length} />
+      </div>
 
       {/* Data Table */}
 
@@ -241,7 +272,10 @@ export function PaymentDetailsTable<TData, TValue>({
         <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="border-b-[8px] text-nowrap">
+              <TableRow
+                key={headerGroup.id}
+                className="border-b-[8px] text-nowrap"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
@@ -293,16 +327,20 @@ export function PaymentDetailsTable<TData, TValue>({
       </div>
 
       <div className="sm:flex md:hidden flex-col gap-4">
-      <div className="sm:flex md:hidden flex-col gap-4">
-        {(data as any[]).map((element, index) => {
-          return (
-            <PaymentCard selectedRecord={selectedRecord} setSelectedRecord={setSelectedRecord} key={index} data={element} index={index} />
-          );
-        })}
+        <div className="sm:flex md:hidden flex-col gap-4">
+          {(data as any[]).map((element, index) => {
+            return (
+              <PaymentCard
+                selectedRecord={selectedRecord}
+                setSelectedRecord={setSelectedRecord}
+                key={index}
+                data={element}
+                index={index}
+              />
+            );
+          })}
+        </div>
       </div>
-
-      </div>
-    
     </>
   );
 }

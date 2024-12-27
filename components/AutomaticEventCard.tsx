@@ -1,51 +1,69 @@
 import { clsx } from "clsx";
 import { ChevronRight } from "lucide-react";
 import React from "react";
-import format from "html-react-parser";
+import parser from "html-react-parser";
 import { format as dateFormatter } from "date-fns";
 import AutoEditDialog from "./AutoEditDialog";
 import { user } from "@/configs/axios";
 import Link from "next/link";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
   return (
-    <div className="flex-1 flex flex-col gap-4 w-auto min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
-      <div className="flex justify-between items-center gap-4">
-        <div className="flex flex-col text-nowrap ">
-          <h1 className="text-[#4a4a4a] text-2xl font-semibold">
-            {event.title.length > 15
-              ? event.title.slice(0, 15) + "..."
-              : event.title}
+    <div className="grid grid-cols-1  gap-4 min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
+      <div className="flex flex-col justify-between">
+        <div className="flex justify-between flex-1 w-full ">
+          <h1 className="text-[#4a4a4a] flex-1 text-2xl line-clamp-1  font-semibold">
+            {event.title}
           </h1>
-          <h1 className="text-[#4a4a4a]">
-            {format(
-              event.description.length > 20
-                ? event.description.slice(0, 35) + "..."
-                : event.description || "No description"
+          <div
+            className={clsx(
+              "px-4 py-1 rounded-full self-start",
+              event.status === 1 && "bg-[#C2FFCC]",
+              event.status === 0 && "bg-[#FFC2C2]"
             )}
-          </h1>
-        </div>
-
-        <div
-          className={clsx(
-            "px-4 py-1 rounded-full",
-            event.status === 1 && "bg-[#C2FFCC]",
-            event.status === 0 && "bg-[#FFC2C2]"
-          )}
-        >
-          {event.status ? "Active" : "Inactive"}
+          >
+            {event.status ? "Active" : "Inactive"}
+          </div>
         </div>
       </div>
+        {/* <Accordion type="single"  collapsible>
+          <AccordionItem className="outline-none border-none" value="item-1">
+            <AccordionTrigger>
+              {" "}
+              <h1 className=" text-sm font-semibold outline-none text-[#4a4a4a]">
+                See Description
+              </h1>{" "}
+            </AccordionTrigger>
+            <AccordionContent>
+              <h1 className="text-[#424242] bg-[#f6f6f6] rounded-lg p-4 text-justify">
+                {(() => {
+                  const el = parser(event.description, { trim: true });
+                  if (el.toString().trim() !== "") {
+                    return el;
+                  } else {
+                    return "No description";
+                  }
+                })()}
+              </h1>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion> */}
 
-      <div className="flex justify-between items-center rounded-md border p-4 bg-[#7655fa]">
+      <div className="grid grid-cols-3 place-content-center place-items-center   rounded-md border p-4 bg-[#7655fa]">
         <div className="flex flex-col ">
-          <h1 className="text-white text-xl font-semibold">
+          <h1 className="text-white text-lg font-semibold">
             {dateFormatter(event.start_date, "PP")}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">Start date</h1>
         </div>
-        <div className="flex mx-2 flex-col ">
-          <h1 className="text-white text-xl font-semibold">
+        <div className=" ">
+          <h1 className="text-white text-lg font-semibold">
             {dateFormatter(event.end_date, "PP")}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
@@ -57,7 +75,7 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
         )}
         {user && user.role === "company" && event && (
           <Link
-            className="text-white bg-[#482cb9] transition-all rounded-full py-2 px-3 hover:bg-[#ffffff6d] hover:text-black "
+            className="text-white bg-[#482cb9] justify-self-end transition-all rounded-full py-2 px-3 hover:bg-[#C2FFCC] hover:text-black  "
             href={"#"}
           >
             Use

@@ -43,6 +43,7 @@ const PaymentDetailMain = () => {
     staleTime: 20000,
     
   });
+  
 
 
  
@@ -147,8 +148,9 @@ const PaymentDetailMain = () => {
         </div>
 
         {/* Payment Detail Data Table */}
-        {isPaymentPending &&  <Skeleton className="h-[550px] w-full rounded-xl"/>}
+        {isPaymentPending &&  <Skeleton className="h-[550px] w-full rounded-xl"/>} 
        {!isPaymentPending && <PaymentDetailsTable columns={columns} data={paymentDetail?.data.data["registrations"]} />}
+       {/* {<PaymentDetailsTable columns={columns} data={data} />} */}
       </div>
     </>
   );
