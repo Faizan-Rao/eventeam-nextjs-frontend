@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const schema = joi.object({
   full_name: joi.string().min(5).required(),
-  phone: joi.string().min(5).required(),
+  phone: joi.number().min(5).required(),
   regemail: joi.string().email({ tlds: { allow: false } }).required(),
   regpassword: joi.string().min(5).required(),
   confirm_password: joi.string().min(5).required(),

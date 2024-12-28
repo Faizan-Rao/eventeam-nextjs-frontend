@@ -20,7 +20,7 @@ export const Companies = {
     const response = await axiosWithToken.post("/users/create", data);
     return response;
   },
-  update: async (data: any, id: number | string) => {
+  update: async ( id: number | string, data: any) => {
     const response = await axiosWithToken.put(`/users/update/${id}`, data);
     return response;
   },

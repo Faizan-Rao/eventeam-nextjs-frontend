@@ -8,7 +8,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   DropdownMenu,
@@ -19,6 +19,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import CompanyDeleteDialog from "./DeleteCompanyDialog";
+import AddCompanyDialog from "./AddCompanyDialog";
 
 interface ICompanyCard {
   logo?: string;
@@ -28,7 +30,9 @@ interface ICompanyCard {
   address: string;
   email: string;
   stripe: number;
-  slug: string,
+  slug: string;
+  id: number;
+  data:any
 }
 const CompanyCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
@@ -38,19 +42,20 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   email = "No Email",
   phone = "No Phone",
   stripe = "0",
-  slug=""
+  slug = "",
+  id,
+ data,
 }) => {
-
-  const dummyImage =  "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw"
+  const [openDelete, setDeleteOpen] = useState(false);
+  const [openEdit, setEditOpen] = useState(false);
+  const dummyImage =
+    "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw";
   return (
     <div className="  flex flex-1  w-auto  gap-10 p-6 m-3 flex-col bg-white rounded-lg">
       <div className="flex justify-between">
         <div className="flex items-center border-b-[1px] pb-5 gap-4">
           <Image
-            src={
-              logo ||
-             dummyImage
-            }
+            src={logo || dummyImage}
             height={50}
             width={50}
             className="rounded-full bg-cover aspect-square"
@@ -58,7 +63,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           />
           <div className="flex flex-col">
             <span className="text-[#4a4a4a] font-semibold text-lg line-clamp-1">
-             {name}
+              {name}
             </span>
             <div className="flex items-center gap-2">
               <div
@@ -81,9 +86,16 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             <DropdownMenuItem>
               <Link href={`/companies/${slug}`}>Company Events</Link>
             </DropdownMenuItem>
-           
+            <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+              <p>Delete Company</p>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setEditOpen(true)}>
+              <p>Edit Company</p>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <AddCompanyDialog editOpen={openEdit} setEditOpen={setEditOpen} data={data} type="edit" />
+        <CompanyDeleteDialog open={openDelete} setOpen={setDeleteOpen} data={id} />
       </div>
       <div className="flex flex-col gap-10">
         <div className="flex-1 flex items-center gap-4">
@@ -103,7 +115,9 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           </span>
           <div className="flex flex-1   flex-col ">
             <span className="text-sm font-semibold text-[#999999]">Email</span>
-            <p className="text-[#4a4a4a] font-semibold text-base break-words text-wrap">{email}</p>
+            <p className="text-[#4a4a4a] font-semibold text-base break-words text-wrap">
+              {email}
+            </p>
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
+import { Companies } from "@/configs/apiRoutes";
 
 const CompanyDeleteDialog = ({
   open,
@@ -25,9 +26,9 @@ const CompanyDeleteDialog = ({
 }) => {
 
   const mutate = useMutation({
-    // mutationFn: Events.delete,
+    mutationFn: Companies.delete,
     onSuccess: ()=>{
-      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      queryClient.invalidateQueries({queryKey: ["companies"]})
       toast("Delete Successfull", {
         type:"info"
       })
@@ -42,7 +43,7 @@ const CompanyDeleteDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Event Deletion Confirmation</DialogTitle>
+          <DialogTitle></DialogTitle>
           <DialogDescription>
             <div className="flex items-center gap-4 my-4">
               {/* Icon */}
@@ -53,7 +54,7 @@ const CompanyDeleteDialog = ({
               </span>
               <div className="flex flex-1 flex-col gap-4">
                 <h1 className="font-semibold text-lg text-[#4a4a4a] ">
-                  Are you sure you want to delete event?
+                  Are you sure you want to delete company?
                 </h1>
                  
               </div>
@@ -63,7 +64,7 @@ const CompanyDeleteDialog = ({
                 Close
               </button>
 
-              <button onClick={()=>{mutate.mutate(data.id)}} className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2">
+              <button onClick={()=>{mutate.mutate(data)}} className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2">
                 Delete
               </button>
             </div>

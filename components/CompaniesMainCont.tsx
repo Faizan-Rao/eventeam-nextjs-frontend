@@ -188,6 +188,8 @@ const CompaniesMainCont = () => {
                 stripe={el["stripe_account_status"]}
                 logo={el["photo"] || ""}
                 slug={el['slug']}
+                id={el['id']}
+                data={el}
               />
           ))}
         </div>
@@ -207,6 +209,8 @@ const CompaniesMainCont = () => {
                 stripe={el["stripe_account_status"]}
                 logo={el["photo"] || ""}
                 slug={el['slug']}
+                id={el['id']}
+                data={el}
               />
             ))}
         </div>
