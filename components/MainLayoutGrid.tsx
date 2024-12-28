@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import clsx from "clsx";
+import { user } from "@/configs/axios";
+import { usePathname } from "next/navigation";
 interface IMainLayoutGrid {
   children: React.ReactNode;
 }
@@ -12,6 +14,15 @@ export const queryClient = new QueryClient();
 
 const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
   const [isNavOpen, setNavOpen] = useState(true);
+  
+  const pathname = usePathname()
+
+   useEffect(() => {
+      if (!user["token"] && pathname.includes("/dashboard")) {
+          window.location.replace("/login");
+      }
+    }, [pathname]);
+    
   return (
     <>
       <QueryClientProvider client={queryClient}>

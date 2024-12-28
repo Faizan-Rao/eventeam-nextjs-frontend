@@ -70,6 +70,7 @@ const ProfileDropdown = () => {
             let local = localStorage.getItem("user")
             if(!local)
             {
+              
               router.replace("/login")
             }
             handleOpen()

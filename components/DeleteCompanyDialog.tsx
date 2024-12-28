@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/dialog";
 import { Trash } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { Events } from "@/configs/apiRoutes";
+
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
 
-const EventDeleteDialog = ({
+const CompanyDeleteDialog = ({
   open,
   setOpen,
   data,
@@ -25,7 +25,7 @@ const EventDeleteDialog = ({
 }) => {
 
   const mutate = useMutation({
-    mutationFn: Events.delete,
+    // mutationFn: Events.delete,
     onSuccess: ()=>{
       queryClient.invalidateQueries({queryKey: ["my-events"]})
       toast("Delete Successfull", {
@@ -76,4 +76,4 @@ const EventDeleteDialog = ({
   );
 };
 
-export default EventDeleteDialog;
+export default CompanyDeleteDialog;

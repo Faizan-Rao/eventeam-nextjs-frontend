@@ -30,7 +30,12 @@ const RecentRegMain = ({ regData }: { regData: any }) => {
                       <UserCirclePlus />
                     </div>
                   </td>
-                  <td>{el.event.title}</td>
+                  <td >
+                    <p className="line-clamp-1">
+                    {el.event.title}
+
+                    </p>
+                    </td>
                   <td>{el.payment_method}</td>
                   <td>{el.guests.length}</td>
                   <td>${el.total_amount}</td>

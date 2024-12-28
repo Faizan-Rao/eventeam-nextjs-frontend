@@ -2,24 +2,32 @@
 import React from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup';
+import joi from 'joi'
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Auth } from "@/configs/apiRoutes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const schema = yup.object({
-  full_name: yup.string().min(5).required(),
-  phone: yup.string().min(5).required(),
-  regemail: yup.string().email().required(),
-  regpassword: yup.string().min(5).required(),
-  confirm_password: yup.string().min(5).required(),
+const schema = joi.object({
+  full_name: joi.string().min(5).required(),
+  phone: joi.string().min(5).required(),
+  regemail: joi.string().email({ tlds: { allow: false } }).required(),
+  regpassword: joi.string().min(5).required(),
+  confirm_password: joi.string().min(5).required(),
 }).required();
 
 const SignupForm = () => {
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+     resolver: (values, context, options) => {
+          const resolver = joiResolver(schema, {
+            context: context,
+            abortEarly: false,
+            allowUnknown: true,
+          });
+          return resolver(values, context, options);
+        },
+        reValidateMode:"onChange",
   });
 
   const onSubmit = async (data : any) => {
