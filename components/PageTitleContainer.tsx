@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { paths } from "@/configs/paths";
 import Link from "next/link";
+import { user } from "@/configs/axios";
 interface IPageTitleContainer {
   title: string;
   className?: string;
@@ -14,6 +15,7 @@ interface Paths {
   name: string;
   path: string;
   icon: string;
+  role: string[];
 }
 [];
 
@@ -28,7 +30,8 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
     paths.map((el, index) => {
       el.children &&
         el.children.map((item) => {
-          if (item.path === pathname) {
+          if (item.path === pathname ) {
+            
             setSubPaths(el.children as any);
           }
         });
@@ -58,10 +61,10 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
         <h1 className="font-semibold  sm:text-2xl md:text-4xl">{title}</h1>
       </div>
       <div className="sm:hidden md:flex  gap-4">
-        {subPaths.length > 0 &&
+        { subPaths.length > 0 &&
           subPaths.map((el) => {
-            return (
-              <Link
+            return el.role.includes(user.role) && (
+             <Link
                 key={el.path}
                 href={el.path}
                 className={clsx(

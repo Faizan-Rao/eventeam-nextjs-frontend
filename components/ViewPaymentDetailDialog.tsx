@@ -64,20 +64,20 @@ console.log(row?.original)
                 <h1 className="  font-semibold text-3xl text-black">
                   {row?.original?.event.title}
                 </h1>
-                <p className="text-sm text-[#tatata] font-semibold">
-                  {row?.original?.created_at.split("T")[0]}
-                </p>
+                {/* <p className="text-sm text-[#tatata] font-semibold">
+                  {row?.original?.start_date?.split("T")[0]}
+                </p> */}
               </div>
 
               <div className="flex flex-col gap-2">
                 <span
                   className={clsx(
                     " px-4 py-1 rounded-full text-black text-center text-nowrap",
-                    row?.original?.payment_clear === "0" && "bg-[#FBE394]",
-                    row?.original?.payment_clear === "1" && "bg-[#C2FFCC]"
+                    row?.original?.payment_status === "pending" && "bg-[#FBE394]",
+                    row?.original?.payment_status !== "pending" && "bg-[#C2FFCC]"
                   )}
                 >
-                  {row?.original?.payment_clear === "0" ? "Pending" : "Cleared"}
+                  {row?.original?.payment_status === "pending" ? "Pending" : "Cleared"}
                 </span>
                 <p className="text-sm text-[#tatata] font-semibold">
                   {row?.original?.created_at.split("T")[0]}
@@ -140,10 +140,10 @@ console.log(row?.original)
                               </h1>
                               <div className="flex flex-wrap gap-1">
                                 {el.guest_details.map((item :any ) => (
-                                  <p className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold" key={i + item}>
+                                  <p className="text-sm px-2 py-1  rounded-full bg-[#7655FA26] font-semibold" key={i + item}>
                                     {row?.original.event.sub_events.map((el : any)=>{
-                                       
-                                        return item.sub_event_id === `${el.id}` && el.title  
+                                       console.log("event detail element", el)
+                                        return item.sub_event_id === el.id && el.title  
                                     })}
                                   </p>
                                 ))}
@@ -177,7 +177,7 @@ console.log(row?.original)
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">Total</p>
-                <p className="font-semibold px-2">{row?.original?.total_amount}</p>
+                <p className="font-semibold px-2">{"$" + row?.original?.total_amount}</p>
               </div>
               
             </div>

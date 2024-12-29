@@ -28,32 +28,11 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
               event.status === 0 && "bg-[#FFC2C2]"
             )}
           >
-            {event.status ? "Active" : "Inactive"}
+            {event.status === 1 ? "Active" : "Inactive"}
           </div>
         </div>
       </div>
-        {/* <Accordion type="single"  collapsible>
-          <AccordionItem className="outline-none border-none" value="item-1">
-            <AccordionTrigger>
-              {" "}
-              <h1 className=" text-sm font-semibold outline-none text-[#4a4a4a]">
-                See Description
-              </h1>{" "}
-            </AccordionTrigger>
-            <AccordionContent>
-              <h1 className="text-[#424242] bg-[#f6f6f6] rounded-lg p-4 text-justify">
-                {(() => {
-                  const el = parser(event.description, { trim: true });
-                  if (el.toString().trim() !== "") {
-                    return el;
-                  } else {
-                    return "No description";
-                  }
-                })()}
-              </h1>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion> */}
+       
 
       <div className="grid grid-cols-3 place-content-center place-items-center   rounded-md border p-4 bg-[#7655fa]">
         <div className="flex flex-col ">
@@ -69,8 +48,8 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
         </div>
         {user && user.role === "admin" && event && (
-          <span className="hover:bg-[#45309b] rounded-full aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
-            <AutoEditDialog data={event} />
+          <span className="hover:bg-[#45309b] rounded-full justify-self-end aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
+            <AutoEditDialog type="edit" data={event} />
           </span>
         )}
         {user && user.role === "company" && event && (

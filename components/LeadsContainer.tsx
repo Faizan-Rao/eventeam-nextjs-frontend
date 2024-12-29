@@ -71,7 +71,7 @@ const LeadsContainer = () => {
       <div className="flex flex-wrap sm:px-5 md:px-0  justify-between gap-4">
         <h1 className="text-[#4a4a4a] self-center text-lg font-semibold">
           All Leads{" "}
-          {`(${filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads})`}
+          {`(${(filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads) || 0})`}
         </h1>
         <div className="flex  gap-4">
           <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">

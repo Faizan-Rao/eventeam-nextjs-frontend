@@ -53,15 +53,15 @@ export const Dashboard = {
         "active_events",
         "automatic_events",
         "stripe_connected",
-        "total_users",
+        "total_companies",
         "total_commission",
         "cleared_cash",
         "pending_cash",
         "total_earnings",
         "total_guests",
         "total_registrations",
-        "active_users",
-        "inactive_users"
+        "active_companies",
+        "inactive_companies"
       ],
       daterange: `2020/01/01 - ${currentDate}`,
     };
@@ -178,8 +178,8 @@ export const AutoFormAPI = {
     const response = await axiosWithToken.get("/events/automatic-forms")
     return response
   },
-  save : async (data : any) =>{
-    const response = await axiosWithToken.put(`/admin-automatic-form/update/${data.id}`, data)
+  save : async (data : any, id:number) =>{
+    const response = await axiosWithToken.put(`/admin-automatic-form/update/${id}`, data)
     return response
   },
   createAutoConfig : async (data : any) =>{

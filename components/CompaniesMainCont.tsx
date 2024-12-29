@@ -2,7 +2,13 @@
 import React, { useState } from "react";
 import CompanyCard from "./CompanyCard";
 import KPICard from "./KPICard";
-import { Building2, CircleCheckBig, ListFilter, Search } from "lucide-react";
+import {
+  Building2,
+  CircleCheck,
+  CircleCheckBig,
+  ListFilter,
+  Search,
+} from "lucide-react";
 import CompanyAddDialog from "./AddCompanyDialog";
 import {
   DropdownMenu,
@@ -12,14 +18,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import _ from "lodash";
-import { useQuery, keepPreviousData,  } from "@tanstack/react-query";
+import _, { set } from "lodash";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Companies, Dashboard } from "@/configs/apiRoutes";
 import { AxiosResponse } from "axios";
-
+import clsx from "clsx";
 
 const CompaniesMainCont = () => {
   const [open, setOpen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const {
     isPending: isCompaniesPending,
@@ -43,45 +50,47 @@ const CompaniesMainCont = () => {
 
   const handleSearch = (value: any, name: string) => {
     if (_.isString(value)) {
-      const searchedData = (companies?.data['data'] as any).filter((el : any, index: number) => {
-        return (el as any)[name].toLowerCase().includes(value.toLowerCase());
-      });
+      const searchedData = (companies?.data["data"] as any).filter(
+        (el: any, index: number) => {
+          return (el as any)[name].toLowerCase().includes(value.toLowerCase());
+        }
+      );
       setFilteredData(searchedData as any);
-    } 
-    else
-    {
-      const searchedData = (companies?.data['data'] as any).filter((el : any, index: number) => {
-        return (el as any)[name] === value;
-      });
+    } else {
+      const searchedData = (companies?.data["data"] as any).filter(
+        (el: any, index: number) => {
+          return (el as any)[name] === value;
+        }
+      );
       setFilteredData(searchedData as any);
     }
   };
 
-  console.log("companies", companies)
+  console.log("companies", companies);
   return (
     <>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         <KPICard
           title="Total Companies"
-          value={kpis?.data.data['total_users'] || "0"}
+          value={kpis?.data.data["total_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Active Companies"
-          value={kpis?.data.data['active_users'] || "0"}
+          value={kpis?.data.data["active_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Inactive Companies"
-          value={kpis?.data.data['inactive_users'] || "0"}
+          value={kpis?.data.data["inactive_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
           title="Stripe Connected"
-          value={kpis?.data.data['stripe_connected'] || "0"}
+          value={kpis?.data.data["stripe_connected"] || "0"}
           currency=""
           icon={<Building2 />}
         />
@@ -101,7 +110,9 @@ const CompaniesMainCont = () => {
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
-              onChange={(event) => handleSearch(event.target.value, "full_name")}
+              onChange={(event) =>
+                handleSearch(event.target.value, "full_name")
+              }
               className="max-w-sm outline-none text-base bg-transparent "
             />
           </span>
@@ -118,34 +129,75 @@ const CompaniesMainCont = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(1, "is_active")}
+                onClick={() => {
+                  setSelectedFilter("active");
+                  handleSearch(1, "is_active");
+                }}
               >
                 <span>Active</span>
-                <CircleCheckBig size={15} />
+                <div
+                  className={clsx(
+                    selectedFilter === "active" &&
+                      "bg-[#7655fa] rounded-full text-white"
+                  )}
+                >
+                  <CircleCheck size={18} strokeWidth={1.4} />
+                </div>
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(0, "is_active")}
+                onClick={() => {
+                  setSelectedFilter("inactive");
+                  handleSearch(0, "is_active");
+                }}
               >
                 <span>Inactive</span>
-                <CircleCheckBig size={15} />
+                <div
+                  className={clsx(
+                    selectedFilter === "inactive" &&
+                      "bg-[#7655fa] rounded-full text-white"
+                  )}
+                >
+                  <CircleCheck size={18} strokeWidth={1.4} />
+                </div>
               </DropdownMenuItem>
 
               <DropdownMenuLabel>Stripe</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(1, "stripe_account_status")}
+                onClick={() => {
+                  setSelectedFilter("connected");
+                  handleSearch(1, "stripe_account_status");
+                }}
               >
                 <span>Connected</span>
-                <CircleCheckBig size={15} />
+                <div
+                  className={clsx(
+                    selectedFilter === "connected" &&
+                      "bg-[#7655fa] rounded-full text-white"
+                  )}
+                >
+                  <CircleCheck size={18} strokeWidth={1.4} />
+                </div>
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="flex items-center justify-between"
-                onClick={() => handleSearch(0, "stripe_account_status")}
+                onClick={() => {
+                  setSelectedFilter("disconnected");
+                  handleSearch(0, "stripe_account_status");
+                }}
               >
                 <span>Disconnected</span>
-                <CircleCheckBig size={15} />
+                <div
+                  className={clsx(
+                    selectedFilter === "disconnected" &&
+                      "bg-[#7655fa] rounded-full text-white"
+                  )}
+                >
+
+                <CircleCheck size={18} strokeWidth={1.4} />
+                </div>
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
@@ -155,6 +207,8 @@ const CompaniesMainCont = () => {
                   className=" text-[#FF2727] my-4 px-4 py-1"
                   onClick={() => {
                     setFilteredData([]);
+                    setSelectedFilter("")
+                    setOpen(false)
                   }}
                 >
                   Clear Filters
@@ -179,18 +233,18 @@ const CompaniesMainCont = () => {
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {(filteredData as any[]).map((el, key) => (
             <CompanyCard
-                key={key}
-                name={el["full_name"]}
-                phone={el["phone"] || "No Phone"}
-                address={el["address"] || "No Address"}
-                email={el["email"]}
-                isActive={el["is_active"]}
-                stripe={el["stripe_account_status"]}
-                logo={el["photo"] || ""}
-                slug={el['slug']}
-                id={el['id']}
-                data={el}
-              />
+              key={key}
+              name={el["full_name"]}
+              phone={el["phone"] || "No Phone"}
+              address={el["address"] || "No Address"}
+              email={el["email"]}
+              isActive={el["is_active"]}
+              stripe={el["stripe_account_status"]}
+              logo={el["photo"] || ""}
+              slug={el["slug"]}
+              id={el["id"]}
+              data={el}
+            />
           ))}
         </div>
       )}
@@ -208,8 +262,8 @@ const CompaniesMainCont = () => {
                 isActive={el["is_active"]}
                 stripe={el["stripe_account_status"]}
                 logo={el["photo"] || ""}
-                slug={el['slug']}
-                id={el['id']}
+                slug={el["slug"]}
+                id={el["id"]}
                 data={el}
               />
             ))}

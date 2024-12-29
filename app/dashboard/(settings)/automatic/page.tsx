@@ -14,6 +14,9 @@ import { Switch } from "@/components/ui/switch";
 import { useQuery } from "@tanstack/react-query";
 import { AutoFormAPI } from "@/configs/apiRoutes";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Plus } from "lucide-react";
+import AutoEditDialog from "@/components/AutoEditDialog";
+import { user } from "@/configs/axios";
 
 const AutomaticForm = () => {
   const [filtered, setFiltered] = useState([]);
@@ -45,16 +48,18 @@ const AutomaticForm = () => {
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events
           </h1>
-          <span className="  flex gap-2 sm:flex-1 md:flex-none md:ml-auto rounded-md border-[2px] p-1">
+          <div className="grid justify-self-end grid-cols-2 justify-items-end ">
+          <div className="  flex w-full items-center gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1">
             <ManifyingGlass />
             <input
               placeholder={"Search Event..."}
               onChange={searchCard}
               className="flex-1 max-w-xl outline-none"
             />
-          </span>
+          </div>
+         {user && user.role === "admin" && <AutoEditDialog type="add"/>}
 
-          <div className="sm:flex-1 md:flex-none flex place-items-center gap-2 rounded-md border-[2px] p-1">
+         {user && user.role === "company" &&  <div className="sm:flex-1 md:flex-none flex place-items-center gap-2 ml-2 rounded-md border-[2px] p-1">
             <div className="flex px-4 py-1 items-center justify-center gap-2">
               <h1 className="font-semibold ">Auto Publish</h1>
               <HoverCard>
@@ -67,6 +72,8 @@ const AutomaticForm = () => {
               </HoverCard>
               <Switch />
             </div>
+          </div>}
+
           </div>
         </div>
 
