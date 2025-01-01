@@ -77,6 +77,14 @@ export function PaymentDetailsTable<TData, TValue>({
     table.reset();
   };
 
+
+  useEffect(()=>{
+    handleClear();
+    setOpen(false);
+    setSelectedFilter("")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
     setFilteredRows(

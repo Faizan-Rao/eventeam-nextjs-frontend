@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   DropdownMenu,
@@ -93,6 +93,14 @@ export function MyEventTable<TData, TValue>({
     }
   };
 
+  // Clear filters on first Component load
+  useEffect(()=>{
+    handleClear();
+    setOpen(false);
+    setSelectedFilter("")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+  
   const isFiltered =
     rangeFilter.filter((el) => el > 0).length > 0 || filteredRows.length > 0;
 

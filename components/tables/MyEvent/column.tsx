@@ -14,14 +14,7 @@ export const columns: ColumnDef<any>[] = [
     id: "select",
     header: ({ table }) => (
       <div className="flex gap-3 items-center ">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
+        
         <p>ID</p>
       </div>
     ),
@@ -29,11 +22,11 @@ export const columns: ColumnDef<any>[] = [
       // let random = Math.floor(Math.random() * 100)
       return (
         <span className="flex items-center gap-3">
-          <Checkbox
+          {/* <Checkbox
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
             aria-label="Select row"
-          />
+          /> */}
           <span className="flex items-center">
             Event-{parseInt(row.id) + 1}
           </span>
@@ -57,22 +50,49 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      return <Link href={`my-events/${row.original.id}`}>{row.original.title}</Link>;
+      return (
+        <Link
+          href={`my-events/${row.original.id}`}
+          className="text-[#7655fa] font-semibold"
+        >
+          {row.original.title}
+        </Link>
+      );
     },
   },
   {
     accessorKey: "start_date",
-    header: "Start Date",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Start Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
-      return format(row.original.start_date, "dd / MM / yyyy");
+      return format(row.original.start_date, "dd  MMM  yyyy");
     },
     enableGlobalFilter: false,
   },
   {
     accessorKey: "end_date",
-    header: "End Date",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex justify-center items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          End Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
-      return format(row.original.end_date, "dd / MM / yyyy");
+      return format(row.original.end_date, "dd  MMM  yyyy");
     },
     enableGlobalFilter: false,
   },

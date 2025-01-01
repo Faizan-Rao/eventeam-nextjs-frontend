@@ -31,6 +31,7 @@ import { useWatch } from "react-hook-form";
 
 import { subevent, Validator } from "@/configs/autoFormValidation";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { usePathname } from "next/navigation";
 
 const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   data,
@@ -39,7 +40,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 }) => {
   const { control, trigger, setValue } = useFormContext();
   const watch = useWatch({ control });
-
+  const [dateError, setDateError] = useState(false);
   const { append, replace } = useFieldArray({ control, name: "sub_events" });
   const [tickets, setTickets] = useState<
     {
@@ -104,12 +105,25 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
   useEffect(() => {
     fillTicketTypesAddSubEvent();
-   
   }, [fillTicketTypesAddSubEvent]);
+
+  const isDateBetween = (
+    targetDate: string,
+    startDate: string,
+    endDate: string
+  ) => {
+    // Ensure all inputs are properly parsed as Date objects
+    const target = new Date(targetDate).getTime();
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
+
+    // Check if the target date is between start and end (inclusive)
+    return target >= start && target <= end;
+  };
 
   const [selectedDate, setSelectedDate] = useState<string>();
   const [date, setDate] = useState<Date | null>();
-
+  const pathname = usePathname();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {type === "edit" && (
@@ -150,15 +164,36 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   field={field}
                   setField={setField}
                 />
-                <div className="border-2 self-start rounded-md mx-4">
+                <div className="border-2 self-start rounded-md mx-4 sm:w-full md:max-w-[300px]">
                   <Calendar
                     mode="single"
                     selected={date as any}
-                    onSelect={(value: any) => {
-                      setSelectedDate(format(value, "MM/dd/yyyy"));
-                      setDate(value);
+                    onSelect={(value: Date | any) => {
+                      if (pathname.includes("add-event")) {
+                        const startDate = new Date(`${watch.start_date}`);
+                        const endDate = new Date(`${watch.end_date}`);
+                        console.log("start date", startDate === value);
+                        const isInBetween = isDateBetween(
+                          value?.toLocaleDateString(),
+                          startDate.toLocaleDateString(),
+                          endDate.toLocaleDateString()
+                        );
+                        if (isInBetween) {
+                          setSelectedDate(format(value, "MM/dd/yyyy"));
+                          setDate(value);
+                          setDateError(false);
+                        } else {
+                          setSelectedDate(format(value, "MM/dd/yyyy"));
+                          setDateError(true);
+                          setDate(value);
+                        }
+                      } else {
+                        setSelectedDate(format(value, "MM/dd/yyyy"));
+                        setDate(value);
+                        setDateError(false);
+                      }
                     }}
-                    className="max-h-[400px] text-black font-semibold"
+                    className="max-h-[400px] w-full text-black font-semibold"
                   />
                   {selectedDate && (
                     <div className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
@@ -169,7 +204,8 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       <input
                         type="time"
                         defaultValue={"00:00"}
-                         min="00:00" max="24:00"
+                        min="00:00"
+                        max="24:00"
                         onChange={(e) => {
                           console.log(e.target.value);
 
@@ -184,13 +220,21 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                         className=" rounded-md outline-none p-2 w-full cursor-pointer text-black"
                       />
                     </div>
-
                   )}
 
                   <p className="text-[#7655fa] p-2">{`*Select Date First Then Time`}</p>
-              {customErrors?.includes("date") && (
-                <p className="text-red-800 m-4">{`Date & Time is Required`}</p>
-              )}
+                  {customErrors?.includes("date") && (
+                    <p className="text-red-800 m-4">{`Date & Time is Required`}</p>
+                  )}
+                  {dateError && (
+                    <p className="text-red-800 m-4 ">{`Date must be between "${format(
+                      new Date(watch.start_date),
+                      "dd MMM yyyy"
+                    )}" and "${format(
+                      new Date(watch.end_date),
+                      "dd MMM yyyy"
+                    )}"`}</p>
+                  )}
                 </div>
               </div>
               <h1 className="font-semibold text-xl">Ticket Types</h1>
@@ -302,7 +346,6 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       (el) => el.price === ""
                     );
                     if (type === "add") {
-                      
                       if (
                         emptyTicket === undefined &&
                         field.date !== "" &&
@@ -325,7 +368,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                         const item = newArr.find((_, i) => i === index);
                         if (item) {
                           newArr[index as number] = field;
-                         
+
                           replace(newArr);
                         }
                         setOpen(false);
