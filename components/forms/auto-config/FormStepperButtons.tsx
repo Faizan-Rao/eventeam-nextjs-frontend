@@ -21,7 +21,7 @@ export const FormStepperButtons = ({
 
   const handleValidation = (e: any) => {
     e.preventDefault();
-    if (currentStep === 0 && !errors?.event_description) {
+    if (currentStep === 0 && !errors?.event_description && !errors?.title &&  !errors?.start_date && !errors?.end_date  ) {
       handleStepInc(e);
     }
     if (currentStep === 1 && !errors?.tickets) {

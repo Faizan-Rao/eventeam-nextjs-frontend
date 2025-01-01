@@ -17,7 +17,6 @@ import { usePathname } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
 import dynamic from "next/dynamic";
 
-
 // export const GeneralInfoInput = ({errors} : {errors?: any[]}) => {
 export const GeneralInfoInput = ({}: { errors?: any[] }) => {
   const path = usePathname();
@@ -28,8 +27,8 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
     formState: { errors },
   } = useFormContext();
   const Controller = useController({ name: "event_description", control });
-  const watch = useWatch({control})
-  console.log("Start Date Watch", )
+  const watch = useWatch({ control });
+  console.log("Start Date Watch");
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
       {/* Event Name */}
@@ -49,13 +48,9 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
           <ErrorMessage
             errors={errors}
             name="title"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <p key={type}>{message}</p>
-              ))
-            }
+            render={({ message }) => message && <p className="text-red-800">{message}</p>}
           />
+          {/* {errors?.title && <p className="text-red-800">{`"Title" is required`}</p> } */}
         </span>
       )}
 
@@ -72,11 +67,17 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
               type="date"
               className="border-[2px] outline-none p-2 w-full cursor-pointer"
               // {...register("start_date")}
-              value={`${new Date(watch.start_date)
-                .toISOString()
-                .split("T")[0]}`}
-              onChange={(e)=> setValue("start_date", new Date(e.target.value))}
+              value={
+                watch.start_date &&
+                `${new Date(watch.start_date).toISOString().split("T")[0]}`
+              }
+              onChange={(e) => setValue("start_date", new Date(e.target.value))}
             />
+           <ErrorMessage
+            errors={errors}
+            name="start_date"
+            render={({ message }) => message && <p className="text-red-800">{message}</p>}
+          />
           </span>
         )}
         {!path.includes("auto-config") && (
@@ -89,12 +90,17 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
             <input
               type="date"
               className="border-[2px] outline-none p-2 w-full "
-             
-              value={`${new Date(watch.end_date)
-                .toISOString()
-                .split("T")[0]}`}
-                onChange={(e)=> setValue("end_date", new Date(e.target.value))}
+              value={
+                watch.end_date &&
+                `${new Date(watch.end_date).toISOString().split("T")[0]}`
+              }
+              onChange={(e) => setValue("end_date", new Date(e.target.value))}
             />
+            <ErrorMessage
+            errors={errors}
+            name="end_date"
+            render={({ message }) => message && <p className="text-red-800">{message}</p>}
+          />
           </span>
         )}
       </div>
@@ -110,7 +116,6 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
           value={Controller.field.value || ""}
           config={joditConfig as any}
           onChange={(newContent) => Controller.field.onChange(newContent)}
-          
         />
       </div>
 

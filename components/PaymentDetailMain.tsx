@@ -25,6 +25,7 @@ import "swiper/css/pagination";
 import { Dashboard, Payments } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
 import { USDollar } from "@/configs/currentFormat";
+import { user } from "@/configs/axios";
 export let data = dummyData;
 
 const PaymentDetailMain = () => {
@@ -66,11 +67,11 @@ const PaymentDetailMain = () => {
         
         {
           !isKpisPending && ( <>
-          <KPICard
+         { user && user.role === "admin" && <KPICard
             title={t("All Time Guests")}
             icon={<UsersRound size={28} />}
             value={kpis?.data.data["total_guests"] || "0"}
-          />
+          />}
           <KPICard
             title={t("All Time Earnings")}
             icon={<CircleDollarSign size={28} />}

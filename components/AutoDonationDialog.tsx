@@ -36,11 +36,11 @@ const AutoDonationDialog = () => {
   useEffect(() => {
     if (donation) {
       const donationsData = donation && donation?.data.data.data;
-      if (pathname.includes("auto-config")) {
-        setDonations(donationsData.admin_donations);
-      } else {
-        setDonations(donationsData.company_donations);
-      }
+      setDonations(donationsData.company_donations);
+      // if (pathname.includes("auto-config")) {
+      //   setDonations(donationsData.admin_donations);
+      // } else {
+      // }
     }
   }, [donation, pathname, setDonations]);
 

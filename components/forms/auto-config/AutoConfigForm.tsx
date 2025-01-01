@@ -39,7 +39,8 @@ import { useMutation } from "@tanstack/react-query";
 import { AutoFormAPI, Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import {
-  autoForm,
+  addEventSchema,
+  autoConfigSchema,
   autoFormDefaults,
   autoFormType,
 } from "@/configs/autoFormValidation";
@@ -60,20 +61,23 @@ const defaultValues = {
     renew_advance_fields: "0",
     is_show_stripe: "1",
   },
-  
 };
-const AutoConfigForm = ({type}: {type:string}) => {
+const AutoConfigForm = ({ type }: { type: string }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [errors, setErrors] = useState<string[]>([]);
   const deferStep = useDeferredValue(currentStep);
+  const pathname = usePathname();
 
   const methods = useForm<autoFormType>({
     resolver: (values, context, options) => {
-      const resolver = joiResolver<typeof autoForm>(autoForm, {
-        context: context,
-        abortEarly: false,
-        allowUnknown: true,
-      });
+      const resolver = joiResolver(
+        pathname.includes("add-event") ? addEventSchema : autoConfigSchema,
+        {
+          context: context,
+          abortEarly: false,
+          allowUnknown: true,
+        }
+      );
       return resolver(values, context, options);
     },
     defaultValues: autoFormDefaults,
@@ -143,26 +147,22 @@ const AutoConfigForm = ({type}: {type:string}) => {
       });
     },
   });
-  const pathname = usePathname();
-  const onSubmit: SubmitHandler<autoFormType> = (data :any, e) => {
-    e?.preventDefault();
-    if(Object.keys(errors).length <= 0)
-    {
-      if(pathname.includes("add-event"))
-      {
-        console.log("add event triggerd")
-        data["description" ]  = "hamlo g" 
-        delete data["tickets"]
-        mutateEvent.mutate(data)
-      }
-      if(pathname.includes("auto-config"))
-      {
-        console.log("Autofrom triggerd")
-        data["description" ]  = "hamlo g" 
-        delete data["tickets"]
-        mutateAutoConfig.mutate(data)
-      }
 
+  const onSubmit: SubmitHandler<autoFormType> = (data: any, e) => {
+    e?.preventDefault();
+    if (Object.keys(errors).length <= 0) {
+      if (pathname.includes("add-event")) {
+        console.log("add event triggerd");
+        data["description"] = "hamlo g";
+        delete data["tickets"];
+        mutateEvent.mutate(data);
+      }
+      if (pathname.includes("auto-config")) {
+        console.log("Autofrom triggerd");
+        data["description"] = "hamlo g";
+        delete data["tickets"];
+        mutateAutoConfig.mutate(data);
+      }
     }
 
     // if (!data) {

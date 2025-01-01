@@ -56,7 +56,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   const defaultValue: IFieldElement = {
     title: "",
     date: ``,
-    status: "0",
+    status: "1",
     manage_inventory: 0,
     event_capacity: null,
     address: "",
@@ -158,7 +158,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                       setSelectedDate(format(value, "MM/dd/yyyy"));
                       setDate(value);
                     }}
-                    className="max-h-[400px]"
+                    className="max-h-[400px] text-black font-semibold"
                   />
                   {selectedDate && (
                     <div className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
@@ -181,12 +181,16 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                             ),
                           });
                         }}
-                        className=" rounded-md outline-none p-2 w-full cursor-pointer"
+                        className=" rounded-md outline-none p-2 w-full cursor-pointer text-black"
                       />
                     </div>
+
                   )}
 
                   <p className="text-[#7655fa] p-2">{`*Select Date First Then Time`}</p>
+              {customErrors?.includes("date") && (
+                <p className="text-red-800 m-4">{`Date & Time is Required`}</p>
+              )}
                 </div>
               </div>
               <h1 className="font-semibold text-xl">Ticket Types</h1>
