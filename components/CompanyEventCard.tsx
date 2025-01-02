@@ -16,18 +16,26 @@ const CompanyEventCard = ({
   company: any;
   index: number;
 }) => {
-  console.log("most upcoming",data)
+  console.log("most upcoming", data);
   const params = useParams();
-  return (
+  return !isNaN(index) && (
     <div
       className={clsx(
-        "backdrop-blur-lg sm:my-4 md:max-w-[35%] justify-self-stretch shadow-lg hover:shadow-2xl hover:bg-[white] transition-all duration-300 flex-1 flex flex-col p-6  rounded-3xl sm:translate-y-[0%]  min-w-[400px] md:-translate-y-[5%] ",
-        index === 0 && "md:-translate-y-[26%] min-w-[350px] bg-[white]"
+        index === 0 && "lg:translate-y-[-25%] min-w-[420px]   bg-[white]",
+        "backdrop-blur-lg sm:my-4 md:max-w-[35%] justify-self-stretch shadow-lg hover:shadow-2xl hover:bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] rounded-3xl   min-w-[400px] "
       )}
     >
-      <span className={clsx("bg-[#7655fa26] sm:text-sm  md:text-base mb-4 mt-2 px-4 py-2 self-start text-center  rounded-full text-[#7655fa] font-semibold", index === 0 && "text-[white] bg-[#ff9b43]", data.current_status !== "active" && "text-[#e14848] bg-[#fde5e5]")}>
-       {index === 0 && data.current_status === "active" ? "Most Upcoming": "Upcoming"}
-       {data.current_status !== "active" && "Ended"}
+      <span
+        className={clsx(
+          "bg-[#7655fa26] sm:text-sm  md:text-base mb-4 mt-2 px-4 py-2 self-start text-center  rounded-full text-[#7655fa] font-semibold",
+          index === 0 && "text-[white] bg-[#ff9b43]",
+          data.current_status !== "active" && "text-[#e14848] bg-[#fde5e5]"
+        )}
+      >
+        {index === 0 && data.current_status === "active"
+          ? "Most Upcoming"
+          : "Upcoming"}
+        {data.current_status !== "active" && "Ended"}
       </span>
       <h1 className="font-semibold sm:text-lg md:text-xl mb-2">{data.title}</h1>
       <p className=" text-[#999999] sm:text-sm md:text-base pb-4 border-b-[1px] ">
@@ -81,14 +89,14 @@ const CompanyEventCard = ({
         href={"/events/1"}
         className="flex text-base justify-center items-center bg-[#7655fa] rounded-full py-3 px-4"
       >
-        <Link
+        <a
           href={`/events/${params.companyId}/${data.id}`}
           className="  font-semibold text-center "
         >
           <span className="text-white sm:text-sm md:text-base ">
             Register For Event
           </span>
-        </Link>
+        </a>
         <ChevronRight className="text-white" />
       </Link>
     </div>
