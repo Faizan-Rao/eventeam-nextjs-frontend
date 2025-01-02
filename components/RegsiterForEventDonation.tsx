@@ -107,9 +107,9 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
                   <HandHeart className="text-white" />
                 </span>
 
-                <div className=" flex flex-col">
+                <div className=" grid grid-cols-1">
                   <h1 className="text-[]">{`$${el.amount}`}</h1>
-                  <h1 className="text-sm text-[#999999]">{el.title}</h1>
+                  <h1 className="text-sm text-[#999999] line-clamp-1 break-words">{el.title}</h1>
                 </div>
               </div>
 

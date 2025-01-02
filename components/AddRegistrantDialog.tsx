@@ -156,7 +156,7 @@ const AddRegistrantDialog = ({
     setErrors(errors);
     
     // Code for Addition
-    if (((errors || []).length as any) <= 0 && type !== "edit") {
+    if (!errors?.includes("subEvents") && type !== "edit") {
       append(guestData);
 
       setOpen(false);
@@ -202,7 +202,7 @@ const AddRegistrantDialog = ({
             {type === "edit" ? "Edit Guest" : "Add New Guest"}
           </DialogTitle>
           <DialogDescription>
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4 row-span-2">
               {settings.guest_name_required === "1" && (
                 <div className="flex flex-col gap-2">
                   <label htmlFor="full_name">Full Name</label>
@@ -222,13 +222,13 @@ const AddRegistrantDialog = ({
                 </div>
               )}
 
-              <div className="flex sm:flex-col md:flex-row gap-2 ">
+              <div className="flex sm:flex-col md:flex-row gap-2  min-h-[30px]">
                 {settings.guest_email_required === "1" && (
                   <div className="flex flex-col flex-1 gap-2">
                     <label htmlFor="full_name">Email</label>
                     <input
                       type="email"
-                      className=" outline-none p-2 flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
+                      className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                       onChange={handleFieldChange}
                       placeholder="email"
                       name="email"
@@ -248,7 +248,7 @@ const AddRegistrantDialog = ({
                     <label htmlFor="full_name">Phone</label>
                     <input
                       type="text"
-                      className=" outline-none p-2 flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
+                      className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                       onChange={handleFieldChange}
                       placeholder="phone"
                       name="phone"

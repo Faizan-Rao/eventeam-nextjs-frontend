@@ -7,7 +7,7 @@ import RegsiterForEventDonation from "./RegsiterForEventDonation";
 import { useFormContext, useWatch } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CheckoutForm } from "./forms/stripe/CheckoutForm";
-
+import parser from 'html-react-parser'
 const RegisterForEventForm2 = ({ data }: { data: any }) => {
   // stripe-Specific
 
@@ -74,7 +74,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             checked={watch.accept_cash_terms}
           />
           <span className="text-[#999999] text-sm ">
-           {data.settings && data.settings.regulation_text}
+           {data.settings && parser(data.settings.regulation_text)}
           </span>
         </div>
       </div>

@@ -10,9 +10,11 @@ import { stripePromise } from "@/configs/stripeLoader";
 import { Elements } from "@stripe/react-stripe-js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import { Metadata } from "next/types";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
 const formDefaultValue = {
   donation_field: "0",
   other_donation: 0,
@@ -27,17 +29,19 @@ const RegisterEvent = () => {
   const { data } = useQuery({
     queryKey: ["company-events"],
     queryFn: () =>
-      Companies.getCompaniesEvents((params.companyId as string) || ""),
+      Companies.getCompaniesEvents((params.eventid[0] as string) || ""),
   });
+  
+  console.log("api data",data)
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events?.company;
-  console.log(params);
+  console.log("send params",params);
   const { data: event } = useQuery({
     queryKey: ["single-event"],
     queryFn: () => EventReg.singleEvent(params.eventid[0], params.eventid[1]),
   });
 
-  console.log(event);
+  console.log("required event 123",event);
   const singleEvent = event?.data.data;
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const methods = useForm({
@@ -58,16 +62,17 @@ const RegisterEvent = () => {
     console.log("send formdata", formData123)
     mutate.mutate(formData123)
   };
+
   return (
     <>
-      <CompanyHeader data={companies} />
+     <CompanyHeader data={companies} />
       <MainContentGrid className="md:translate-y-[-15%]">
         {/* <PageTitleContainer title='Register Event'/> */}
         <FormProvider {...methods}>
           <Elements stripe={stripePromise}>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex justify-between lg:gap-4 flex-wrap"
+              className="flex justify-between lg:gap-4 flex-wrap md:mx-11"
             >
               {singleEvent && (
                 <>

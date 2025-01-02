@@ -16,9 +16,11 @@ import { queryClient } from "./MainLayoutGrid";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 
 const DeleteEventRegistrantDialog = ({
+  guestId,
   data,
   formData,
 }: {
+  guestId:number
   data: any;
   formData: any;
 }) => {
@@ -29,7 +31,7 @@ const DeleteEventRegistrantDialog = ({
 
   const deleteGuest = () => {
     const guests = [...watch.guests];
-    const index = guests.findIndex((el) => el.email === data.email);
+    const index = guests.findIndex((el, index) => index === guestId);
     guests.splice(index, 1);
     replace(guests);
 

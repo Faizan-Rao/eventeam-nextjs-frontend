@@ -100,7 +100,7 @@ const RegisterForEventGuestCard = ({
           />
         </span> */}
 
-        <DeleteEventRegistrantDialog data={data} formData={formData} />
+        <DeleteEventRegistrantDialog guestId={index} data={data} formData={formData} />
       </div>
 
       <div></div>

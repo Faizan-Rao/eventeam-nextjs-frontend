@@ -3,7 +3,7 @@ import { RadioGroupItem } from "@/components/ui/radio-group";
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-
+import parser from "html-react-parser"
 const RegisterForEventRadioGroup = ({settings}:{settings:any}) => {
   const formContext = useFormContext();
   const { control } = formContext;
@@ -20,7 +20,7 @@ const RegisterForEventRadioGroup = ({settings}:{settings:any}) => {
           <div className="flex flex-col justify-center ">
             <h1 className="text-base font-semibold">Cash</h1>
             <p className="text-sm   text-[#999999] ">
-              {settings && settings.cod_text}
+              {settings && parser(settings.cod_text)}
             </p>
           </div>
         </Label>

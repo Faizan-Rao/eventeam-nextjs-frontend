@@ -25,10 +25,10 @@ const companies = data?.data.data.events.company
         <CompanyHeader data={companies} />
       
       {/* Main Event Publish Container */}
-      <div className=" flex flex-wrap sm:gap-3  md:gap-10">
+      <div className=" grid sm:grid-cols-1 md:grid-cols-3 md:mx-20">
         {events &&
           events.map((el: any, i: any) => (
-            <CompanyEventCard key={i} data={el} company={companies} />
+            <CompanyEventCard key={i} index={i} data={el} company={companies} />
           ))}
         {!events && (<>
         <Skeleton className="h-[450px] w-[350px] rounded-xl my-4"/>

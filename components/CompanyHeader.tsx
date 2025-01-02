@@ -1,7 +1,7 @@
 import { AtSign, Phone, MapPin, Book } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-
+import parser from 'html-react-parser'
 const CompanyHeader = ({data} : {data : any}) => {
   return (
     <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[450px]">
@@ -15,15 +15,15 @@ const CompanyHeader = ({data} : {data : any}) => {
      {data && <div className="flex-1 min-h-[250px] flex sm:flex-col md:flex-row justify-between items-center gap-10 pb-4   text-white">
         {/* Company Name & Logo */}
         <div className="flex gap-4 items-center">
-          <span className="flex justify-center rounded-full overflow-hidden items-center ">
+          <div className="flex justify-center rounded-full overflow-hidden items-center m-4">
             <Image
               src={data?.photo || ""}
-              className='sm:w-[3.2em] sm:h-[3.2em] md:w-[3.2em] md:h-[3.2em]'
+              className='sm:w-[5rem] sm:h-[5rem] md:w-[5rem] md:h-[5rem]'
               height={75}
               width={75}
               alt="company_logo"
             />
-          </span>
+          </div>
 
           <div className="flex flex-col my-10">
             <h1 className="text-white font-semibold sm:text-2xl md:text-3xl">
@@ -53,7 +53,7 @@ const CompanyHeader = ({data} : {data : any}) => {
           <span className="flex items-center gap-4">
             <Book className="text-white" />
             <span className="text-white font-white sm:text-sm md:text-base">
-              {data?.about || ""}
+              {parser(data?.about) || ""}
             </span>
           </span>
         </div>
