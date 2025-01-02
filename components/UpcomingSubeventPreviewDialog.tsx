@@ -16,7 +16,7 @@ const UpcomingSubeventPreviewDialog = ({
   type,
 }: {
   data: any;
-  type: string;
+  type?: string;
 }) => {
   return (
     <Dialog>
