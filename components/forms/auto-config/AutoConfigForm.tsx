@@ -34,7 +34,7 @@ import {
   autoConfigPostStruct,
   addNewEventPostStruct,
 } from "@/configs/autoConfigPost";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { AutoFormAPI, Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
@@ -67,6 +67,7 @@ const AutoConfigForm = ({ type }: { type: string }) => {
   const [errors, setErrors] = useState<string[]>([]);
   const deferStep = useDeferredValue(currentStep);
   const pathname = usePathname();
+  const router = useRouter();
 
   const methods = useForm<autoFormType>({
     resolver: (values, context, options) => {
@@ -126,6 +127,7 @@ const AutoConfigForm = ({ type }: { type: string }) => {
       toast("AutoConfig Saved Successfully...", {
         type: "success",
       });
+      router.replace("/dashboard/my-events")
     },
     onError: () => {
       toast("AutoConfig Not Saved...", {
@@ -140,6 +142,7 @@ const AutoConfigForm = ({ type }: { type: string }) => {
       toast("Event Saved Successfully...", {
         type: "success",
       });
+      router.replace("/dashboard/my-events")
     },
     onError: () => {
       toast("Event Not Saved...", {

@@ -85,7 +85,7 @@ const ProfileDropdown = () => {
                 handleOpen();
               }}
             >
-             <LogOut size={18} className="mr-6"/> <p>Logout</p> 
+             <LogOut size={18} className="mr-6 "/> <p>Logout</p> 
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

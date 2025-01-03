@@ -98,10 +98,10 @@ const LoginForm = () => {
               <span className="text-red-700">Password is Required</span>
             )}
           </div>
-          <p className="text-[#7655fa]">Forgot Password?</p>
+          <p className="text-[#7655fa] ">Forgot Password?</p>
         </div>
 
-        <button className="px-4 my-4 py-2 bg-[#7655fa] font-semibold rounded-full text-white">
+        <button className="px-4 my-4 py-2 active:scale-[0.98] transition-all bg-[#7655fa] font-semibold rounded-full text-white">
           Sign In
         </button>
       </form>

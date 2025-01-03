@@ -60,7 +60,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <span className="flex p-2 items-center hover:bg-[#7655fa26] rounded-full justify-center">
+        <span className="flex p-2 active:scale-[0.90] transition-all items-center hover:bg-[#7655fa26] rounded-full justify-center">
           <PencilLine className="text-[#7655fa]" />
         </span>
       </DialogTrigger>
@@ -134,7 +134,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
               </div>
 
               <div className="flex justify-end items-center gap-4">
-                <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
+                <button className="px-4 active:scale-[0.95] transition-all py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
                   Save Changes
                 </button>

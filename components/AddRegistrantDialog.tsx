@@ -187,7 +187,7 @@ const AddRegistrantDialog = ({
   console.log("This is settings Data", settings);
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="active:scale-[0.98] transition-all">
         {type === "edit" ? (
           <PencilLine className="text-[#7655fa]" strokeWidth={1.2} />
         ) : (
@@ -288,7 +288,7 @@ const AddRegistrantDialog = ({
                         return (
                           <SelectItem
                             key={i}
-                            className="mx-0"
+                            className="mx-0 active:scale-[0.95] transition-all"
                             value={el as string}
                           >
                             {el as string}
@@ -311,7 +311,7 @@ const AddRegistrantDialog = ({
                             addSubEventInGuest(el);
                           }}
                           className={clsx(
-                            "grid grid-cols-2  gap-2 border-[2px] px-4 py-2 rounded-lg cursor-pointer",
+                            "grid grid-cols-2  active:scale-[0.98] transition-all gap-2 border-[2px] px-4 py-2 rounded-lg cursor-pointer",
                             guestData.subEvents.includes(el.id) &&
                               "border-[#7655fa]"
                           )}
@@ -358,7 +358,7 @@ const AddRegistrantDialog = ({
               )}
 
               <button
-                className="p-2 rounded-full bg-[#7655fa] text-white"
+                className="p-2 rounded-full active:scale-[0.95] transition-all bg-[#7655fa] text-white"
                 onClick={(e) => {
                   addGuest(e);
                 }}

@@ -89,7 +89,7 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
           data.donations.map((el: any, index: number) => (
             <div
               className={clsx(
-                "flex-1 border-[1px] py-2 px-4 rounded-md  flex items-center cursor-pointer",
+                "flex-1 border-[1px] active:scale-[0.98] transition-all py-2 px-4 rounded-md  flex items-center cursor-pointer",
                 donations.includes(el) && "border-[#7655fa] border-[1px] "
               )}
               onClick={(e) => handleDonation(el, index, e)}

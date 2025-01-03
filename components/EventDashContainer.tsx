@@ -51,7 +51,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
               <span className="font-bold text-4xl self-end">“”</span>
             </div>
 
-            <div className="flex  justify-center container  flex-wrap">
+            <div className="grid grid-cols-2">
               {
                 data.sub_events.map((el:any , i: number)=>{
                   return (

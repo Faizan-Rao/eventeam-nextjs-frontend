@@ -116,13 +116,13 @@ const EventEditDialog = ({
 
               <div className="flex justify-end mt-4 gap-4">
                 <button
-                  className="font-semibold text-base rounded-full px-4 py-2"
+                  className="font-semibold active:scale-[0.95] transition-all text-base rounded-full px-4 py-2"
                   onClick={() => setOpen(false)}
                 >
                   Close
                 </button>
 
-                <button onClick={() => setOpen(false)} className="bg-[#7655fa] font-semibold  text-base rounded-full px-6 text-white py-2">
+                <button onClick={() => setOpen(false)} className="bg-[#7655fa] active:scale-[0.95] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
                   Save Changes
                 </button>
               </div>

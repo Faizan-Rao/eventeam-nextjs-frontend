@@ -31,14 +31,14 @@ const ActionDropDown = ({row, id, table}: {
   return (
     <>
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger className="active:scale-[0.90] rounded-full  p-1 hover:bg-[#7655fa26] transition-all">
           <DotThreeVertical />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="text-sm" onClick={() => setEditOpen(true)}>Edit Event</DropdownMenuItem>
-          <DropdownMenuItem className="text-sm"><Link href={`/dashboard/my-events/${row.id}`}>View Event</Link></DropdownMenuItem>
-          <DropdownMenuItem className="text-sm"><a href={`/events/${user.slug}/${row.id}`}>View Registration Form</a></DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>Edit Event</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><Link href={`/dashboard/my-events/${row.id}`}>View Event</Link></DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/events/${user.slug}/${row.id}`}>View Registration Form</a></DropdownMenuItem>
+          <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setDeleteOpen(true)}>
             Delete Event
           </DropdownMenuItem>
         </DropdownMenuContent>

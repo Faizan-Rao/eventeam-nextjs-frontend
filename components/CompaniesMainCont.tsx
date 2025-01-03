@@ -128,7 +128,7 @@ const CompaniesMainCont = () => {
               <DropdownMenuLabel>Active State</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="flex items-center justify-between"
+                className="flex items-center justify-between active:scale-[0.95] transition-all"
                 onClick={() => {
                   setSelectedFilter("active");
                   handleSearch(1, "is_active");
@@ -145,7 +145,7 @@ const CompaniesMainCont = () => {
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="flex items-center justify-between"
+                className="flex items-center justify-between active:scale-[0.95] transition-all"
                 onClick={() => {
                   setSelectedFilter("inactive");
                   handleSearch(0, "is_active");
@@ -165,7 +165,7 @@ const CompaniesMainCont = () => {
               <DropdownMenuLabel>Stripe</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="flex items-center justify-between"
+                className="flex items-center justify-between active:scale-[0.95] transition-all"
                 onClick={() => {
                   setSelectedFilter("connected");
                   handleSearch(1, "stripe_account_status");
@@ -175,14 +175,14 @@ const CompaniesMainCont = () => {
                 <div
                   className={clsx(
                     selectedFilter === "connected" &&
-                      "bg-[#7655fa] rounded-full text-white"
+                      "bg-[#7655fa] rounded-full text-white "
                   )}
                 >
                   <CircleCheck size={18} strokeWidth={1.4} />
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="flex items-center justify-between"
+                className="flex items-center justify-between active:scale-[0.95] transition-all" 
                 onClick={() => {
                   setSelectedFilter("disconnected");
                   handleSearch(0, "stripe_account_status");
@@ -204,7 +204,7 @@ const CompaniesMainCont = () => {
 
               <span className="flex gap-3 flex-1">
                 <button
-                  className=" text-[#FF2727] my-4 px-4 py-1"
+                  className=" text-[#FF2727]  text-sm my-4 px-4 py-1 active:scale-[0.95] transition-all"
                   onClick={() => {
                     setFilteredData([]);
                     setSelectedFilter("")
@@ -215,7 +215,7 @@ const CompaniesMainCont = () => {
                 </button>
 
                 <button
-                  className=" bg-[#7655FA] text-white rounded-full my-4 px-6 py-1"
+                  className=" bg-[#7655FA]  text-white rounded-full my-4 px-6 py-1 active:scale-[0.95] transition-all"
                   onClick={() => {
                     setOpen(false);
                   }}

@@ -56,18 +56,18 @@ const SingleEventCont = ({ data }: { data: any }) => {
   const [open, setOpen] = useState(false);
   console.log("single event data", data);
   return (
-    <div className="flex-1  w-full flex-col flex bg-[white] rounded-md justify-between gap-4 p-4">
+    <div className="flex-1   flex-col flex bg-[white] col-span-2 rounded-md justify-between gap-4 p-6">
       {/* Header */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] font-semibold text-sm">Event Title</h1>
-          <h1 className="text-[#4a4a4a] font-semibold text-2xl mt-3 mb-1">
+          <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1">
             {(data && data && data.event.title) || "No title"}
           </h1>
           <h1 className="text-[#999999] font-semibold text-sm">
-            {/* {format(new Date(data?.event["start_date"]), "LLL d") +
+            {new Date(data?.event["start_date"]).toDateString() +
               " - " +
-              format(new Date(data?.event["end_date"]), "LLL d")} */}
+              new Date(data?.event["end_date"]).toDateString()}
           </h1>
         </div>
 
@@ -98,28 +98,28 @@ const SingleEventCont = ({ data }: { data: any }) => {
       {/* KPI's  */}
       <div className=" sm:hidden md:flex flex-wrap gap-4 pb-4 border-b-[1px]">
         <KPICard
-          title={t("All Time Guests")}
+          title={t("Event Guests")}
           icon={<UsersRound size={28} />}
-          value={(data && data && data.kpis.total_guests) || 0}
+          value={(data && data && data.stats.total_registrations) || 0}
         />
         <KPICard
-          title={t("All Time Earnings")}
+          title={t("Event Earnings")}
           icon={<CircleDollarSign size={28} />}
           value={USDollar.format(
-            (data && data && data.kpis.total_earnings) || 0
+            (data && data && data.stats.total_amount) || 0
           )}
           currency=""
         />
         <KPICard
           title={t("Cleared Earnings")}
           icon={<HandCoins size={28} />}
-          value={USDollar.format((data && data && data.kpis.cleared_cash) || 0)}
+          value={USDollar.format((data && data && data.stats.cleared) || 0)}
           currency=""
         />
         <KPICard
           title={t("Pending Earnings")}
           icon={<Banknote size={28} />}
-          value={USDollar.format((data && data && data.kpis.pending_cash) || 0)}
+          value={USDollar.format((data && data && data.stats.pending) || 0)}
           currency=""
         />
       </div>
@@ -143,20 +143,20 @@ const SingleEventCont = ({ data }: { data: any }) => {
           <SwiperSlide>
             {" "}
             <KPICard
-              title={t("All Time Guests")}
+              title={t("Event Guests")}
               icon={<UsersRound size={28} />}
               value={USDollar.format(
-                (data && data && data.kpis.total_guests) || 0
+                (data && data && data.stats.total_registrations) || 0
               )}
             />
           </SwiperSlide>
           <SwiperSlide>
             {" "}
             <KPICard
-              title={t("All Time Earnings")}
+              title={t("Event Earnings")}
               icon={<CircleDollarSign size={28} />}
               value={USDollar.format(
-                (data && data && data.kpis.total_earnings) || 0
+                (data && data && data.stats.total_earnings) || 0
               )}
               currency="$"
             />
@@ -166,7 +166,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               title={t("Cleared Earnings")}
               icon={<HandCoins size={28} />}
               value={USDollar.format(
-                (data && data && data.kpis.cleared_cash) || 0
+                (data && data && data.stats.cleared) || 0
               )}
               currency="$"
             />
@@ -177,7 +177,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               title={t("Pending Earnings")}
               icon={<Banknote size={28} />}
               value={USDollar.format(
-                (data && data && data.kpis.pending_cash) || 0
+                (data && data && data.stats.pending) || 0
               )}
               currency="$"
             />
@@ -217,6 +217,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
                           i % 2 === 0 && "bg-[#F7F6F9] rounded-md"
                         )}
                         data={el}
+                        type="subevent"
                       />
                     );
                   })}
@@ -230,14 +231,14 @@ const SingleEventCont = ({ data }: { data: any }) => {
           <AccordionItem value="item-1" className=" rounded-md border-2">
             <AccordionTrigger className=" px-4  bg-[#7655FA26] text-left">
               <h1 className="text-[#7655fa] font-semibold text-sm">
-                Prayer Times
+                Activities
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
               <div className="flex items-center justify-between  flex-wrap">
-                {data?.event?.sub_event_activities?.length > 0 &&
-                  data &&
-                  data.event.sub_event_activities.map((el: any, i: number) => {
+                {data?.event?.sub_events?.length > 0 &&
+                
+                  data.event.sub_events.map((el: any, i: number) => {
                     console.log(el);
                     return (
                       <EventSubeventCard
@@ -246,6 +247,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
                           i % 2 === 0 && "bg-[#F7F6F9] rounded-md"
                         )}
                         data={el}
+                        type="activity"
                       />
                     );
                   })}

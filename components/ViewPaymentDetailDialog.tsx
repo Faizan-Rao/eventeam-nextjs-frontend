@@ -43,7 +43,7 @@ console.log(row?.original)
 
   return (
     <Dialog  open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
         <span className="md:block sm:hidden">
         <EyeIcon className="text-[#c2c2c2]" />
 
@@ -99,7 +99,7 @@ console.log(row?.original)
                       value="item-1"
                       className=" max-w-[600px] bg-[#7655FA26] px-2 rounded-md border-2"
                     >
-                      <AccordionTrigger className="text-left">
+                      <AccordionTrigger className="text-left ">
                         <div className="flex sm:px-2 md:px-5 py-1 items-center no-underline gap-4">
                           <div className="bg-[#7655fa] p-2 rounded-full">
                             <User size={26} className="text-white" />

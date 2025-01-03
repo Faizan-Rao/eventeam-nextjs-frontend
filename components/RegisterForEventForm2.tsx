@@ -94,7 +94,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             <button
               type="submit"
               disabled={!watch.accept_cash_terms}
-              className="rounded-full bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
+              className="rounded-full active:scale-[0.95] transition-all bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
             >
               Register for event
             </button>

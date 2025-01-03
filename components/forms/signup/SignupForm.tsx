@@ -124,7 +124,7 @@ const SignupForm = () => {
             {errors.confirm_password && <span className="text-red-700">Confirm Password is Required</span>}
         </div>
     
-          <button className="px-4 py-2 bg-[#7655fa] font-semibold text-white rounded-full">
+          <button className="px-4 py-2 active:scale-[0.98] transition-all bg-[#7655fa] font-semibold text-white rounded-full">
             {" "}
             Sign Up
           </button>

@@ -117,7 +117,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value)  ? 0 : field.value + 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                         <input
@@ -137,7 +137,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                       </>
@@ -163,7 +163,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value + 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                         <input
@@ -183,7 +183,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                       </>
@@ -210,7 +210,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value + 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                         <input
@@ -230,7 +230,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                       </>
@@ -256,7 +256,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value)  ? 0 : field.value + 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                         <input
@@ -276,7 +276,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                               _.isString(field.value) ? 0 : field.value - 1
                             )
                           }
-                          className="text-[white] cursor-pointer"
+                          className="text-[white] cursor-pointer active:scale-[0.90] transition-all"
                           size={18}
                         />
                       </>
@@ -346,7 +346,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                 onClick={() => {
                   remove(fields.length - 1);
                 }}
-                className="text-[red] mb-3 cursor-pointer"
+                className="text-[red] mb-3 cursor-pointer active:scale-[0.90] transition-all"
                 strokeWidth={1}
               />
             </div>
@@ -355,7 +355,8 @@ const PrayerField: React.FC<IPrayerField> = ({
       ))}
       <div className="mb-5">
         <button
-          onClick={() =>
+          onClick={(e) => {
+            e.preventDefault();
             append({
               sub_event_id: "",
               activity_id: "",
@@ -364,8 +365,8 @@ const PrayerField: React.FC<IPrayerField> = ({
               activity_time: "0",
               activity_status: 0,
             })
-          }
-          className="flex items-center text-sm gap-4 my-4  justify-self-start"
+          }}
+          className="flex items-center text-sm gap-4 my-4  justify-self-start active:scale-[0.90] transition-all"
         >
           {" "}
           <Plus /> <span>Add Activity</span>

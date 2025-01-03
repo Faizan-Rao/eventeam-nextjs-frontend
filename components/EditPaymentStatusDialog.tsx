@@ -46,7 +46,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
   })
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
         <PencilLine className="text-[#c2c2c2] " />
       </DialogTrigger>
       <DialogContent>
@@ -109,11 +109,11 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
             </div>
 
             <div className="flex justify-end my-6 gap-6">
-              <button className="font-semibold  text-sm" onClick={() => setOpen(false)}>
+              <button className="font-semibold active:scale-[0.90] transition-all  text-sm" onClick={() => setOpen(false)}>
                 Cancel
               </button>
               <button
-                className="bg-[#7655fa] px-5 py-2  text-sm rounded-full text-white"
+                className="bg-[#7655fa] px-5 py-2  active:scale-[0.90] transition-all text-sm rounded-full text-white"
                 onClick={() => {
                   
                  

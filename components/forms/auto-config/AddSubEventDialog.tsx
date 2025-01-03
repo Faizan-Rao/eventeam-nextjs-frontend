@@ -130,7 +130,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
         <DialogTrigger>
           <PencilLine
             // onClick={() => setOpen(true)}
-            className=" cursor-pointer text-[#7655fa]"
+            className=" cursor-pointer active:scale-[0.90] transition-all text-[#7655fa]"
             strokeWidth={1}
           />
         </DialogTrigger>
@@ -142,7 +142,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
               e.preventDefault();
               setOpen(true);
             }}
-            className="flex w-full justify-center items-center h-[128px] min-w-[340px] flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
+            className="flex w-full active:scale-[0.95] transition-all justify-center items-center h-[128px] min-w-[340px] flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
           >
             <Plus /> <span>Add Another Subevent</span>
           </button>
@@ -339,7 +339,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
               <div className="flex sticky left-0 bottom-0 p-4 flex-1 bg-[white]">
                 <button
-                  className="bg-[#7655fa] justify-stretch md:px-6 w-full  py-2 text-white rounded-full"
+                  className="bg-[#7655fa] active:scale-[0.98] transition-all justify-stretch md:px-6 w-full  py-2 text-white rounded-full"
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
                     let emptyTicket = field.ticket_types.find(

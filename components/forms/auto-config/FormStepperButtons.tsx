@@ -38,7 +38,7 @@ export const FormStepperButtons = ({
     <span className="flex gap-6 my-6 justify-end items-center">
      {currentStep > 0 && <button
         onClick={handleStepDec}
-        className="flex justify-between select-none items-center gap-2 "
+        className="flex active:scale-[0.95] transition-all justify-between select-none items-center gap-2 "
       >
         <ChevronLeft size={15} />
         <span>Previous</span>
@@ -46,7 +46,7 @@ export const FormStepperButtons = ({
       {currentStep + 1 !== autoConfigSteps.length && (
         <button
           onClick={handleValidation}
-          className="bg-[#7655FA] text-white mx-4 px-7 py-2 rounded-full"
+          className="bg-[#7655FA] active:scale-[0.95] transition-all text-white mx-4 px-7 py-2 rounded-full"
         >
           Continue
         </button>
@@ -54,7 +54,7 @@ export const FormStepperButtons = ({
       {currentStep + 1 === autoConfigSteps.length && (
         <button
           type="submit"
-          className="bg-[#7655FA] mx-4 select-none text-white px-7 py-2 rounded-full"
+          className="bg-[#7655FA] active:scale-[0.95] transition-all mx-4 select-none text-white px-7 py-2 rounded-full"
         >
           Submit
         </button>

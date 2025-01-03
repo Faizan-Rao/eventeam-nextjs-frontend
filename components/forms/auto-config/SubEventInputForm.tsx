@@ -27,7 +27,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
 
   // const [open, setOpen] = useState(false);
   return (
-    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 sm:p-0 md:p-4">
+    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 ">
       {/* Dynamic Events */}
       <span className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  auto-cols-[minmax(0,_4fr)]  gap-4">
         {watch.sub_events &&
@@ -59,6 +59,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                         render={({ field }) => (
                           <>
                             <button
+                            
                               onClick={(e) => {
 
                                 e.preventDefault();
@@ -75,8 +76,8 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                                 
                               }}
                               className={clsx(
-                                watch.sub_events[index].status === "1" && " p-2 bg-[#C2FFCC] rounded-full ",
-                                watch.sub_events[index].status === "0" && "bg-[#eeeeee]  rounded-full p-2",
+                                watch.sub_events[index].status === "1" && " p-2 bg-[#C2FFCC] rounded-full active:scale-[0.95] transition-all ",
+                                watch.sub_events[index].status === "0" && "bg-[#eeeeee]  rounded-full p-2 active:scale-[0.95] transition-all",
                                  
                               )}
                             >
@@ -96,8 +97,8 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                               
                               }}
                               className={clsx(
-                                watch.sub_events[index].status === "1" && "bg-[#eeeeee]  rounded-full px-4 py-2",
-                                watch.sub_events[index].status === "0" && " p-2 bg-[#FF9395]  rounded-full px-4 py-2",
+                                watch.sub_events[index].status === "1" && "bg-[#eeeeee] active:scale-[0.95] transition-all  rounded-full px-4 py-2",
+                                watch.sub_events[index].status === "0" && " p-2 bg-[#FF9395] active:scale-[0.95] transition-all  rounded-full px-4 py-2",
 
                               )}
                             >
@@ -120,7 +121,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                       );
                       replace(newArr as any);
                     }}
-                    className="text-[red] cursor-pointer"
+                    className="text-[red] cursor-pointer active:scale-[0.90] transition-all"
                     strokeWidth={1}
                   />
                 </div>

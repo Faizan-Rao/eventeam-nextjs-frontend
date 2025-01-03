@@ -27,7 +27,7 @@ const PaginationControls = ({
       <span className="flex items-center justify-end space-x-2 py-4">
         <button
           className={clsx(
-            "px-4 py-1 bg-[#7655FA] text-[white] rounded-full",
+            "px-4 py-1 bg-[#7655FA]  active:scale-[0.95] transition-all text-[white] rounded-full",
             !table.getCanPreviousPage() && "bg-[#dadada]"
           )}
           onClick={() => table.previousPage()}
@@ -37,7 +37,7 @@ const PaginationControls = ({
         </button>
         <button
           className={clsx(
-            "px-4 py-1 bg-[#7655FA] text-[white] rounded-full",
+            "px-4 py-1 bg-[#7655FA]  active:scale-[0.95] transition-all text-[white] rounded-full",
             !table.getCanNextPage() && "bg-[#dadada]"
           )}
           onClick={() => table.nextPage()}
@@ -46,14 +46,14 @@ const PaginationControls = ({
           Next
         </button>
         <select
-          className="outline-none border-none"
+          className="outline-none border-none cursor-pointer "
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
             table.setPageSize(Number(e.target.value));
           }}
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
+            <option  key={pageSize} className="   px-4 " value={pageSize}>
               {pageSize}
             </option>
           ))}

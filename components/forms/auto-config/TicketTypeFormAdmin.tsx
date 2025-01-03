@@ -23,7 +23,7 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
   });
 
   return (
-    <div className="flex  flex-col   gap-6 p-4  ">
+    <div className="flex  flex-col   gap-6  ">
       {/* Event Name */}
       <div className="flex -1 w-full gap-2 flex-col">
         <label className={"text-[#4a4a4a] font-semibold"}>Ticket Names</label>
@@ -43,7 +43,7 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
               {index > 0 && (
                 <CircleX
                   onClick={() => remove(index)}
-                  className="text-[red] cursor-pointer"
+                  className="text-[red] cursor-pointer active:scale-[0.90] transition-all"
                   strokeWidth={1}
                 />
               )}
@@ -63,7 +63,7 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
         <div>
           <button
             onClick={() => append({ title: "" })}
-            className="flex items-center gap-4 my-4  justify-self-start  text-[#7655fA]"
+            className="flex items-center gap-4 my-4 active:scale-[0.95] transition-all  justify-self-start  text-[#7655fA]"
           >
             {" "}
             <Plus /> <span>Add Another Ticket</span>

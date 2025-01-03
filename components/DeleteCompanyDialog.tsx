@@ -60,11 +60,11 @@ const CompanyDeleteDialog = ({
               </div>
             </div>
             <div className="flex justify-end gap-4">
-              <button className="font-semibold text-base rounded-full px-4 py-2" onClick={()=>setOpen(false)}>
+              <button className="font-semibold active:scale-[0.90] transition-all text-base rounded-full px-4 py-2" onClick={()=>setOpen(false)}>
                 Close
               </button>
 
-              <button onClick={()=>{mutate.mutate(data)}} className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2">
+              <button onClick={()=>{mutate.mutate(data)}} className="bg-[#FF6161] active:scale-[0.90] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
                 Delete
               </button>
             </div>

@@ -148,10 +148,13 @@ const LeadsContainer = () => {
               </span>
             </DropdownMenuContent>
           </DropdownMenu> */}
-          <CSVLink headers={headers}  filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white">
+          
+
+          <CSVLink headers={headers}   filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all">
         
           Export CSV
         </CSVLink>
+         
         </div>
       </div>
 

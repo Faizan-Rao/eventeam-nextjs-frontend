@@ -48,13 +48,13 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
         </div>
         {user && user.role === "admin" && event && (
-          <span className="hover:bg-[#45309b] rounded-full justify-self-end aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
+          <span className="hover:bg-[#45309b] active:scale-[0.90]  rounded-full justify-self-end aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
             <AutoEditDialog type="edit" data={event} />
           </span>
         )}
         {user && user.role === "company" && event && (
           <Link
-            className="text-white bg-[#482cb9] justify-self-end transition-all rounded-full py-2 px-3 hover:bg-[#C2FFCC] hover:text-black  "
+            className="text-white active:scale-[0.90] transition-all bg-[#482cb9] justify-self-end  rounded-full py-2 px-3 hover:bg-[#C2FFCC] hover:text-black  "
             href={"#"}
           >
             Use

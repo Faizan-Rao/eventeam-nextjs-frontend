@@ -34,7 +34,7 @@ const Login = () => {
               <h1 className="text-4xl text-white font-semibold">New Here?</h1>
               <h1 className="text-2xl text-white ">Join Us Right Now</h1>
               <button
-                className="border-[white] max-w-[100px]  border-[2px] px-4 py-2 rounded-full text-white font-semibold"
+                className="border-[white] active:scale-[0.95] mt-2 transition-all max-w-[100px]  border-[2px] px-4 py-2 rounded-full text-white font-semibold"
                 onClick={() => setLeft("right")}
               >
                 Sign up
@@ -56,7 +56,7 @@ const Login = () => {
             
             <LoginForm />
             <button
-                className=" sm:block md:hidden  mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
+                className=" sm:block md:hidden active:scale-[0.95] transition-all  mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
                 onClick={() => setLeft("right")}
               >
                 New Here? Sign up now
@@ -79,7 +79,7 @@ const Login = () => {
           >
             <SignupForm />
            <button
-                className=" sm:block md:hidden  mt-4  w-auto mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
+                className=" sm:block md:hidden active:scale-[0.90] transition-all  mt-4  w-auto mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
                 onClick={() => setLeft("left")}
               >
                 Already Member? Sign in now
@@ -102,7 +102,7 @@ const Login = () => {
               </h1>
               <h1 className="text-2xl text-white ">Sign in Right Now</h1>
               <button
-                className="border-[white] max-w-[100px] border-[2px] px-4 py-2 rounded-full text-white font-semibold"
+                className="border-[white] active:scale-[0.90] mt-2 transition-all max-w-[100px] border-[2px] px-4 py-2 rounded-full text-white font-semibold"
                 onClick={() => setLeft("left")}
               >
                 Sign in

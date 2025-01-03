@@ -14,7 +14,7 @@ import { USDollar } from "@/configs/currentFormat";
 const ShowSubEventInfoDialog = ({ data }: { data: any }) => {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="active:scale-[0.90] transition-all">
         <span className="p-2 flex items-center transition-all justify-center rounded-full hover:bg-[#7655fa26]">
           <Info className="text-[#7655fa]" size={22} />
         </span>

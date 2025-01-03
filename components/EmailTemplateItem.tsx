@@ -70,7 +70,7 @@ const EmailTemplateItem: React.FC<Option> = ({
       <h4 className="text-3xl font-semibold">{heading}</h4>
       <p className="text-lg ">{body}</p>
       <Link
-        className="bg-[#7655fa] rounded-full text-white px-5 py-2"
+        className="bg-[#7655fa] active:scale-[0.95] transition-all rounded-full text-white px-5 py-2"
         href={`/dashboard/email-template/${data && data.type}`}
       >
         {" "}

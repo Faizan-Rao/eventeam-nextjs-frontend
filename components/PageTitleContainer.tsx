@@ -68,7 +68,7 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
                 key={el.path}
                 href={el.path}
                 className={clsx(
-                  "flex items-center gap-4 text-[#4a4a4a] font-semibold",
+                  "flex items-center active:scale-[0.95] transition-all gap-4 text-[#4a4a4a] font-semibold",
                   pathname === el.path &&
                     "bg-[#7655fa26] px-4 py-2 rounded-full  "
                 )}

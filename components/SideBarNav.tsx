@@ -31,7 +31,7 @@ const SideBarNav: React.FC<ISidebarNav> = ({
         }
       }}
         className={clsx(
-          "flex text-[#4A4A4A]  hover:bg-[#7655FA] p-2 transition-all rounded-md hover:text-[white] overflow-none text-nowrap  gap-4 ",
+          "flex text-[#4A4A4A]  hover:bg-[#7655FA] active:scale-[0.95]  p-2 transition-all rounded-md hover:text-[white] overflow-none text-nowrap  gap-4 ",
           className
         )}
       >

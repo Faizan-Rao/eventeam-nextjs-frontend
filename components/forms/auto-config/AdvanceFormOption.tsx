@@ -12,7 +12,7 @@ const AdvanceFormOption: React.FC<IAdvanceFormOption> = ({
   children,
 }) => {
   return (
-    <div className="flex justify-between items-center rounded-md overflow-hidden border-[2px]  mx-4">
+    <div className="flex justify-between items-center rounded-md overflow-hidden border-[2px] ">
       <div className="flex gap-4">
         <span className="sm:hidden md:flex place-items-center  p-4 aspect-square overflow-hidden object-cover text-[#7655fa] bg-[#7655FA26]">
           {icon && icon}

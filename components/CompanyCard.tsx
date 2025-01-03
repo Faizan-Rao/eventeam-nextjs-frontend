@@ -79,17 +79,17 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           </div>
         </div>
         <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center self-center p-1 transition-all rounded-full  ">
+          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center self-start active:scale-[0.90]  p-1 transition-all rounded-full  ">
             <EllipsisVertical strokeWidth={1} />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="active:scale-[0.95] transition-all">
               <Link href={`/companies/${slug}`}>Company Events</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+            <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setDeleteOpen(true)}>
               <p>Delete Company</p>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setEditOpen(true)}>
+            <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>
               <p>Edit Company</p>
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -12,7 +12,7 @@ const ProfileGeneralInfo = ({profile}:{profile:any}) => {
         </h1>
         <Link
           href={"/dashboard/setting"}
-          className="p-2 hover:bg-[#7655fa42] transition-all rounded-full"
+          className="p-2 hover:bg-[#7655fa42] transition-all rounded-full active:scale-[0.95] "
         >
           <PencilLine size={20} color="#7655fa" />
         </Link>

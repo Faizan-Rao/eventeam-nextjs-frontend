@@ -22,7 +22,7 @@ const PrayerForm = () => {
                         Number.isNaN(field.value) ? 0 : field.value + 1
                       )
                     }
-                    className="text-[white] cursor-pointer"
+                    className="text-[white] active:scale-[0.90] transition-all cursor-pointer"
                     size={18}
                   />
                   <input
@@ -42,7 +42,7 @@ const PrayerForm = () => {
                         Number.isNaN(field.value) ? 0 : field.value - 1
                       )
                     }
-                    className="text-[white] cursor-pointer"
+                    className="text-[white] active:scale-[0.90] transition-all cursor-pointer"
                     size={18}
                   />
                 </>
@@ -64,7 +64,7 @@ const PrayerForm = () => {
                         Number.isNaN(field.value) ? 0 : field.value - 1 + 2
                       )
                     }
-                    className="text-[white] cursor-pointer"
+                    className="text-[white] active:scale-[0.90] transition-all cursor-pointer"
                     size={18}
                   />
                   <input
@@ -86,7 +86,7 @@ const PrayerForm = () => {
                         Number.isNaN(field.value) ? 0 : field.value - 1
                       )
                     }
-                    className="text-[white] cursor-pointer"
+                    className="text-[white] active:scale-[0.90] transition-all cursor-pointer"
                     size={18}
                   />
                 </>

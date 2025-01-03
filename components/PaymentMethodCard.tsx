@@ -61,7 +61,7 @@ const PaymentMethodCard = () => {
         )} */}
 
         <button
-          className=" text-base rounded-full w-full py-2 px-4  bg-[#7655fa] text-white"
+          className=" text-base active:scale-[0.95] transition-all rounded-full w-full py-2 px-4  bg-[#7655fa] text-white"
           onClick={connectStrip}
         >
           {stripeId ? "Change Account" : "Setup Account"}

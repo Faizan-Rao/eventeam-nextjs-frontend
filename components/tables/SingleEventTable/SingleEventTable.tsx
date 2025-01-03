@@ -5,7 +5,7 @@ import DashboardPaymentViewModal from "@/components/DasboardPaymentViewModal";
 
 const SingleEventTable = ({data} : {data: any}) => {
   return (
-    <div className="flex-1 flex flex-col w-auto max-w-[460px] gap-4 p-4 h-auto overflow-auto    rounded-md    bg-white">
+    <div className="flex-1 flex flex-col  gap-4 p-4 h-auto overflow-auto    rounded-md    bg-white">
 
       <h1 className="font-semibold text-xl mb-4">Recent Registrations</h1>
     <div className="flex  flex-col gap-5 justify-center sm:max-w-[360px] md:max-w-full    overflow-auto   ">
@@ -15,16 +15,16 @@ const SingleEventTable = ({data} : {data: any}) => {
             <th className="font-semibold mx-4 "></th>
             <th className="font-semibold mx-4 ">Event Name</th>
             <th className="font-semibold mx-4 ">Payment Method</th>
-            <th className="font-semibold mx-4 ">Seats</th>
+            {/* <th className="font-semibold mx-4 ">Seats</th> */}
             <th className="font-semibold mx-4 ">Total Amount</th>
-            <th className="font-semibold mx-4 ">View Details</th>
+            {/* <th className="font-semibold mx-4 ">View Details</th> */}
           </tr>
         </thead>
   
         <tbody className=" text-[14px]  overflow-auto  text-center" >
             
-        {data?.registrations &&
-            (data.registrations as any[]).map((el, index) => {
+        {data?.event.registrations &&
+            (data.event.registrations as any[]).map((el, index) => {
               return (
                 <tr className="border-b-[1px] " key={index}>
                   <td>
@@ -32,14 +32,14 @@ const SingleEventTable = ({data} : {data: any}) => {
                       <UserCirclePlus />
                     </div>
                   </td>
-                  <td>{data.event.title}</td>
+                  <td>{data.event?.title}</td>
                   <td>{el.payment_method}</td>
-                  <td>{el.guests.length}</td>
+                  {/* <td>{el.registrations.length}</td> */}
                   <td>${el.total_amount}</td>
-                  <td>
-                      <DashboardPaymentViewModal row={el}/>
+                  {/* <td>
+                      <DashboardPaymentViewModal type="view_event" row={data} data={el}/>
                     
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

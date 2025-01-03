@@ -147,8 +147,8 @@ export function MyEventTable<TData, TValue>({
         <div className="sm:flex  items-center gap-4">
           <span className="flex flex-1">
             <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
-              <DropdownMenuTrigger>
-                <button className=" flex flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
+              <DropdownMenuTrigger className="active:scale-[0.95] transition-all">
+                <button className=" flex  flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
                   <ListFilter size={20} />
                   Filter
                 </button>
@@ -157,7 +157,7 @@ export function MyEventTable<TData, TValue>({
                 <DropdownMenuLabel>Active State</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  className="flex items-center justify-between"
+                  className="flex items-center active:scale-[0.95] transition-all justify-between"
                   onClick={() => {
                     handleDropDownFilter("active", "status");
                     setSelectedFilter("active");
@@ -174,7 +174,7 @@ export function MyEventTable<TData, TValue>({
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="flex items-center justify-between"
+                  className="flex items-center active:scale-[0.95] transition-all justify-between"
                   onClick={() => {
                     handleDropDownFilter("inactive", "status");
                     setSelectedFilter("inactive");
@@ -194,7 +194,7 @@ export function MyEventTable<TData, TValue>({
                 <DropdownMenuLabel>Operational State</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  className="flex items-center justify-between"
+                  className="flex items-center active:scale-[0.95] transition-all justify-between"
                   onClick={() => {
                     handleDropDownFilter("active", "current_status");
                     setSelectedFilter("operational");
@@ -211,7 +211,7 @@ export function MyEventTable<TData, TValue>({
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="flex items-center justify-between"
+                  className="flex items-center active:scale-[0.95] transition-all justify-between"
                   onClick={() => {
                     handleDropDownFilter("ended", "current_status");
                     setSelectedFilter("ended");
@@ -221,7 +221,7 @@ export function MyEventTable<TData, TValue>({
                   <div
                     className={clsx(
                       selectedFilter === "ended" &&
-                        "bg-[#7655fa] rounded-full text-white"
+                        "bg-[#7655fa] rounded-full active:scale-[0.95] transition-all text-white"
                     )}
                   >
                     <CircleCheck size={18} strokeWidth={1.4} />
@@ -264,7 +264,7 @@ export function MyEventTable<TData, TValue>({
                 </div>
                 <span className="sticky bottom-0 bg-white flex gap-3 flex-1">
                   <button
-                    className=" text-[#FF2727] my-4 px-4 py-1"
+                    className=" text-[#FF2727] text-sm  my-4 px-4 py-1 active:scale-[0.95] transition-all"
                     onClick={() => {
                       handleClear();
                       setOpen(false);
@@ -275,7 +275,7 @@ export function MyEventTable<TData, TValue>({
                   </button>
 
                   <button
-                    className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
+                    className=" bg-[#7655FA] active:scale-[0.95] transition-all text-white rounded-full my-4 px-4 py-1"
                     onClick={() => {
                       setOpen(false);
                     }}
@@ -287,7 +287,7 @@ export function MyEventTable<TData, TValue>({
             </DropdownMenu>
           </span>
           <Link href={"/dashboard/add-event"}>
-            <button className="flex gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
+            <button className="flex  active:scale-[0.95] transition-all gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
               <Plus />
               <span>Add New Event</span>
             </button>

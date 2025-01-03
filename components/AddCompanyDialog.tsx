@@ -123,7 +123,7 @@ const CompanyAddDialog = ({
     >
       {type !== "edit" && (
         <DialogTrigger>
-          <div className="flex sm:text-sm md:text-base gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+          <div className="flex active:scale-[0.95] transition-all sm:text-sm md:text-base gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
             <Plus />
             <span>Add New Company</span>
           </div>
@@ -223,7 +223,7 @@ const CompanyAddDialog = ({
               <div className="flex justify-end items-center gap-4">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#7655fa] text-white rounded-full"
+                  className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full"
                 >
                   {" "}
                   {type !== "edit" ? "Add Company" : "Edit Company"}

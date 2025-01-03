@@ -153,7 +153,7 @@ export function PaymentDetailsTable<TData, TValue>({
             <DropdownMenuLabel>Active State</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="flex items-center justify-between"
+              className="flex items-center justify-between active:scale-[0.95] transition-all"
               onClick={() => {
                 setSelectedFilter("pending")
                 handleDropDownFilter("Pending", "payment_status")}}
@@ -169,7 +169,7 @@ export function PaymentDetailsTable<TData, TValue>({
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex items-center justify-between"
+              className="flex items-center justify-between active:scale-[0.95] transition-all"
               onClick={() => {
                 setSelectedFilter("cleared")
                 handleDropDownFilter("Cleared", "payment_status")}}
@@ -188,7 +188,7 @@ export function PaymentDetailsTable<TData, TValue>({
             <DropdownMenuLabel>Payment Method</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="flex items-center justify-between"
+              className="flex items-center justify-between active:scale-[0.95] transition-all"
               onClick={() => {
                 setSelectedFilter("stripe")
                 handleDropDownFilter("stripe", "payment_method")}}
@@ -204,7 +204,7 @@ export function PaymentDetailsTable<TData, TValue>({
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex items-center justify-between"
+              className="flex items-center justify-between active:scale-[0.95] transition-all"
               onClick={() => {
                 setSelectedFilter("cash")
                 handleDropDownFilter("cash", "payment_method")}}
@@ -213,7 +213,7 @@ export function PaymentDetailsTable<TData, TValue>({
               <div
                 className={clsx(
                   selectedFilter === "cash" &&
-                    "bg-[#7655fa] rounded-full text-white"
+                    "bg-[#7655fa] rounded-full text-white "
                 )}
               >
                 <CircleCheck size={18} strokeWidth={1.4} />
@@ -222,7 +222,7 @@ export function PaymentDetailsTable<TData, TValue>({
 
             <DropdownMenuLabel>Total Payments</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex gap-2 px-4 my-4">
+            <div className="flex gap-2 px-4 my-4 ">
               <span className="flex flex-col">
                 Min :
                 <input
@@ -253,7 +253,7 @@ export function PaymentDetailsTable<TData, TValue>({
             </div>
             <span className="flex sticky bottom-0 bg-white gap-3 flex-1">
               <button
-                className=" text-[#FF2727] my-4 px-4 py-1"
+                className=" text-[#FF2727] text-sm my-4 px-4 py-1 active:scale-[0.90] transition-all"
                 onClick={() => {
                   handleClear();
                   setOpen(false);
@@ -264,7 +264,7 @@ export function PaymentDetailsTable<TData, TValue>({
               </button>
 
               <button
-                className=" bg-[#7655FA] text-white rounded-full my-4 px-4 py-1"
+                className=" bg-[#7655FA] active:scale-[0.90] transition-all text-white rounded-full my-4 px-4 py-1"
                 onClick={() => {
                   setOpen(false);
                 }}

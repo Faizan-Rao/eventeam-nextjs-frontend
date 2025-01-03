@@ -113,7 +113,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
   console.log("autoform params", data);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="active:scale-[0.95] transition-all">
         {" "}
         {type !== "add" ? (
           <ChevronRight className="text-white " />
@@ -208,7 +208,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
               <div className="flex justify-end items-center gap-4">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#7655fa] text-white rounded-full"
+                  className="px-4 py-2 active:scale-[0.90] transition-all bg-[#7655fa] text-white rounded-full"
                 >
                   {" "}
                   {type !== "add" ? "Save Changes" : "Add Autoform"}

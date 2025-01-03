@@ -71,7 +71,7 @@ export const CheckoutForm = () => {
         <button
           onClick={handleSubmit}
           disabled={!stripe}
-          className="bg-[#7655fa] px-4 py-2 rounded-full text-white flex-1 font-semibold"
+          className="bg-[#7655fa] active:scale-[0.95] transition-all px-4 py-2 rounded-full text-white flex-1 font-semibold"
         >
           Add Card
         </button>
@@ -79,7 +79,7 @@ export const CheckoutForm = () => {
           <button
             onClick={clearCard}
             disabled={!stripe}
-            className="  rounded-full text-white "
+            className=" active:scale-[0.95] transition-all  rounded-full text-white "
           >
             {" "}
             <CircleX className="text-red-700" strokeWidth={1.2} />

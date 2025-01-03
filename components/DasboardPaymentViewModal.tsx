@@ -37,14 +37,14 @@ import {
 } from "@/components/ui/accordion";
 import { format } from "date-fns";
 
-const DashboardPaymentViewModal = ({ row, children }: { row?: any, children? : React.ReactNode }) => {
+const DashboardPaymentViewModal = ({ row, children, type, data:elRow }: {data?: any, type?:string, row?: any, children? : React.ReactNode }) => {
   const [status, setSetStatus] = useState(row?.original?.status as any);
   const [open, setOpen] = useState(false);
   const { data, setData }: any = useContext(PaymentDetailContext);
 
   return (
     <Dialog  open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
         <span className="block">
         <EyeIcon className="text-[#c2c2c2]" />
 
@@ -63,10 +63,12 @@ const DashboardPaymentViewModal = ({ row, children }: { row?: any, children? : R
                   Registration Details
                 </h1>
                 <h1 className="  font-semibold text-3xl text-black">
-                  {row?.event.title}
+                  {type !== "view_event" && row?.event?.title}
+                  {type === "view_event" && elRow?.title}
                 </h1>
                 <p className="text-sm text-[#tatata] font-semibold">
-                {format(new Date(row?.event['start_date']), 'LLL d') + " - " + format(new Date(row?.event['end_date']), 'LLL d')}
+                {type !== "view_event" && (format(new Date(row?.event['start_date']), 'LLL d') + " - " + format(new Date(row?.event['end_date']), 'LLL d'))}
+                {type === "view_event" &&(new Date(elRow.date).toDateString())}
                 </p>
               </div>
 
@@ -143,8 +145,8 @@ const DashboardPaymentViewModal = ({ row, children }: { row?: any, children? : R
                                 {el.guest_details.map((item :any ) => (
                                   <p className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold" key={i + item}>
                                     {row?.event.sub_events.map((el : any)=>{
-                                       
-                                        return item.sub_event_id === `${el.id}` && el.title  
+                                       console.log("guest item")
+                                        return item.sub_event_id === el.id && el.title  
                                     })}
                                   </p>
                                 ))}

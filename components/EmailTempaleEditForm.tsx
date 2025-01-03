@@ -83,7 +83,7 @@ const EmailTempaleEditForm = ({
         {emails.map((e, i) => {
           return (
             <p
-              className="px-4 py-1 my-1 text-center rounded-full mx-1 cursor-pointer bg-[#7655fa26]"
+              className="px-4 py-1 my-1 active:scale-[0.95] transition-all text-center rounded-full mx-1 cursor-pointer bg-[#7655fa26]"
               key={i}
               onClick={() => deleteEmail(i)}
             >
@@ -129,7 +129,7 @@ const EmailTempaleEditForm = ({
           cc_emails: emails,
           status: status ? 1 : 0
         })
-      }} className="px-4 py-2 text-white rounded-full bg-[#7655fa] ml-auto my-3">
+      }} className="px-4 py-2 active:scale-[0.95] transition-all text-white rounded-full bg-[#7655fa] ml-auto my-3">
         Save Changes
       </button>
     </div>

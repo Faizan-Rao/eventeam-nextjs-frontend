@@ -87,7 +87,7 @@ const CompanyEventCard = ({
 
       <Link
         href={"/events/1"}
-        className="flex text-base justify-center items-center bg-[#7655fa] rounded-full py-3 px-4"
+        className="flex text-base active:scale-[0.95] transition-all justify-center items-center bg-[#7655fa] rounded-full py-3 px-4"
       >
         <a
           href={`/events/${params.companyId}/${data.id}`}

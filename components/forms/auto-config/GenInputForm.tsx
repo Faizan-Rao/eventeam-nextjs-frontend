@@ -30,7 +30,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
   const watch = useWatch({ control });
   console.log("Start Date Watch");
   return (
-    <div className="flex flex-col gap-6 p-4 w-full">
+    <div className="flex flex-col gap-6  w-full">
       {/* Event Name */}
       {!path.includes("auto-config") && (
         <span className="flex gap-2 flex-col">

@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ProfileDropdown from "./ProfileDropdown";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import {user} from '@/configs/axios'
+import { user } from "@/configs/axios";
 
 export const mobileWidth = 500;
 
@@ -41,13 +41,12 @@ const SideBar = ({
     }
   }, [setNavOpen]);
 
-  
   return (
     <>
       {!isNavOpen && (
         <button
           className={clsx(
-            "text-[#4a4a4a] mx-2 my-2 self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
+            "text-[#4a4a4a] active:scale-[0.95] transition-all mx-2 my-2 self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
           )}
           onClick={() => {
             setIsHover(false);
@@ -83,7 +82,7 @@ const SideBar = ({
         >
           <button
             className={clsx(
-              "text-[#4a4a4a] self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
+              "text-[#4a4a4a] active:scale-[0.95]  self-center sm:hidden md:block transtion-all bg-white  max-w-[30px]   rounded-full"
             )}
             onClick={() => {
               setIsHover(false);
@@ -92,74 +91,86 @@ const SideBar = ({
           >
             <ChevronDown size={22} strokeWidth={1.5} />
           </button>
-          {paths.map((nav, index) => (
-        nav.role.includes(user.role) &&  <div key={index + +3}>
-              {!nav.children &&   (
-                <SideBarNav
-                  setNavOpen={setNavOpen}
-                  href={nav.path}
-                  value={t(nav.name)}
-                  icon={<nav.icon strokeWidth={1} />}
-                  isHover={isHover}
-                  key={nav.path + index}
-                  className="rounded-none"
-                />
-              )}
+          {paths.map(
+            (nav, index) =>
+              nav.role.includes(user.role) && (
+                <div key={index + +3}>
+                  {!nav.children && (
+                    <SideBarNav
+                      setNavOpen={setNavOpen}
+                      href={nav.path}
+                      value={t(nav.name)}
+                      icon={<nav.icon strokeWidth={1} />}
+                      isHover={isHover}
+                      key={nav.path + index}
+                      className="rounded-none active:scale-[0.95] transition-all"
+                    />
+                  )}
 
-              {nav.children &&  (
-                <>
-                  <div
-                    key={index + +1}
-                    onClick={() => toggleList(index)}
-                    className="flex text-[#4A4A4A]   p-2 transition-all rounded-md  cursor-pointer overflow-none text-nowrap  gap-4 "
-                  >
-                    {nav.icon && (
-                      <span className="mx-4">
-                        {<nav.icon strokeWidth={1}  />}
-                      </span>
-                    )}
-                    {
-                      <>
-                        <p
+                  {nav.children && (
+                    <>
+                      <div
+                        key={index + +1}
+                        onClick={() => toggleList(index)}
+                        className="flex text-[#4A4A4A] active:scale-[0.95] transition-all   p-2  rounded-md  cursor-pointer overflow-none text-nowrap  gap-4 "
+                      >
+                        {nav.icon && (
+                          <span className="mx-4">
+                            {<nav.icon strokeWidth={1} />}
+                          </span>
+                        )}
+                        {
+                          <>
+                            <p
+                              className={clsx(
+                                "font-semibold   flex text-nowrap justify-center items-center gap-4",
+
+                                !isHover && "md:hidden"
+                              )}
+                            >
+                              {t(nav.name)}
+
+                              <ArrowDown />
+                            </p>
+                          </>
+                        }
+                      </div>
+                      {
+                        <div
+                          key={index + +2}
+                          ref={(elref) => (ref.current[index] = elref) as any}
                           className={clsx(
-                            "font-semibold  flex text-nowrap justify-center items-center gap-4",
-
-                            !isHover && "md:hidden"
+                            "border-[1px] hidden overflow-hidden transition-all  bg-[#fbfbfb72]    w-full rounded-lg ",
+                            !isHover && "hidden"
                           )}
                         >
-                          {t(nav.name)}
-
-                          <ArrowDown />
-                        </p>
-                      </>
-                    }
-                  </div>
-                  {
-                    <div
-                      key={index + +2}
-                      ref={(elref) => (ref.current[index] = elref) as any}
-                      className={clsx(
-                        "border-[1px] hidden overflow-hidden transition-all  bg-[#fbfbfb72]    w-full rounded-lg ",
-                        !isHover && "hidden"
-                      )}
-                    >
-                      {nav.children.map((subnav, index) => (
-                        subnav.role.includes(user.role) && <SideBarNav
-                          setNavOpen={setNavOpen}
-                          href={subnav.path}
-                          value={t(subnav.name)}
-                          icon={<nav.icon strokeWidth={1} size={18} className="mr-2" />}
-                          isHover={isHover}
-                          key={subnav.path + index}
-                          className="rounded-none"
-                        />
-                      ))}
-                    </div>
-                  }
-                </>
-              )}
-            </div>
-          ))}
+                          {nav.children.map(
+                            (subnav, index) =>
+                              subnav.role.includes(user.role) && (
+                                <SideBarNav
+                                  setNavOpen={setNavOpen}
+                                  href={subnav.path}
+                                  value={t(subnav.name)}
+                                  icon={
+                                    <nav.icon
+                                      strokeWidth={1}
+                                      size={18}
+                                      className="mr-2"
+                                    />
+                                  }
+                                  isHover={isHover}
+                                  key={subnav.path + index}
+                                  className="rounded-none"
+                                />
+                              )
+                          )}
+                        </div>
+                      }
+                    </>
+                  )}
+                </div>
+              )
+          )}
         </div>
 
         {/* Profile Section */}
@@ -172,9 +183,8 @@ const SideBar = ({
           )}
         >
           <div className="flex ">
-
-          <ProfileDropdown />
-          <LanguageSelector />
+            <ProfileDropdown />
+            <LanguageSelector />
           </div>
           <div
             className={clsx(
@@ -208,8 +218,8 @@ const SideBar = ({
         {isHover && isNavOpen && (
           <div
             className={clsx(
-              "flex gap-4",
-              isNavOpen && "  block",
+              "flex items-center gap-4",
+              isNavOpen && " active:scale-[0.95] transition-all  block"
               // !isNavOpen && "sm:h-0 hidden"
             )}
           >

@@ -57,7 +57,7 @@ const DonationAddDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="flex items-center sm:gap-1 md:gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+        <div className="flex items-center active:scale-[0.95] transition-all sm:gap-1 md:gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
           <Plus />
           <span className="sm:text-sm">Add New Donation</span>
         </div>
@@ -134,7 +134,7 @@ const DonationAddDialog = () => {
               </div>
 
               <div className="flex justify-end items-center gap-4">
-                <button className="px-4 py-2 bg-[#7655fa] text-white rounded-full">
+                <button className="px-4 active:scale-[0.95] transition-all py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
                 Add Donation
                 </button>

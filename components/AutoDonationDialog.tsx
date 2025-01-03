@@ -73,7 +73,7 @@ const AutoDonationDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="flex p-2 mx-4 items-center hover:bg-[#7655fa26] rounded-full justify-center">
+        <div className="flex active:scale-[0.90] transition-all p-2 mx-4 items-center hover:bg-[#7655fa26] rounded-full justify-center">
           <PencilLine className="text-[#7655fa]" />
         </div>
       </DialogTrigger>
@@ -112,7 +112,7 @@ const AutoDonationDialog = () => {
                     key={i}
                     onClick={() => selectDonation(el)}
                     className={clsx(
-                      "flex justify-between items-center border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px]",
+                      "flex justify-between items-center active:scale-[0.98] transition-all border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px]",
                       selectedDonations.findIndex(
                         (item: any) => item.id === el.id
                       ) !== -1 && "border-[#7655fa]"
@@ -149,7 +149,7 @@ const AutoDonationDialog = () => {
               
               <div className="sticky bottom-0 bg-white">
                 <button
-                  className="   px-4 py-2 self-end mt-4 text-red-700 rounded-full"
+                  className="  active:scale-[0.95] transition-all px-4 py-2 self-end mt-4 text-red-700 rounded-full"
                   onClick={() => {
                     setSelectedDonations([]);
                     setValue("advance_form.donations.other_donations", []);
