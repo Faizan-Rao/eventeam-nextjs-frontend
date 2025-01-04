@@ -62,7 +62,7 @@ const defaultValues = {
     is_show_stripe: "1",
   },
 };
-const AutoConfigForm = ({ type }: { type: string }) => {
+const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [errors, setErrors] = useState<string[]>([]);
   const deferStep = useDeferredValue(currentStep);
@@ -81,7 +81,7 @@ const AutoConfigForm = ({ type }: { type: string }) => {
       );
       return resolver(values, context, options);
     },
-    defaultValues: autoFormDefaults,
+    defaultValues: data ? data : autoFormDefaults,
   });
 
   const {

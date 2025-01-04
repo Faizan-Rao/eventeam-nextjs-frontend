@@ -205,8 +205,16 @@ export const Events = {
     const response = await axiosWithToken.patch(`/events/status/${data.id}`, data)
     return response
   },
+  editFetch : async (id : any) =>{
+    const response = await axiosWithToken.get(`/events/edit/${id}`)
+    return response
+  },
   createEvent : async (data : any) =>{
     const response = await axiosWithToken.post(`/events/create`, data)
+    return response
+  },
+  fetchAutoWithConfig : async (id:any) =>{
+    const response = await axiosWithToken.get(`/events/update/${id}`)
     return response
   },
 }

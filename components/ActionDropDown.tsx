@@ -35,8 +35,9 @@ const ActionDropDown = ({row, id, table}: {
           <DotThreeVertical />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>Edit Event</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>Edit Status</DropdownMenuItem>
           <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><Link href={`/dashboard/my-events/${row.id}`}>View Event</Link></DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/dashboard/my-events/edit/${row.id}`}>Edit Event</a></DropdownMenuItem>
           <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/events/${user.slug}/${row.id}`}>View Registration Form</a></DropdownMenuItem>
           <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setDeleteOpen(true)}>
             Delete Event

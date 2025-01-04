@@ -69,7 +69,7 @@ const EventEditDialog = ({
       <DialogTrigger> {children} </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Event</DialogTitle>
+          <DialogTitle>Edit Status</DialogTitle>
           <DialogDescription>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4  my-4 ">
               <span className=" flex-1 rounde-md flex flex-col gap-1">
@@ -90,7 +90,7 @@ const EventEditDialog = ({
                 </span>
               </span>
               <span className=" flex-1 flex flex-col gap-1">
-                <label className="text-sm font-semibold ">Status Type</label>
+                <label className="text-sm font-semibold ">Operation Type</label>
 
                 <Controller
                   name={"current_status"}
@@ -117,7 +117,9 @@ const EventEditDialog = ({
               <div className="flex justify-end mt-4 gap-4">
                 <button
                   className="font-semibold active:scale-[0.95] transition-all text-base rounded-full px-4 py-2"
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setOpen(false)}}
                 >
                   Close
                 </button>
