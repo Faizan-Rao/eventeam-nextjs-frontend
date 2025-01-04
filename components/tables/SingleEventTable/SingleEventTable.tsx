@@ -4,6 +4,7 @@ import ViewEye from "../../icons/ViewEye";
 import DashboardPaymentViewModal from "@/components/DasboardPaymentViewModal";
 
 const SingleEventTable = ({data} : {data: any}) => {
+  console.log("required data view event", data)
   return (
     <div className="flex-1 flex flex-col  gap-4 p-4 h-auto overflow-auto    rounded-md    bg-white">
 
@@ -15,9 +16,9 @@ const SingleEventTable = ({data} : {data: any}) => {
             <th className="font-semibold mx-4 "></th>
             <th className="font-semibold mx-4 ">Event Name</th>
             <th className="font-semibold mx-4 ">Payment Method</th>
-            {/* <th className="font-semibold mx-4 ">Seats</th> */}
-            <th className="font-semibold mx-4 ">Total Amount</th>
-            {/* <th className="font-semibold mx-4 ">View Details</th> */}
+            <th className="font-semibold mx-4 ">Seats</th>
+            <th className="font-semibold mx-4 ">T.Amount</th>
+            <th className="font-semibold mx-4 ">V.Details</th>
           </tr>
         </thead>
   
@@ -32,14 +33,14 @@ const SingleEventTable = ({data} : {data: any}) => {
                       <UserCirclePlus />
                     </div>
                   </td>
-                  <td>{data.event?.title}</td>
+                  <td> <p className="line-clamp-1 my-auto">{data.event?.title}</p></td>
                   <td>{el.payment_method}</td>
-                  {/* <td>{el.registrations.length}</td> */}
+                  <td>{el.guests.length}</td>
                   <td>${el.total_amount}</td>
-                  {/* <td>
-                      <DashboardPaymentViewModal type="view_event" row={data} data={el}/>
+                  <td>
+                      <DashboardPaymentViewModal type="view_event" row={data.event.registrations[index]} data={data.event}/>
                     
-                  </td> */}
+                  </td>
                 </tr>
               );
             })}

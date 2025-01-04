@@ -5,7 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --bg-secondary: #fffefe;
+  /* --bg-secondary: #fffefe; */
+  --bg-secondary: white;
 
   --bg-primary: #f7f6f9;
 }

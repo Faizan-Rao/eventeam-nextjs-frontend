@@ -4,7 +4,7 @@ import ViewEye from "./icons/ViewEye";
 import DashboardPaymentViewModal from "./DasboardPaymentViewModal";
 
 const RecentRegMain = ({ regData }: { regData: any }) => {
-  console.log(regData);
+  console.log("reg data",regData);
   return (
     <div className="flex flex-1 flex-col gap-5  p-2     md:w-full   overflow-auto">
       <h1 className="font-semibold text-xl">Recent Registrations</h1>
