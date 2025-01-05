@@ -11,14 +11,18 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 const SingleEvent = () => {
-  const params = useParams()
-  
+  const params = useParams();
+
   const [tab, setTab] = useState("event");
- 
-  const { data: eventDetailData } = useQuery({queryKey: ["event"], queryFn: async ()=>Events.getOne(params.eventid)})
-  const eventDetail = eventDetailData?.data.data
+
+  const { data: eventDetailData } = useQuery({
+    queryKey: ["event"],
+    queryFn: async () => Events.getOne(params.eventid),
+  });
+  const eventDetail = eventDetailData?.data?.data;
+  console.log("view event details data", eventDetail);
   return (
-   <div className="flex flex-col ">
+    <div className="flex flex-col ">
       {/* Mobile Tab Btns */}
       <div className="sm:flex md:hidden py-4 bg-[white] w-full px-10 font-semibold items-center gap-4">
         <button
@@ -41,20 +45,20 @@ const SingleEvent = () => {
           Reg Info
         </button>
       </div>
-        <div className="sm:hidden md:block p-4">
-          <PageTitleContainer title={"View Event"} />
-        </div>
+      <div className="sm:hidden md:block p-4">
+        <PageTitleContainer title={"View Event"} />
+      </div>
 
-        {/* Web Template */}
-        <div className="sm:hidden  md:grid md:grid-cols-1 lg:grid-cols-3 min-w-[94vw] gap-4 mx-4 ">
-          <SingleEventCont data={eventDetail} />
-          <SingleEventTable data={eventDetail} />
-        </div>
+      {/* Web Template */}
+      <div className="sm:hidden  md:grid md:grid-cols-1 lg:grid-cols-3 min-w-[94vw] gap-4 mx-4 ">
+        {eventDetail !== undefined && <SingleEventCont data={eventDetail} />}
+        {eventDetail !== undefined && <SingleEventTable data={eventDetail} />}
+      </div>
 
-        <div className="sm:block md:hidden">
-          {tab === "event" && <SingleEventCont data={eventDetail} />}
-          {tab === "reg-info" && <SingleEventTable data={eventDetail} />}
-        </div>
+      <div className="sm:block md:hidden">
+        {tab === "event" && <SingleEventCont data={eventDetail} />}
+        {tab === "reg-info" && <SingleEventTable data={eventDetail} />}
+      </div>
       {/* <MainContentGrid>
       </MainContentGrid> */}
     </div>

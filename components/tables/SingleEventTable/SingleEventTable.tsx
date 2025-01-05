@@ -25,7 +25,7 @@ const SingleEventTable = ({data} : {data: any}) => {
         <tbody className=" text-[14px]  overflow-auto  text-center" >
             
         {data?.event.registrations &&
-            (data.event.registrations as any[]).map((el, index) => {
+            (data?.event.registrations as any[]).map((el, index) => {
               return (
                 <tr className="border-b-[1px] " key={index}>
                   <td>
@@ -38,7 +38,7 @@ const SingleEventTable = ({data} : {data: any}) => {
                   <td>{el.guests.length}</td>
                   <td>${el.total_amount}</td>
                   <td>
-                      <DashboardPaymentViewModal type="view_event" row={data.event.registrations[index]} data={data.event}/>
+                      <DashboardPaymentViewModal type="view_event" row={data?.event.registrations[index]} data={data.event}/>
                     
                   </td>
                 </tr>
@@ -50,7 +50,7 @@ const SingleEventTable = ({data} : {data: any}) => {
 
       </table>
         {
-              data.event.registrations.length <= 0 && <p className="font-semibold border-[3px] border-double text-center p-5 text-[#999999] w-full"> No Registration Currently</p>
+              data?.event.registrations.length <= 0 && <p className="font-semibold border-[3px]  text-center p-5 text-[#999999] w-full"> No Registration Currently</p>
             }
     </div>
     

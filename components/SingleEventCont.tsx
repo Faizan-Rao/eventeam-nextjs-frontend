@@ -62,7 +62,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] font-semibold text-sm">Event Title</h1>
           <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1">
-            {(data && data && data.event.title) || "No title"}
+            {(data && data && data?.event.title) || "No title"}
           </h1>
           <h1 className="text-[#999999] font-semibold text-sm">
             {new Date(data?.event["start_date"]).toDateString() +
@@ -190,7 +190,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
         </h1>
         <p className="text-sm text-[#999999] ">
           {htmlToReact(
-            (data && data && data.event.description) || "No Description"
+            (data && data && data?.event?.description) || "No Description"
           )}
         </p>
       </div>
@@ -208,7 +208,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               <div className="flex items-center justify-between   flex-wrap">
                 {data?.event?.sub_events.length > 0 &&
                   data &&
-                  data.event.sub_events.map((el: any, i: number) => {
+                  data?.event.sub_events.map((el: any, i: number) => {
                     console.log(el);
                     return (
                       <EventSubeventCard
@@ -238,7 +238,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               <div className="flex items-center justify-between  flex-wrap">
                 {data?.event?.sub_events?.length > 0 &&
                 
-                  data.event.sub_events.map((el: any, i: number) => {
+                  data?.event?.sub_events.map((el: any, i: number) => {
                     console.log(el);
                     return (
                       <EventSubeventCard
