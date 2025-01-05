@@ -61,7 +61,7 @@ export const addEventSchema = joi.object({
     is_show_address: joi.string().required(),
     is_show_regulation: joi.string().required(),
     is_show_stripe: joi.string().required(),
-    renew_advance_fields: joi.string().required(),
+    // renew_advance_fields: joi.string().required(),
   }),
   activities: joi.array().items(activity).min(1).required(),
 });
@@ -80,7 +80,7 @@ export const autoConfigSchema = joi.object({
     is_show_address: joi.string().required(),
     is_show_regulation: joi.string().required(),
     is_show_stripe: joi.string().required(),
-    renew_advance_fields: joi.string().required(),
+    // renew_advance_fields: joi.string().required(),
   }),
   activities: joi.array().items(activity).min(1).required(),
 });
@@ -154,7 +154,7 @@ export const autoFormDefaults = {
     is_cash_allowed: "1",
     is_donation_allowed: "1",
     is_show_regulation: "1",
-    renew_advance_fields: "0",
+    
     is_show_stripe: "1",
   },
   activities: [

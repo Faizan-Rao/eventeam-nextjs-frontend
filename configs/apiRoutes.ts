@@ -205,6 +205,10 @@ export const Events = {
     const response = await axiosWithToken.patch(`/events/status/${data.id}`, data)
     return response
   },
+  editEvent : async (id:any ,data : any) =>{
+    const response = await axiosWithToken.put(`/events/update/${id}`, data)
+    return response
+  },
   editFetch : async (id : any) =>{
     const response = await axiosWithToken.get(`/events/edit/${id}`)
     return response

@@ -44,11 +44,14 @@ const SingleEventTable = ({data} : {data: any}) => {
                 </tr>
               );
             })}
+            
          
         </tbody>
 
-      
       </table>
+        {
+              data.event.registrations.length <= 0 && <p className="font-semibold border-[3px] border-double text-center p-5 text-[#999999] w-full"> No Registration Currently</p>
+            }
     </div>
     
     </div>

@@ -34,7 +34,7 @@ import {
   autoConfigPostStruct,
   addNewEventPostStruct,
 } from "@/configs/autoConfigPost";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { AutoFormAPI, Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
@@ -45,6 +45,7 @@ import {
   autoFormType,
 } from "@/configs/autoFormValidation";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { queryClient } from "@/components/MainLayoutGrid";
 
 const defaultValues = {
   tickets: [
@@ -68,11 +69,12 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
   const deferStep = useDeferredValue(currentStep);
   const pathname = usePathname();
   const router = useRouter();
+  const params = useParams()
 
   const methods = useForm<autoFormType>({
     resolver: (values, context, options) => {
       const resolver = joiResolver(
-        pathname.includes("add-event") ? addEventSchema : autoConfigSchema,
+        (pathname.includes("add-event") || pathname.includes("my-events/edit")) ? addEventSchema : autoConfigSchema,
         {
           context: context,
           abortEarly: false,
@@ -135,6 +137,21 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       });
     },
   });
+  const mutateEditEvent = useMutation({
+    mutationFn: async (formData)=> Events.editEvent(params.eventid, formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      toast("Changes Saved Successfully...", {
+        type: "success",
+      });
+      router.replace("/dashboard/my-events")
+    },
+    onError: () => {
+      toast("Changes Not Saved...", {
+        type: "error",
+      });
+    },
+  });
 
   const mutateEvent = useMutation({
     mutationFn: Events.createEvent,
@@ -156,16 +173,21 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     if (Object.keys(errors).length <= 0) {
       if (pathname.includes("add-event")) {
         console.log("add event triggerd");
-        data["description"] = "hamlo g";
-        delete data["tickets"];
+        
         mutateEvent.mutate(data);
       }
       if (pathname.includes("auto-config")) {
         console.log("Autofrom triggerd");
-        data["description"] = "hamlo g";
-        delete data["tickets"];
+        
         mutateAutoConfig.mutate(data);
       }
+      if (pathname.includes("/my-events/edit")) {
+        console.log("edit form triggerd");
+        
+        mutateEditEvent.mutate(data);
+      }
+
+      
     }
 
     // if (!data) {
