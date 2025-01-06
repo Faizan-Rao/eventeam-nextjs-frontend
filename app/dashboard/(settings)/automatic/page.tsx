@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Plus, Search } from "lucide-react";
 import AutoEditDialog from "@/components/AutoEditDialog";
 import { user } from "@/configs/axios";
+import clsx from "clsx";
 
 const AutomaticForm = () => {
   const [filtered, setFiltered] = useState([]);
@@ -49,7 +50,7 @@ const AutomaticForm = () => {
             All Upcoming events
           </h1>
           <div className="grid justify-self-end sm:grid-cols-3 md:grid-cols-2 justify-items-end gap-3 ">
-          <div className="  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1">
+          <div className={clsx("  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1", user.role === "company" && " sm:col-span-3 min-w-full" )}>
             <Search className="sm:hidden md:block text-[#4a4a4a]"  />
             <input
               placeholder={"Search Event..."}
@@ -59,9 +60,9 @@ const AutomaticForm = () => {
           </div>
          {user && user.role === "admin" && <AutoEditDialog type="add"/>}
 
-         {user && user.role === "company" &&  <div className="sm:flex-1 md:flex-none flex place-items-center gap-2 ml-2 rounded-md border-[2px] p-1">
-            <div className="flex px-4 py-1 items-center justify-center gap-2">
-              <h1 className="font-semibold ">Auto Publish</h1>
+         {user && user.role === "company" &&  <div className="sm:flex-1 md:flex-none  sm:col-span-3 md:col-span-1 flex place-items-center gap-2 md:ml-2 rounded-md  p-1">
+            <div className="flex md:px-4 py-1  items-center justify-center  gap-2">
+              <h1 className="font-semibold  ">Auto Publish</h1>
               <HoverCard>
                 <HoverCardTrigger className=" flex aspect-square bg-[#c2c2c2]   rounded-full p-1 h-6 w-6 object-cover justify-center items-center ">
                   <h1 className=" text-white p-2 text-sm">?</h1>

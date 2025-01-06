@@ -149,7 +149,7 @@ export function PaymentDetailsTable<TData, TValue>({
               Filter
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="overflow-y-auto max-h-[300px]">
+          <DropdownMenuContent className="overflow-y-auto max-h-[300px] sm:max-w-[200px] md:max-w-[400px]">
             <DropdownMenuLabel>Active State</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
@@ -222,7 +222,7 @@ export function PaymentDetailsTable<TData, TValue>({
 
             <DropdownMenuLabel>Total Payments</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex gap-2 px-4 my-4 ">
+            <div className="flex gap-2 px-4 my-4 flex-wrap">
               <span className="flex flex-col">
                 Min :
                 <input

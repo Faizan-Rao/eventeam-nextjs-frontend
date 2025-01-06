@@ -95,10 +95,10 @@ const PaymentDetailMain = () => {
         
         </div>
         {/* Mobile Template */}
-        <div className="sm:flex gap-4 md:hidden sm:max-w-[92vw]">
+        <div className="sm:flex gap-4 md:hidden sm:max-w-[98vw]">
           <Swiper
             slidesPerView={2}
-            spaceBetween={10}
+            spaceBetween={6}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
@@ -116,7 +116,7 @@ const PaymentDetailMain = () => {
               <KPICard
                 title={t("All Time Guests")}
                 icon={<UsersRound size={28} />}
-                value={"0"}
+                value={kpis?.data.data["total_guests"] || "0"}
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -124,16 +124,16 @@ const PaymentDetailMain = () => {
               <KPICard
                 title={t("All Time Earnings")}
                 icon={<CircleDollarSign size={28} />}
-                value={"0"}
-                currency="$"
+                value={USDollar.format(kpis?.data.data["total_earnings" ]) || "0"}
+                currency=""
               />
             </SwiperSlide>
             <SwiperSlide>
               <KPICard
                 title={t("Cleared Earnings")}
                 icon={<HandCoins size={28} />}
-                value={"0"}
-                currency="$"
+                value={USDollar.format(kpis?.data.data["cleared_cash" ]) || "0"}
+                currency=""
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -141,8 +141,8 @@ const PaymentDetailMain = () => {
               <KPICard
                 title={t("Pending Earnings")}
                 icon={<Banknote size={28} />}
-                value={"0"}
-                currency="$"
+                value={USDollar.format(kpis?.data.data["pending_cash" ]) || "0"}
+                currency=""
               />
             </SwiperSlide>
           </Swiper>

@@ -18,6 +18,7 @@ import Link from "next/link";
 import { set } from "lodash";
 import ViewPaymentDetailDialog from "./ViewPaymentDetailDialog";
 import EditPaymentStatusDialog from "./EditPaymentStatusDialog";
+import { format } from "date-fns";
 interface RowData {
   event_name: string;
   start_data: string;
@@ -33,14 +34,16 @@ const PaymentCard = ({
   selectedRecord,
   setSelectedRecord,
 }: {
-  data: RowData;
+  data: any;
   index: number;
   selectedRecord: number;
   setSelectedRecord: React.Dispatch<SetStateAction<number>>;
 }) => {
 
+console.log("payment card data", data)
+  let row = {} as any
+  row.original = data
 
-  
   return (
     <Accordion value={selectedRecord === index ? "item-1" : "No Element"}    type="single"  >
       <AccordionItem
@@ -57,7 +60,7 @@ const PaymentCard = ({
              
               className="flex-1  flex flex-col"
             >
-              <ViewPaymentDetailDialog row={data as any}>
+              <ViewPaymentDetailDialog row={row}>
                 <h1
                   className={clsx(
                     "text-[#999999] font-semibold text-sm",
@@ -72,7 +75,7 @@ const PaymentCard = ({
                     index === selectedRecord && "text-[white]"
                   )}
                 >
-                 ASDasdasda
+                 {data.event.title}
                 </h1>
                 </ViewPaymentDetailDialog>
                 {/* <div className="flex items-center gap-2">
@@ -92,7 +95,7 @@ const PaymentCard = ({
             </div>
             <div onClick={()=>setSelectedRecord(index)} className={clsx("flex gap-2 items-center",  index === selectedRecord && "text-[white]")}>
               
-              <EditPaymentStatusDialog row={data as any}></EditPaymentStatusDialog>
+              <EditPaymentStatusDialog row={row}></EditPaymentStatusDialog>
 
               <ChevronDown
                 size={20}
@@ -103,11 +106,10 @@ const PaymentCard = ({
         
         </AccordionTrigger>
         <AccordionContent className="p-4">
-          <div className="flex justify-center gap-4 flex-col">
-            <div className="flex justify-between ">
-              {/* Start Date */}
-              <div className=" flex-1 flex gap-2 items-center rounded-md">
-                <div className={clsx("flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
+          <div className="grid grid-cols-2 gap-4">
+             {/* Start Date */}
+             <div className=" flex-1 flex gap-2 items-center rounded-md">
+                <div className={clsx("flex aspect-square sm:h-[30px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
                   <Calendar />
                 </div>
 
@@ -115,12 +117,12 @@ const PaymentCard = ({
                   <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                      Date
                   </p>
-                  <p className="font-semibold flex  ">Dec 31, 2024</p>
+                  <p className="font-semibold flex  ">{data.created_at.split("T")[0]}</p>
                 </div>
               </div>
               {/*   Total Payment */}
               <div className=" flex-1 flex gap-2 items-center rounded-md">
-                <div className={clsx("flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
+                <div className={clsx("flex aspect-square sm:h-[30px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
                   <Banknote />
                 </div>
 
@@ -128,15 +130,13 @@ const PaymentCard = ({
                   <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                    Total Payment
                   </p>
-                  <p className="font-semibold flex  ">$123</p>
+                  <p className="font-semibold flex  ">{"$" + data.total_amount}</p>
                 </div>
               </div>
-            </div>
 
-            <div className="flex justify-between">
               {/*  Payment Method*/}
               <div className=" flex-1 flex gap-2 items-center rounded-md">
-                <div className={clsx("flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
+                <div className={clsx("flex aspect-square sm:h-[30px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
                   <Calendar />
                 </div>
 
@@ -144,12 +144,12 @@ const PaymentCard = ({
                   <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                    Payment Method
                   </p>
-                  <p className="font-semibold flex  ">Stripe</p>
+                  <p className="font-semibold flex  ">{data.payment_method}</p>
                 </div>
               </div>
               {/*   Status */}
               <div className=" flex-1 flex gap-2 items-center rounded-md">
-                <div className={clsx("flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
+                <div className={clsx("flex aspect-square sm:h-[30px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md", index === selectedRecord && "bg-[white]")}>
                   <CircuitBoard />
                 </div>
 
@@ -157,11 +157,18 @@ const PaymentCard = ({
                   <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   Status
                   </p>
-                  <p className="font-semibold flex text-[#2AE75C] ">Cleared</p>
+                  {data.payment_status !== "pending" && <p className="font-semibold flex text-[#2AE75C] ">{ "Cleared" }</p>}
+                  {data.payment_status === "pending" && <p className="font-semibold flex text-[#fbe394] ">{ "Pending" }</p>}
                 </div>
               </div>
             </div>
-          </div>
+            {/* <div className="flex justify-between ">
+             
+            </div> */}
+
+            {/* <div className="flex justify-between">
+              
+          </div> */}
         </AccordionContent>
       </AccordionItem>
     </Accordion>

@@ -23,7 +23,7 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           </h1>
           <div
             className={clsx(
-              "px-4 py-1 rounded-full justify-self-end",
+              "px-4 py-1 text-sm rounded-full justify-self-end",
               event.status === 1 && "bg-[#C2FFCC]",
               event.status === 0 && "bg-[#FFC2C2]"
             )}
