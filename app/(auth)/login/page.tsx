@@ -11,7 +11,7 @@ const Login = () => {
   const [isLeft, setLeft] = useState("left");
 
   return (
-    <>
+    <div className="sm:overflow-y-auto lg:sm:overflow-y-hidden  sm:max-h-[100vh] md:max-h-auto">
       <div
         data-state={isLeft}
         className="bg-[#7655fa] sm:hidden md:block sm:h-[200vh] md:min-h-screen  aspect-square transition-all  duration-700 fixed w-full  rounded-full translate-y-[-50%]  [&[data-state=right]]:translate-x-[50%]  [&[data-state=left]]:translate-x-[-60%]"
@@ -66,8 +66,8 @@ const Login = () => {
       )}
 
       {isLeft === "right" && (
-        <div className="flex w-full  min-h-screen bg-[white] justify-center border-[2px] ">
-          <motion.span
+        <div className="flex w-full overflow-y-auto   sm:min-h-[115vh]   bg-[white] justify-center border-[2px] ">
+          <motion.div
             animate={{ x: ["-100%", "0%"], opacity: [0, 1] }}
             transition={{
               ease: "easeInOut",
@@ -79,12 +79,12 @@ const Login = () => {
           >
             <SignupForm />
            <button
-                className=" sm:block md:hidden active:scale-[0.90] transition-all  mt-4  w-auto mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
+                className=" sm:block md:hidden active:scale-[0.90] transition-all  h-[10px] w-auto mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
                 onClick={() => setLeft("left")}
               >
                 Already Member? Sign in now
               </button>
-          </motion.span>
+          </motion.div>
 
           <motion.div
             animate={{ x: ["100%", "0%"], opacity: [0, 1] }}
@@ -111,7 +111,7 @@ const Login = () => {
           </motion.div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

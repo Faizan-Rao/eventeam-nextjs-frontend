@@ -113,17 +113,18 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
   console.log("autoform params", data);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="active:scale-[0.95] transition-all">
+      <DialogTrigger className="active:scale-[0.95] transition-all justify-self-center">
         {" "}
         {type !== "add" ? (
           <ChevronRight className="text-white " />
         ) : (
-          <div className="flex gap-4 items-center bg-[#7655fa] rounded-full text-white px-4 py-2">
-            <Plus size={18} /> <p>Add Autoform</p>
+          <div className="flex gap-4  items-center bg-[#7655fa] rounded-full text-white px-4 py-2">
+            <Plus size={18} /> <p className="sm:hidden lg:block">Add Autoform</p>
           </div>
         )}
       </DialogTrigger>
       <DialogContent>
+        <DialogTitle>{type === "add" && "Add AutoForm"}</DialogTitle>
         <DialogHeader>
           <DialogTitle>{data?.title}</DialogTitle>
           <DialogDescription>

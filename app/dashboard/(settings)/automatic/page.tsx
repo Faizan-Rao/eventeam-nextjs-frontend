@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { useQuery } from "@tanstack/react-query";
 import { AutoFormAPI } from "@/configs/apiRoutes";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import AutoEditDialog from "@/components/AutoEditDialog";
 import { user } from "@/configs/axios";
 
@@ -48,13 +48,13 @@ const AutomaticForm = () => {
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events
           </h1>
-          <div className="grid justify-self-end grid-cols-2 justify-items-end ">
-          <div className="  flex w-full items-center gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1">
-            <ManifyingGlass />
+          <div className="grid justify-self-end sm:grid-cols-3 md:grid-cols-2 justify-items-end gap-3 ">
+          <div className="  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1">
+            <Search className="sm:hidden md:block text-[#4a4a4a]"  />
             <input
               placeholder={"Search Event..."}
               onChange={searchCard}
-              className="flex-1 max-w-xl outline-none"
+              className="flex-1 w-auto outline-none"
             />
           </div>
          {user && user.role === "admin" && <AutoEditDialog type="add"/>}

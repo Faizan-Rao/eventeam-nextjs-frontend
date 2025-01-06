@@ -15,15 +15,15 @@ import {
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
   return (
-    <div className="grid grid-cols-1  gap-4 min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
+    <div className="grid grid-cols-1  gap-4 sm:min-w-[310px] md:min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
       <div className="flex flex-col justify-between">
-        <div className="flex justify-between flex-1 w-full ">
-          <h1 className="text-[#4a4a4a] flex-1 text-2xl line-clamp-1  font-semibold">
+        <div className="grid grid-cols-3 gap-2 ">
+          <h1 className="text-[#4a4a4a] flex-1 col-span-2 sm:text-xl md:text-2xl line-clamp-1  font-semibold">
             {event.title}
           </h1>
           <div
             className={clsx(
-              "px-4 py-1 rounded-full self-start",
+              "px-4 py-1 rounded-full justify-self-end",
               event.status === 1 && "bg-[#C2FFCC]",
               event.status === 0 && "bg-[#FFC2C2]"
             )}
@@ -37,13 +37,13 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
       <div className="grid grid-cols-3 place-content-center place-items-center   rounded-md border p-4 bg-[#7655fa]">
         <div className="flex flex-col ">
           <h1 className="text-white text-lg font-semibold">
-            {dateFormatter(event.start_date, "PP")}
+            {dateFormatter(event.start_date, "MMM dd, yyyy")}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">Start date</h1>
         </div>
         <div className=" ">
           <h1 className="text-white text-lg font-semibold">
-            {dateFormatter(event.end_date, "PP")}
+            {dateFormatter(event.end_date, "MMM dd, yyyy")}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
         </div>

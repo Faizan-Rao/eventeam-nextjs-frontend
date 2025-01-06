@@ -58,7 +58,7 @@ const SignupForm = () => {
 
   return (
     <div className="flex flex-col justify-center items-center w-auto  overflow-y-auto    md:min-h-screen">
-      <form onSubmit={handleSubmit(onSubmit)} className="sm:w-full md:w-[60%]  p-4 justify-center flex flex-col gap-4 ">
+      <form onSubmit={handleSubmit(onSubmit)} className="sm:w-full md:w-[60%]   p-4 justify-center flex flex-col gap-4 ">
       <div className="flex items-center gap-4">
           <Image src={"/logo.svg"} alt="log" height={40} width={40} />
           <h1 className="text-[#4a4a4a] text-xl font-bold">EvenTeam</h1>
