@@ -36,8 +36,8 @@ const DonationCard = ({ data }: { data: any }) => {
         </div>
       </div>
 
-      <div className="flex flex-col justify-self-end">
-        <h1 className="text-[#4a4a4a] text-xl font-semibold">{data.title}</h1>
+      <div className="flex flex-col justify-self-end gap-1">
+        <h1 className="text-[#4a4a4a] sm:text-base md:text-xl font-semibold break-words break-all">{data.title}</h1>
         <h1 className="text-[#4a4a4a] text-sm font-semibold">
           {data.description}
         </h1>

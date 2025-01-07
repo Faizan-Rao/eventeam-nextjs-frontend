@@ -39,10 +39,10 @@ const DonationMainCont = () => {
             className=" outline-none  "
           />
         </span>
-        <div className="sm:flex-1 md:flex-none flex gap-4">
+        <div className="grid sm:grid-cols-3 md:grid-cols-2 gap-4">
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="flex-1 flex items-center sm:gap-2 md:gap-4 border-[1px] rounded-md px-4 py-2 "
+            className="flex-1 flex items-center justify-center sm:col-span-2 md:col-span-1 sm:gap-2 md:gap-4 border-[2px] rounded-md px-4 py-2 "
           >
             <NotepadText className="text-[#4a4a4a]" strokeWidth={1} />
             <span className="text-[#4a4a4a] sm:text-xs md:text-sm  font-semibold">
@@ -53,13 +53,13 @@ const DonationMainCont = () => {
         </div>
       </div>
       <div
-        className=" transition-all ease-linear duration-700  [&[data-state=close]]:h-0 [&[data-state=open]]:h-full overflow-hidden "
+        className=" transition-all ease-linear   [&[data-state=close]]:h-0 [&[data-state=open]]:h-full overflow-hidden "
         data-state={isOpen ? "open" : "close"}
       >
         <DonationSuggestCont />
       </div>
 
-      <div className="flex  p-3  gap-4 flex-wrap ">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.length <= 0 &&
           donationData &&
           donationData.length > 0 &&

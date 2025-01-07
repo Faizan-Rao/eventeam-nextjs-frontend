@@ -3,7 +3,7 @@ import React from "react";
 
 const DonationSuggestCard = () => {
   return (
-    <div className="flex-1 flex flex-col gap-4 p-6 bg-[white] hover:bg-[#7655fa26] min-w-[300px] rounded-lg">
+    <div className="flex-1 flex flex-col gap-4 p-6 bg-[white] hover:bg-[#7655fa26]  rounded-lg">
       <span className="text-[#4a4a4a] font-semibold text-sm">
         Donation Example
       </span>

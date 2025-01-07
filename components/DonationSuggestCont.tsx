@@ -7,11 +7,11 @@ const DonationSuggestCont = ({
     isOpen = false
 }) => {
   return (
-    <div className= { clsx('flex  flex-col gap-4 bg-[#7655fa26] transition-all m-4 p-6 rounded-md ')}>
+    <div className= { clsx('flex  flex-col gap-4 bg-[#7655fa26] transition-all  p-6 rounded-md ')}>
         <span className='text-[#4a4a4a] font-semibold text-base'>
             Donation Suggestions
         </span>
-        <div className='flex-1 flex  p-3  gap-4 flex-wrap '>
+        <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3  gap-3'>
             <DonationSuggestCard/>
             <DonationSuggestCard/>
             <DonationSuggestCard/>
