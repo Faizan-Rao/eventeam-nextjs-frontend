@@ -19,7 +19,7 @@ const DonationCard = ({ data }: { data: any }) => {
     },
   });
   return (
-    <div className="flex-1 flex flex-col gap-4 p-6 bg-[#F7F6F9] sm:w-[100%] md:min-w-[350px]    rounded-lg">
+    <div className="flex-1 flex flex-col shadow-md gap-4 p-6 bg-[#F7F6F9] sm:w-[100%] md:min-w-[350px]    rounded-lg">
       <div className="flex items-stretch justify-center  pb-4  border-b-[1px] gap-4">
         <div className="flex justify-between items-center gap-4 w-full">
           <span className=" flex justify-center items-center p-2 bg-[#4a4a4a] text-[white] rounded-full">
