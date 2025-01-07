@@ -71,7 +71,7 @@ const FormFieldForm = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
             Regulation Text
           </span>
@@ -94,7 +94,7 @@ const FormFieldForm = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
             Pay as Cash Text
           </span>
@@ -117,7 +117,7 @@ const FormFieldForm = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
             Donation Field Text
           </span>

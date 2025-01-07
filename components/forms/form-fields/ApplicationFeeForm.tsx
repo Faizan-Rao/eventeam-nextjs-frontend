@@ -82,7 +82,7 @@ const ApplicationFeeForm = () => {
         </h1>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <span className="text-[#4a4a4a] text-sm font-semibold">
           Platform fee
         </span>
@@ -98,7 +98,7 @@ const ApplicationFeeForm = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <span className="text-[#4a4a4a] text-sm font-semibold">
           Application fee text
         </span>
