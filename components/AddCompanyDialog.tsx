@@ -123,9 +123,9 @@ const CompanyAddDialog = ({
     >
       {type !== "edit" && (
         <DialogTrigger>
-          <div className="flex active:scale-[0.95] transition-all sm:text-sm md:text-base gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
+          <div className="flex justify-self-center md:cols-span-2 active:scale-[0.95] items-center transition-all sm:text-sm md:text-base gap-2 px-4 py-2 bg-[#7655fa] rounded-full text-white">
             <Plus />
-            <span>Add New Company</span>
+            <p className="sm:hidden md:block text-sm">Company</p>
           </div>
         </DialogTrigger>
       )}

@@ -65,10 +65,10 @@ const LeadsContainer = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-4 bg-white lg:p-6 md:rounded-lg">
       
 
-      <div className="flex flex-wrap sm:px-5 md:px-0  justify-between gap-4">
+      <div className="flex flex-wrap sm:px-5 md:px-0 p-4 justify-between gap-4 ">
         <h1 className="text-[#4a4a4a] self-center text-lg font-semibold">
           All Leads{" "}
           {`(${(filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads) || 0})`}
@@ -150,7 +150,7 @@ const LeadsContainer = () => {
           </DropdownMenu> */}
           
 
-          <CSVLink headers={headers}   filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 justify-self-center px-4 py-2 text-center bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all">
+          <CSVLink headers={headers}   filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 justify-self-center md:ml-4 px-4 py-2 text-center bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all">
         
           Export CSV 
         </CSVLink>
@@ -209,7 +209,7 @@ const LeadsContainer = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

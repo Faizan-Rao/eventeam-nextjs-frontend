@@ -51,9 +51,9 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   const dummyImage =
     "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw";
   return (
-    <div className="  flex flex-1  w-auto  gap-10 p-6 m-3 flex-col bg-white rounded-lg">
-      <div className="flex justify-between">
-        <div className="flex items-center border-b-[1px] pb-5 gap-4">
+    <div className="  flex flex-1  w-auto  gap-6 p-6 m-3 flex-col shadow-md bg-white rounded-xl">
+      <div className="flex justify-between border-b-[1px]">
+        <div className="flex items-center  pb-5 gap-4">
           <Image
             src={logo || dummyImage}
             height={50}
@@ -97,31 +97,31 @@ const CompanyCard: React.FC<ICompanyCard> = ({
         <AddCompanyDialog editOpen={openEdit} setEditOpen={setEditOpen} data={data} type="edit" />
         <CompanyDeleteDialog open={openDelete} setOpen={setDeleteOpen} data={id} />
       </div>
-      <div className="flex flex-col gap-10">
+      <div className="grid grid-cols-2 gap-2">
         <div className="flex-1 flex items-center gap-4">
           <span className="p-2 bg-[#36ACCD] rounded-full">
             <Smartphone className="text-white" />
           </span>
-          <div className="flex   flex-col ">
+          <div className="flex  self-start  flex-col gap-1 ">
             <span className="text-sm font-semibold text-[#999999]">
               Phone Number
             </span>
-            <p className="text-[#4a4a4a] font-semibold text-sm">{phone}</p>
+            <p className="text-[#4a4a4a] font-semibold text-sm break-words break-all">{phone}</p>
           </div>
         </div>
-        <div className="flex-1 flex items-center gap-4">
+        <div className="flex-1 self-start flex items-center gap-4">
           <span className="p-2 bg-[#C655FA] rounded-full">
             <AtSign className="text-white" />
           </span>
-          <div className="flex flex-1   flex-col ">
+          <div className="flex flex-1     flex-col gap-1">
             <span className="text-sm font-semibold text-[#999999]">Email</span>
-            <p className="text-[#4a4a4a] font-semibold text-base break-words text-wrap">
+            <p className="text-[#4a4a4a] break-words break-all font-semibold text-base  text-wrap">
               {email}
             </p>
           </div>
         </div>
       </div>
-      <div className="flex-1 flex items-center gap-4">
+      <div className="flex-1 self-start flex items-center gap-4">
         <span className="p-2 bg-[#7655FA] rounded-full">
           <MapPin className="text-white" />
         </span>

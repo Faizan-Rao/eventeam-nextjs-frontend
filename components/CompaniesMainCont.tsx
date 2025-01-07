@@ -3,11 +3,18 @@ import React, { useState } from "react";
 import CompanyCard from "./CompanyCard";
 import KPICard from "./KPICard";
 import {
+  Banknote,
   Building2,
+  Calendar,
   CircleCheck,
   CircleCheckBig,
+  CircleDollarSign,
+  CircuitBoard,
+  HandCoins,
   ListFilter,
   Search,
+  UserPlus,
+  UsersRound,
 } from "lucide-react";
 import CompanyAddDialog from "./AddCompanyDialog";
 import {
@@ -23,6 +30,14 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Companies, Dashboard } from "@/configs/apiRoutes";
 import { AxiosResponse } from "axios";
 import clsx from "clsx";
+import { USDollar } from "@/configs/currentFormat";
+import { t } from "i18next";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import { FreeMode, Autoplay } from "swiper/modules";
 
 const CompaniesMainCont = () => {
   const [open, setOpen] = useState(false);
@@ -68,8 +83,8 @@ const CompaniesMainCont = () => {
 
   console.log("companies", companies);
   return (
-    <>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+    <div className="flex flex-col gap-4 bg-white sm:p-2 lg:p-6 md:rounded-lg">
+      <div className="sm:hidden md:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white p-2 mb-4  ">
         <KPICard
           title="Total Companies"
           value={kpis?.data.data["total_companies"] || "0"}
@@ -96,8 +111,58 @@ const CompaniesMainCont = () => {
         />
       </div>
 
-      <div className="grid items-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mx-2">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">
+      <div className="sm:block my-4  md:hidden ">
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={6}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          // freeMode={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[FreeMode, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <KPICard
+              title="Total Companies"
+              value={kpis?.data.data["total_companies"] || "0"}
+              currency=""
+              icon={<Building2 />}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <KPICard
+              title="Active Companies"
+              value={kpis?.data.data["active_companies"] || "0"}
+              currency=""
+              icon={<Building2 />}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <KPICard
+              title={t("Inactive Companies")}
+              icon={<CircuitBoard size={28} />}
+              value={kpis?.data.data["inactive_companies"] || "0"}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <KPICard
+              title="Stripe Connected"
+              value={kpis?.data.data["stripe_connected"] || "0"}
+              currency=""
+              icon={<Building2 />}
+            />
+          </SwiperSlide>
+          
+        </Swiper>
+      </div>
+      <div className="grid items-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 justify-center gap-4 mx-2">
+        <h1 className="text-[#4a4a4a] text-lg col-sp font-semibold">
           All Companies{" "}
           {`(${
             filteredData.length > 0
@@ -105,127 +170,133 @@ const CompaniesMainCont = () => {
               : companies?.data.data.length || 0
           })`}
         </h1>
-        <div className="flex justify-self-end sm:gap-1 md:gap-4">
-          <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
+        {/* <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 sm:gap-4 md:gap-1 jusitfy-center"> */}
+        <div className="flex items-center md:justify-self-end sm:flex-col md:flex-row gap-4 jusitfy-center">
+          {/* <div className="flex self-center place-items-center lg:col-span-1 bg-white gap-2 rounded-md border-[2px] p-1"> */}
+          <div className="flex w-full place-items-center lg:col-span-1 bg-white gap-2 rounded-md border-[1px] p-1">
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
               onChange={(event) =>
                 handleSearch(event.target.value, "full_name")
               }
-              className="max-w-sm outline-none text-base bg-transparent "
+              className="w-full outline-none sm:py-1 md:py-0 text-base bg-transparent w "
             />
-          </span>
+          </div>
 
-          <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
-            <DropdownMenuTrigger>
-              <button className="flex sm:text-sm md:text-base bg-white  place-items-center gap-2 px-4 rounded-md py-2 border-[2px]">
-                <ListFilter size={20} />
-                Filter
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Active State</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="flex items-center justify-between active:scale-[0.95] transition-all"
-                onClick={() => {
-                  setSelectedFilter("active");
-                  handleSearch(1, "is_active");
-                }}
-              >
-                <span>Active</span>
-                <div
-                  className={clsx(
-                    selectedFilter === "active" &&
-                      "bg-[#7655fa] rounded-full text-white"
-                  )}
-                >
-                  <CircleCheck size={18} strokeWidth={1.4} />
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="flex items-center justify-between active:scale-[0.95] transition-all"
-                onClick={() => {
-                  setSelectedFilter("inactive");
-                  handleSearch(0, "is_active");
-                }}
-              >
-                <span>Inactive</span>
-                <div
-                  className={clsx(
-                    selectedFilter === "inactive" &&
-                      "bg-[#7655fa] rounded-full text-white"
-                  )}
-                >
-                  <CircleCheck size={18} strokeWidth={1.4} />
-                </div>
-              </DropdownMenuItem>
+          {/* <div className="grid sm:grid-cols-3 md:grid-cols-2 justify-self-center items-center sm:justify-self-end sm:self-end sm:gap-4 md:gap-0 "> */}
+          <div className=" flex justify-center items-center gap-4 sm:self-end sm:gap-4 md:gap-4 ">
+            <div className=" flex justify-center items-center sm:col-span-2 md:col-span-1">
+              <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
+                <DropdownMenuTrigger>
+                  <button className="flex justify-center items-center sm:text-sm md:text-base min-w-full  bg-white  place-items-center gap-2 px-4 rounded-md sm:py-2 md:py-1 border-[1px]">
+                    <ListFilter size={20} />
+                    Filter
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>Active State</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="flex items-center justify-between active:scale-[0.95] transition-all"
+                    onClick={() => {
+                      setSelectedFilter("active");
+                      handleSearch(1, "is_active");
+                    }}
+                  >
+                    <span>Active</span>
+                    <div
+                      className={clsx(
+                        selectedFilter === "active" &&
+                          "bg-[#7655fa] rounded-full text-white"
+                      )}
+                    >
+                      <CircleCheck size={18} strokeWidth={1.4} />
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="flex items-center justify-between active:scale-[0.95] transition-all"
+                    onClick={() => {
+                      setSelectedFilter("inactive");
+                      handleSearch(0, "is_active");
+                    }}
+                  >
+                    <span>Inactive</span>
+                    <div
+                      className={clsx(
+                        selectedFilter === "inactive" &&
+                          "bg-[#7655fa] rounded-full text-white"
+                      )}
+                    >
+                      <CircleCheck size={18} strokeWidth={1.4} />
+                    </div>
+                  </DropdownMenuItem>
 
-              <DropdownMenuLabel>Stripe</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="flex items-center justify-between active:scale-[0.95] transition-all"
-                onClick={() => {
-                  setSelectedFilter("connected");
-                  handleSearch(1, "stripe_account_status");
-                }}
-              >
-                <span>Connected</span>
-                <div
-                  className={clsx(
-                    selectedFilter === "connected" &&
-                      "bg-[#7655fa] rounded-full text-white "
-                  )}
-                >
-                  <CircleCheck size={18} strokeWidth={1.4} />
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="flex items-center justify-between active:scale-[0.95] transition-all" 
-                onClick={() => {
-                  setSelectedFilter("disconnected");
-                  handleSearch(0, "stripe_account_status");
-                }}
-              >
-                <span>Disconnected</span>
-                <div
-                  className={clsx(
-                    selectedFilter === "disconnected" &&
-                      "bg-[#7655fa] rounded-full text-white"
-                  )}
-                >
+                  <DropdownMenuLabel>Stripe</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="flex items-center justify-between active:scale-[0.95] transition-all"
+                    onClick={() => {
+                      setSelectedFilter("connected");
+                      handleSearch(1, "stripe_account_status");
+                    }}
+                  >
+                    <span>Connected</span>
+                    <div
+                      className={clsx(
+                        selectedFilter === "connected" &&
+                          "bg-[#7655fa] rounded-full text-white "
+                      )}
+                    >
+                      <CircleCheck size={18} strokeWidth={1.4} />
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="flex items-center justify-between active:scale-[0.95] transition-all"
+                    onClick={() => {
+                      setSelectedFilter("disconnected");
+                      handleSearch(0, "stripe_account_status");
+                    }}
+                  >
+                    <span>Disconnected</span>
+                    <div
+                      className={clsx(
+                        selectedFilter === "disconnected" &&
+                          "bg-[#7655fa] rounded-full text-white"
+                      )}
+                    >
+                      <CircleCheck size={18} strokeWidth={1.4} />
+                    </div>
+                  </DropdownMenuItem>
 
-                <CircleCheck size={18} strokeWidth={1.4} />
-                </div>
-              </DropdownMenuItem>
+                  <DropdownMenuSeparator />
 
-              <DropdownMenuSeparator />
+                  <span className="flex gap-3 flex-1">
+                    <button
+                      className=" text-[#FF2727]  text-sm my-4 px-4 py-1 active:scale-[0.95] transition-all"
+                      onClick={() => {
+                        setFilteredData([]);
+                        setSelectedFilter("");
+                        setOpen(false);
+                      }}
+                    >
+                      Clear Filters
+                    </button>
 
-              <span className="flex gap-3 flex-1">
-                <button
-                  className=" text-[#FF2727]  text-sm my-4 px-4 py-1 active:scale-[0.95] transition-all"
-                  onClick={() => {
-                    setFilteredData([]);
-                    setSelectedFilter("")
-                    setOpen(false)
-                  }}
-                >
-                  Clear Filters
-                </button>
-
-                <button
-                  className=" bg-[#7655FA]  text-white rounded-full my-4 px-6 py-1 active:scale-[0.95] transition-all"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  Close
-                </button>
-              </span>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <CompanyAddDialog />
+                    <button
+                      className=" bg-[#7655FA]  text-white rounded-full my-4 px-6 py-1 active:scale-[0.95] transition-all"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </span>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <CompanyAddDialog />
+          </div>
         </div>
       </div>
 
@@ -269,7 +340,7 @@ const CompaniesMainCont = () => {
             ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

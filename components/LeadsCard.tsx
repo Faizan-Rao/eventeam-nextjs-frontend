@@ -66,7 +66,7 @@ const LeadsCard: React.FC<any> = ({
  
   return (
     <>
-      <div className="flex-1 min-w-[350px] sm:max-w-[90%] md:max-w-[50%] sm:hidden md:flex   gap-5 p-6 flex-col bg-white rounded-lg">
+      <div className="flex-1 min-w-[350px] shadow-md sm:max-w-[90%] md:max-w-[50%] sm:hidden md:flex   gap-5 p-6 flex-col bg-white rounded-lg">
         <div className="flex justify-between border-b-[1px] pb-5">
           <div className="flex items-center  gap-4">
             <div className="bg-[#7655FA] rounded-full text-white p-2">
@@ -137,13 +137,13 @@ const LeadsCard: React.FC<any> = ({
       </div>
       <div className=" sm:flex md:hidden flex-1 min-w-full">
 
-      <Accordion value={selectedRecord === index ? `item-${index}` : "No Element"}   type="single" className="transition-all min-w-full" collapsible>
+      <Accordion value={selectedRecord === index ? `item-${index}` : "No Element"}   type="single" className="transition-all min-w-full border-none outline-none shadow-md" collapsible>
         <AccordionItem
           value={`item-${index}`}
-          className={clsx(" bg-[#F7F6F9] rounded-md border-2 min-w-full")}
+          className={clsx(" bg-[#F7F6F9] rounded-md  min-w-full")}
         >
           <AccordionTrigger onClick={()=>setSelectedRecord(index)} className="px-4  text-left">
-            <div   className="flex justify-between">
+            <div   className="flex justify-between ">
               <div className="flex items-center  pb-5 gap-4">
                 <div className="bg-[#7655FA] rounded-full text-white p-2">
                   <UserCircle />
@@ -160,7 +160,7 @@ const LeadsCard: React.FC<any> = ({
               {/* <button><Trash color="red"/></button> */}
             </div>
           </AccordionTrigger>
-          <AccordionContent className="p-4">
+          <AccordionContent className="p-4 border-none">
             <div  onClick={()=>setSelectedRecord(index)} className="grid sm:grid-cols-2 md:grid-cols-2  gap-5 ">
               <div className=" flex-1 flex items-start gap-4">
                 <span className="p-2 bg-[#36ACCD] rounded-full">
