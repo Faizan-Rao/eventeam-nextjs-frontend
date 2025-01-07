@@ -51,7 +51,7 @@ const PaymentDetailMain = () => {
   return (
     <>
       {/* Web Template */}
-      <div className="flex flex-col gap-6 p-4 rounded-md bg-white container min-h-screen">
+      <div className="flex flex-col gap-6 p-4 rounded-md bg-white  min-h-screen">
         {/* KPI Container */}
         <div className="sm:hidden md:flex my-5 items-center sm:justify-center lg:justify-center gap-4 flex-wrap">
         {
@@ -95,7 +95,7 @@ const PaymentDetailMain = () => {
         
         </div>
         {/* Mobile Template */}
-        <div className="sm:flex gap-4 md:hidden sm:max-w-[98vw]">
+        <div className="sm:flex gap-4 flex-1 justify-self-stretch md:hidden sm:max-w-[100vw]">
           <Swiper
             slidesPerView={2}
             spaceBetween={6}
@@ -111,7 +111,7 @@ const PaymentDetailMain = () => {
             modules={[FreeMode, Autoplay]}
             className="mySwiper"
           >
-            <SwiperSlide>
+            <SwiperSlide className="w-full">
               {" "}
               <KPICard
                 title={t("All Time Guests")}

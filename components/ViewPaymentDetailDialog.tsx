@@ -43,8 +43,8 @@ console.log(row?.original)
 
   return (
     <Dialog  open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
-        <span className="md:block sm:hidden">
+      <DialogTrigger className=" active:scale-[0.90] transition-all rounded-full">
+        <span className="md:block sm:hidden hover:bg-[#7655fa26] p-2 ">
         <EyeIcon className="text-[#c2c2c2]" />
 
         </span>
@@ -91,7 +91,7 @@ console.log(row?.original)
             <h1 className="text-[#7655FA] font-semibold text-base">
               Guest List
             </h1>
-            <div className=" flex flex-col gap-3 w-full flex-1">
+            <div className=" flex flex-col gap-3 w-full flex-1 flex-wra">
             {row?.original?.guests?.map((el : any, i : number) => {
                 return (
                   <Accordion type="single" collapsible key={i + el.name}>
@@ -99,19 +99,19 @@ console.log(row?.original)
                       value="item-1"
                       className=" max-w-[600px] bg-[#7655FA26] px-2 rounded-md border-2"
                     >
-                      <AccordionTrigger className="text-left text-[#999999]">
-                        <div className="flex sm:px-2 md:px-5 py-1 items-center no-underline gap-4">
+                      <AccordionTrigger className="text-left  text-[#64748B]">
+                        <div className="flex sm:px-2 md:px-5 py-1 items-center no-underline gap-4 ">
                           <div className="bg-[#7655fa] p-2 rounded-full">
                             <User size={26} className="text-white" />
                           </div>
-                          <div className="flex self-start flex-col">
+                          <div className="flex self-start flex-col flex-wrap">
                             <h1 className=" text-lg font-semibold">
                               {el.name}
                             </h1>
-                            <span className="flex gap-4">
+                            <div className="flex sm:flex-col md:flex-row sm:gap-0 md:gap-4  ">
                               <p className=" text-sm">{el.email}</p>
                               <p className=" text-sm">{el.phone}</p>
-                            </span>
+                            </div>
                           </div>
                         </div>
                       </AccordionTrigger>

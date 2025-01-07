@@ -32,10 +32,10 @@ const BarChartJSX : React.FC<IBarChartJSX> = ({
     title
 }) => {
   return (
-    <div className="flex flex-1 flex-col transition-all duration-300   sm:w-auto md:w-[350px]     gap-4 bg-[#f7f6f9]  p-10 rounded-xl sm:h-auto  md:h-[340px] ">
+    <div className="flex flex-1 flex-col transition-all duration-300   sm:w-auto md:w-[350px]     gap-4 bg-[#f7f6f9]  p-10 md:rounded-xl    ">
       <h1 className="font-semibold text-lg">{title}</h1>
 
-      <ChartContainer config={chartConfig} className=" w-full flex-1 mx-4 ">
+      <ChartContainer config={chartConfig} className="w-full overflow-hidden  flex-1 mx-4 ">
         <BarChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
           <XAxis

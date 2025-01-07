@@ -16,7 +16,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
     <>
       {!data && <Skeleton className="h-[125px] w-full rounded-xl" />}
       {data && (
-        <div className="flex container p-8 gap-6 rounded-md flex-col bg-[#1E1640] text-white">
+        <div className="flex container p-8 gap-6 md:rounded-md flex-col bg-[#1E1640] text-white">
           <div className="flex sm:justify-center md:justify-between items-center gap-4 flex-wrap">
             <div className="flex flex-col gap-1">
               <h4 className="text-2xl">{data.title}</h4>
@@ -51,7 +51,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
               <span className="font-bold text-4xl self-end">“”</span>
             </div>
 
-            <div className="grid grid-cols-2">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2">
               {
                 data.sub_events.map((el:any , i: number)=>{
                   return (

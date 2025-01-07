@@ -7,7 +7,7 @@ import { Skeleton } from "./ui/skeleton";
 const ChartsMain = ({chartData}: {chartData: any}) => {
   console.log(chartData)
   return (
-    <div className="flex sm:flex-col  md:flex-col gap-2 justify-center sm:items-center md:items-start flex-wrap ">
+    <div className="grid grid-cols-1    gap-4 ">
     {!chartData && <Skeleton className=" m-4 w-[100%] rounded-xl" />}
     {!chartData && <Skeleton className="m-4 w-auto rounded-xl" />}
     {chartData && <BarChartJSX data={chartData} title="Guests Per Event" barName="guest" />}

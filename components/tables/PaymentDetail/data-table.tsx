@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import {
   DropdownMenu,
@@ -52,19 +52,22 @@ export function PaymentDetailsTable<TData, TValue>({
   const [filteredRows, setFilteredRows] = useState<TData[] & any>([]);
   const [open, setOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");
-
+  const [filterData, setFilterData] = useState([])
+ 
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
+    let filteredData = data.filter((el) => {
+      return (
+        parseInt(rangeFilter[0] as any) <=
+          parseInt((el as any).total_amount) &&
+        parseInt((el as any).total_amount) <=
+          parseInt(rangeFilter[1] as any)
+      );
+    })
+    setFilterData(filteredData as any)
     setTimeout(() => {
       setFilteredRows(
-        data.filter((el) => {
-          return (
-            parseInt(rangeFilter[0] as any) <=
-              parseInt((el as any).total_amount) &&
-            parseInt((el as any).total_amount) <=
-              parseInt(rangeFilter[1] as any)
-          );
-        })
+        filteredData
       );
     }, 100);
   };
@@ -82,14 +85,17 @@ export function PaymentDetailsTable<TData, TValue>({
     handleClear();
     setOpen(false);
     setSelectedFilter("")
+    setFilterData([])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
+    let filteredData = data.filter((el) => (el as any)[col].toLowerCase() === text)
     setFilteredRows(
-      data.filter((el) => (el as any)[col].toLowerCase() === text)
+      filteredData
     );
+    setFilterData(filteredData as any)
   };
 
   const isFiltered =
@@ -120,7 +126,20 @@ export function PaymentDetailsTable<TData, TValue>({
   });
   const [selectedRecord, setSelectedRecord] = useState(0);
 
-  console.log("selected row model",table.getAllColumns());
+const handleSearch = (value: any, name: string) => {
+  
+  let filteredData = data.filter((el) => {
+    return (
+      (el as any).event.title.toLowerCase().includes(value)
+    );
+  })
+  console.log("selected row model 123",filteredData);
+  setFilterData(
+    filteredData as any
+  );
+ 
+  };
+
   return (
     <>
       {/* Filters & Actions */}
@@ -129,14 +148,20 @@ export function PaymentDetailsTable<TData, TValue>({
         <span className="sm:flex-1 md:flex-none flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
+          name="search field"
             placeholder={"Search Event..."}
             onChange={(event) => {
+              setFilter
               if (filteredRows.length > 0) {
                 setFilteredRows([]);
               }
-              table
-                .getColumn("event_title")
-                ?.setFilterValue(event.target.value ?? "");
+              setTimeout(()=>{
+                table
+                  .getColumn("event_title")
+                  ?.setFilterValue(event.target.value ?? "");
+                handleSearch(event.target.value, "event_title");
+              },400)
+              
             }}
             className=" flex-1 outline-none"
           />
@@ -258,6 +283,7 @@ export function PaymentDetailsTable<TData, TValue>({
                   handleClear();
                   setOpen(false);
                   setSelectedFilter("")
+                  setFilterData([])
                 }}
               >
                 Clear Filters
@@ -342,7 +368,18 @@ export function PaymentDetailsTable<TData, TValue>({
 
       <div className="sm:flex md:hidden flex-col gap-4">
         <div className="sm:flex md:hidden flex-col gap-4">
-          {(data as any[]).map((element, index) => {
+          { filterData.length > 0 && (filterData as any[]).map((element, index) => {
+            return (
+              <PaymentCard
+                selectedRecord={selectedRecord}
+                setSelectedRecord={setSelectedRecord}
+                key={index}
+                data={element}
+                index={index}
+              />
+            );
+          })}
+          { filterData.length <= 0 && (data as any[]).map((element, index) => {
             return (
               <PaymentCard
                 selectedRecord={selectedRecord}

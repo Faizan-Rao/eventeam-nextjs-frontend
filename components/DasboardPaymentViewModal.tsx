@@ -72,7 +72,7 @@ const DashboardPaymentViewModal = ({
                 <h1 className="text-[#7655fa] font-semibold text-sm">
                   Registration Details
                 </h1>
-                <h1 className="  font-semibold text-3xl text-black">
+                <h1 className="  font-semibold sm:text-2xl md:text-3xl text-black">
                   {type !== "view_event" && row?.event?.title}
                   {type === "view_event" && elRow.title}
                 </h1>
@@ -127,10 +127,10 @@ const DashboardPaymentViewModal = ({
                               <User size={26} className="text-white" />
                             </div>
                             <div className="flex self-start flex-col">
-                              <h1 className=" text-lg font-semibold">
+                              <h1 className=" sm:text-base md:text-lg font-semibold">
                                 {el.name}
                               </h1>
-                              <span className="flex gap-4">
+                              <span className="flex sm:flex-col md:flex-row sm:gap-0 md:gap-4  ">
                                 <p className=" text-sm">{el.email}</p>
                                 <p className=" text-sm">{el.phone}</p>
                               </span>
@@ -194,15 +194,15 @@ const DashboardPaymentViewModal = ({
                         className=" max-w-[600px] bg-[#7655FA26] px-2 rounded-md border-2"
                       >
                         <AccordionTrigger className="text-left">
-                          <div className="flex px-5 py-1 items-center no-underline gap-4">
+                          <div className="flex sm:px-2 md:px-5 py-1 items-center no-underline gap-4">
                             <div className="bg-[#7655fa] p-2 rounded-full">
                               <User size={26} className="text-white" />
                             </div>
-                            <div className="flex self-start flex-col">
+                            <div className="flex self-start flex-col flex-wrap">
                               <h1 className=" text-lg font-semibold">
                                 {el.name}
                               </h1>
-                              <span className="flex gap-4">
+                              <span className="flex sm:flex-col md:flex-row sm:gap-0 md:gap-4  ">
                                 <p className=" text-sm">{el.email}</p>
                                 <p className=" text-sm">{el.phone}</p>
                               </span>

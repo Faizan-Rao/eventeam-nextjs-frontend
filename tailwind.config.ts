@@ -19,6 +19,7 @@ const config = {
       },
     },
     extend: {
+     
       screens : {
         "sm": "200px"
       },

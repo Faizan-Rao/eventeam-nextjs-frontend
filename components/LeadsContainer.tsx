@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useDeferredValue } from "react";
 import CompanyCard from "./CompanyCard";
 import KPICard from "./KPICard";
 import { Building2, CircleCheckBig, ListFilter, Search } from "lucide-react";
@@ -24,8 +24,8 @@ import { format } from "date-fns";
 const LeadsContainer = () => {
   const [open, setOpen] = useState(false);
   const [filteredData, setFilteredData] = useState<any>([]);
-
-
+  const deferredFilter = useDeferredValue(filteredData)
+ const [selectedRecord, setSelectedRecord] = useState(0);
 
   const {
     isPending: isLeadsPending,
@@ -73,8 +73,8 @@ const LeadsContainer = () => {
           All Leads{" "}
           {`(${(filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads) || 0})`}
         </h1>
-        <div className="flex  gap-4">
-          <span className="flex place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
+        <div className="grid grid-cols-3 gap-2">
+          <span className="flex self-center col-span-2 place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
@@ -150,17 +150,17 @@ const LeadsContainer = () => {
           </DropdownMenu> */}
           
 
-          <CSVLink headers={headers}   filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 px-4 py-2 bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all">
+          <CSVLink headers={headers}   filename={`EvenTeam - Leads ${format(new Date(Date.now()), "dd-MMM-yyyy")}`} data={leads?.data.data.leads || []} className="flex gap-4 justify-self-center px-4 py-2 text-center bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all">
         
-          Export CSV
+          Export CSV 
         </CSVLink>
          
         </div>
       </div>
 
-      {filteredData.length > 0 && (
-        <div className="flex  justify-center items-center gap-4 flex-wrap">
-          {(filteredData as any[]).map((el, key) => (
+      {deferredFilter.length > 0 && (
+        <div className="flex  sm:flex-col md:flex-row sm:justify-start sm:items-center md:justify-center md:items-center  gap-4 flex-wrap">
+          {(deferredFilter as any[]).map((el, key) => (
             <LeadsCard
             key={key}
             name={el.name}
@@ -173,6 +173,9 @@ const LeadsContainer = () => {
             ticket={el.ticket_type}
             event={el.registration.event.title}
             date={el.registration.event.created_at.split('T')[0]}
+            index={key}
+            selectedRecord={selectedRecord}
+            setSelectedRecord={setSelectedRecord}
             />
           ))}
         </div>
@@ -184,8 +187,8 @@ const LeadsContainer = () => {
           <Skeleton className="flex-1 h-[280px] w-[350px] rounded-xl" />
 
         </div>)}
-      {filteredData.length <= 0 && (
-        <div className="flex justify-center items-center  gap-4 flex-wrap">
+      {deferredFilter.length <= 0 && (
+        <div className="flex sm:flex-col md:flex-row sm:justify-start sm:items-center md:justify-center md:items-center  gap-4 flex-wrap">
           {leads && leads?.data.data.leads.map((el:any, key:number) => (
             <LeadsCard
               key={key}
@@ -199,6 +202,9 @@ const LeadsContainer = () => {
               ticket={el.ticket_type}
               event={el.registration.event.title}
               date={el.registration.event.created_at.split('T')[0]}
+              index={key}
+              selectedRecord={selectedRecord}
+              setSelectedRecord={setSelectedRecord}
             />
           ))}
         </div>

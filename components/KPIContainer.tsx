@@ -118,7 +118,7 @@ const KPIContainer = () => {
             <KPICard
               title={t("All Time Events")}
               icon={<Calendar size={28} />}
-              value={"0"}
+              value={kpis?.data.data["total_events"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -126,14 +126,14 @@ const KPIContainer = () => {
             <KPICard
               title={t("Active Events")}
               icon={<Calendar size={28} />}
-              value={"0"}
+              value={kpis?.data.data["active_events"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
             <KPICard
               title={t("Automatic Events")}
               icon={<CircuitBoard size={28} />}
-              value={"0"}
+              value={kpis?.data.data["automatic_events"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -141,7 +141,7 @@ const KPIContainer = () => {
             <KPICard
               title={t("Total Registrations")}
               icon={<UserPlus size={28} />}
-              value={"0"}
+              value={kpis?.data.data["total_registrations"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -149,7 +149,7 @@ const KPIContainer = () => {
             <KPICard
               title={t("All Time Guests")}
               icon={<UsersRound size={28} />}
-              value={"0"}
+              value={kpis?.data.data["total_guests"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -157,16 +157,16 @@ const KPIContainer = () => {
             <KPICard
               title={t("All Time Earnings")}
               icon={<CircleDollarSign size={28} />}
-              value={"0"}
-              currency="$"
+              value={USDollar.format(kpis?.data.data["total_earnings"] || "0")}
+              currency=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <KPICard
               title={t("Cleared Earnings")}
               icon={<HandCoins size={28} />}
-              value={"0"}
-              currency="$"
+              value={USDollar.format(kpis?.data.data["cleared_cash"] || "0")}
+              currency=""
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -174,8 +174,8 @@ const KPIContainer = () => {
             <KPICard
               title={t("Pending Earnings")}
               icon={<Banknote size={28} />}
-              value={"0"}
-              currency="$"
+              value={USDollar.format(kpis?.data.data["pending_cash"] || "0")}
+              currency=""
             />
           </SwiperSlide>
         </Swiper>
