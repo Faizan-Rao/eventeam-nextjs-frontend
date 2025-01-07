@@ -87,14 +87,14 @@ const ApplicationFeeForm = () => {
           Platform fee
         </span>
 
-        <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
+        <div className="flex   border-[1px] rounded-md items-center  ">
           <input
             type="number"
             className=" outline-none p-2 flex-1"
             placeholder="Enter Price"
            {...register("plateform_fee")}
           />
-          <DollarSign size={18} />
+          <DollarSign size={18}  className="mx-3"/>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ const ApplicationFeeForm = () => {
           Application fee text
         </span>
 
-        <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
+        <div className="flex  border-[1px] rounded-md items-center  ">
           <input
             type="text"
             className=" outline-none p-2 flex-1"
