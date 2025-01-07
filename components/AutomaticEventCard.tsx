@@ -15,7 +15,7 @@ import {
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
   return (
-    <div className="grid grid-cols-1  gap-4 sm:min-w-[310px] md:min-w-[350px]  border-[1px] flex-wrap rounded-md  p-6">
+    <div className="grid grid-cols-1  gap-4 sm:min-w-[310px] md:min-w-[350px]  shadow-md flex-wrap rounded-md  sm:p-4 md:p-6">
       <div className="flex flex-col justify-between">
         <div className="grid grid-cols-3 gap-2 ">
           <h1 className="text-[#4a4a4a] flex-1 col-span-2 sm:text-xl md:text-2xl line-clamp-1  font-semibold">

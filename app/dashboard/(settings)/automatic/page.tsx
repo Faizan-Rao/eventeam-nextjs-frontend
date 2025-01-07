@@ -50,7 +50,7 @@ const AutomaticForm = () => {
             All Upcoming events
           </h1>
           <div className="grid justify-self-end sm:grid-cols-3 md:grid-cols-2 justify-items-end gap-3 ">
-          <div className={clsx("  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[2px] p-1", user.role === "company" && " sm:col-span-3 min-w-full" )}>
+          <div className={clsx("  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[1px] p-1", user.role === "company" && " sm:col-span-3 min-w-full" )}>
             <Search className="sm:hidden md:block text-[#4a4a4a]"  />
             <input
               placeholder={"Search Event..."}
