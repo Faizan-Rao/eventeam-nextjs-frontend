@@ -30,7 +30,7 @@ export const FormStepperButtons = ({
     if (currentStep === 2 && !errors?.sub_events) {
       handleStepInc(e);
     }
-    if (currentStep === 3) {
+    if (currentStep === 3 && !errors?.advance) {
       handleStepInc(e);
     }
   };

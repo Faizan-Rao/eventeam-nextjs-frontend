@@ -11,7 +11,8 @@ const AdvanceForm = () => {
   const {control, formState: {errors}} = useFormContext()
   const watch = useWatch({control})
   return (
-    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
+    <div className="  flex flex-col gap-4 my-4">
+      {errors.advance && <p className="text-red-800">Please setup this section</p>}
       <AdvanceFormOption
         title={"Show address for all subevents?"}
         description="Description of the option"

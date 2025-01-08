@@ -53,12 +53,12 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           </span>
         )}
         {user && user.role === "company" && event && (
-          <Link
+          <a
             className="text-white active:scale-[0.90] transition-all bg-[#482cb9] justify-self-end  rounded-full py-2 px-3 hover:bg-[#C2FFCC] hover:text-black  "
-            href={"#"}
+            href={`/dashboard/use-auto/${event.id}`}
           >
             Use
-          </Link>
+          </a>
         )}
       </div>
     </div>

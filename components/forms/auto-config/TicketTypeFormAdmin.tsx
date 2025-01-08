@@ -31,22 +31,22 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
           return (
             <>
             
-            <div className="flex gap-4 items-center" key={index}>
+            <div className="flex gap-4 justify-between items-center border-[2px] md:max-w-xl" key={index}>
               <input
                 type="text"
-                className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-[90%] flex-1"
+                className=" outline-none p-2 sm:max-w-[80%] md:max-w-[90%] flex-1"
                 placeholder="Enter Ticket Name"
                 {...register(`tickets.${index}.title`, {
                   required: true,
                 })}
-              />
-              {index > 0 && (
-                <CircleX
-                  onClick={() => remove(index)}
-                  className="text-[red] cursor-pointer active:scale-[0.90] transition-all"
-                  strokeWidth={1}
                 />
-              )}
+                {index > 0 && (
+                  <CircleX
+                    onClick={() => remove(index)}
+                    className="text-[red] mx-2 cursor-pointer active:scale-[0.90] transition-all"
+                    strokeWidth={1}
+                  />
+                )}
             </div>
               <ErrorMessage
                 errors={errors}
@@ -63,7 +63,7 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
         <div>
           <button
             onClick={() => append({ title: "" })}
-            className="flex items-center gap-4 my-4 active:scale-[0.95] transition-all  justify-self-start  text-[#7655fA]"
+            className="flex items-center gap-4 my-4 active:scale-[0.95] transition-all  justify-self-start sm:text-sm md:text-base text-[#7655fA]"
           >
             {" "}
             <Plus /> <span>Add Another Ticket</span>

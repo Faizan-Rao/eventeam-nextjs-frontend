@@ -74,7 +74,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
   const methods = useForm<autoFormType>({
     resolver: (values, context, options) => {
       const resolver = joiResolver(
-        (pathname.includes("add-event") || pathname.includes("my-events/edit")) ? addEventSchema : autoConfigSchema,
+        (pathname.includes("add-event") || pathname.includes("my-events/edit") || pathname.includes("/use-auto"))  ? addEventSchema : autoConfigSchema,
         {
           context: context,
           abortEarly: false,
@@ -137,6 +137,20 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       });
     },
   });
+  const mutateAutoFormCreateEvent = useMutation({
+    mutationFn: async (formData)=> AutoFormAPI.createEventAutoConfig(params.eventid as any, formData),
+    onSuccess: () => {
+      toast("AutoEvent Created Successfully...", {
+        type: "success",
+      });
+      router.replace("/dashboard/my-events")
+    },
+    onError: () => {
+      toast("AutoEvent Creation Failed...", {
+        type: "error",
+      });
+    },
+  });
   const mutateEditEvent = useMutation({
     mutationFn: async (formData)=> Events.editEvent(params.eventid, formData),
     onSuccess: () => {
@@ -177,16 +191,20 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
         mutateEvent.mutate(data);
       }
       if (pathname.includes("auto-config")) {
-        console.log("Autofrom triggerd");
+        
         
         mutateAutoConfig.mutate(data);
       }
       if (pathname.includes("/my-events/edit")) {
-        console.log("edit form triggerd");
+        
         
         mutateEditEvent.mutate(data);
       }
-
+      if(pathname.includes("/use-auto"))
+      {
+       
+        mutateAutoFormCreateEvent.mutate(data)
+      }
       
     }
 

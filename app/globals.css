@@ -21,11 +21,12 @@ input::-webkit-inner-spin-button {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  /* width: 7px; */
+  width: 0px;
   scrollbar-width: thin;
 }
 ::-webkit-scrollbar:horizontal {
-  width: 7px;
+  width: 3px;
   scrollbar-width: thin;
 }
 ::-webkit-scrollbar:vertical {

@@ -112,7 +112,7 @@ const AutoDonationDialog = () => {
                     key={i}
                     onClick={() => selectDonation(el)}
                     className={clsx(
-                      "flex justify-between items-center active:scale-[0.98] transition-all border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px]",
+                      "flex justify-between flex-1 items-center active:scale-[0.98] transition-all border-[2px] hover:border-[#7655fa] cursor-pointer focus:border-[#7655fa] rounded-md p-1 max-h-[400px] ",
                       selectedDonations.findIndex(
                         (item: any) => item.id === el.id
                       ) !== -1 && "border-[#7655fa]"
@@ -126,7 +126,7 @@ const AutoDonationDialog = () => {
                         <p className="font-semibold text-xl">
                           {USDollar.format(el.amount)}
                         </p>
-                        <p className="font-semibold text-[#7655fa] text-sm">
+                        <p className="font-semibold text-[#7655fa] text-sm break-words break-all">
                           {el.title}
                         </p>
                       </div>
@@ -135,11 +135,11 @@ const AutoDonationDialog = () => {
                     <div className="m-4 ">
                       <Check
                         className={clsx(
-                          "border-[2px] text-[#7655fa] border-[#7655fa] p-1 rounded-full",
+                          "border-[1px] text-[#7655fa] border-[#7655fa] p-1 rounded-full",
                           selectedDonations.findIndex(
                             (item: any) => item.id === el.id
                           ) !== -1 &&
-                            "bg-[#7655fa] rounded-full p-1 text-base text-white"
+                            "bg-[#7655fa] border-[2px] rounded-full p-1 text-base text-white"
                         )}
                       />
                     </div>

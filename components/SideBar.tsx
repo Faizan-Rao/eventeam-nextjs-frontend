@@ -123,7 +123,7 @@ const SideBar = ({
                           <>
                             <p
                               className={clsx(
-                                "font-semibold   flex text-nowrap justify-center items-center gap-4",
+                                "  flex text-nowrap justify-center items-center gap-4",
 
                                 !isHover && "md:hidden"
                               )}
@@ -233,7 +233,7 @@ const SideBar = ({
 
               <p
                 className={clsx(
-                  "  text-nowrap font-semibold",
+                  "  text-nowrap ",
                   isHover && "block",
                   !isHover && "hidden"
                 )}

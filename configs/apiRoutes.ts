@@ -182,8 +182,16 @@ export const AutoFormAPI = {
     const response = await axiosWithToken.put(`/admin-automatic-form/update/${id}`, data)
     return response
   },
+  autoformConfigFetch : async (id:any) =>{
+    const response = await axiosWithToken.get(`/events/automatic-form/${id}`)
+    return response
+  },
   createAutoConfig : async (data : any) =>{
     const response = await axiosWithToken.post(`/company/settings/automatic-configurations`, data)
+    return response
+  },
+  createEventAutoConfig : async (id:any, data : any) =>{
+    const response = await axiosWithToken.post(`/events/automatic-save/${id}`, data)
     return response
   },
 }

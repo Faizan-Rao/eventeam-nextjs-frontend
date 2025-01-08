@@ -27,30 +27,30 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
 
   // const [open, setOpen] = useState(false);
   return (
-    <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 ">
-      {/* Dynamic Events */}
-      <span className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  auto-cols-[minmax(0,_4fr)]  gap-4">
+      <span className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2    gap-4">
         {watch.sub_events &&
           (watch.sub_events as any[]).map((el, index) => {
             return (
               <div
-                className="flex gap-1 px-4    items-center  bg-[#f6f6f6] min-w-[350px]   rounded-lg w-auto "
+                className="flex gap-1 px-4    items-center  bg-[#f6f6f6] shadow-md   rounded-lg w-auto "
                 key={el.id}
               >
                 {/* Card Content */}
                 <div className="flex  ">
-                  <div className="flex sm:my-4  md:mt-5 rounded-md   md:h-[90px] w-auto text-white flex-col justify-center items-center px-6  bg-[#7655fa] ">
+                  <div className=" sm:hidden md:flex sm:my-4  md:mt-5 rounded-md   md:h-[90px] w-auto text-white flex-col justify-center items-center px-6  bg-[#7655fa] ">
                     {el.date && (
-                      <span>{format(el.date.split("/")[1] || "1", "MMM")}</span>
+                      // <span>{format(el.date.split("/")[1] || "1", "MMM")}</span>
+                      <span>{format(el.date, "MMM")}</span>
                     )}
                     <span className="sm:text-2xl md:text-4xl font-semibold">
-                      {el.date && el.date.split("/")[0]}
+                      {/* {el.date && el.date.split("/")[0]} */}
+                      {format(el.date, "dd")}
                     </span>
                   </div>
                   <div className="flex flex-col p-4 gap-2 ">
-                    <h1 className="text-xl font-semibold">{el.title}</h1>
+                    <h1 className="text-xl font-semibold sm:text-[#7655fa] md:text-[#4a4a4a]">{el.title}</h1>
 
-                    <h1 className="text-sm text-[#4a4a4a] ">{el.date}</h1>
+                    <h1 className="text-sm text-[#4a4a4a] ">{format(el.date, "MMM dd, yyyy  hh:mm")}</h1>
 
                     <div className="flex gap-4   text-sm flex-wrap">
                       <Controller
@@ -111,7 +111,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                   </div>
                 </div>
                 {/* Card Controls */}
-                <div className="flex mx-3  h-auto sm:flex-col md:flex-row  self-center items-end flex-1 justify-end gap-4 p-2  my-1">
+                <div className="flex mx-3  h-auto   self-center items-end flex-1 justify-end gap-6 p-2  my-1">
                   <AddSubEventDialog data={el} index={index} type="edit" />
 
                   <CircleX
@@ -135,6 +135,8 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
 
         <AddSubEventDialog type="add" />
       </span>
-    </div>
+    // <div className=" sm:min-w-[92vw] md:min-w-full flex flex-col  gap-6 ">
+    //   Dynamic Events
+    // </div>
   );
 };

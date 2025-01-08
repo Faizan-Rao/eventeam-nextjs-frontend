@@ -142,13 +142,13 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
               e.preventDefault();
               setOpen(true);
             }}
-            className="flex w-full active:scale-[0.95] transition-all justify-center items-center h-[128px] min-w-[340px] flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
+            className="flex w-full active:scale-[0.95] transition-all justify-center items-center h-[128px]  flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
           >
             <Plus /> <span>Add Another Subevent</span>
           </button>
         </DialogTrigger>
       )}
-      <DialogContent className=" overflow-auto sm:max-w-full lg:max-w-4xl">
+      <DialogContent className=" overflow-auto  lg:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold ">
             {type === "edit" ? "Edit Subevent" : "Add New Subevent"}
@@ -164,7 +164,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   field={field}
                   setField={setField}
                 />
-                <div className="border-2 self-start rounded-md mx-4 sm:w-full md:max-w-[300px]">
+                <div className="shadow-md self-start rounded-md md:mx-4 sm:w-full md:max-w-[300px]">
                   <Calendar
                     mode="single"
                     selected={date as any}
@@ -244,24 +244,25 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   <label className={"text-[#4a4a4a] font-semibold"}>
                     Tickets
                   </label>
+                  
                   {(type === "edit" ? field.ticket_types : watch.tickets).map(
                     (el: any, index: number) => {
                       return (
                         <div
-                          className="flex gap-4 items-center flex-wrap"
+                          className="grid sm:grid-cols-2 md:grid-cols-3 gap-2"
                           key={index}
                         >
                           <input
                             type="text"
-                            className="border-[2px] outline-none p-2 sm:max-w-[80%] md:max-w-full flex-1"
+                            className="border-[2px] outline-none p-2  sm:max-w-xs md:max-w-full flex-1"
                             placeholder="Enter Ticket Name"
                             value={el.title}
                             disabled={true}
                           />
-                          <div className="flex gap-4  border-[2px] items-center  flex-1 sm:max-w-[80%] md:max-w-full">
+                          <div className="flex gap-4  border-[2px] items-center    ">
                             <input
                               type="number"
-                              className=" outline-none p-2 flex-1 "
+                              className=" outline-none p-2 flex-1 sm:max-w-[90px] md:max-w-full "
                               placeholder="Enter Price"
                               defaultValue={
                                 type === "edit" &&
@@ -282,7 +283,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                                 });
                               }}
                             />
-                            <DollarSign size={18} />
+                            <DollarSign className="ml-auto" size={18} />
                           </div>
                         </div>
                       );
