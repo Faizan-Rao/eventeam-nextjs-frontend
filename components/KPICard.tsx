@@ -15,13 +15,13 @@ const KPICard : React.FC<IKPICard> = ({
     currency
 }) => {
   return (
-    <div className='flex sm:min-w-[180px] md:min-w-[200px]     hover:bg-[#7655fa] group   text-[#4A4A4A] hover:text-white  flex-1 transition-all  sm:gap-2 md:gap-5 p-4  bg-[#F7F6F9] rounded-md'>
-        <div className='flex aspect-square sm:h-[40px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 md:rounded-md'>
+    <div className='flex sm:min-w-[180px]  md:min-w-[200px]     hover:bg-[#7655fa] group   text-[#4A4A4A] hover:text-white  flex-1 transition-all  sm:gap-2 md:gap-5 p-4  bg-[#F7F6F9] rounded-md'>
+        <div className='flex self-center aspect-square sm:h-[35px] md:h-[50px]  object-cover text-[#7655fa]  group-hover:text-white  group-hover:bg-[#6349cd]  bg-[#7655FA26]  justify-center items-center p-1 rounded-md'>
            { icon && icon}
         </div>
 
-        <div className='flex  justify-center   flex-col  '>
-            <p className=' text-nowrap text-[#999999] group-hover:text-[white] text-[13px] font-semibold'>{title}</p>
+        <div className='flex  justify-center   flex-col   overflow-hidden'>
+            <p className='  text-[#999999] group-hover:text-[white] sm:text-[12px] md:text-[13px] font-semibold'>{title}</p>
             <p className=' text-xl font-semibold flex  '>{currency}{value}</p>
         </div>
     </div>

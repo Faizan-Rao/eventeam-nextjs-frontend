@@ -43,7 +43,7 @@ const DonationViewDialog = ({ data }: { data: any }) => {
                           <p className="font-semibold text-xl">
                             {USDollar.format(el.amount)}
                           </p>
-                          <p className="font-semibold text-[#7655fa] text-sm">
+                          <p className="font-semibold text-[#7655fa] text-sm break-words break-all">
                             {el.title}
                           </p>
                         </div>

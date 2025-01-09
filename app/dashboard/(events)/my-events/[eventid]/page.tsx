@@ -24,11 +24,11 @@ const SingleEvent = () => {
   return (
     <div className="flex flex-col ">
       {/* Mobile Tab Btns */}
-      <div className="sm:flex md:hidden py-4 bg-[white] w-full px-10 font-semibold items-center gap-4">
+      <div className="sm:flex md:hidden py-4 bg-[white] w-full ps-4 font-semibold items-center gap-4">
         <button
           onClick={() => setTab("event")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all ",
             tab === "event" && "border-b-[2px] border-[#7655fa] "
           )}
         >
@@ -37,7 +37,7 @@ const SingleEvent = () => {
         <button
           onClick={() => setTab("reg-info")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all",
             tab === "reg-info" && "border-b-[2px] border-[#7655fa] "
           )}
         >

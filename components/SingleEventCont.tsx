@@ -56,12 +56,12 @@ const SingleEventCont = ({ data }: { data: any }) => {
   const [open, setOpen] = useState(false);
   console.log("single event data", data);
   return (
-    <div className="flex-1   flex-col flex bg-[white] col-span-2 rounded-md justify-between gap-4 p-6">
+    <div className="flex-1   flex-col flex bg-[white] col-span-2 rounded-md justify-between gap-4 sm:p-4 md:p-6">
       {/* Header */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] font-semibold text-sm">Event Title</h1>
-          <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1">
+          <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1 break-words break-all">
             {(data && data && data?.event.title) || "No title"}
           </h1>
           <h1 className="text-[#999999] font-semibold text-sm">
@@ -124,10 +124,10 @@ const SingleEventCont = ({ data }: { data: any }) => {
         />
       </div>
 
-      <div className="sm:flex gap-4 md:hidden sm:max-w-[92vw]">
+      <div className="sm:flex md:hidden sm:max-w-[99vw]">
         <Swiper
           slidesPerView={2}
-          spaceBetween={10}
+          spaceBetween={6}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
@@ -144,7 +144,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             {" "}
             <KPICard
               title={t("Event Guests")}
-              icon={<UsersRound size={28} />}
+              icon={<UsersRound size={25} />}
               value={USDollar.format(
                 (data && data && data.stats.total_registrations) || 0
               )}
@@ -154,32 +154,32 @@ const SingleEventCont = ({ data }: { data: any }) => {
             {" "}
             <KPICard
               title={t("Event Earnings")}
-              icon={<CircleDollarSign size={28} />}
+              icon={<CircleDollarSign size={25} />}
               value={USDollar.format(
                 (data && data && data.stats.total_earnings) || 0
               )}
-              currency="$"
+              currency=""
             />
           </SwiperSlide>
           <SwiperSlide>
             <KPICard
               title={t("Cleared Earnings")}
-              icon={<HandCoins size={28} />}
+              icon={<HandCoins size={25} />}
               value={USDollar.format(
                 (data && data && data.stats.cleared) || 0
               )}
-              currency="$"
+              currency=""
             />
           </SwiperSlide>
           <SwiperSlide>
             {" "}
             <KPICard
               title={t("Pending Earnings")}
-              icon={<Banknote size={28} />}
+              icon={<Banknote size={25} />}
               value={USDollar.format(
                 (data && data && data.stats.pending) || 0
               )}
-              currency="$"
+              currency=""
             />
           </SwiperSlide>
         </Swiper>
@@ -198,7 +198,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
       <div className="flex flex-col pb-4 border-b-[1px] gap-4">
         {/* Sub Event Accordion  */}
         <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className=" rounded-md border-2">
+          <AccordionItem value="item-1" className=" rounded-md ">
             <AccordionTrigger className="px-4 bg-[#7655FA26] text-left">
               <h1 className="text-[#7655fa] font-semibold text-sm">
                 Sub Events
@@ -228,7 +228,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
         </Accordion>
         {/* Prayer Accordion  */}
         <Accordion type="single" collapsible>
-          <AccordionItem value="item-1" className=" rounded-md border-2">
+          <AccordionItem value="item-1" className=" rounded-md  outline-none">
             <AccordionTrigger className=" px-4  bg-[#7655FA26] text-left">
               <h1 className="text-[#7655fa] font-semibold text-sm">
                 Activities

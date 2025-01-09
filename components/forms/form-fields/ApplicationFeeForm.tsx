@@ -75,7 +75,7 @@ const ApplicationFeeForm = () => {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 p-10 rounded-md bg-white ">
+    <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           Application Fee Settings

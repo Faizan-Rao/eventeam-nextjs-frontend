@@ -16,7 +16,7 @@ const MyEventMainCont = () => {
 console.log("my fetched events", events?.data.data)
  
   return (
-    <div className='flex flex-col min-h-[100vh]  bg-[#fffefe] flex-1 p-5 rounded-md'>
+    <div className='flex flex-col min-h-[100vh]  bg-[#fffefe] flex-1 sm:p-3 md:p-5 rounded-md'>
         <MyEventKPICont/>
         <MyEventTable data={events?.data.data || []} columns={(columns as any)}/>
     </div>

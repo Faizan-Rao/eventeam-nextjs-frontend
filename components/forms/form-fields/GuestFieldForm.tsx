@@ -73,7 +73,7 @@ const GuestFieldForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex-1 flex flex-col gap-4 p-10 rounded-md bg-white "
+      className="flex-1 flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white "
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">

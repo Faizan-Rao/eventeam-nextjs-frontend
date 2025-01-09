@@ -174,7 +174,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
                 />
               </div>
 
-              <div className="flex justify-between items-center gap-4">
+              <div className="flex justify-between items-center gap-4 flex-wrap">
                 <div className="flex-1 flex flex-col gap-2">
                   <span className="text-[#999999] text-sm font-semibold">
                     Email

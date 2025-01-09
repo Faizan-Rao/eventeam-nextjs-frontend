@@ -16,11 +16,15 @@ import EventDeleteDialog from "./EventDeleteDialog";
 import EventEditDialog from "./EventEditDialog";
 import Link from "next/link";
 import { user } from "@/configs/axios";
+import clsx from "clsx";
+import { EllipsisVertical } from "lucide-react";
 
-const ActionDropDown = ({row, id, table}: {
+const ActionDropDown = ({row, id, table, selectedRecord}: {
   row?: any;
-  id?: string[];
+  id?: any;
   table?: Table<any>;
+  index?:number,
+  selectedRecord?:number
 }) => {
   const dispatch = useDispatch();
   const [openDelete, setDeleteOpen] = useState(false);
@@ -31,8 +35,8 @@ const ActionDropDown = ({row, id, table}: {
   return (
     <>
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger className="active:scale-[0.90] rounded-full  p-1 hover:bg-[#7655fa26] transition-all">
-          <DotThreeVertical />
+        <DropdownMenuTrigger className={clsx("active:scale-[0.90] rounded-full   p-1 hover:bg-[#7655fa26] transition-all")}>
+          <EllipsisVertical className={clsx( selectedRecord === id && "text-[white]")} size={20} />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>Edit Status</DropdownMenuItem>

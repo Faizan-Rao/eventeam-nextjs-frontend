@@ -35,7 +35,7 @@ const DashboardGrid = () => {
         <button
           onClick={() => setTab("dashboard")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all",
             tab === "dashboard" && "border-b-[2px] border-[#7655fa] "
           )}
         >
@@ -44,7 +44,7 @@ const DashboardGrid = () => {
         <button
           onClick={() => setTab("upcoming-events")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all ",
             tab === "upcoming-events" && "border-b-[2px] border-[#7655fa] "
           )}
         >

@@ -51,7 +51,7 @@ const PaymentCard = ({
       <AccordionItem
         value={`item-${index}`}
         className={clsx(
-          " bg-[#F7F6F9] rounded-md border-2  transition-all",
+          " bg-[#F7F6F9] rounded-md   transition-all",
           index === selectedRecord && "bg-[#7655fa]"
         )}
       >

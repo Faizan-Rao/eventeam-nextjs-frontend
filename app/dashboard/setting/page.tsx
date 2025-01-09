@@ -40,7 +40,7 @@ const Setting = () => {
         <button
           onClick={() => setTab("gen-info")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all",
             tab === "gen-info" && "border-b-[2px] border-[#7655fa] "
           )}
         >
@@ -49,7 +49,7 @@ const Setting = () => {
         <button
           onClick={() => setTab("address-info")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all",
             tab === "address-info" && "border-b-[2px] border-[#7655fa] "
           )}
         >
@@ -59,7 +59,7 @@ const Setting = () => {
         <button
           onClick={() => setTab("security-info")}
           className={clsx(
-            "text-[#7655fa] ",
+            "text-[#7655fa] active:scale-[0.95] transition-all",
             tab === "security-info" && "border-b-[2px] border-[#7655fa] "
           )}
         >

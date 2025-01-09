@@ -141,11 +141,12 @@ const handleSearch = (value: any, name: string) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col">
       {/* Filters & Actions */}
 
-      <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
-        <span className="sm:flex-1 md:flex-none flex place-items-center gap-2 rounded-md border-[2px] p-1">
+      {/* <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4"> */}
+      <div className="grid sm:grid-col-1 md:grid-cols-4  gap-4 py-4">
+        <span className=" md:justify-self-stretch md:max-w-lg  md:col-span-3 sm:flex-1 md:flex-none flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
           name="search field"
@@ -166,6 +167,8 @@ const handleSearch = (value: any, name: string) => {
             className=" flex-1 outline-none"
           />
         </span>
+
+            <div className="justify-self-end">
 
         <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
@@ -300,6 +303,7 @@ const handleSearch = (value: any, name: string) => {
             </span>
           </DropdownMenuContent>
         </DropdownMenu>
+            </div>
       </div>
 
       <div className="md:block sm:hidden justify-self-end ">
@@ -308,7 +312,7 @@ const handleSearch = (value: any, name: string) => {
 
       {/* Data Table */}
 
-      <div className="sm:hidden md:block my-5 rounded-md  order-collapse border-spacing-0">
+      <div className="sm:hidden md:block my-2 rounded-md  order-collapse border-spacing-0">
         <Table className="border-b-[2px] rounded-md b  border">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -392,6 +396,6 @@ const handleSearch = (value: any, name: string) => {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }

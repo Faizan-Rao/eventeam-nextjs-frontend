@@ -128,8 +128,9 @@ export function MyEventTable<TData, TValue>({
     <>
       {/* Filters & Actions */}
 
-      <div className="flex sm:justify-center md:justify-end items-center flex-wrap gap-4 py-4">
-        <span className="sm:flex-1 md:flex-grow-0  flex place-items-center gap-2 rounded-md border-[2px] p-1">
+      <div className="grid sm:grid-col-1 md:grid-cols-4  gap-4 py-4 ">
+      {/* <div className="flex justify-end flex-wrap gap-4 py-4 "> */}
+        <span className="sm:flex-1 md:flex-grow-0 md:col-span-3    md:max-w-lg  flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
             placeholder={"Search Event..."}
@@ -141,19 +142,20 @@ export function MyEventTable<TData, TValue>({
                 .getColumn("title")
                 ?.setFilterValue(event.target.value ?? "");
             }}
-            className="max-w-sm outline-none sm:flex-1 md:flex-grow-0  "
+            className="max-w-full self-stretch flex-1 outline-none sm:flex-1  "
           />
         </span>
-        <div className="sm:flex  items-center gap-4">
-          <span className="flex flex-1">
+        <div className="flex  gap-3 sm:justify-self-end ">
+
+          <span className="flex flex-row  md:justify-self-end">
             <DropdownMenu modal={true} open={open} onOpenChange={setOpen}>
-              <DropdownMenuTrigger className="active:scale-[0.95] transition-all">
+              <DropdownMenuTrigger className="active:scale-[0.95] transition-all w-full">
                 <button className=" flex  flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
                   <ListFilter size={20} />
                   Filter
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="overflow-auto max-h-[300px]">
+              <DropdownMenuContent className="overflow-auto max-h-[300px] max-w-[240px]">
                 <DropdownMenuLabel>Active State</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -231,7 +233,7 @@ export function MyEventTable<TData, TValue>({
 
                 <DropdownMenuLabel>Registrations</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <div className="flex gap-2 px-4 my-4">
+                <div className="flex gap-2 px-4 my-4 flex-wrap">
                   <span className="flex flex-col">
                     Min :
                     <input
@@ -286,13 +288,14 @@ export function MyEventTable<TData, TValue>({
               </DropdownMenuContent>
             </DropdownMenu>
           </span>
-          <Link href={"/dashboard/add-event"}>
+          <Link href={"/dashboard/add-event"} className="sm:justify-self-end">
             <button className="flex  active:scale-[0.95] transition-all gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
               <Plus />
-              <span>Add New Event</span>
+              <span className="sm:hidden md:block"> Event</span>
             </button>
           </Link>
         </div>
+
       </div>
 
       <div className="sm:hidden md:block">
