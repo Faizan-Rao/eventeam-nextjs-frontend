@@ -35,8 +35,8 @@ const CompanyHeader = ({data} : {data : any}) => {
           </div>
         </div>
         {/* Company Details */}
-        <div className="flex-1 flex flex-col gap-4 justify-center-center">
-          <div className="flex  gap-4">
+        <div className="flex-1 flex flex-col gap-4 justify-center-center flex-wrap">
+          <div className="flex  gap-4 flex-wrap">
             <span className="flex gap-4">
               <AtSign className="text-white" />
               <span className="text-white font-white sm:text-sm md:text-base ">

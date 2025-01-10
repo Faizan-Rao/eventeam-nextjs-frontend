@@ -73,14 +73,14 @@ const DeleteEventRegistrantDialog = ({
                 </span>
               </span>
               <div className="flex flex-1 flex-col">
-                <h1 className=" text-lg text-[#4a4a4a] ">
+                <h1 className=" sm:text-sm md:text-base text-[#4a4a4a] ">
                   Are you sure you want to delete event?
                 </h1>
               </div>
             </div>
             <div className="flex justify-end gap-4">
               <button
-                className="font-semibold text-base rounded-full px-4 py-2"
+                className="font-semibold text-base rounded-full px-4 py-2 active:scale-[0.95] transition-all"
                 onClick={() => setOpen(false)}
               >
                 Close
@@ -88,7 +88,7 @@ const DeleteEventRegistrantDialog = ({
 
               <button
                 onClick={deleteGuest}
-                className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 text-white py-2"
+                className="bg-[#FF6161] font-semibold  text-base rounded-full px-6 active:scale-[0.95] transition-all text-white py-2"
               >
                 Delete
               </button>

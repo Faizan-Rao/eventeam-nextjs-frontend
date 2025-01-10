@@ -21,8 +21,8 @@ const CompanyEventCard = ({
   return !isNaN(index) && (
     <div
       className={clsx(
-        index === 0 && "lg:translate-y-[-25%] min-w-[420px]   bg-[white]",
-        "backdrop-blur-lg sm:my-4 md:max-w-[35%] justify-self-stretch shadow-lg hover:shadow-2xl hover:bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] rounded-3xl   min-w-[400px] "
+        index === 0 && "lg:translate-y-[-25%] md:min-w-[420px] sm:min-w-[300px]   bg-[white]",
+        "backdrop-blur-lg  md:max-w-[35%] justify-self-stretch shadow-lg hover:shadow-2xl hover:bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] md:rounded-3xl   min-w-[400px] "
       )}
     >
       <span
@@ -85,8 +85,7 @@ const CompanyEventCard = ({
         </div>
       </div>
 
-      <Link
-        href={"/events/1"}
+      <div
         className="flex text-base active:scale-[0.95] transition-all justify-center items-center bg-[#7655fa] rounded-full py-3 px-4"
       >
         <a
@@ -98,7 +97,7 @@ const CompanyEventCard = ({
           </span>
         </a>
         <ChevronRight className="text-white" />
-      </Link>
+      </div>
     </div>
   );
 };

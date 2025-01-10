@@ -5,9 +5,9 @@ import { Controller, useFormContext } from "react-hook-form";
 const PrayerForm = () => {
   const { control } = useFormContext();
   return (
-    <div className="flex flex-col flex-1 bg-[#ebe6fe] m-4 p-4 rounded-lg">
+    <div className="flex flex-col flex-1 bg-[#ebe6fe] sm:mb-4 md:m-4 p-4 rounded-lg">
       <h1 className="text-[#7655fa] font-semibold">Time</h1>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center flex-wrap gap-4">
         <div className="flex flex-1  flex-col gap-1">
           <label className="text-sm ">Before Sunset</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
@@ -108,6 +108,7 @@ const PrayerForm = () => {
                   className="border-[2px] rounded-lg  outline-none p-2 w-full "
                   onChange={field.onChange}
                   defaultValue={0}
+                  placeholder="0:00"
                   min={0}
                 />
               </>

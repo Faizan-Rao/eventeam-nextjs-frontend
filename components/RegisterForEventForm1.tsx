@@ -15,8 +15,8 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
     <div className=" rounded-md sm:w-[100%] md:w-[100%] lg:w-[70%] gap-4  bg-[white] sm:p-4 md:p-8 ">
       <div className=" border-b-[1px]">
         <div className="flex flex-col mx-auto">
-          <h1 className="text-[#7655fa] font-semibold">Get Registered for</h1>
-          <h1 className="text-[#4a4a4a] sm:text-3xl md:text-4xl font-semibold">
+          <h1 className="text-[#7655fa] sm:text-sm md:text-base font-semibold">Get Registered for</h1>
+          <h1 className="text-[#4a4a4a] sm:text-2xl md:text-4xl font-semibold">
             {data.event.title}
           </h1>
         </div>
@@ -66,7 +66,7 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
                 key={index}
                 className=" bg-[#F7F6F9]  rounded-md flex justify-between items-center  md:my-4 p-4"
               >
-                <h1 className="font-semibold text-base">{el.title}</h1>
+                <h1 className="font-semibold sm:text-sm md:text-base">{el.title}</h1>
                 <ShowSubEventInfoDialog data={el} />
               </div>
             );

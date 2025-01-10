@@ -14,7 +14,13 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { CirclePlus, CircleMinus, CircleX, Plus } from "lucide-react";
+import {
+  CirclePlus,
+  CircleMinus,
+  CircleX,
+  Plus,
+  PencilLine,
+} from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { format } from "date-fns";
 import {
@@ -26,105 +32,136 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+
 interface IPrayerField {
   append: (data: any) => unknown;
   remove: (index: number) => any;
-  prayer: number;
+  update?: any,
   index: number;
+  editIndex?: number;
+  type?: string;
+  editData?: any;
 }
 const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
   index,
   append,
   remove,
-  prayer,
+  update,
+  type,
+  editData,
+  editIndex
 }) => {
   const { control, register, resetField } = useFormContext();
-  const prayerFields = useWatch({
-    control,
-    name: prayer === 1 ? `prayer_time.${prayer}` : `prayer_time.${prayer}`,
-  });
+  const defaults = {
+    activity_id: "",
+    activity_status: 1,
+    activity_time: "0",
+    activity_title: "",
+    activity_type: "",
+    sub_event_id: "",
+  }
+  const [data, setData] = useState( type === "edit" ? editData : defaults);
 
-  const [data, setData] = useState({
-    title: "",
-    time_type: "fixed-time",
-    status: false,
-    before_time: 0,
-    after_time: 0,
-    fixed_time: "",
-  });
-
-  const [open ,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
-          <div className="mb-5">
-            <button className="flex items-center text-sm gap-4 my-4  justify-self-start">
-              {" "}
-              <Plus /> <span>Add Another Subevent</span>
-            </button>
-          </div>
+          {type === "add" && (
+            <div className="mb-5">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(true);
+                }}
+                className="flex items-center text-sm gap-4 my-4  justify-self-start"
+              >
+                {" "}
+                <Plus /> <span>Add Activity</span>
+              </button>
+            </div>
+          )}
+          {type === "edit" && (
+            <PencilLine
+              onClick={(e) => {
+                e.preventDefault();
+                setOpen(true);
+              }}
+              className="text-[#7655fa]"
+            />
+          )}
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add Prayer Activity</DialogTitle>
+            <DialogTitle>{ type === "edit" ? "Edit Activity": "Add Activity"}</DialogTitle>
             <DialogDescription>
               <div className="flex  justify-center flex-col gap-4 ">
                 <div>
                   <div className="flex my-4 flex-col flex-wrap gap-4 flex-1">
-                    <span className="flex flex-col gap-1">
-                      <label className="text-sm ">Activity Title</label>
+                    <span className="flex flex-col gap-2">
+                      <label className="text-sm font-semibold ">Activity Title</label>
                       <input
                         type="text"
-                        className="border-[1px] p-[4.5px] outline-none rounded-md "
+                        className="border-[1px] p-2 outline-none rounded-md "
                         placeholder="Enter Title"
                         onChange={(event) => {
                           setData({
                             ...data,
-                            title: event.target.value,
+                            activity_title: event.target.value,
                           });
                         }}
+                        defaultValue={
+                          type !== "edit"
+                            ? data.activity_title
+                            : editData.activity_title
+                        }
                       />
                     </span>
-                    <span className="flex flex-col gap-1">
-                      <label className="text-sm ">Time Type</label>
+                    <span className="flex flex-col gap-2">
+                      <label className="text-sm font-semibold">Time Type</label>
 
                       <Select
-                        defaultValue={"fixed-time"}
+                        defaultValue={
+                          type !== "edit"
+                            ? data.activity_type
+                            : editData.activity_type
+                        }
                         onValueChange={(value) => {
-                          setData({ ...data, time_type: value });
+                          setData({ ...data, activity_type: value });
                         }}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select Time.." />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="before-sunset" defaultChecked>
+                          <SelectItem value="before_sunset" defaultChecked>
                             Before Sunset
                           </SelectItem>
-                          <SelectItem value="fixed-time">Fixed Time</SelectItem>
-                          <SelectItem value="after-sunset">
+                          <SelectItem value="fixed_time">Fixed Time</SelectItem>
+                          <SelectItem value="after_sunset">
                             After Sunset
                           </SelectItem>
-                          <SelectItem value="before-candle">
+                          <SelectItem value="before_candle">
                             Before candle light
                           </SelectItem>
-                          <SelectItem value="after-candle">
-                           After candle light
+                          <SelectItem value="after_candle">
+                            After candle light
                           </SelectItem>
                         </SelectContent>
                       </Select>
                     </span>
 
-                    {data?.time_type === "before-sunset" && (
-                      <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">Before Time</label>
+                    {data?.activity_type !== "fixed_time" && (
+                      <span className="flex   flex-col gap-2">
+                        <label className="text-sm font-semibold">Activity Time</label>
                         <div className="flex justify-center  bg-[#7655fa] rounded-md  px-4 py-2 ">
                           <CirclePlus
                             onClick={() => {
                               setData({
                                 ...data,
-                                before_time: data.before_time + 1,
+                                activity_time: `${
+                                  parseInt(data.activity_time) + 1
+                                }`,
                               });
                             }}
                             className="text-[white] cursor-pointer"
@@ -133,52 +170,22 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                           <input
                             type="number"
                             className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
-                            value={data.before_time ?? 0}
-                            defaultValue={0}
+                            value={data.activity_time ?? 0}
+                            defaultValue={
+                              type !== "edit"
+                                ? parseInt(data.activity_time)
+                                : parseInt(editData.activity_type)
+                            }
                             min={0}
                           />
                           <CircleMinus
                             onClick={() => {
                               setData({
                                 ...data,
-                                before_time: data.before_time - 1,
+                                activity_time: `${
+                                  parseInt(data.activity_time) - 1
+                                }`,
                               });
-                            }}
-                            className="text-[white] cursor-pointer"
-                            size={18}
-                          />
-                        </div>
-                      </span>
-                    )}
-                    {data?.time_type === "after-sunset" && (
-                      <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">After Time</label>
-                        <div className="flex justify-center  bg-[#7655fa] rounded-md  px-4 py-2 ">
-                          <CirclePlus
-                            onClick={() => {
-                              setData({
-                                ...data,
-                                after_time: data.after_time + 1,
-                              });
-                            }}
-                            className="text-[white] cursor-pointer"
-                            size={18}
-                          />
-                          <input
-                            type="number"
-                            className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
-                            value={data.after_time ?? 0}
-                            defaultValue={0}
-                            min={0}
-                          />
-                          <CircleMinus
-                            onClick={() => {
-                              if (data.after_time > 0) {
-                                setData({
-                                  ...data,
-                                  after_time: data.after_time - 1,
-                                });
-                              }
                             }}
                             className="text-[white] cursor-pointer"
                             size={18}
@@ -187,9 +194,9 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                       </span>
                     )}
 
-                    {data?.time_type === "fixed-time" && (
-                      <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">Fixed Time</label>
+                    {(data?.activity_type === "fixed_time") && (
+                      <span className="flex   flex-col gap-2">
+                        <label className="text-sm font-semibold">Fixed Time</label>
                         <div className="flex justify-center  border-[1px] rounded-md  px-4 py-2 ">
                           <input
                             type="time"
@@ -197,7 +204,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                             onChange={(e) => {
                               setData({
                                 ...data,
-                                fixed_time: format(
+                                activity_time: format(
                                   new Date(
                                     `2/4/2024 ${(e.target as any).value}`
                                   ),
@@ -210,15 +217,21 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                       </span>
                     )}
 
-                    <span className="flex   flex-col gap-1">
-                      <label className="text-sm ">Active Status</label>
-                      <div className="flex justify-between px-4 py-2 border-[1px] gap-6">
+                    <span className="flex   flex-col gap-2">
+                      <label className="text-sm font-semibold ">Active Status</label>
+                      <div className="flex justify-between px-4 py-2 border-[1px] gap-6 rounded-md">
                         <span>Active</span>
                         <Switch
+                          checked={
+                             data.activity_status === 1
+                              ? true
+                              : false
+                          }
                           onCheckedChange={(value) => {
-                          
-
-                            setData({ ...data, status: data.status });
+                            setData({
+                              ...data,
+                              activity_status: value ? 1 : 0,
+                            });
                           }}
                           className="text-[white] cursor-pointer"
                           defaultChecked={false}
@@ -227,18 +240,23 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                     </span>
                   </div>
                 </div>
-              </div>
               <button
-                className="px-4 py-2 rounded-full bg-[#7655fa] text-white"
+                className="px-4 py-2 self-end rounded-full bg-[#7655fa] text-white active:scale-[0.95] transition-all"
                 onClick={() => {
-                  if (data.title !== "") {
+                  if (data.activity_time !== "" && type === "add") {
                     append(data);
-                    setOpen(false)
+                    setOpen(false);
+                    setData(defaults)
+                  }
+                  if (data.activity_time !== "" && type === "edit") {
+                    update(editIndex, data);
+                    setOpen(false);
                   }
                 }}
               >
-                Add Prayer Time
+                { type === "edit" ? "Edit Activity": "Add Activity"}
               </button>
+              </div>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

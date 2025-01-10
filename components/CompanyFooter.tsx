@@ -8,7 +8,7 @@ const CompanyFooter = () => {
     {/* Header Container*/}
     <div className="container">
       <div className="flex-1 flex justify-between items-center gap-4 pb-4 border-b-[1px] border-[#FFFFFFB2]  text-white">
-        <h1 className="font-semibold text-2xl">EvenTeam</h1>
+        <h1 className="font-semibold sm:text-xl md:text-2xl">EvenTeam</h1>
         <div className="flex gap-4">
           <Image
             src={"/social-icons/facebook.svg"}
@@ -43,8 +43,8 @@ const CompanyFooter = () => {
         </div>
       </div>
 
-      <div className="flex-1 flex justify-between sm:flex-col md:flex-row  md:items-center sm:items-start gap-4 pb-4 my-8 text-white">
-        <h1 className=" sm:text-base md:text-base">Copyright © 2024. All rights reserved</h1>
+      <div className="flex-1 sm:text-sm md:text-base flex justify-between sm:flex-col md:flex-row  md:items-center sm:items-start gap-4 pb-4 my-8 text-white">
+        <h1 className=" sm:text-sm md:text-base">Copyright © 2024. All rights reserved</h1>
         <div className="flex sm:flex-col md:flex-row gap-4">
         <Link href={"#"} className="text-white">Privacy Policy</Link>
         <Link href={"#"} className="text-white">Terms of Service</Link>

@@ -191,7 +191,7 @@ const AddRegistrantDialog = ({
         {type === "edit" ? (
           <PencilLine className="text-[#7655fa]" strokeWidth={1.2} />
         ) : (
-          <p className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] rounded-full p-2 font-semibold">
+          <p className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] sm:text-sm md:text-base rounded-full p-2 font-semibold">
             Add New Guest
           </p>
         )}

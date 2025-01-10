@@ -17,7 +17,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
 
   
   return (
-    <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] p-4 min-h-screen">
+    <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
       <RegsiterForEventDonation data={data} />
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
