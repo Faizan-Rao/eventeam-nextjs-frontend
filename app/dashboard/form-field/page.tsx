@@ -4,13 +4,17 @@ import PageTitleContainer from "@/components/PageTitleContainer";
 import { clsx } from "clsx";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import { useQuery } from "@tanstack/react-query";
+import { FormFields } from "@/configs/apiRoutes";
 const ApplicationFeeForm = dynamic(()=> import("@/components/forms/form-fields/ApplicationFeeForm")) ;
 const FormFieldForm = dynamic(()=> import("@/components/forms/form-fields/FormFieldForm"));
 const GuestFieldForm = dynamic(()=> import("@/components/forms/form-fields/GuestFieldForm"));
 
 const FormField = () => {
   const [tab, setTab] = useState("form-field");
-
+  const {data, isLoading} = useQuery({queryKey:["form-fields"], queryFn: FormFields.GetFormField})
+  console.log("Get form fields ", data)
+  const formfieldData = data?.data.data.fields
   return (
     <>
     <MainContentGrid className="sm:hidden md:flex">
@@ -48,10 +52,10 @@ const FormField = () => {
       </div>
       {/* Web Template */}
       <div className="sm:hidden md:flex justify-between gap-4">
-        <FormFieldForm />
+       {formfieldData && <FormFieldForm  data={formfieldData}/>}
         <div className="flex-1 flex flex-col gap-4">
-          <ApplicationFeeForm />
-          <GuestFieldForm />
+          {formfieldData &&<ApplicationFeeForm data={formfieldData}/>}
+          {formfieldData &&<GuestFieldForm data={formfieldData}/>}
         </div>
       </div>
     </MainContentGrid>
@@ -89,9 +93,9 @@ const FormField = () => {
           Guest field
         </button>
       </div>
-        {tab === "form-field" && <FormFieldForm />}
-        {tab === "application-fee" && <ApplicationFeeForm />}
-        {tab === "guest-field" && <GuestFieldForm />}
+        {tab === "form-field" && <FormFieldForm data={formfieldData}/>}
+        {tab === "application-fee" && <ApplicationFeeForm data={formfieldData}/>}
+        {tab === "guest-field" && <GuestFieldForm data={formfieldData}/>}
       </div>
   
     </>

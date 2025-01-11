@@ -117,6 +117,13 @@ export const FormFields = {
   updateGuestField: async (data : any) =>{
     const response = await axiosWithToken.post("/company/settings/save", data)
     return response
+  },
+  GetFormField: async () =>{
+    const data = {
+      "fields" : ["donation_field_text","cod_text","regulation_text","plateform_fee","is_show_app_fee","is_default_app_fee","application_fee_text", "guest_name_required", "guest_email_required", "guest_phone_required"]
+  }
+    const response = await axiosWithToken.post("/company/settings/get-fields", data)
+    return response
   }
 }
 

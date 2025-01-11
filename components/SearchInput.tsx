@@ -25,8 +25,8 @@ const SearchInput = () => {
   const [filtered, setFiltered] = useState([]) 
 
   const handleFilter = (value : string)=> {
-    let filtered = paths.filter(el => (el.name.toLowerCase()).includes(value))
-    filtered = filtered.flatMap(el => el.children ?? el)
+    let filtered = paths.flatMap(el => el.children ?? el)
+    filtered = filtered.filter(el => (el.name.toLowerCase()).includes(value.toLowerCase()))
     setFiltered((filtered as any))
   }
 
@@ -78,7 +78,7 @@ const SearchInput = () => {
                      
                    >
                      {nav.icon && <span className="mx-4"><nav.icon/></span>}
-                     <p className="font-semibold text-lg">{t(nav.name)}</p>
+                     <p className=" text-base">{t(nav.name)}</p>
                    </Link>
                 </>
                 ))

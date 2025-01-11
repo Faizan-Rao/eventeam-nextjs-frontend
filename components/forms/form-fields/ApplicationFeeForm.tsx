@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "@/components/MainLayoutGrid";
 
 interface ApplicationField {
   plateform_fee : string,
@@ -17,19 +18,28 @@ interface ApplicationField {
   application_fee_text : string
 }
 
-const ApplicationFeeForm = () => {
+const ApplicationFeeForm = ({data}:{data:any}) => {
   
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ApplicationField>();
+  } = useForm<ApplicationField>({
+    defaultValues:{
+      plateform_fee: data?.plateform_fee ? data.plateform_fee : 0,
+      is_show_app_fee: data?.is_show_app_fee ? data.is_show_app_fee : "1",
+      is_default_app_fee: data?.is_default_app_fee ? data.is_default_app_fee : false,
+      application_fee_text: data?.application_fee_text ? data.application_fee_text : false,
+      
+    }
+  });
 
 
   const mutation = useMutation({
     mutationFn: FormFields.updateApplication,
     onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["form-fields"]})
       toast("Application Fields Saved" , {
         type : "success"
       })

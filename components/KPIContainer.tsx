@@ -37,15 +37,7 @@ const KPIContainer = () => {
   return (
     <>
       <div className="sm:hidden md:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
-        {isKpiPending && (<>
-          <Skeleton className="h-[82px] w-[314px]"/>
-          <Skeleton className="h-[82px] w-[314px]"/>
-          <Skeleton className="h-[82px] w-[314px]"/>
-          <Skeleton className="h-[82px] w-[314px]"/>
-          <Skeleton className="h-[82px] w-[314px]"/>
-          <Skeleton className="h-[82px] w-[314px]"/>
-         
-        </>)}
+        
         
         {!isKpiPending && (
           <>

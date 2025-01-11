@@ -15,6 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "@/components/MainLayoutGrid";
 
 interface GuestField {
   guest_name_required: boolean;
@@ -22,9 +23,15 @@ interface GuestField {
   guest_phone_required: boolean;
 }
 
-const GuestFieldForm = () => {
+const GuestFieldForm = ({data}:{data:any}) => {
   const hiddenInputRef = useRef(null);
-  const methods = useForm<GuestField>();
+  const methods = useForm<GuestField>({
+    defaultValues: {
+      guest_name_required: data?.guest_name_required === "1" ? true  : false,
+      guest_email_required: data?.guest_email_required === "1"? true  : false,
+      guest_phone_required: data?.guest_phone_required === "1"? true  : false,
+    }
+  });
   const {
     control,
     register,
@@ -35,6 +42,7 @@ const GuestFieldForm = () => {
   const mutation = useMutation({
     mutationFn: FormFields.updateGuestField,
     onSuccess: () => {
+      queryClient.invalidateQueries( {queryKey: ["form-fields"]})
       toast("Guest Fields Saved", {
         type: "success",
       });

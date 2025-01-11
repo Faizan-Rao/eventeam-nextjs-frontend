@@ -165,9 +165,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <KPICard
               title={t("Cleared Earnings")}
               icon={<HandCoins size={25} />}
-              value={USDollar.format(
-                (data && data && data.stats.cleared) || 0
-              )}
+              value={USDollar.format((data && data && data.stats.cleared) || 0)}
               currency=""
             />
           </SwiperSlide>
@@ -176,9 +174,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <KPICard
               title={t("Pending Earnings")}
               icon={<Banknote size={25} />}
-              value={USDollar.format(
-                (data && data && data.stats.pending) || 0
-              )}
+              value={USDollar.format((data && data && data.stats.pending) || 0)}
               currency=""
             />
           </SwiperSlide>
@@ -237,7 +233,6 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <AccordionContent className="p-4">
               <div className="flex items-center justify-between  flex-wrap">
                 {data?.event?.sub_events?.length > 0 &&
-                
                   data?.event?.sub_events.map((el: any, i: number) => {
                     console.log(el);
                     return (
@@ -274,18 +269,23 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
                 !(
                   data &&
-                  data.settings?.company_automatic_events?.advance
-                    .is_show_address === "1"
+                  data?.event.advances !== undefined &&
+                  data?.event.advances
+                    ?.is_show_address === "1"
                 ) && "bg-[#FF000026]"
               )}
             >
-              <span className="font-semibold text-sm text-[#4a4a4a]">
-                {data &&
-                data.settings?.company_automatic_events?.advance
-                  .is_show_address === "1"
-                  ? "Active"
-                  : "Inactive"}
-              </span>
+              {
+                data?.event.advances
+                  ?.is_show_address !== undefined && (
+                  <span className="font-semibold text-sm text-[#4a4a4a]">
+                    {data &&
+                   
+                    data?.event.advances?.is_show_address === "1"
+                      ? "Active"
+                      : "Inactive"}
+                  </span>
+                )}
             </span>
           </AdvanceFormOption>
 
@@ -299,15 +299,15 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
                 !(
                   data &&
-                  data.settings?.company_automatic_events?.advance
-                    .is_cash_allowed === "1"
+                  data?.event.advances
+                    ?.is_cash_allowed === "1"
                 ) && "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
                 {data &&
-                data.settings?.company_automatic_events?.advance
-                  .is_cash_allowed === "1"
+                data?.event.advances
+                  ?.is_cash_allowed === "1"
                   ? "Active"
                   : "Inactive"}
               </span>
@@ -324,15 +324,15 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
                 !(
                   data &&
-                  data.settings?.company_automatic_events?.advance
-                    .is_show_regulation === "1"
+                  data?.event.advances
+                    ?.is_show_regulation === "1"
                 ) && "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
                 {data &&
-                data.settings?.company_automatic_events?.advance
-                  .is_show_regulation === "1"
+                data?.event.advances
+                  ?.is_show_regulation === "1"
                   ? "Active"
                   : "Inactive"}
               </span>
@@ -349,15 +349,15 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
                 !(
                   data &&
-                  data.settings?.company_automatic_events?.advance
-                    .is_show_stripe === "1"
+                  data?.event.advances
+                    ?.is_show_stripe === "1"
                 ) && "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
                 {data &&
-                data.settings?.company_automatic_events?.advance
-                  .is_show_stripe === "1"
+                data?.event.advances
+                  ?.is_show_stripe === "1"
                   ? "Active"
                   : "Inactive"}
               </span>

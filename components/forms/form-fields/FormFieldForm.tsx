@@ -1,4 +1,5 @@
 "use client";
+import { queryClient } from "@/components/MainLayoutGrid";
 import { FormFields } from "@/configs/apiRoutes";
 import { joditConfig } from "@/configs/joditConfig";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,57 +14,55 @@ interface FormField {
   regulation_text: string;
 }
 
-const FormFieldForm = () => {
+const FormFieldForm = ({ data }: { data: any }) => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormField>({
-    defaultValues: {
-      cod_text: "",
-      donation_field_text: "",
-      regulation_text: "",
-    },
+    defaultValues:  {
+          cod_text: data?.cod_text ? data.cod_text : "",
+          donation_field_text: data?.donation_field_text ? data.donation_field_text : "",
+          regulation_text: data?.regulation_text ? data.regulation_text : "",
+        }
+      
   });
-  
+console.log(data)
   const mutation = useMutation({
     mutationFn: FormFields.updateFormField,
     onSuccess: () => {
-      toast("Form Fields Saved" , {
-        type : "success"
-      })
+       queryClient.invalidateQueries( {queryKey: ["form-fields"]})
+      toast("Form Fields Saved", {
+        type: "success",
+      });
     },
-    onError: ()=>{
-      toast("Form Fields Not Saved" , {
-        type : "error"
-      })
-    }
-  })
-  const onSubmit = (data : any) => {
+    onError: () => {
+      toast("Form Fields Not Saved", {
+        type: "error",
+      });
+    },
+  });
+  const onSubmit = (data: any) => {
     try {
-
-      if(!data)
-      {
-        throw new Error("Data is Empty...!")
+      if (!data) {
+        throw new Error("Data is Empty...!");
       }
 
-      mutation.mutate(data)
-
+      mutation.mutate(data);
+    } catch (error) {
+      console.error(error);
+      toast("Form Fields Not Saved", {
+        type: "error",
+      });
     }
-    catch (error)
-    {
-      console.error(error)
-      toast("Form Fields Not Saved" , {
-        type : "error"
-      })
-    }
-    
-  }
-
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white ">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex-1 flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white "
+    >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
           Form Field Settings
@@ -78,7 +77,7 @@ const FormFieldForm = () => {
           <Controller
             name="regulation_text"
             control={control}
-            rules={{minLength: 20}}
+            rules={{ minLength: 20 }}
             render={({ field }) => (
               <div className="flex flex-col gap-4">
                 <JoditEditor
@@ -89,7 +88,11 @@ const FormFieldForm = () => {
               </div>
             )}
           />
-          {errors.regulation_text && <span className="text-red-700">This field is less than 20 character</span>}
+          {errors.regulation_text && (
+            <span className="text-red-700">
+              This field is less than 20 character
+            </span>
+          )}
         </div>
       </div>
 
@@ -101,7 +104,7 @@ const FormFieldForm = () => {
           <Controller
             name="cod_text"
             control={control}
-            rules={{minLength: 20}}
+            rules={{ minLength: 20 }}
             render={({ field }) => (
               <div className="flex flex-col gap-4">
                 <JoditEditor
@@ -112,7 +115,11 @@ const FormFieldForm = () => {
               </div>
             )}
           />
-          {errors.cod_text && <span className="text-red-700">This field is less than 20 Character</span>}
+          {errors.cod_text && (
+            <span className="text-red-700">
+              This field is less than 20 Character
+            </span>
+          )}
         </div>
       </div>
 
@@ -124,7 +131,7 @@ const FormFieldForm = () => {
           <Controller
             name="donation_field_text"
             control={control}
-            rules={{minLength: 20}}
+            rules={{ minLength: 20 }}
             render={({ field }) => (
               <div className="flex flex-col gap-4">
                 <JoditEditor
@@ -135,12 +142,16 @@ const FormFieldForm = () => {
               </div>
             )}
           />
-          {errors.donation_field_text && <span className="text-red-700">This field is less than 20 character</span>}
+          {errors.donation_field_text && (
+            <span className="text-red-700">
+              This field is less than 20 character
+            </span>
+          )}
         </div>
       </div>
 
       <div className="flex justify-end  items-center gap-4">
-        <button  className="px-4 py-2 active:scale-[0.95] transition-all  bg-[#7655fa] text-white rounded-full">
+        <button className="px-4 py-2 active:scale-[0.95] transition-all  bg-[#7655fa] text-white rounded-full">
           {" "}
           Save Changes
         </button>

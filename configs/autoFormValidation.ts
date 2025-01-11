@@ -91,7 +91,7 @@ export const autoFormDefaults = {
   // "title": "asasas",
   // "start_date": "2024-08-07T22:22:14.000000Z",
   // "end_date": "2024-08-07T22:22:14.000000Z",
-  event_description: "<p>ascsdcsacSDC</p",
+  // event_description: "<p>ascsdcsacSDC</p",
   tickets: [
     {
       title: "Child",
@@ -104,50 +104,50 @@ export const autoFormDefaults = {
       description: "",
     },
   ],
-  sub_events: [
-    {
-      title: "Friday",
-      date: "11/03/2024 08:35",
-      status: "1",
-      manage_inventory: 0,
-      event_capacity: null,
-      address: "123 Street, City",
-      description: "this is the subevent description",
-      ticket_types: [
-        {
-          title: "Child",
-          price: "10",
-          description: "",
-        },
-        {
-          title: "Child",
-          price: "10",
-          description: "",
-        },
-      ],
-    },
-    {
-      title: "Saturday",
-      date: "11/03/2024 08:35",
-      status: "1",
-      manage_inventory: 0,
-      event_capacity: null,
-      address: "",
-      description: "",
-      ticket_types: [
-        {
-          title: "Child",
-          price: "10",
-          description: "",
-        },
-        {
-          title: "Adult",
-          price: "30",
-          description: "",
-        },
-      ],
-    },
-  ],
+  // sub_events: [
+  //   {
+  //     title: "Friday",
+  //     date: "11/03/2024 08:35",
+  //     status: "1",
+  //     manage_inventory: 0,
+  //     event_capacity: null,
+  //     address: "123 Street, City",
+  //     description: "this is the subevent description",
+  //     ticket_types: [
+  //       {
+  //         title: "Child",
+  //         price: "10",
+  //         description: "",
+  //       },
+  //       {
+  //         title: "Child",
+  //         price: "10",
+  //         description: "",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "Saturday",
+  //     date: "11/03/2024 08:35",
+  //     status: "1",
+  //     manage_inventory: 0,
+  //     event_capacity: null,
+  //     address: "",
+  //     description: "",
+  //     ticket_types: [
+  //       {
+  //         title: "Child",
+  //         price: "10",
+  //         description: "",
+  //       },
+  //       {
+  //         title: "Adult",
+  //         price: "30",
+  //         description: "",
+  //       },
+  //     ],
+  //   },
+  // ],
   advance: {
     is_attendees_required: "1",
     is_show_address: "1",
@@ -164,34 +164,15 @@ export const autoFormDefaults = {
         {
           sub_event_id: "send_it_empty_in_create_event",
           activity_id: "send_it_empty_in_create_event",
-          activity_title: "kabalat shabbat",
+          activity_title: "activity",
           activity_type: "after_sunset",
-          activity_time: "18",
+          activity_time: "0",
           activity_status: 1,
         },
-        {
-          sub_event_id: "send_it_empty_in_create_event",
-          activity_id: "send_it_empty_in_create_event",
-          activity_title: "by admin 2",
-          activity_type: "before_sunset",
-          activity_time: "10",
-          activity_status: 0,
-        },
+       
       ],
     },
-    {
-      sub_event_id: "send_it_empty_in_create_event",
-      activities: [
-        {
-          sub_event_id: "send_it_empty_in_create_event",
-          activity_id: "send_it_empty_in_create_event",
-          activity_title: "by admin 3",
-          activity_type: "after_sunset",
-          activity_time: "20",
-          activity_status: 0,
-        },
-      ],
-    },
+    
   ],
 };
 

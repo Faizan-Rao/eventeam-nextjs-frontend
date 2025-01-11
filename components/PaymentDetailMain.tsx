@@ -51,7 +51,7 @@ const PaymentDetailMain = () => {
   return (
     <>
       {/* Web Template */}
-      <div className="flex flex-col gap-6 p-4 rounded-md bg-white  min-h-screen">
+      <div className="flex flex-col  p-4 rounded-md bg-white  min-h-screen">
         {/* KPI Container */}
         <div className="sm:hidden md:flex my-5 items-center sm:justify-center lg:justify-center gap-4 flex-wrap">
         {
