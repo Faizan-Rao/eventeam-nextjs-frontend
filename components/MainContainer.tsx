@@ -11,13 +11,13 @@ const MainContainer = ({ data }: { data: any }) => {
         <KPIContainer />
       </div>
       <div className="flex-1 ">
-        <EventDashContainer data={data?.data["upcoming_events"][0]} />
+        <EventDashContainer data={data?.data?.["upcoming_events"][0]} />
       </div>
 
       {/* <div className=" flex-1 flex sm:flex-col md:flex-row justify-between gap-2 flex-wrap"> */}
       <div className=" grid sm:grid-cols-1 md:grid-cols-3 gap-4">
-        <ChartsMain chartData={data?.data["chart_data"]} />
-        {data && <RecentRegMain regData={data?.data["recent_registrants"]} />}
+        <ChartsMain chartData={data?.data?.["chart_data"]} />
+        {data && <RecentRegMain regData={data?.data?.["recent_registrants"]} />}
       </div>
       {!data && (
         <div className="flex justify-stretch ">
