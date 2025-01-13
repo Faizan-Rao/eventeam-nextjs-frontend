@@ -184,7 +184,7 @@ const SideBar = ({
         >
           <div className="flex ">
             <ProfileDropdown setNav={setNavOpen} />
-            {/* <LanguageSelector /> */}
+            <LanguageSelector />
           </div>
           <div
             className={clsx(

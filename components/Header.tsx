@@ -38,7 +38,7 @@ const Header = ({
 
         <span className="sm:hidden md:flex    flex-wrap">
           <ProfileDropdown />
-          {/* <LanguageSelector /> */}
+          <LanguageSelector />
         </span>
 
         <div className="text-black  gap-4 items-center sm:flex md:hidden">
