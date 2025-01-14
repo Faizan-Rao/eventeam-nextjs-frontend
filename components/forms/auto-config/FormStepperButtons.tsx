@@ -17,11 +17,20 @@ export const FormStepperButtons = ({
 }) => {
   const {
     formState: { errors },
+    trigger,
+    clearErrors
   } = useFormContext();
 
   const handleValidation = (e: any) => {
     e.preventDefault();
-    if (currentStep === 0 && !errors?.event_description && !errors?.title &&  !errors?.start_date && !errors?.end_date  ) {
+   
+    if (
+      currentStep === 0 &&
+      !errors?.event_description &&
+      !errors?.title &&
+      !errors?.start_date &&
+      !errors?.end_date
+    ) {
       handleStepInc(e);
     }
     if (currentStep === 1 && !errors?.tickets) {
@@ -36,16 +45,28 @@ export const FormStepperButtons = ({
   };
   return (
     <span className="flex gap-6 my-6 justify-end items-center">
-     {currentStep > 0 && <button
-        onClick={handleStepDec}
-        className="flex active:scale-[0.95] transition-all justify-between select-none items-center gap-2 "
-      >
-        <ChevronLeft size={15} />
-        <span>Previous</span>
-      </button>}
+      {currentStep > 0 && (
+        <button
+          onClick={handleStepDec}
+          className="flex active:scale-[0.95] transition-all justify-between select-none items-center gap-2 "
+        >
+          <ChevronLeft size={15} />
+          <span>Previous</span>
+        </button>
+      )}
       {currentStep + 1 !== autoConfigSteps.length && (
         <button
-          onClick={handleValidation}
+          onClick={async (e) => {
+           const result =  await trigger()
+           console.log("trigger result",result)
+           if(result)
+           {
+            
+            handleStepInc(e);
+           }
+           
+            // handleValidation(e);
+          }}
           className="bg-[#7655FA] active:scale-[0.95] transition-all text-white mx-4 px-7 py-2 rounded-full"
         >
           Continue

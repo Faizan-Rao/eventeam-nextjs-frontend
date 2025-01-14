@@ -37,7 +37,7 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
       <div className="sm:hidden md:flex flex-col gap-4">
         {(watch.sub_events || []).length > 0 && <PrayerForm />}
         {(watch.sub_events || []).length <= 0 && (
-          <p className="text-lg text-center">No Subevents Right Now...</p>
+          <p className="text-lg text-center p-7 text-[#999999] border-[4px] border-dashed">No Subevents Right Now...</p>
         )}
         {(watch.sub_events || []).map((el: any, i: number) => {
           return <SubEventWebActivity key={i} data={el} subEventId={i} />;

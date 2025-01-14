@@ -14,7 +14,7 @@ export const subevent = joi.object({
   event_capacity: joi.number().min(0).empty(null),
   address: joi.string().empty(""),
   description: joi.string().empty(""),
-  ticket_types: joi.array().items(ticket).min(1).required(),
+  ticket_types: joi.array().items(ticket).required(),
 });
 
 const activity = joi.object({
@@ -53,7 +53,7 @@ export const addEventSchema = joi.object({
     }),
   event_description: joi.string().required().label("Event Description"),
   tickets: joi.array().items(ticketType).min(1).required(),
-  sub_events: joi.array().items(subevent).min(1).required(),
+  sub_events: joi.array().items(subevent).required(),
   advance: joi.object({
     is_attendees_required: joi.string().required(),
     is_donation_allowed: joi.string().required(),
@@ -72,7 +72,7 @@ export const autoConfigSchema = joi.object({
   end_date: joi.date().empty(""),
   event_description: joi.string().required().label("Event Description"),
   tickets: joi.array().items(ticketType).min(1).required(),
-  sub_events: joi.array().items(subevent).min(1).required(),
+  sub_events: joi.array().items(subevent).required(),
   advance: joi.object({
     is_attendees_required: joi.string().required(),
     is_donation_allowed: joi.string().required(),
@@ -88,10 +88,10 @@ export const autoConfigSchema = joi.object({
 // export const autoForm = window.location.href.includes("add-event") ? addEventSchema : autoConfigSchema
 
 export const autoFormDefaults = {
-  // "title": "asasas",
-  // "start_date": "2024-08-07T22:22:14.000000Z",
-  // "end_date": "2024-08-07T22:22:14.000000Z",
-  // event_description: "<p>ascsdcsacSDC</p",
+  "title": "asasas",
+  "start_date": "2025-01-07T22:22:14.000000Z",
+  "end_date": "2025-01-07T22:22:14.000000Z",
+  event_description: "<p>ascsdcsacSDC</p",
   tickets: [
     {
       title: "Child",
@@ -104,50 +104,7 @@ export const autoFormDefaults = {
       description: "",
     },
   ],
-  // sub_events: [
-  //   {
-  //     title: "Friday",
-  //     date: "11/03/2024 08:35",
-  //     status: "1",
-  //     manage_inventory: 0,
-  //     event_capacity: null,
-  //     address: "123 Street, City",
-  //     description: "this is the subevent description",
-  //     ticket_types: [
-  //       {
-  //         title: "Child",
-  //         price: "10",
-  //         description: "",
-  //       },
-  //       {
-  //         title: "Child",
-  //         price: "10",
-  //         description: "",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     title: "Saturday",
-  //     date: "11/03/2024 08:35",
-  //     status: "1",
-  //     manage_inventory: 0,
-  //     event_capacity: null,
-  //     address: "",
-  //     description: "",
-  //     ticket_types: [
-  //       {
-  //         title: "Child",
-  //         price: "10",
-  //         description: "",
-  //       },
-  //       {
-  //         title: "Adult",
-  //         price: "30",
-  //         description: "",
-  //       },
-  //     ],
-  //   },
-  // ],
+  sub_events: [  ],
   advance: {
     is_attendees_required: "1",
     is_show_address: "1",

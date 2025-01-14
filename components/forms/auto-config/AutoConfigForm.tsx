@@ -98,16 +98,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
   const watch = useWatch({ control });
   console.log(watch);
 
-  useEffect(() => {
-    trigger();
-  }, [trigger, watch]);
-
-  // const handleErrors = useCallback(() =>{
-  //   const validationError = autoFormValidation(watch)
-  //   setErrors(validationError || [])
-  // }, [watch])
-
-  // useEffect(()=>handleErrors(), [handleErrors, watch])
+  
 
   const handleStepInc = (e: React.MouseEvent) => {
     e.preventDefault();
