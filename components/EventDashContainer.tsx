@@ -8,13 +8,29 @@ import { Skeleton } from "./ui/skeleton";
 import { format } from "date-fns";
 import parse from 'html-react-parser'
 import clsx from "clsx";
+import Link from "next/link";
 const EventDashContainer = ({ data }: { data: any }) => {
   let ref = useRef(null);
   console.log(data);
   console.log(ref);
   return (
     <>
-      {!data && <Skeleton className="h-[125px] w-full rounded-xl" />}
+      {!data && <div className="flex container p-8 gap-6 md:rounded-md flex-col bg-[#1E1640] text-white">
+          <div className="flex sm:justify-center md:justify-between items-center gap-4 flex-wrap">
+            <div className="flex flex-col gap-1">
+              <h4 className="text-2xl">No Upcoming Event Right Now</h4>
+              
+            </div>
+            <span className="flex items-center gap-2">
+              <a href={"/dashboard/add-event"} className="bg-[#7655FA] text-base rounded-full px-7 py-3 text-center">
+                Start Here
+              </a>
+            
+            </span>
+          </div>
+
+          
+        </div>}
       {data && (
         <div className="flex container p-8 gap-6 md:rounded-md flex-col bg-[#1E1640] text-white">
           <div className="flex sm:justify-center md:justify-between items-center gap-4 flex-wrap">

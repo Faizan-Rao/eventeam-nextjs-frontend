@@ -11,7 +11,7 @@ const UpcomingEvents = ({ data }: { data: any }) => {
       <h1 className="font-semibold text-[#4A4A4A] text-xl">Upcoming Events</h1>
       <div className="flex  flex-1 flex-col gap-5 overflow-auto md:overflow-x-hidden ">
         {/* Skeleton Loader */}
-        {(data?.data?.["upcoming_events"] || []).length <= 0 && (
+        {/* {(data?.data?.["upcoming_events"] || []).length <= 0 && (
           <div className="flex flex-col space-y-3">
             <Skeleton className="h-[125px] w-[250px] rounded-xl" />
             <div className="space-y-2">
@@ -19,7 +19,10 @@ const UpcomingEvents = ({ data }: { data: any }) => {
               <Skeleton className="h-4 w-[200px]" />
             </div>
           </div>
-        )}
+        )} */}
+       {(data?.data?.["upcoming_events"] || []).length <= 0 && (
+          <p className="border-[4px] p-4 border-dashed text-center text-[#999999]">No Upcoming Events Right Now</p>
+        )} 
 
         {(data?.data?.["upcoming_events"] || []).length > 0 &&
           data?.data?.["upcoming_events"].map((el: any, index: number) => {
