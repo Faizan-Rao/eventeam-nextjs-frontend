@@ -53,6 +53,8 @@ const UpcomingSubeventPreviewDialog = ({
                   />
                 );
               })}
+
+              {(data.sub_events.length <= 0) &&  <p className="border-[4px] flex-1 mt-4 p-4 border-dashed text-center text-[#999999]">No Upcoming Events Right Now</p>}
             </div>
           </DialogDescription>
         </DialogHeader>

@@ -1,9 +1,35 @@
-
+"use client"
+import { user } from "@/configs/axios";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useLayoutEffect } from "react";
 
 
 const PendingApprovalPage = () => {
+  const pathname = usePathname()
+   useLayoutEffect(() => {
+      console.log("user data here", user);
+      if (
+        user["token"] &&
+        pathname.includes("/pending-approval") &&
+        user?.is_active === 1
+      ) {
+        window.location.replace("/dashboard");
+        return
+      }
+      if (
+        user["token"] &&
+        pathname.includes("/dashboard") &&
+        user?.is_active !== 1
+      ) {
+        window.location.replace("/pending-approval");
+      }
+      if (!user["token"] && pathname.includes("/dashboard")) {
+        window.location.replace("/login");
+      }
+    }, [pathname]);
+    
   return (
     <div className="relative overflow-hidden min-h-screen h-full flex flex-col justify-between items-center">
       <div className="md:hidden sm:flex justify-center items-center gap-2  my-4">
@@ -37,7 +63,22 @@ const PendingApprovalPage = () => {
             support@eventeam.com
           </span>
         </p>
+        <div
+          className="text-[white] flex justify-center items-center gap-4 px-4  py-2 rounded-full bg-[#7655fa] cursor-pointer active:scale-[0.95] transition-all"
+              onClick={() => {
+                localStorage.removeItem("user");
+                let local = localStorage.getItem("user");
+                if (!local) {
+                  window.location.replace("/login");
+                }
+               
+              }}
+            >
+           Log Out <LogOut size={35} className=" rounded-full transition-all hover:text-white p-2"/> 
+            </div>
       </div>
+
+    
 
       <div className="sm:hidden md:flex justify-center items-center gap-2  my-4">
         <Image

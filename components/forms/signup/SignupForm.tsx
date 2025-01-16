@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import joi from "joi";
@@ -41,7 +41,9 @@ const SignupForm = () => {
     },
     reValidateMode: "onChange",
   });
-
+useEffect(()=>{
+  setTimeout(()=>setPending(false), 10000)
+},[isPending])
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
@@ -50,7 +52,7 @@ const SignupForm = () => {
       //   toast("Password Missmatched", { type: "warning" });
       //   return
       // }
-      const { data: response, status } = await Auth.signup(data);
+      const response = await Auth.signup(data);
 
       const user = {
         token: response.data.data["token"],
@@ -62,7 +64,7 @@ const SignupForm = () => {
       setPending(false)
     } catch (error) {
       if ((error as any).status !== 200) {
-        Object.values((error as any)?.response?.data.data).forEach(
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
           (el: any) => {
             el.forEach((el: any) => {
               toast(el, { type: "error" });
