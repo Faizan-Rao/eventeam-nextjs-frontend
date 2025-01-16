@@ -183,7 +183,8 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                               setData({
                                 ...data,
                                 activity_time: `${
-                                  parseInt(data.activity_time) - 1
+                                  parseInt(data.activity_time) > 0 ?
+                                  parseInt(data.activity_time) - 1 : 0
                                 }`,
                               });
                             }}

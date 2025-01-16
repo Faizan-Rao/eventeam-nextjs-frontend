@@ -16,6 +16,7 @@ import EditPrayerTimeDialog from "./EditPrayerTImeDialog";
 import SubEventWebActivity from "./SubEventWebActivity";
 import PrayerForm from "./PrayerForm";
 import MobileActivitySection from "./MobileActivitySection";
+import { usePathname } from "next/navigation";
 
 interface IPrayerTime {
   control: Control<any, any>;
@@ -26,7 +27,7 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
   const [subActivities, setSubActivities] = useState<any>();
 
   const watch = useWatch({ control });
-
+  const pathname = usePathname();
   const {
     formState: { errors },
   } = useFormContext();
@@ -35,9 +36,9 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
     <>
       {/* Web Interface */}
       <div className="sm:hidden md:flex flex-col gap-4">
-        {(watch.sub_events || []).length > 0 && <PrayerForm />}
+        {(watch.sub_events || []).length > 0 && pathname.includes("/auto-config") &&<PrayerForm />}
         {(watch.sub_events || []).length <= 0 && (
-          <p className="text-lg text-center p-7 text-[#999999] border-[4px] border-dashed">No Subevents Right Now...</p>
+          <p className="text-lg text-center p-7 text-[#999999] border-[4px] border-dashed">Create a Subevent First...</p>
         )}
         {(watch.sub_events || []).map((el: any, i: number) => {
           return <SubEventWebActivity key={i} data={el} subEventId={i} />;
@@ -51,7 +52,7 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
 
       {/* Mobile Interface */}
       <div className="sm:flex md:hidden flex-col min-w-[90vw]">
-        <PrayerForm />
+        {pathname.includes("/auto-config") && <PrayerForm />}
         <div className="flex flex-col gap-4">
           {watch.activities?.map((item: any, index: number) => 
           item !== undefined && <MobileActivitySection key={index} data={item} index={index}/>
