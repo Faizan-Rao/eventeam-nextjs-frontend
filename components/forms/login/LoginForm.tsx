@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import { Auth } from "@/configs/apiRoutes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { joiResolver } from "@hookform/resolvers/joi";
 import joi from "joi";
+import { Loader2 } from "lucide-react";
 const schema = joi
   .object({
     email: joi
@@ -21,6 +21,7 @@ const schema = joi
 
 const LoginForm = () => {
   const router = useRouter();
+  const [isPending, setPending] = useState(false)
   const {
     control,
     register,
@@ -39,7 +40,9 @@ const LoginForm = () => {
 
   const onSubmit = async (data: any) => {
     try {
+      setPending(true)
       const response = await Auth.login(data);
+     
       const user = {
         token: response.data.data["token"],
         ...response.data.data["user"],
@@ -48,12 +51,18 @@ const LoginForm = () => {
       localStorage.setItem("recent-login", "1");
       toast("Login Successful", { type: "success" });
       window.location.replace("/dashboard");
+      setPending(false)
     } catch (error) {
-      console.log(error);
-      toast("Login Failed", { type: "error" });
-    }
+      if ((error as any).status !== 200) {
+         
+                   toast((error as any)?.response?.data.message, { type: "error" })
+                
+             
+      }
+    
+      setPending(false)
   };
-
+  }
   return (
     <div className=" flex flex-col justify-center items-center  md:min-h-screen ">
       <form
@@ -101,8 +110,9 @@ const LoginForm = () => {
           <p className="text-[#7655fa] ">Forgot Password?</p>
         </div>
 
-        <button className="px-4 my-4 py-2 active:scale-[0.98] transition-all bg-[#7655fa] font-semibold rounded-full text-white">
-          Sign In
+        <button disabled={isPending} className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full">
+          {" "}
+         {isPending && <Loader2 className="animate-spin h-5 w-5"/>} Sign In
         </button>
       </form>
     </div>

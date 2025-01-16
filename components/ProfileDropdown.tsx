@@ -75,18 +75,7 @@ const ProfileDropdown = ({setNav} : {setNav? : any}) => {
               </Link>
             </DropdownMenuItem>
            
-            <DropdownMenuItem
-              onClick={() => {
-                localStorage.removeItem("user");
-                let local = localStorage.getItem("user");
-                if (!local) {
-                  router.replace("/login");
-                }
-                handleOpen();
-              }}
-            >
-             <LogOut size={18} className="mr-6 "/> <p>Logout</p> 
-            </DropdownMenuItem>
+           
           </DropdownMenuContent>
         </DropdownMenu>
       )}

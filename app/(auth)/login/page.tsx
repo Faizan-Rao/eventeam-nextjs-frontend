@@ -3,13 +3,21 @@ import React, { useEffect, useState } from "react";
 import { easeIn, easeInOut, motion } from "framer-motion";
 import LoginForm from "@/components/forms/login/LoginForm";
 import SignupForm from "@/components/forms/signup/SignupForm";
+import { usePathname } from "next/navigation";
+import { user } from "@/configs/axios";
 
 const Login = () => {
   useEffect(() => {
     document.documentElement.classList.add("overflow-hidden");
   });
   const [isLeft, setLeft] = useState("left");
+  const pathname = usePathname()
 
+  useEffect(() => {
+     if (user["token"]) {
+         window.location.replace("/dashboard");
+     }
+   }, [pathname]);
   return (
     <div className="sm:overflow-y-auto lg:sm:overflow-y-hidden  sm:max-h-[100vh] md:max-h-auto">
       <div

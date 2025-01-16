@@ -4,7 +4,7 @@ import clsx from "clsx";
 import SearchInput from "./SearchInput";
 import ProfileDropdown from "./ProfileDropdown";
 import LanguageSelector from "./LanguageSelector";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 
 const Header = ({
   setNavOpen,
@@ -36,8 +36,21 @@ const Header = ({
           <SearchInput />
         </div>
 
-        <span className="sm:hidden md:flex    flex-wrap">
+        <span className="sm:hidden md:flex  items-center   flex-wrap">
           <ProfileDropdown />
+          <div
+          className="text-[#999999] cursor-pointer active:scale-[0.95] transition-all"
+              onClick={() => {
+                localStorage.removeItem("user");
+                let local = localStorage.getItem("user");
+                if (!local) {
+                  window.location.replace("/login");
+                }
+               
+              }}
+            >
+             <LogOut size={35} className="text-[#FF0000] hover:bg-[#ff0000ab] rounded-full transition-all hover:text-white p-2"/> 
+            </div>
           <LanguageSelector />
         </span>
 

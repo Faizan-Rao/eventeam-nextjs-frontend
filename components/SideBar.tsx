@@ -10,7 +10,7 @@ import ArrowDown from "./icons/ArrowDown";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ProfileDropdown from "./ProfileDropdown";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { user } from "@/configs/axios";
 
 export const mobileWidth = 500;
@@ -182,8 +182,21 @@ const SideBar = ({
             !isNavOpen && "sm:h-0 "
           )}
         >
-          <div className="flex ">
+          <div className="flex  items-center gap-4">
             <ProfileDropdown setNav={setNavOpen} />
+            <div
+          className="text-red-800 cursor-pointer active:scale-[0.95] transition-all"
+              onClick={() => {
+                localStorage.removeItem("user");
+                let local = localStorage.getItem("user");
+                if (!local) {
+                  window.location.replace("/login");
+                }
+               
+              }}
+            >
+             <LogOut size={18}  className="text-red-800"/> 
+            </div>
             <LanguageSelector />
           </div>
           <div
