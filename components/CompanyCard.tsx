@@ -21,6 +21,11 @@ import {
 import Link from "next/link";
 import CompanyDeleteDialog from "./DeleteCompanyDialog";
 import AddCompanyDialog from "./AddCompanyDialog";
+import { Switch } from "./ui/switch";
+import { useMutation } from "@tanstack/react-query";
+import { Companies } from "@/configs/apiRoutes";
+import { toast } from "react-toastify";
+import { queryClient } from "./MainLayoutGrid";
 
 interface ICompanyCard {
   logo?: string;
@@ -46,6 +51,16 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   id,
  data,
 }) => {
+  const mutate = useMutation({
+    mutationFn: async ()=> Companies.updateStatus(data.id),
+    onSuccess:()=>{
+      queryClient.invalidateQueries({queryKey:["companies"]})
+      toast("Company Status Updated", {type: "success"})
+    },
+    onError:(error : any)=>{
+      toast("Something Went Wrong", {type: "error"})
+    }
+  })
   const [openDelete, setDeleteOpen] = useState(false);
   const [openEdit, setEditOpen] = useState(false);
   const dummyImage =
@@ -78,8 +93,10 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             </div>
           </div>
         </div>
+        <div className="flex justify-center ml-4 items-center gap-1 self-start">
+                <Switch  onCheckedChange={()=> mutate.mutate()} checked={data.is_active === 1 ? true : false}/>
         <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center self-start active:scale-[0.90]  p-1 transition-all rounded-full  ">
+          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center  active:scale-[0.90]  p-1 transition-all rounded-full  ">
             <EllipsisVertical strokeWidth={1} />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -96,6 +113,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
         </DropdownMenu>
         <AddCompanyDialog editOpen={openEdit} setEditOpen={setEditOpen} data={data} type="edit" />
         <CompanyDeleteDialog open={openDelete} setOpen={setDeleteOpen} data={id} />
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div className="flex-1 flex items-center gap-4">
