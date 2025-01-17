@@ -73,8 +73,8 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             }}
             checked={watch.accept_cash_terms}
           />
-          <span className="text-[#999999] text-sm ">
-           {data.settings && parser(data.settings.regulation_text)}
+          <span className="text-[rgb(153,153,153)] text-sm ">
+           {data.settings && parser(`${data.settings.regulation_text}`)}
           </span>
         </div>
       </div>

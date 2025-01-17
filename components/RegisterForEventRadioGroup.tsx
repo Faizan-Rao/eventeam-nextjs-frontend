@@ -20,7 +20,7 @@ const RegisterForEventRadioGroup = ({settings}:{settings:any}) => {
           <div className="flex flex-col justify-center ">
             <h1 className="text-base font-semibold">Cash</h1>
             <p className="text-sm   text-[#999999] ">
-              {settings && parser(settings.cod_text)}
+              {settings && parser(`${settings.cod_text}`)}
             </p>
           </div>
         </Label>

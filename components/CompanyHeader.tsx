@@ -27,7 +27,7 @@ const CompanyHeader = ({data} : {data : any}) => {
 
           <div className="flex flex-col my-10">
             <h1 className="text-white font-semibold sm:text-2xl md:text-3xl">
-             {data?.full_name || ""}
+             {data?.full_name ?? ""}
             </h1>
             <h1 className="text-[#FFFFFFB2] font-semibold text-base">
               Company events
@@ -40,20 +40,20 @@ const CompanyHeader = ({data} : {data : any}) => {
             <span className="flex gap-4">
               <AtSign className="text-white" />
               <span className="text-white font-white sm:text-sm md:text-base ">
-                {data?.email || ""}
+                {data?.email ?? ""}
               </span>
             </span>
             <span className="flex gap-4">
               <Phone className="text-white" />
               <span className="text-white font-white sm:text-sm md:text-base ">
-                {data?.phone || ""}
+                {data?.phone ?? ""}
               </span>
             </span>
           </div>
           <span className="flex items-center gap-4">
             <Book className="text-white" />
             <span className="text-white font-white sm:text-sm md:text-base">
-              {parser(data?.about) || ""}
+              {parser(`${data?.about}`) ?? ""}
             </span>
           </span>
         </div>
