@@ -15,10 +15,10 @@ const MainContainer = ({ data }: { data: any }) => {
       </div>
 
       {/* <div className=" flex-1 flex sm:flex-col md:flex-row justify-between gap-2 flex-wrap"> */}
-      <div className=" grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+      {data && <div className=" grid sm:grid-cols-1 md:grid-cols-3 gap-4">
         <ChartsMain chartData={data?.data?.["chart_data"]} />
         {data && <RecentRegMain regData={data?.data?.["recent_registrants"]} />}
-      </div>
+      </div>}
       {!data && (
         <div className="flex justify-stretch ">
           <Skeleton className="sm:h-[125px] flex-1 w-[100%] md:h-[25rem] lg:[700px] sm:w-[125px] min-w-auto  rounded-xl" />

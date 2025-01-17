@@ -304,7 +304,7 @@ const CompaniesMainCont = () => {
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {(filteredData as any[]).map((el, key) => (
             <CompanyCard
-              key={key}
+              key={el.id}
               name={el["full_name"]}
               phone={el["phone"] || "No Phone"}
               address={el["address"] || "No Address"}
@@ -314,7 +314,7 @@ const CompaniesMainCont = () => {
               logo={el["photo"] || ""}
               slug={el["slug"]}
               id={el["id"]}
-              data={el}
+              data={filteredData[key]}
             />
           ))}
         </div>
@@ -325,7 +325,7 @@ const CompaniesMainCont = () => {
           {companies &&
             (companies.data.data as any[]).map((el: any, key: number) => (
               <CompanyCard
-                key={key}
+                key={el.id}
                 name={el["full_name"]}
                 phone={el["phone"] || "No Phone"}
                 address={el["address"] || "No Address"}
@@ -335,7 +335,7 @@ const CompaniesMainCont = () => {
                 logo={el["photo"] || ""}
                 slug={el["slug"]}
                 id={el["id"]}
-                data={el}
+                data={companies.data.data[key]}
               />
             ))}
         </div>

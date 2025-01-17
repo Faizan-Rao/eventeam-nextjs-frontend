@@ -37,7 +37,7 @@ interface ICompanyCard {
   stripe: number;
   slug: string;
   id: number;
-  data:any
+  data: any;
 }
 const CompanyCard: React.FC<ICompanyCard> = ({
   logo = "/profile_logo.svg",
@@ -49,18 +49,18 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   stripe = "0",
   slug = "",
   id,
- data,
+  data,
 }) => {
   const mutate = useMutation({
-    mutationFn: async ()=> Companies.updateStatus(data.id),
-    onSuccess:()=>{
-      queryClient.invalidateQueries({queryKey:["companies"]})
-      toast("Company Status Updated", {type: "success"})
+    mutationFn: async () => Companies.updateStatus(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["companies"] });
+      toast("Company Status Updated", { type: "success" });
     },
-    onError:(error : any)=>{
-      toast("Something Went Wrong", {type: "error"})
-    }
-  })
+    onError: (error: any) => {
+      toast("Something Went Wrong", { type: "error" });
+    },
+  });
   const [openDelete, setDeleteOpen] = useState(false);
   const [openEdit, setEditOpen] = useState(false);
   const dummyImage =
@@ -94,25 +94,47 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           </div>
         </div>
         <div className="flex justify-center ml-4 items-center gap-1 self-start">
-                <Switch  onCheckedChange={()=> mutate.mutate()} checked={data.is_active === 1 ? true : false}/>
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center  active:scale-[0.90]  p-1 transition-all rounded-full  ">
-            <EllipsisVertical strokeWidth={1} />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem className="active:scale-[0.95] transition-all">
-              <Link href={`/companies/${slug}`}>Company Events</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setDeleteOpen(true)}>
-              <p>Delete Company</p>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>
-              <p>Edit Company</p>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <AddCompanyDialog editOpen={openEdit} setEditOpen={setEditOpen} data={data} type="edit" />
-        <CompanyDeleteDialog open={openDelete} setOpen={setDeleteOpen} data={id} />
+          <Switch
+            onCheckedChange={() => mutate.mutate()}
+            checked={data.is_active === 1 ? true : false}
+          />
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger className="hover:bg-[#7655fa26] flex justify-center items-center  active:scale-[0.90]  p-1 transition-all rounded-full  ">
+              <EllipsisVertical strokeWidth={1} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem className="active:scale-[0.95] transition-all">
+                <Link href={`/companies/${slug}`}>Company Events</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="active:scale-[0.95] transition-all"
+                onClick={() => setDeleteOpen(true)}
+              >
+                <p>Delete Company</p>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="active:scale-[0.95] transition-all"
+                onClick={() => setEditOpen(true)}
+              >
+                <p>Edit Company</p>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {data && (
+            <>
+              <AddCompanyDialog
+                editOpen={openEdit}
+                setEditOpen={setEditOpen}
+                data={data}
+                type="edit"
+              />
+              <CompanyDeleteDialog
+                open={openDelete}
+                setOpen={setDeleteOpen}
+                data={id}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
@@ -124,7 +146,9 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             <span className="text-sm font-semibold text-[#999999]">
               Phone Number
             </span>
-            <p className="text-[#4a4a4a] font-semibold text-sm break-words break-all">{phone}</p>
+            <p className="text-[#4a4a4a] font-semibold text-sm break-words break-all">
+              {phone}
+            </p>
           </div>
         </div>
         <div className="flex-1 self-start flex items-center gap-4">
