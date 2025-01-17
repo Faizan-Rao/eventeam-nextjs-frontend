@@ -96,7 +96,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
 
   console.log("formErrors", formErrors);
   const watch = useWatch({ control });
-  console.log(watch);
+  console.log("autoconfig watch", watch);
 
   
 
@@ -120,7 +120,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       toast("AutoConfig Saved Successfully...", {
         type: "success",
       });
-      router.replace("/dashboard/my-events")
+      window.location.replace("/dashboard/my-events")
     },
     onError: () => {
       toast("AutoConfig Not Saved...", {

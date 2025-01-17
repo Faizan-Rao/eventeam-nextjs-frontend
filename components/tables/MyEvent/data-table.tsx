@@ -53,7 +53,20 @@ export function MyEventTable<TData, TValue>({
   const [open, setOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("");
-
+  const [FilteredData, setFilteredData] = useState([]);
+  const handleSearch = (value: any, name: string) => {
+  
+    let filteredData = data.filter((el) => {
+      return (
+        (el as any).title.toLowerCase().includes(value.toLowerCase())
+      );
+    })
+    console.log("selected row model 123",filteredData);
+    setFilteredData(
+      filteredData as any
+    );
+   
+    };
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
     setTimeout(() => {
@@ -72,6 +85,7 @@ export function MyEventTable<TData, TValue>({
   const handleClear = () => {
     setColumnFilters([]);
     setFilteredRows([]);
+    setFilteredData([])
     setSorting([]);
     setFilter([0, 0]);
     table.reset();
@@ -83,13 +97,16 @@ export function MyEventTable<TData, TValue>({
     if (col === "status") {
       if (text === "active") {
         setFilteredRows(data.filter((el) => (el as any).status === 1));
+        setFilteredData(data.filter((el) => (el as any).status === 1) as any);
       } else {
         setFilteredRows(data.filter((el) => !(el as any).status));
+        setFilteredData(data.filter((el) => !(el as any).status ) as any);
       }
     } else {
       setFilteredRows(
         data.filter((el) => (el as any).current_status.toLowerCase() === text)
       );
+      setFilteredData(data.filter((el) => (el as any).current_status.toLowerCase() === text) as any);
     }
   };
 
@@ -141,6 +158,7 @@ export function MyEventTable<TData, TValue>({
               table
                 .getColumn("title")
                 ?.setFilterValue(event.target.value ?? "");
+                handleSearch(event.target.value, "title");
             }}
             className="max-w-full self-stretch flex-1 outline-none sm:flex-1  "
           />
@@ -363,7 +381,18 @@ export function MyEventTable<TData, TValue>({
       </div>
 
       <div className="sm:flex md:hidden flex-col gap-4">
-        {(data as any[]).map((element, index) => {
+        {FilteredData.length <= 0 && (data as any[]).map((element, index) => {
+          return (
+            <MyEventCard
+              selectedRecord={selectedRecord}
+              setSelectedRecord={setSelectedRecord}
+              key={index}
+              data={element}
+              index={index}
+            />
+          );
+        })}
+        {FilteredData.length > 0 && FilteredData.map((element, index) => {
           return (
             <MyEventCard
               selectedRecord={selectedRecord}

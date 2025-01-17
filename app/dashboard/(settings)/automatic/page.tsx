@@ -33,7 +33,7 @@ const AutomaticForm = () => {
   const autoformData = autoforms?.data.data.events;
   const searchCard = (e: any) => {
     const filteredData = autoformData.filter((el: any, i: number) =>
-      el.title.includes(e.target.value)
+      el.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFiltered(filteredData);
   };
