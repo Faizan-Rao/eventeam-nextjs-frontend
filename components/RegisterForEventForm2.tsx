@@ -14,11 +14,12 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   const formContext = useFormContext();
   const { control, setValue } = formContext;
   const watch = useWatch({ control });
-
+  console.log(data)
   
   return (
     <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
-      <RegsiterForEventDonation data={data} />
+      {data.settings &&
+          data.settings.show_donation_fields_on_forms === "1" &&<RegsiterForEventDonation data={data} />}
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
         <div className="flex gap-4 text-base justify-between">

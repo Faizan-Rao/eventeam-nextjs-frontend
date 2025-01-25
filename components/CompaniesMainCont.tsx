@@ -42,6 +42,7 @@ import { FreeMode, Autoplay } from "swiper/modules";
 const CompaniesMainCont = () => {
   const [open, setOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [searchString, setSearchString] = useState("");
 
   const {
     isPending: isCompaniesPending,
@@ -62,14 +63,20 @@ const CompaniesMainCont = () => {
     queryFn: Dashboard.getKPI,
   });
   const [filteredData, setFilteredData] = useState([]);
-
+console.log("Companies Filtered Data", filteredData)
   const handleSearch = (value: any, name: string) => {
+   
     if (_.isString(value)) {
       const searchedData = (companies?.data["data"] as any).filter(
         (el: any, index: number) => {
           return (el as any)[name].toLowerCase().includes(value.toLowerCase());
         }
       );
+      if(searchedData.length === 0)
+      {
+        setFilteredData([]);
+        return
+      }
       setFilteredData(searchedData as any);
     } else {
       const searchedData = (companies?.data["data"] as any).filter(
@@ -77,13 +84,18 @@ const CompaniesMainCont = () => {
           return (el as any)[name] === value;
         }
       );
+      if(searchedData.length === 0)
+        {
+          setFilteredData([]);
+          return
+        }
       setFilteredData(searchedData as any);
     }
   };
 
   console.log("companies", companies);
   return (
-    <div className="flex flex-col gap-4 bg-white sm:p-2 lg:p-6 md:rounded-lg">
+    <div className="flex flex-col gap-4 bg-white sm:p-2 lg:p-6 md:rounded-lg min-h-screen">
       <div className="sm:hidden md:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white p-2 mb-4  ">
         <KPICard
           title="Total Companies"
@@ -165,9 +177,10 @@ const CompaniesMainCont = () => {
         <h1 className="text-[#4a4a4a] text-lg col-sp font-semibold">
           All Companies{" "}
           {`(${
-            filteredData.length > 0
-              ? filteredData.length
-              : companies?.data.data.length || 0
+            filteredData.length <= 0 && searchString === ""
+            ? companies?.data.data.length || 0  
+            : filteredData.length
+               
           })`}
         </h1>
         {/* <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 sm:gap-4 md:gap-1 jusitfy-center"> */}
@@ -177,9 +190,13 @@ const CompaniesMainCont = () => {
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
-              onChange={(event) =>
+              onChange={(event) => {
+
                 handleSearch(event.target.value, "full_name")
+                setSearchString(event.target.value)
               }
+              }
+              value={searchString}
               className="w-full outline-none sm:py-1 md:py-0 text-base bg-transparent w "
             />
           </div>
@@ -201,6 +218,7 @@ const CompaniesMainCont = () => {
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
                     onClick={() => {
                       setSelectedFilter("active");
+                      setSearchString("active");
                       handleSearch(1, "is_active");
                     }}
                   >
@@ -218,6 +236,7 @@ const CompaniesMainCont = () => {
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
                     onClick={() => {
                       setSelectedFilter("inactive");
+                      setSearchString("inactive")
                       handleSearch(0, "is_active");
                     }}
                   >
@@ -238,6 +257,7 @@ const CompaniesMainCont = () => {
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
                     onClick={() => {
                       setSelectedFilter("connected");
+                      setSearchString("connected")
                       handleSearch(1, "stripe_account_status");
                     }}
                   >
@@ -255,6 +275,7 @@ const CompaniesMainCont = () => {
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
                     onClick={() => {
                       setSelectedFilter("disconnected");
+                      setSearchString("disconnected")
                       handleSearch(0, "stripe_account_status");
                     }}
                   >
@@ -278,6 +299,7 @@ const CompaniesMainCont = () => {
                         setFilteredData([]);
                         setSelectedFilter("");
                         setOpen(false);
+                        setSearchString("")
                       }}
                     >
                       Clear Filters
@@ -300,7 +322,7 @@ const CompaniesMainCont = () => {
         </div>
       </div>
 
-      {filteredData.length > 0 && (
+      {searchString !== ""  && (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {(filteredData as any[]).map((el, key) => (
             <CompanyCard
@@ -317,10 +339,12 @@ const CompaniesMainCont = () => {
               data={filteredData[key]}
             />
           ))}
+
+          {filteredData.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> No Results Found</p>}
         </div>
       )}
 
-      {filteredData.length <= 0 && (
+      {searchString === "" && (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
           {companies &&
             (companies.data.data as any[]).map((el: any, key: number) => (
@@ -338,6 +362,7 @@ const CompaniesMainCont = () => {
                 data={companies.data.data[key]}
               />
             ))}
+            {companies?.data.data.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> No Results Found</p>}
         </div>
       )}
     </div>

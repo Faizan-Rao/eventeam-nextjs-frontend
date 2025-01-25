@@ -78,12 +78,12 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
   const mutationAdd = useMutation({
     mutationFn: AutoFormAPI.createAutoConfig,
     onSuccess: () => {
-      window.location.reload();
+      queryClient.invalidateQueries({queryKey:["auto_form"]})
       toast("Creation Succesfull", {
         type: "success",
       });
     },
-    onError: () => {
+    onError: (error) => {
       toast("Creation Failed", {
         type: "error",
       });

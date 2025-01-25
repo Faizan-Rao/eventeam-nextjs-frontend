@@ -375,11 +375,19 @@ const SingleEventCont = ({ data }: { data: any }) => {
               <span
                 className={clsx(
                   " px-4 py-1 rounded-full bg-[#1EFF0026]",
-                  !status && "bg-[#FF000026]"
+                  !(
+                    data &&
+                    data?.event.advances
+                      ?.is_donation_allowed === "1"
+                  ) && "bg-[#FF000026]"
                 )}
               >
                 <span className="font-semibold text-sm text-[#4a4a4a]">
-                  {status ? "Active" : "Inactive"}
+                {data &&
+                data?.event.advances
+                  ?.is_donation_allowed === "1"
+                  ? "Active"
+                  : "Inactive"}
                 </span>
               </span>
             </div>

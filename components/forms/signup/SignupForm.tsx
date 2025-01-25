@@ -25,7 +25,7 @@ const schema = joi
 
 const SignupForm = () => {
   const router = useRouter();
-  const [isPending, setPending] = useState(false)
+  const [isPending, setPending] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,13 +41,13 @@ const SignupForm = () => {
     },
     reValidateMode: "onChange",
   });
-useEffect(()=>{
-  setTimeout(()=>setPending(false), 10000)
-},[isPending])
+  useEffect(() => {
+    setTimeout(() => setPending(false), 10000);
+  }, [isPending]);
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
-      setPending(true)
+      setPending(true);
       // if (data["confirm_password"] !== data["regpassword"]) {
       //   toast("Password Missmatched", { type: "warning" });
       //   return
@@ -61,7 +61,7 @@ useEffect(()=>{
       localStorage.setItem("user", JSON.stringify(user));
       toast("Signup Successful", { type: "success" });
       window.location.replace("/dashboard");
-      setPending(false)
+      setPending(false);
     } catch (error) {
       if ((error as any).status !== 200) {
         Object.values((error as any)?.response?.data.data ?? {}).forEach(
@@ -71,10 +71,8 @@ useEffect(()=>{
             });
           }
         );
-
-        
       }
-      setPending(false)
+      setPending(false);
     }
   };
 
@@ -164,9 +162,12 @@ useEffect(()=>{
           )}
         </div>
 
-        <button disabled={isPending} className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full">
+        <button
+          disabled={isPending}
+          className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full"
+        >
           {" "}
-         {isPending && <Loader2 className="animate-spin h-5 w-5"/>} Sign Up
+          {isPending && <Loader2 className="animate-spin h-5 w-5" />} Sign Up
         </button>
       </form>
     </div>

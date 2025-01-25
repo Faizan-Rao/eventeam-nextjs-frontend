@@ -15,7 +15,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
   const hiddenInputRef = useRef(null);
   const [fileUrl, setFileUrl] = useState<string>(profile?.photo);
   const [fileData, setFile] = useState<any>();
-  // console.log(profile)
+  
   const {
     control,
     register,
@@ -32,18 +32,24 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
 
   const mutateProfile = useMutation({
     mutationFn: Profile.updateGenInfo,
-    onSuccess: ()=>{
-      queryClient.invalidateQueries({queryKey: ["profile"]})
-      toast("Update Successfull.." ,{
-        type: "success"
-      })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      toast("Update Successfull..", {
+        type: "success",
+      });
     },
-    onError: ()=>{
-      toast("Updation Failed.." , {
-        type: "error"
-      })
-    }
-  })
+    onError: (error) => {
+     if ((error as any).status !== 200) {
+             Object.values((error as any)?.response?.data.data ?? {}).forEach(
+               (el: any) => {
+                 el.forEach((el: any) => {
+                   toast(el, { type: "error" });
+                 });
+               }
+             );
+           }
+    },
+  });
   const handleUpload = (e: React.MouseEvent) => {
     e.preventDefault();
     (hiddenInputRef.current as any).click();
@@ -85,7 +91,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
 
   const onSubmit = (data: any) => {
     let formData = new FormData();
-
+   
     if (data) {
       formData.append("photo", fileData);
       formData.append("company_name", data.company);
@@ -93,14 +99,13 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
       formData.append("email", data.email);
       formData.append("phone", data.phone);
     }
-    // console.log(formData.get("company"))
-    mutateProfile.mutate(formData)
+   
+    mutateProfile.mutate(formData);
   };
 
   return (
     <>
-    
-      { (
+      {
         <div className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white sm:flex-wrap md:flex-nowrap ">
           <div className="flex justify-between items-center">
             <h1 className="text-[#4a4a4a] text-lg font-semibold">
@@ -196,7 +201,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
                     placeholder="Phone Number"
                     defaultValue={profile?.phone}
                     className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
-                    {...register("phone", {setValueAs: String})}
+                    {...register("phone", { setValueAs: String })}
                   />
                 </div>
               </div>
@@ -231,7 +236,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
             </div>
           </form>
         </div>
-      )}
+      }
     </>
   );
 };

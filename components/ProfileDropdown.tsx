@@ -15,7 +15,7 @@ import { Profile } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
 import { useRouter } from "next/navigation";
 
-const ProfileDropdown = ({setNav} : {setNav? : any}) => {
+const ProfileDropdown = ({ setNav }: { setNav?: any }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(false);
   const router = useRouter();
@@ -65,7 +65,14 @@ const ProfileDropdown = ({setNav} : {setNav? : any}) => {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={()=>{handleOpen(); setNav(false)}}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleOpen();
+                if (setNav !== undefined) {
+                  setNav(false);
+                }
+              }}
+            >
               <Link
                 href={"/dashboard/company-profile"}
                 className="flex justify-between items-center gap-6"
@@ -74,8 +81,6 @@ const ProfileDropdown = ({setNav} : {setNav? : any}) => {
                 <span>Profile</span>
               </Link>
             </DropdownMenuItem>
-           
-           
           </DropdownMenuContent>
         </DropdownMenu>
       )}

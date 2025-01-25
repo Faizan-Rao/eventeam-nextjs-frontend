@@ -54,7 +54,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
   };
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log("edit address info profile",data);
   };
   return (
    
@@ -152,14 +152,14 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
         </span>
         <div className="flex flex-col gap-2 border-[1px] rounded-md p-4">
           <div className="bg-[#7655FA26] text-[#4a4a4a] flex items-center justify-center h-[40px] w-auto text-center rounded-md text-sm ">
-            <span>Your default city {defaultCity}</span>
+            <span>Your default city to calculate sabbath time</span>
           </div>
           <span className="text-[#999999] text-sm font-semibold">City</span>
           <input
             type="text"
             placeholder="Default City"
             value={search}
-            defaultValue={defaultCity}
+            defaultValue={profile?.address?.default}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
             onChange={handleOnChange}
           />

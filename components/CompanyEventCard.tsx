@@ -1,4 +1,4 @@
-import { ChevronRight, Clock, Droplet, MapPin, Watch } from "lucide-react";
+import { ChevronRight, Clock, Droplet, Info, MapPin, Watch } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import parse from "html-react-parser";
@@ -50,39 +50,40 @@ const CompanyEventCard = ({
         <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
           <Watch className="text-[#7655fa]" size={35} />
           <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
-            Start Time
+            Start Date
           </span>
           <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
-            {format(new Date(data.start_date.replace(" ", "T")), "HH:mm")}
+            {format(new Date(data.start_date.replace(" ", "T")), "MMM dd yyyy")}
           </span>
         </span>
         <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
           <Watch className="text-[#7655fa]" size={35} />
           <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
-            End Time
+            End Date
           </span>
           <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
-            {format(new Date(data.start_date.replace(" ", "T")), "HH:mm")}
+            {format(new Date(data.end_date.replace(" ", "T")), "MMM dd yyyy")}
           </span>
         </span>
       </div>
       <div className="flex my-5 font-semibold flex-col gap-4">
-        <div className="flex gap-4">
-          <Clock className="text-[#7655fa] min-w-[30px]" />
-          <span className="text-sm text-[#999999]">{`${format(
+        <div className="flex gap-4 items-center">
+          <Info className="text-[#7655fa] min-w-[30px]" />
+          {/* <span className="text-sm text-[#999999]">{`${format(
             new Date(data.start_date.split(" ")[0]),
             "h a, do MMMM yyyy"
           )} - ${format(
             new Date(data.end_date.split(" ")[0]),
             "h a, do MMMM yyyy"
-          )}`}</span>
+          )}`}</span> */}
+          <span className="text-sm text-[#999999]">To Get Regsitered Press the Button Below.</span>
         </div>
-        <div className="flex gap-4">
+        {/* <div className="flex gap-4">
           <MapPin className="text-[#7655fa] min-w-[30px]" />
           <span className="text-sm text-[#999999]">
             789 , New Jersey Street, New York{" "}
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div
