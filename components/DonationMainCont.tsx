@@ -20,19 +20,20 @@ const DonationMainCont = () => {
 
   const donationData = donations && donations.data.data.data.company_donations;
   return (
-    <div className="flex flex-col transition-all ease-in bg-white p-5 gap-4 rounded-md">
+    <div className="flex flex-col transition-all ease-in bg-white p-5 gap-4 rounded-md min-h-screen">
       <div className="flex md:flex-row sm:flex-col justify-end gap-4  md:items-center flex-wrap">
         <span className="sm:flex-1 md:flex-none  flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <Search size={18} />
           <input
-            placeholder={"Search Donation..."}
+          type="number"
+            placeholder={"Search Amount..."}
             onChange={(event) => {
               let payload = [...donationData];
               let filteredData = payload.filter(
                 (e) =>
-                  e.title.includes(event.target.value) ||
-                  e.description.includes(event.target.value) ||
-                  `${e.amount}`.includes(event.target.value)
+                  e.title.includes(`${event.target.value}`) ||
+                  e.description.includes(`${event.target.value}`) ||
+                  `${e.amount}`.includes(`${event.target.value}`)
               );
               setFiltered(filteredData);
             }}
@@ -65,13 +66,13 @@ const DonationMainCont = () => {
           donationData.length > 0 &&
           donationData.map((el: any, i: number) => {
             console.log(el);
-            return <DonationCard key={i} data={el} />;
+            return <DonationCard key={el.id} data={el} />;
           })}
 
         {filtered.length > 0 &&
           filtered.map((el: any, i: number) => {
             console.log(el);
-            return <DonationCard key={i} data={el} />;
+            return <DonationCard key={el.id} data={el} />;
           })}
       </div>
     </div>

@@ -4,6 +4,7 @@ import UpcomingEventCard from "./UpcomingEventCard";
 import ArrowDown from "./icons/ArrowDown";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
+import { user } from "@/configs/axios";
 const UpcomingEvents = ({ data }: { data: any }) => {
   console.log("upcoming event data", data);
   return (
@@ -30,7 +31,7 @@ const UpcomingEvents = ({ data }: { data: any }) => {
             return <UpcomingEventCard key={index} data={el} />;
           })}
       </div>
-      <div className="flex gap-3 mt-4 justify-center items-center">
+      {user.role === "company" && <div className="flex gap-3 mt-4 justify-center items-center">
         <Link href={"/dashboard/add-event"} className=" flex active:scale-[0.95] transition-all text-nowrap px-4 py-2 items-center gap-3 mr-4 text-base rounded-full">
           <span className="rotate-[-270deg]">
             <ArrowDown />
@@ -40,7 +41,7 @@ const UpcomingEvents = ({ data }: { data: any }) => {
         <Link href={"/dashboard/my-events"} className="bg-[#7655FA] text-nowrap px-4 text-base py-2 active:scale-[0.95] transition-all text-white rounded-full">
           View All Events
         </Link>
-      </div>
+      </div>}
     </div>
   );
 };

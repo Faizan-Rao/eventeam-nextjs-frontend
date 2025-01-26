@@ -194,6 +194,11 @@ export const AutoFormAPI = {
     const response = await axiosWithToken.get(`/events/automatic-form/${id}`)
     return response
   },
+  directPublishForm : async (id:any) =>{
+    const response = await axiosWithToken.get(`/events/direct-publish/${id}`)
+    return response
+  },
+
   createAutoConfig : async (data : any) =>{
     const response = await axiosWithToken.post(`/company/settings/automatic-configurations`, data)
     return response

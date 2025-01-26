@@ -1,17 +1,8 @@
 "use client";
 import React, { useState, useDeferredValue } from "react";
-import CompanyCard from "./CompanyCard";
-import KPICard from "./KPICard";
-import { Building2, CircleCheckBig, ListFilter, Search } from "lucide-react";
-import CompanyAddDialog from "./AddCompanyDialog";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+
+import {  Search } from "lucide-react";
+
 import _ from "lodash";
 import LeadsCard from "./LeadsCard";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +10,7 @@ import { Leads } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
 import {CSVLink} from 'react-csv'
 import { format } from "date-fns";
+import { set } from "react-hook-form";
 
 
 const LeadsContainer = () => {
@@ -26,7 +18,7 @@ const LeadsContainer = () => {
   const [filteredData, setFilteredData] = useState<any>([]);
   const deferredFilter = useDeferredValue(filteredData)
  const [selectedRecord, setSelectedRecord] = useState(0);
-
+const [searchString, setSearchString] = useState("")
   const {
     isPending: isLeadsPending,
     data: leads,
@@ -54,6 +46,11 @@ const LeadsContainer = () => {
         console.log(el)
         return (el as any)[name].toLowerCase().includes(value.toLowerCase());
       });
+      if(searchedData.length <= 0)
+      {
+        setFilteredData([]);
+        return
+      }
       setFilteredData(searchedData as any);
     } 
     // else {
@@ -65,20 +62,21 @@ const LeadsContainer = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 bg-white lg:p-6 md:rounded-lg">
+    <div className="flex flex-col gap-4 bg-white lg:p-6 md:rounded-lg min-h-screen">
       
 
       <div className="flex flex-wrap sm:px-5 md:px-0 p-4 justify-between gap-4 ">
         <h1 className="text-[#4a4a4a] self-center text-lg font-semibold">
           All Leads{" "}
-          {`(${(filteredData.length > 0 ? filteredData.length : leads?.data.data.total_leads) || 0})`}
+          {`(${(filteredData.length <= 0) ? leads?.data.data.total_leads || 0 : deferredFilter.length})`}
         </h1>
         <div className="grid grid-cols-3 gap-2">
           <span className="flex self-center col-span-2 place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
             <Search size={18} />
             <input
               placeholder={"Search Companies..."}
-              onChange={(event) => handleSearch(event.target.value, "name")}
+              onChange={(event) => {handleSearch(event.target.value, "name"); setSearchString(event.target.value)}}
+              value={searchString}
               className="sm:max-w-xs md:max-w-lg outline-none text-base bg-transparent "
             />
           </span>
@@ -158,11 +156,11 @@ const LeadsContainer = () => {
         </div>
       </div>
 
-      {deferredFilter.length > 0 && (
-        <div className="flex  sm:flex-col md:flex-row sm:justify-start sm:items-center md:justify-center md:items-center  gap-4 flex-wrap">
+      {searchString !== "" && (
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 justify-stretch lg:grid-cols-3 gap-4 ">
           {(deferredFilter as any[]).map((el, key) => (
             <LeadsCard
-            key={key}
+            key={el.id}
             name={el.name}
             phone={el.phone}
             address={el.address}
@@ -178,6 +176,7 @@ const LeadsContainer = () => {
             setSelectedRecord={setSelectedRecord}
             />
           ))}
+          {deferredFilter.length <= 0 &&<p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> No Results Found</p>}
         </div>
       )}
 
@@ -187,11 +186,11 @@ const LeadsContainer = () => {
           <Skeleton className="flex-1 h-[280px] w-[350px] rounded-xl" />
 
         </div>)}
-      {deferredFilter.length <= 0 && (
-        <div className="flex sm:flex-col md:flex-row sm:justify-start sm:items-center md:justify-center md:items-center  gap-4 flex-wrap">
+      {searchString === "" && (
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
           {leads && leads?.data.data.leads.map((el:any, key:number) => (
             <LeadsCard
-              key={key}
+              key={el.id}
               name={el.name}
               phone={el.phone}
               address={el.address}
