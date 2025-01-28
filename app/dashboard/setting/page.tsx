@@ -31,6 +31,11 @@ const Setting = () => {
     queryKey: ["profile"],
     queryFn: Profile.get,
   });
+
+  const { data: emailSettings, refetch } = useQuery({
+    queryKey: ["email-settings-platform"],
+    queryFn: Profile.getEmailSettings,
+  });
   const profileData = profile && profile?.data.data;
 
   return (
@@ -55,7 +60,7 @@ const Setting = () => {
               <div className="grid sm:grid-cols-1 col-span-2  md:grid-cols-1 lg:grid-cols-2 gap-4">
                 <EditComissionDetails />
                 <EditStripSettings />
-                <EditEmailSettings />
+               {emailSettings && <EditEmailSettings emailSettings={emailSettings} />}
                 <CommissionCalculation/>
               </div>
             </div>

@@ -10,9 +10,11 @@ import AutoDonationDialog from "@/components/AutoDonationDialog";
 const AdvanceForm = () => {
   const {control, formState: {errors}} = useFormContext()
   const watch = useWatch({control})
+ 
   return (
     <div className="  flex flex-col gap-4 my-4">
       {errors.advance && <p className="text-red-800">Please setup this section</p>}
+      {errors?.advance && <p className="text-red-800">{` ${(errors?.advance.root as any).message ?? ""}`}</p>}
       <AdvanceFormOption
         title={"Show address for all subevents?"}
         description="Description of the option"

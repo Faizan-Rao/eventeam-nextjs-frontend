@@ -68,7 +68,7 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
                 className=" bg-[#F7F6F9]  rounded-md flex justify-between items-center  md:my-4 p-4"
               >
                 <h1 className="font-semibold sm:text-sm md:text-base">{el.title}</h1>
-                <ShowSubEventInfoDialog data={el} />
+                <ShowSubEventInfoDialog payload={data.event} data={el} />
               </div>
             );
           })}

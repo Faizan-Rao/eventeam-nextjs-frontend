@@ -11,7 +11,7 @@ import { Clock, EllipsisVertical, Info, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { USDollar } from "@/configs/currentFormat";
 
-const ShowSubEventInfoDialog = ({ data }: { data: any }) => {
+const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any }) => {
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.90] transition-all">
@@ -31,14 +31,14 @@ const ShowSubEventInfoDialog = ({ data }: { data: any }) => {
                 </h1>
               </div>
               <div className="flex flex-col justify-center bg-[#7655fa] rounded-lg p-4 gap-3">
-                <div className="flex gap-4  p- items-center ">
+                {payload?.advances?.is_show_address === "1" && <div className="flex gap-4  p- items-center ">
                   <span className="bg-[#FFE58A] rounded-full p-1 font-semibold">
                     <MapPin className="text-[#4a4a4a]" size={20} />
                   </span>
                   <h1 className="text-[white] text-sm font-semibold">
                     {data.sub_event_address || "No Specified Address"}
                   </h1>
-                </div>
+                </div>}
 
                 <div className="flex gap-4   items-center  ">
                   <span className="bg-[#E1FF81] rounded-full p-1 font-semibold">

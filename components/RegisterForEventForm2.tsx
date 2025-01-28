@@ -17,9 +17,9 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   console.log(data)
   
   return (
-    <div className="flex-1 grid grid-cols-1 rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
-      {data.settings &&
-          data.settings.show_donation_fields_on_forms === "1" &&<RegsiterForEventDonation data={data} />}
+    <div className="flex-1 items-start  rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
+      {data.event.advances &&
+          data.event.advances.is_donation_allowed === "1" && <RegsiterForEventDonation data={data} />}
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
         <div className="flex gap-4 text-base justify-between">
@@ -30,15 +30,15 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             {"$" + watch.totalAmount}
           </p>
         </div>
-       {data.settings &&
-          data.settings.show_donation_fields_on_forms === "1"  && <div className="flex gap-4 text-base justify-between">
+       {data?.event?.advances &&
+          data?.event?.advances.is_donation_allowed === "1"  && <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">Donations</p>
           <p className="font-semibold px-2 text-[#999999] text-sm">
             {"$" + watch.donation_field}
           </p>
         </div>}
-       {data.settings &&
-          data.settings.enable_other_donations === "1" && <div className="flex gap-4 text-base justify-between">
+       {data?.event?.advances &&
+          data?.event?.advances.is_donation_allowed === "1" && <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">
             Custom Donation
           </p>
@@ -63,7 +63,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
 
       <div className="flex flex-col border-b-[1px]  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Payment Method</h1>
-        <RegisterForEventRadioGroup settings={data.settings}/>
+        <RegisterForEventRadioGroup payload={data.settings} settings={data?.event?.advances}/>
       </div>
 
       <div className="flex flex-col  my-4 px-4 pb-4 gap-4">
@@ -74,9 +74,9 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             }}
             checked={watch.accept_cash_terms}
           />
-          <span className="text-[rgb(153,153,153)] text-sm ">
+          {data?.event?.advances?.is_show_regulation === "1" && <span className="text-[rgb(153,153,153)] text-sm ">
            {data.settings && parser(`${data.settings.regulation_text}`)}
-          </span>
+          </span>}
         </div>
       </div>
 

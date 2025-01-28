@@ -156,6 +156,10 @@ export const Profile = {
     const response = await axiosWithToken.get("/users/logged-in")
     return response
   },
+  getEmailSettings : async () =>{
+    const response = await axiosWithToken.get("/company/settings/email-settings")
+    return response
+  },
   
   updateGenInfo : async (data : any) =>{
     const response = await axiosWithToken.post(`/profile-save`, data)
@@ -163,7 +167,24 @@ export const Profile = {
   },
 
   updateAddress : async (data : any) =>{
-    const response = await axiosWithToken.put(`/donations/update/${data.id}`, data)
+    const response = await axiosWithToken.post(`/users/save-address`, data)
+    return response
+  },
+  updateEmailSettings : async (data : any) =>{
+    const response = await axiosWithToken.post(`/company/settings/email-settings`, data)
+    return response
+  },
+  updateAdminCommission : async (data : any) =>{
+    const response = await axiosWithToken.post(`/company/settings/commission-save`, data)
+    return response
+  },
+  sendOTPCommission : async () =>{
+    const response = await axiosWithToken.post(`/send/otp`)
+    return response
+  },
+
+  updatePassword : async (data : any) =>{
+    const response = await axiosWithToken.post(`/users/save-address`, data)
     return response
   },
 
