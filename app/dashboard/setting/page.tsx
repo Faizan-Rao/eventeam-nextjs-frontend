@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
-import { Profile } from "@/configs/apiRoutes";
+import { FormFields, Profile } from "@/configs/apiRoutes";
 import { Skeleton } from "@/components/ui/skeleton";
 import EditComissionDetails from "@/components/forms/admin-settings/ComissionDetails";
 import EditStripSettings from "@/components/forms/admin-settings/StripeSettingsForm";
@@ -38,6 +38,24 @@ const Setting = () => {
   });
   const profileData = profile && profile?.data.data;
 
+  const { data: commissionDetails } = useQuery({
+    queryKey: ["commission-details-platform"],
+    queryFn: async () => {
+      return await Profile.getAdminCommission();
+    },
+  });
+  const { data: stripeKeys } = useQuery({
+    queryKey: ["stripe-keys-platform"],
+    queryFn: async () => {
+      return await Profile.getStripeKeys();
+    },
+  });
+  const { data: formField } = useQuery({
+    queryKey: ["form-fields"],
+    queryFn: async () => {
+      return await FormFields.GetFormField();
+    },
+  });
   return (
     <>
       <MainContentGrid className="sm:hidden md:flex">
@@ -58,10 +76,10 @@ const Setting = () => {
             <div className="col-span-2">
               <PageTitleContainer title="Platform Settings"  className="my-10"/>
               <div className="grid sm:grid-cols-1 col-span-2  md:grid-cols-1 lg:grid-cols-2 gap-4">
-                <EditComissionDetails />
-                <EditStripSettings />
+               {commissionDetails && <EditComissionDetails commissionDetails={commissionDetails}/>}
+               {stripeKeys && <EditStripSettings stripeKeys={stripeKeys} />}
                {emailSettings && <EditEmailSettings emailSettings={emailSettings} />}
-                <CommissionCalculation/>
+                {formField && <CommissionCalculation formField={formField} />}
               </div>
             </div>
           )}

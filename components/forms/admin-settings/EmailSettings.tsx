@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import joi from "joi";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Profile } from "@/configs/apiRoutes";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { toast } from "react-toastify";
+import { set } from "lodash";
 
 export const editEmailSettingSchema = joi.object({
   mail_from_name: joi.string().max(30).label("From Name"),
@@ -22,7 +23,14 @@ export const editEmailSettingSchema = joi.object({
   mail_encryption: joi.string().max(10).label("Encryption"),
 });
 const EditEmailSettings = ({ emailSettings }: { emailSettings: any }) => {
-
+const [isShow, setIsShow] = useState("password")
+const handleIsShow = (e : any)=>{
+  e.preventDefault()
+  if(isShow === "password")
+    setIsShow("text")
+  else
+  setIsShow("password")
+}
 
   const mutate = useMutation({
     mutationKey: ["update-email"],
@@ -181,12 +189,16 @@ const EditEmailSettings = ({ emailSettings }: { emailSettings: any }) => {
 
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">Password</span>
+          <div className="border-[2px] flex justify-between px-2">
+
           <input
-            type="text"
+            type={isShow}
             placeholder="Enter Password"
             {...register("mail_password")}
-            className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+            className="text-[#4a4a4a] flex-1 text-base  p-2  outline-none rounded-md"
           />
+          <button onClick={handleIsShow} className="text-[#7655fa] active:scale-[0.95] transition-all] font-semibold">Show</button>
+          </div>
            {errors?.mail_password && (
             <span className="text-red-800 ">{`${errors?.mail_password?.message}`}</span>
           )}

@@ -120,7 +120,7 @@ export const FormFields = {
   },
   GetFormField: async () =>{
     const data = {
-      "fields" : ["donation_field_text","cod_text","regulation_text","plateform_fee","is_show_app_fee","is_default_app_fee","application_fee_text", "guest_name_required", "guest_email_required", "guest_phone_required"]
+      "fields" : ["get_donation_percentage","donation_field_text","cod_text","regulation_text","plateform_fee","is_show_app_fee","is_default_app_fee","application_fee_text", "guest_name_required", "guest_email_required", "guest_phone_required"]
   }
     const response = await axiosWithToken.post("/company/settings/get-fields", data)
     return response
@@ -174,8 +174,29 @@ export const Profile = {
     const response = await axiosWithToken.post(`/company/settings/email-settings`, data)
     return response
   },
+  
   updateAdminCommission : async (data : any) =>{
     const response = await axiosWithToken.post(`/company/settings/commission-save`, data)
+    return response
+  },
+  getAdminCommission : async () =>{
+    const response = await axiosWithToken.get(`/company/settings/get-admin-commission`)
+    return response
+  },
+  getCalculationCommission : async () =>{
+    const response = await axiosWithToken.get(`/company/settings/get-admin-commission`)
+    return response
+  },
+  updateStripeKeys : async (data : any) =>{
+    const response = await axiosWithToken.post(`/company/settings/commission-save`, data)
+    return response
+  },
+  updateCommissionCalculation : async (data : any) =>{
+    const response = await axiosWithToken.post(`/company/settings/save`, data)
+    return response
+  },
+  getStripeKeys : async () =>{
+    const response = await axiosWithToken.get(`/stripe/get-stripe-keys`)
     return response
   },
   sendOTPCommission : async () =>{

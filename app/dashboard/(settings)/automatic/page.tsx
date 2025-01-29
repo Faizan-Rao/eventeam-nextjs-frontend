@@ -83,10 +83,10 @@ const AutomaticForm = () => {
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
             All Upcoming events
           </h1>
-          <div className="grid justify-self-end sm:grid-cols-3 md:grid-cols-2 justify-items-end gap-3 ">
+          <div className="grid justify-self-end sm:grid-cols-1 md:grid-cols-2 justify-items-end gap-3 ">
             <div
               className={clsx(
-                "  flex w-full self-center items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[1px] p-1",
+                "  flex w-full  items-center sm:col-span-2 md:col-span-1 gap-2 sm:flex-1 md:flex-none  rounded-md border-[1px] p-1",
                 user.role === "company" && " sm:col-span-3 min-w-full"
               )}
             >
@@ -98,13 +98,7 @@ const AutomaticForm = () => {
                 className="flex-1 w-auto outline-none"
               />
             </div>
-
-            {user && user.role === "admin" && <AutoEditDialog type="add" />}
-
-            {user && user.role === "company" && (
-              <div className="sm:flex-1 md:flex-none  sm:col-span-3 md:col-span-1 flex place-items-center gap-2 md:ml-2 rounded-md  p-1">
-                <div className="flex md:px-4 py-1  items-center justify-center  gap-4">
-                  <span className="flex flex-row  md:justify-self-end">
+            <div className="flex gap-4  ">
                     <DropdownMenu
                       modal={true}
                       open={open}
@@ -179,7 +173,14 @@ const AutomaticForm = () => {
                         </span>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </span>
+                  
+
+            {user && user.role === "admin" && <AutoEditDialog type="add" />}
+
+            {user && user.role === "company" && (
+              <div className="sm:flex-1 md:flex-none  sm:col-span-3 md:col-span-1 flex place-items-center gap-2 md:ml-2 rounded-md  p-1">
+                <div className="flex md:px-4 py-1  items-center justify-center  gap-4">
+                 
 
                   <h1 className="font-semibold  ">Auto Publish</h1>
                   <HoverCard>
@@ -194,6 +195,7 @@ const AutomaticForm = () => {
                 </div>
               </div>
             )}
+            </div>
           </div>
         </div>
 

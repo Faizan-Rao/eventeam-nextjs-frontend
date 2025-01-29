@@ -119,7 +119,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
           <ChevronRight className="text-white " />
         ) : (
           <div className="flex gap-4  items-center bg-[#7655fa] rounded-full text-white px-4 py-2">
-            <Plus size={18} /> <p className="sm:hidden lg:block">Add Autoform</p>
+            <Plus size={18} /> <p className="sm:hidden lg:block">Autoform</p>
           </div>
         )}
       </DialogTrigger>
