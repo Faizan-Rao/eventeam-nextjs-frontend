@@ -7,9 +7,16 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import joi from "joi";
 import { Loader2 } from "lucide-react";
+import { user } from "@/configs/axios";
 export const stripeSettingsEditSchema = joi.object({
   stripe_publishable_key: joi.string().label("Stripe Publishable Key"),
   stripe_secret_key: joi.string().label("Stripe Secret Key"),
+  update_stripe_keys_otp: joi.string().custom((value, helpers) => {
+    if (!new RegExp(/^[0-9]+$/).test(value)) {
+      return helpers.message("Input must be numeric only" as any);
+    }
+    return value;
+  }).label("Stripe OTP"),
 });
 
 const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
@@ -48,6 +55,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     defaultValues: {
       stripe_publishable_key: stripeKeys?.data.data.stripe_publishable_key,
       stripe_secret_key: stripeKeys?.data.data.stripe_secret_key,
+      update_stripe_keys_otp: "",
     },
     resolver: (values, constext, options) => {
       const resolver = joiResolver(stripeSettingsEditSchema, {
@@ -60,7 +68,8 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
 
   const onSubmit = (data: any) => {
     if (data !== undefined) {
-      data.otp_type = "stripe_keys_update_otp"
+      data.otp_type = "update_stripe_keys";
+      data.email = user.email;
       mutate.mutate(data);
     }
   };
@@ -69,7 +78,11 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     try {
       e.preventDefault();
       setIsPending(true);
-      const resposne = await Profile.sendOTPCommission();
+      const data = {
+        otp_type: "update_stripe_keys",
+        email: user.email,
+      };
+      const resposne = await Profile.sendOTPCommission(data);
       if (resposne.data.success) {
         toast(resposne.data?.message, { type: "success" });
       }
@@ -88,7 +101,10 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
+    >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">Stripe Setting</h1>
       </div>
@@ -117,7 +133,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
           {...register("stripe_secret_key")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
-          {errors?.stripe_secret_key && (
+        {errors?.stripe_secret_key && (
           <span className="text-red-800">{`${errors.stripe_secret_key.message}`}</span>
         )}
       </div>
@@ -136,9 +152,12 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         <input
           type="text"
           placeholder="Enter Confirmation OTP"
-         
+          {...register("update_stripe_keys_otp")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
+        {errors?.update_stripe_keys_otp && (
+          <span className="text-red-800">{`${errors.update_stripe_keys_otp.message}`}</span>
+        )}
       </div>
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">

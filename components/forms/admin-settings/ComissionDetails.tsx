@@ -1,6 +1,7 @@
 "use client";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { Profile } from "@/configs/apiRoutes";
+import { user } from "@/configs/axios";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import joi from "joi";
@@ -20,7 +21,7 @@ export const commissionDetailsEditSchema = joi.object({
           "Please Specify within range of 0 to 100" as any
         );
       } else if (!new RegExp(/^[0-9]+$/).test(value)) {
-        return helpers.message("Input number be numeric only" as any);
+        return helpers.message("Input must be numeric only" as any);
       }
       return value;
     })
@@ -31,17 +32,20 @@ export const commissionDetailsEditSchema = joi.object({
     .max(6)
     .custom((value, helpers) => {
       if (!new RegExp(/^[0-9]+$/).test(value)) {
-        return helpers.message("Input number be numeric only" as any);
+        return helpers.message("Input must be numeric only" as any);
       }
       return value;
     })
     .label("Admin Commission OTP"),
 });
 
-const EditComissionDetails = ({commissionDetails }: { commissionDetails: any }) => {
+const EditComissionDetails = ({
+  commissionDetails,
+}: {
+  commissionDetails: any;
+}) => {
   const [isPending, setIsPending] = useState(false);
 
- 
   const mutate = useMutation({
     mutationKey: ["update-commission"],
     mutationFn: async (data: any) => {
@@ -89,7 +93,8 @@ const EditComissionDetails = ({commissionDetails }: { commissionDetails: any }) 
     console.log("admin commission", data);
     if (data !== undefined) {
       data.admin_commission_confirm = data.admin_commission;
-      data.otp_type = "admin_commission_otp";
+      data.email = user.email;
+      data.otp_type = "admin_commission";
       mutate.mutate(data);
     }
   };
@@ -98,7 +103,11 @@ const EditComissionDetails = ({commissionDetails }: { commissionDetails: any }) 
     try {
       e.preventDefault();
       setIsPending(true);
-      const resposne = await Profile.sendOTPCommission();
+      const data = {
+        otp_type: "admin_commission",
+        email: user.email,
+      };
+      const resposne = await Profile.sendOTPCommission(data);
       if (resposne.data.success) {
         toast(resposne.data?.message, { type: "success" });
       }

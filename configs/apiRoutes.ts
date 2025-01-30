@@ -80,9 +80,9 @@ export const Dashboard = {
 
 
 export const Leads = {
-  getLeads: async () => {
+  getLeads: async (data : any) => {
 
-    const response = await axiosWithToken.get("/leads/list");
+    const response = await axiosWithToken.post("/leads/list", data);
     
     return response
   },
@@ -188,7 +188,7 @@ export const Profile = {
     return response
   },
   updateStripeKeys : async (data : any) =>{
-    const response = await axiosWithToken.post(`/company/settings/commission-save`, data)
+    const response = await axiosWithToken.post(`/stripe/save`, data)
     return response
   },
   updateCommissionCalculation : async (data : any) =>{
@@ -199,8 +199,8 @@ export const Profile = {
     const response = await axiosWithToken.get(`/stripe/get-stripe-keys`)
     return response
   },
-  sendOTPCommission : async () =>{
-    const response = await axiosWithToken.post(`/send/otp`)
+  sendOTPCommission : async (data:any) =>{
+    const response = await axiosWithToken.post(`/send/otp`, data)
     return response
   },
 

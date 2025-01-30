@@ -12,6 +12,12 @@ import EditStripSettings from "@/components/forms/admin-settings/StripeSettingsF
 import { user } from "@/configs/axios";
 import EditEmailSettings from "@/components/forms/admin-settings/EmailSettings";
 import CommissionCalculation from "@/components/forms/admin-settings/CommisionCalculation";
+import { FreeMode } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 const EditProfileAddressInfo = dynamic(
   () => import("@/components/forms/edit-address-info/EditProfileAddressInfo")
 );
@@ -71,14 +77,18 @@ const Setting = () => {
 
           {profileData && <EditProfileAddressInfo profile={profileData} />}
           {profileData && <EditSecurityForm />}
-          
+
           {user.role === "admin" && (
             <div className="col-span-2">
-              <PageTitleContainer title="Platform Settings"  className="my-10"/>
+              <PageTitleContainer title="Platform Settings" className="my-10" />
               <div className="grid sm:grid-cols-1 col-span-2  md:grid-cols-1 lg:grid-cols-2 gap-4">
-               {commissionDetails && <EditComissionDetails commissionDetails={commissionDetails}/>}
-               {stripeKeys && <EditStripSettings stripeKeys={stripeKeys} />}
-               {emailSettings && <EditEmailSettings emailSettings={emailSettings} />}
+                {commissionDetails && (
+                  <EditComissionDetails commissionDetails={commissionDetails} />
+                )}
+                {stripeKeys && <EditStripSettings stripeKeys={stripeKeys} />}
+                {emailSettings && (
+                  <EditEmailSettings emailSettings={emailSettings} />
+                )}
                 {formField && <CommissionCalculation formField={formField} />}
               </div>
             </div>
@@ -87,44 +97,115 @@ const Setting = () => {
       </MainContentGrid>
 
       <div className="sm:block md:hidden ">
-        <PageTitleContainer title="Form Fields" />
-        <div className="sm:flex md:hidden py-4 bg-[white] px-4 font-semibold min-w-[100vw] items-center gap-4">
-          <button
-            onClick={() => setTab("gen-info")}
-            className={clsx(
-              "text-[#7655fa] active:scale-[0.95] transition-all",
-              tab === "gen-info" && "border-b-[2px] border-[#7655fa] "
-            )}
+        <PageTitleContainer title="Profile Settings" />
+        <div className="px-4 py-4 bg-white  ">
+          <Swiper
+            slidesPerView={"auto"}
+            spaceBetween={26}
+            freeMode={true}
+            modules={[FreeMode]}
+            className="sm:flex md:hidden w-full py-4  px-6 font-semibold "
           >
-            General
-          </button>
-          <button
-            onClick={() => setTab("address-info")}
-            className={clsx(
-              "text-[#7655fa] active:scale-[0.95] transition-all",
-              tab === "address-info" && "border-b-[2px] border-[#7655fa] "
+            <SwiperSlide className="!w-auto">
+              <button
+                onClick={() => setTab("gen-info")}
+                className={clsx(
+                  "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                  tab === "gen-info" && "border-b-[2px] border-[#7655fa]"
+                )}
+              >
+                General
+              </button>
+            </SwiperSlide>
+
+            <SwiperSlide className="!w-auto">
+              <button
+                onClick={() => setTab("address-info")}
+                className={clsx(
+                  "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                  tab === "address-info" && "border-b-[2px] border-[#7655fa]"
+                )}
+              >
+                Address
+              </button>
+            </SwiperSlide>
+
+            <SwiperSlide className="!w-auto">
+              <button
+                onClick={() => setTab("security-info")}
+                className={clsx(
+                  "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                  tab === "security-info" && "border-b-[2px] border-[#7655fa]"
+                )}
+              >
+                Security
+              </button>
+            </SwiperSlide>
+
+            {user.role === "admin" && (
+              <SwiperSlide className="!w-auto">
+                <button
+                  onClick={() => setTab("email-info")}
+                  className={clsx(
+                    "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                    tab === "email-info" && "border-b-[2px] border-[#7655fa]"
+                  )}
+                >
+                  Email
+                </button>
+              </SwiperSlide>
             )}
-          >
-            {" "}
-            Address
-          </button>
-          <button
-            onClick={() => setTab("security-info")}
-            className={clsx(
-              "text-[#7655fa] active:scale-[0.95] transition-all",
-              tab === "security-info" && "border-b-[2px] border-[#7655fa] "
+
+            {user.role === "admin" && (
+              <SwiperSlide className="!w-auto">
+                <button
+                  onClick={() => setTab("commission-info")}
+                  className={clsx(
+                    "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                    tab === "commission-info" &&
+                      "border-b-[2px] border-[#7655fa]"
+                  )}
+                >
+                  Commission
+                </button>
+              </SwiperSlide>
             )}
-          >
-            {" "}
-            Security
-          </button>
+
+            {user.role === "admin" && (
+              <SwiperSlide className="!w-auto">
+                <button
+                  onClick={() => setTab("stripe-info")}
+                  className={clsx(
+                    "text-[#7655fa] active:scale-[0.95] transition-all whitespace-nowrap",
+                    tab === "stripe-info" && "border-b-[2px] border-[#7655fa]"
+                  )}
+                >
+                  Stripe
+                </button>
+              </SwiperSlide>
+            )}
+          </Swiper>
         </div>
         <div>
-          {tab === "gen-info" && <EditProfileGenInfo profile={profileData} />}
-          {tab === "address-info" && (
+          {tab === "gen-info" && profileData && (
+            <EditProfileGenInfo profile={profileData} />
+          )}
+          {tab === "address-info" && profileData && (
             <EditProfileAddressInfo profile={profileData} />
           )}
           {tab === "security-info" && <EditSecurityForm />}
+          {tab === "commission-info" && commissionDetails && (
+            <EditComissionDetails commissionDetails={commissionDetails} />
+          )}
+          {tab === "stripe-info" && stripeKeys && (
+            <EditStripSettings stripeKeys={stripeKeys} />
+          )}
+          {tab === "email-info" && emailSettings && (
+            <EditEmailSettings emailSettings={emailSettings} />
+          )}
+          {tab === "commission-info" && formField && (
+            <CommissionCalculation formField={formField} />
+          )}
         </div>
       </div>
     </>
