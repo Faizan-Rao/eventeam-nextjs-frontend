@@ -37,7 +37,7 @@ const EmailTemplateItem: React.FC<Option> = ({
   return (
     <div
       className={clsx(
-        "flex justify-center max-h-[40%] flex-col sm:justify-center items-center h-full min-w-[300px] max-w-[50%] min-h-[500px] rounded-2xl flex-1 p-4 text-center gap-4 m-4",
+        "flex justify-center max-h-[40%] flex-col sm:justify-center items-center p-6 h-full min-w-[300px]  min-h-[500px] rounded-2xl flex-1  text-center gap-4 m-4",
         heading === "Signup Template" && "bg-[#FFCEED]",
         heading === "Access Verfication" && "bg-[#DBE1FF]",
         heading === "Event Completion" && "bg-[#DAC7EF]",
@@ -68,7 +68,7 @@ const EmailTemplateItem: React.FC<Option> = ({
         )}
       </div>
       <h4 className="text-3xl font-semibold">{heading}</h4>
-      <p className="text-lg ">{body}</p>
+      <p className="text-base ">{body}</p>
       <Link
         className="bg-[#7655fa] active:scale-[0.95] transition-all rounded-full text-white px-5 py-2"
         href={`/dashboard/email-template/${data && data.type}`}

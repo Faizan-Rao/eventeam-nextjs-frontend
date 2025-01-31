@@ -6,33 +6,60 @@ import ViewEye from "./icons/ViewEye";
 import UserFour from "./icons/UserFour";
 import { format } from "date-fns";
 import UpcomingSubeventPreviewDialog from "./UpcomingSubeventPreviewDialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { user } from "@/configs/axios";
+import { EllipsisVertical } from "lucide-react";
 
-const UpcomingEventCard = ({data} : {data: any}) => {
+const UpcomingEventCard = ({ data }: { data: any }) => {
   const status = true;
-  console.log("upcoming event data", data)
+  console.log("upcoming event data", data);
   return (
     <div className="grid grid-cols-1  p-4 bg-[#F7F6F9] rounded-md">
       {/* header */}
       <div className="flex justify-between gap-4">
         <div className="flex flex-col justify-center">
           <h1 className="font-semibold text-[#4A4A4A] text-base">
-            {data['title']}
+            {data["title"]}
           </h1>
           <span className="flex place-items-center gap-2 mt-2">
             <span
               className={clsx(
                 "h-[10px] w-[10px] rounded-full bg-[#1EFF00]",
-                data['status'] === 0 && "bg-[#FF0000]"
+                data["status"] === 0 && "bg-[#FF0000]"
               )}
             />
             <span className="font-semibold text-sm text-[#999999]">
-              {data['status'] === 1 ? "Active" : "Inactive"}
+              {data["status"] === 1 ? "Active" : "Inactive"}
             </span>
           </span>
         </div>
-        <div className="flex overflow-hidden aspect-square max-h-[45px] object-cover justify-end items-center cursor-pointer  rounded-full">
-          <DotThreeVertical />
-        </div>
+       {user.role === "company" && <DropdownMenu modal={false}>
+          <DropdownMenuTrigger
+            className={clsx(
+              "active:scale-[0.90] rounded-full self-start   p-1 hover:bg-[#7655fa26] transition-all"
+            )}
+          >
+            <EllipsisVertical size={20} className="text-[#999999]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+              <a href={`/dashboard/my-events/${data.id}`}>View Event</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+              <a href={`/dashboard/my-events/edit/${data.id}`}>Edit Event</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+              <a href={`/events/${user.slug}/${data.id}`}>
+                View Registration Form
+              </a>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>}
       </div>
 
       {/* data sections */}
@@ -45,26 +72,27 @@ const UpcomingEventCard = ({data} : {data: any}) => {
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Dates</p>
             <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
-             {data['start_date'] && format(new Date(data['start_date']), 'LLL d') + " - " + format(new Date(data['end_date']), 'LLL d')}
+              {data["start_date"] &&
+                format(new Date(data["start_date"]), "LLL d") +
+                  " - " +
+                  format(new Date(data["end_date"]), "LLL d")}
             </p>
           </div>
         </div>
 
         <div className="flex items-center justify-center gap-3  bg-[#F7F6F9] rounded-md">
           <div className="flex items-center aspect-square max-h-[30px] object-cover bg-[#7655FA26] justify-center p-1 rounded-md">
-            <UserFour/>
+            <UserFour />
           </div>
 
           <div className="flex justify-center  flex-col  ">
             <p className="text-[#999999] text-xs font-semibold">Guests</p>
             <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
-              {data['registrations']?.length}
+              {data["registrations"]?.length}
             </p>
           </div>
         </div>
-        {status && (
-         <UpcomingSubeventPreviewDialog data={data}/>
-        )}
+        {status && <UpcomingSubeventPreviewDialog data={data} />}
       </div>
     </div>
   );

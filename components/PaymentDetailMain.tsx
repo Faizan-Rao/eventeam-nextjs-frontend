@@ -95,7 +95,7 @@ const PaymentDetailMain = () => {
         
         </div>
         {/* Mobile Template */}
-        <div className="sm:flex gap-4 flex-1 justify-self-stretch md:hidden sm:max-w-[100vw]">
+        <div className="sm:flex gap-4  md:hidden sm:max-w-[100vw]">
           <Swiper
             slidesPerView={2}
             spaceBetween={6}

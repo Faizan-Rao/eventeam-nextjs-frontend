@@ -39,22 +39,19 @@ const EmailTemplateMain = () => {
 
   const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
   return (
-    <div className="flex flex-wrap">
+    <div className="grid sm:grid-cols-1 md:grid-cols-3 justify-items-center ">
 
       
       {user.role === "admin" && (
         <>
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("signup"))} {...template.thankYou} />
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("approved_company"))} {...template.access} />
-        </>
-      )}
-
-      {user.role === "admin" && (
-        <>
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("thankyou"))} {...template.completion} />
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("confirmation"))} {...template.registration} />
         </>
       )}
+
+    
     </div>
   );
 };

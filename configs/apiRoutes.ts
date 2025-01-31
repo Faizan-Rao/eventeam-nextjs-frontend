@@ -205,7 +205,7 @@ export const Profile = {
   },
 
   updatePassword : async (data : any) =>{
-    const response = await axiosWithToken.post(`/users/save-address`, data)
+    const response = await axiosWithToken.put(`/security/change-password`, data)
     return response
   },
 
