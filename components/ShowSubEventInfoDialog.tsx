@@ -45,15 +45,15 @@ const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any })
                     <Clock className="text-[#4a4a4a]" size={20} />
                   </span>
                   <h1 className="text-[white]  text-sm font-semibold">
-                    {/* {(data.start_time &&
+                    {(data.date &&
                       format(
                         new Date(
-                          data.start_time.toLocaleString().replace(" ", "T")
+                          data.date.replace(" ", "T")
                         ),
-                        "h a, MMMM do"
+                        "h : m a, MMMM do yyyy"
                       )) ||
-                      "No Specified Time"} */}
-                      {data.date || "No Specified Time"}
+                      "No Specified Time"}
+                      
                   </h1>
                 </div>
               </div>

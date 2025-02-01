@@ -45,7 +45,15 @@ const AddRegistrantDialog = ({
   const schema = joi.object({
     name: joi.string(),
     email: joi.string().email({ tlds: { allow: false } }),
-    phone: joi.string(),
+    phone: joi.string().custom((value, helper)=>{
+      if(!new RegExp(/^[0-9]+$/).test(value))
+      {
+      
+        return helper.message("Input must be numeric" as any)
+      }
+      console.log(value, "custom validation error")
+      return value
+    }),
     ticketType: joi.array<string>().min(1).required(),
     subEvents: joi.array<number>().min(1).required(),
   });
@@ -136,15 +144,13 @@ const AddRegistrantDialog = ({
   const addGuest = (e: any) => {
     e.preventDefault();
 
-    
-
     const { value, error } = schema.validate(guestData, { abortEarly: false });
     const errors = error?.details
       .map((el: any) => {
         if (
           (settings.guest_name_required === "0" && el.path[0] === "name") ||
           (settings.guest_phone_required === "0" && el.path[0] === "phone") ||
-          (settings.guest_email_required === "0" && el.path[0] === "email") 
+          (settings.guest_email_required === "0" && el.path[0] === "email")
         ) {
           return false;
         }
@@ -154,7 +160,7 @@ const AddRegistrantDialog = ({
       .filter((el) => el && el);
 
     setErrors(errors);
-    
+
     // Code for Addition
     if (!errors?.includes("subEvents") && type !== "edit") {
       append(guestData);
@@ -184,7 +190,7 @@ const AddRegistrantDialog = ({
     getTicketsWithPrices();
   }, [filterTicketTypes, getTicketsWithPrices]);
 
-  console.log("This is settings Data", settings);
+  console.log("This is error Data", error);
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger className="active:scale-[0.98] transition-all">
@@ -217,7 +223,7 @@ const AddRegistrantDialog = ({
                     required
                   />
                   {error && error.includes("name") && (
-                    <span className="text-red-700">This field is required</span>
+                    <span className="text-red-700">{`"Name" is not allowed to be empty`}</span>
                   )}
                 </div>
               )}
@@ -238,7 +244,7 @@ const AddRegistrantDialog = ({
                     />
                     {error && error.includes("email") && (
                       <span className="text-red-700">
-                        This field is required
+                        {`"Email" is not allowed to be empty and in correct format`}
                       </span>
                     )}
                   </div>
@@ -249,15 +255,18 @@ const AddRegistrantDialog = ({
                     <input
                       type="text"
                       className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
-                      onChange={handleFieldChange}
+                      onChange={(e) => {
+                         handleFieldChange(e)
+                      }}
                       placeholder="phone"
                       name="phone"
                       defaultValue={guestData.phone}
                       required
+                     
                     />
                     {error && error.includes("phone") && (
                       <span className="text-red-700">
-                        This field is required
+                        {`"Phone" is not allowed to be empty and numeric only`}
                       </span>
                     )}
                   </div>
@@ -341,7 +350,7 @@ const AddRegistrantDialog = ({
                   })}
                 {error && error.includes("subEvents") && total === 0 && (
                   <span className="text-red-700">
-                    This field is required select atleast one
+                   {`"Ticket Type" is required select atleast one`}
                   </span>
                 )}
               </div>

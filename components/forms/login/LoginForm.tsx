@@ -107,7 +107,7 @@ const LoginForm = () => {
               <span className="text-red-700">Password is Required</span>
             )}
           </div>
-          <p className="text-[#7655fa] ">Forgot Password?</p>
+          <a href="/forget-password" className="text-[#7655fa] ">Forgot Password?</a>
         </div>
 
         <button disabled={isPending} className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full">

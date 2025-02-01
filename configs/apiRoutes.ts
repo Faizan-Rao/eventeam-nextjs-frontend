@@ -208,6 +208,14 @@ export const Profile = {
     const response = await axiosWithToken.put(`/security/change-password`, data)
     return response
   },
+  resetPassword : async (data : any) =>{
+    const response = await axiosWithoutToken.post(`/reset-password`, data)
+    return response
+  },
+  CheckAccount : async (data : any) =>{
+    const response = await axiosWithoutToken.post(`/verify/user-email`, data)
+    return response
+  },
 
   searchCity : async (data : any) =>{
     const response = await axiosWithToken.post(`/search-cities`, data)
