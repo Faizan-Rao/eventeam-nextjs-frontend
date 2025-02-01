@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export const securityEditSchema = joi.object({
   current_password: joi.string().allow("").label("Current Password"),
@@ -133,7 +134,7 @@ const EditSecurityForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="z-[1] min-w-[60vw] flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
+      className={clsx(pathname.includes("forget-password") && "min-w-[60vw]","z-[1]  flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ")}
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
