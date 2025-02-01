@@ -1,20 +1,26 @@
-"use client";
-import { user } from "@/configs/axios";
-import { Loader2, LogOut } from "lucide-react";
+"use client"
+
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React, { useLayoutEffect, useState } from "react";
-import joi from "joi";
+
+import React, { useState } from "react";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { isPending } from "@reduxjs/toolkit";
+
 import { useForm } from "react-hook-form";
 import { Profile } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import EditSecurityForm from "@/components/forms/edit-security-info/EditSecurityInfo";
+import joi from 'joi'
 
-export const EmailSchema = joi.object({
-  email: joi.string().email({ tlds: { allow: false } }),
-});
+
+const schema = joi
+  .object({
+    email: joi
+      .string()
+      .email({ tlds: { allow: false } })
+      .required().label("Email"),
+   
+  })
+  .required();
 const ForgetPasswordPage = () => {
   const [userData, setUserData] = useState<any>();
   const {
@@ -24,10 +30,10 @@ const ForgetPasswordPage = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
+      email: "" ,
     },
     resolver: (values, constext, options) => {
-      const resolver = joiResolver(EmailSchema, {
+      const resolver = joiResolver(schema, {
         abortEarly: false,
         allowUnknown: true,
       });
@@ -35,6 +41,7 @@ const ForgetPasswordPage = () => {
     },
   });
 
+  console.log("forget password errors",errors)
   const onSubmit = async (data: any) => {
     try {
       if (data !== undefined) {
@@ -77,13 +84,13 @@ const ForgetPasswordPage = () => {
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">Email</span>
           <input
-            type="text"
+            type="email"
             placeholder="Enter Your Email Here"
             className="text-[#4a4a4a] text-base flex-1  p-2 border-[2px] outline-none rounded-md"
-            {...register("email")}
+            {...register("email", { required: true , })}
           />
           {errors?.email && (
-            <span className="text-red-800">{`${errors.email.message}`}</span>
+            <span className="text-red-800">{`${errors?.email.message}`}</span>
           )}
         </div>
 
