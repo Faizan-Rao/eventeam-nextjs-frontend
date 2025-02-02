@@ -43,13 +43,16 @@ const EmailTemplateMain = () => {
 
       
       {user.role === "admin" && (
-        <>
+        data && <>
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("signup"))} {...template.thankYou} />
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("approved_company"))} {...template.access} />
-          <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("thankyou"))} {...template.completion} />
-          <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("confirmation"))} {...template.registration} />
         </>
       )}
+      {data && <>
+      
+          <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("thankyou"))} {...template.completion} />
+          <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("confirmation"))} {...template.registration} />
+      </>}
 
     
     </div>

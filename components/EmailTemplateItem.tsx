@@ -28,10 +28,18 @@ const EmailTemplateItem: React.FC<Option> = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["email_templates"] });
       toast.info("Updated Successfully...");
+      
     },
-    onError: () => {
-      queryClient.invalidateQueries({ queryKey: ["email_templates"] });
-      toast.error("Updated Failed...");
+    onError: (error) => {
+      if ((error as any).status !== 200) {
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+      }
     },
   });
   return (
@@ -56,15 +64,15 @@ const EmailTemplateItem: React.FC<Option> = ({
           {data && data.status === "1" ? "Active" : "Disable"}
         </p>
         {data && (
-          <Switch
-            checked={data.status === "1" ? true : false}
-            onCheckedChange={(value: any) => {
-              mutate.mutate({
-                id: data.id,
-                status: value ? 1 : 0,
-              });
-            }}
-          />
+        <Switch
+          checked={data?.status === "1" ? true : false}
+          onCheckedChange={(value: any) => {
+            mutate.mutate({
+              id: data?.id,
+              status: value ? 1 : 0,
+            });
+          }}
+        />
         )}
       </div>
       <h4 className="text-3xl font-semibold">{heading}</h4>

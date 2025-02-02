@@ -40,10 +40,7 @@ const CompanyAddDialog = ({
   const schema = joi
     .object({
       full_name: joi.string().min(5).required(),
-      password:
-        type === "edit"
-          ? joi.any()
-          : joi.string().min(5).required(),
+      password: type === "edit" ? joi.any() : joi.string().min(5).required(),
       email: joi
         .string()
         .email({ tlds: { allow: false } })
@@ -80,22 +77,29 @@ const CompanyAddDialog = ({
     mutationFn: Companies.add,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [ "companies"],
+        queryKey: ["companies"],
         type: "all",
       });
       toast("Created Successfully", { type: "success" });
       setOpen(false);
     },
     onError: (error) => {
-      console.log(error);
-      toast("Creation Failed", { type: "error" });
+      if ((error as any).status !== 200) {
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+      }
     },
   });
   const editCompanies = useMutation({
     mutationFn: (formData) => Companies.update(data.id, formData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [ "companies"],
+        queryKey: ["companies"],
         type: "all",
       });
       toast("Updated Successfully", { type: "success" });
@@ -103,8 +107,15 @@ const CompanyAddDialog = ({
       setEditOpen && setEditOpen(false);
     },
     onError: (error) => {
-      console.log(error);
-      toast("Updated Failed", { type: "error" });
+      if ((error as any).status !== 200) {
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+      }
     },
   });
 

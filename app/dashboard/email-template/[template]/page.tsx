@@ -1,5 +1,6 @@
 'use client'
 import EmailTempaleEditForm from '@/components/EmailTempaleEditForm'
+import EmailTemplateContainer from '@/components/EmailTemplateContainer'
 import EmailTemplateView from '@/components/EmailTemplateView'
 import PageTitleContainer from '@/components/PageTitleContainer'
 import { EmailTempApi } from '@/configs/apiRoutes'
@@ -8,20 +9,12 @@ import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
 
 const EditEmailTemplate = () => {
-    const params = useParams()
-    const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
-    const template = data?.data.data.find((e:any)=> e.type.includes(params.template))
-    const [emailBody, setEmailBody]= useState({
-      body : template && template.body || "",
-      subject: template &&  template.subject || ""
-    })
+  const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
+  
   return (
     <div className='flex flex-col gap-4 p-4'>
          <PageTitleContainer title={`Edit Email Template`} />
-         <div className='flex h-auto flex-1 gap-4'>
-                <EmailTemplateView  data={emailBody} />
-                <EmailTempaleEditForm template={template} data={emailBody} setData={setEmailBody}/>
-         </div>
+        {data && <EmailTemplateContainer data={data}/>}
     </div>
   )
 }

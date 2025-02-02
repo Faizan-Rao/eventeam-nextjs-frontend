@@ -53,9 +53,18 @@ const RegisterEvent = () => {
       EventReg.eventRegistration( params.eventid[0], params.eventid[1], formData),
     onSuccess: () => {
       toast("Event Registration Successful", { type: "success" });
+     
     },
-    onError: () => {
-      toast("Event Registration Failed", { type: "error" });
+    onError: (error) => {
+      if ((error as any).status !== 200) {
+              Object.values((error as any)?.response?.data.data ?? {}).forEach(
+                (el: any) => {
+                  el.forEach((el: any) => {
+                    toast(el, { type: "error" });
+                  });
+                }
+              );
+            }
     },
   });
   const onSubmit = (formData123: any) =>{
@@ -81,6 +90,7 @@ const RegisterEvent = () => {
                   <RegisterForEventForm2 data={singleEvent} />
                 </>
               )}
+              
             </form>
           </Elements>
         </FormProvider>

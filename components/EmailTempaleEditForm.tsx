@@ -8,19 +8,22 @@ import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
+import { useRouter } from "next/navigation";
 
 const EmailTempaleEditForm = ({
   data,
   setData,
-  template
+  template,
 }: {
   data: any;
   setData: React.Dispatch<React.SetStateAction<any>>;
-  template : any
+  template: any;
 }) => {
-  const [emails, setEmails] = useState<string[]>( data && JSON.parse(template && template.cc_emails || "[]") || []);
+  const [emails, setEmails] = useState<string[]>(
+    (data && JSON.parse((template && template.cc_emails) || "[]")) || []
+  );
   const [status, setStatus] = useState<boolean>(false);
-  
+  const router = useRouter()
   const handleEmailChange = (e: any) => {
     if (e.target.value?.endsWith(",") && !e.target.value?.includes(" ")) {
       const value = e.target.value.split(",")[0];
@@ -46,10 +49,19 @@ const EmailTempaleEditForm = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["email_templates"] });
       toast.info("Updated Successfully...");
+      router.push("/dashboard/email-template");
     },
-    onError: () => {
+    onError: (error) => {
       queryClient.invalidateQueries({ queryKey: ["email_templates"] });
-      toast.error("Updated Failed...");
+      if ((error as any).status !== 200) {
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+      }
     },
   });
 
@@ -67,12 +79,12 @@ const EmailTempaleEditForm = ({
       <div className="flex justify-between border-[2px] rounded-md p-2">
         <span className="text-[#4a4a4a] flex-1">Active</span>
         {template && (
-          <Switch
-            defaultChecked={template.status === "1" ? true : false}
-            onCheckedChange={(value: any) => {
-              setStatus(value)
-            }}
-          />
+        <Switch
+          defaultChecked={template?.status === "1" ? true : false}
+          onCheckedChange={(value: any) => {
+            setStatus(value);
+          }}
+        />
         )}
         
         
@@ -96,7 +108,6 @@ const EmailTempaleEditForm = ({
           onChange={handleEmailChange}
           className="outline-none w-full my-1"
           placeholder="Enter CC Emails"
-         
         />
       </div>
 
@@ -120,16 +131,19 @@ const EmailTempaleEditForm = ({
         config={joditConfig as any}
       />
 
-      <button onClick={()=>{
-        mutate.mutate({
-          id: template.id,
-          type: template.type,
-          body: data.body,
-          subject: data.subject,
-          cc_emails: emails,
-          status: status ? 1 : 0
-        })
-      }} className="px-4 py-2 active:scale-[0.95] transition-all text-white rounded-full bg-[#7655fa] ml-auto my-3">
+      <button
+        onClick={() => {
+          mutate.mutate({
+            id: template?.id,
+            type: template?.type,
+            body: data?.body,
+            subject: data?.subject,
+            cc_emails: emails,
+            status: status ? 1 : 0,
+          });
+        }}
+        className="px-4 py-2 active:scale-[0.95] transition-all text-white rounded-full bg-[#7655fa] ml-auto my-3"
+      >
         Save Changes
       </button>
     </div>

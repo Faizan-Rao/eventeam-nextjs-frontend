@@ -12,14 +12,21 @@ import { Loader2 } from "lucide-react";
 
 const schema = joi
   .object({
-    full_name: joi.string().min(5).required(),
-    phone: joi.string().min(5).required(),
+    full_name: joi.string().min(5).required().label("Full Name"),
+    phone: joi.string().min(5).required().label("Phone"),
     regemail: joi
       .string()
       .email({ tlds: { allow: false } })
-      .required(),
-    regpassword: joi.string().min(5).required(),
-    confirm_password: joi.string().min(5).required(),
+      .required().label("Email"),
+    regpassword: joi.string().min(5).required().label("Password"),
+    confirm_password: joi.string().min(5).custom((value, helpers)=>{
+      const {regpassword} = helpers.state.ancestors[0]
+      if(regpassword !== value)
+      {
+        return helpers.message("Password Missmatched" as any)
+      }
+      return value
+    }).required().label("Confirm Password"),
   })
   .required();
 
@@ -101,8 +108,8 @@ const SignupForm = () => {
             className="text-[#4a4a4a] flex-1 text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
             {...register("full_name", { required: true, minLength: 5 })}
           />
-          {errors.full_name && (
-            <span className="text-red-700">Name is Required</span>
+          {errors?.full_name && (
+            <span className="text-red-700">{`${errors.full_name.message}`}</span>
           )}
         </div>
 
@@ -117,9 +124,9 @@ const SignupForm = () => {
               className="text-[#4a4a4a] flex-1 text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
               {...register("regemail", { required: true, minLength: 5 })}
             />
-            {errors.regemail && (
-              <span className="text-red-700">Email is Required</span>
-            )}
+             {errors?.regemail && (
+            <span className="text-red-700">{`${errors.regemail.message}`}</span>
+          )}
           </div>
           <div className="flex flex-1 flex-col gap-2">
             <span className="text-[#4a4a4a] text-sm font-semibold">Phone</span>
@@ -130,7 +137,7 @@ const SignupForm = () => {
               {...register("phone", { required: true, minLength: 5 })}
             />
             {errors.phone && (
-              <span className="text-red-700">Phone is Required</span>
+              <span className="text-red-700">{`${errors.phone.message}`}</span>
             )}
           </div>
         </div>
@@ -143,9 +150,9 @@ const SignupForm = () => {
             className="text-[#4a4a4a] text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
             {...register("regpassword", { required: true, minLength: 5 })}
           />
-          {errors.regpassword && (
-            <span className="text-red-700">Password is Required</span>
-          )}
+           {errors.regpassword && (
+              <span className="text-red-700">{`${errors.regpassword.message}`}</span>
+            )}
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
@@ -158,7 +165,7 @@ const SignupForm = () => {
             {...register("confirm_password", { required: true, minLength: 5 })}
           />
           {errors.confirm_password && (
-            <span className="text-red-700">Confirm Password is Required</span>
+           <span className="text-red-700">{`${errors.confirm_password.message}`}</span>
           )}
         </div>
 
