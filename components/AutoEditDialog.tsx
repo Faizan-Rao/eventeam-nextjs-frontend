@@ -23,7 +23,7 @@ import {
 import { Switch } from "./ui/switch";
 import { queryClient } from "./MainLayoutGrid";
 import { AutoFormAPI } from "@/configs/apiRoutes";
-import joi from "joi";
+import joi, { bool } from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
   const defaultValues = {
@@ -37,7 +37,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
       title: joi.string().required(),
       start_date: joi.date().required(),
       end_date: joi.date().required(),
-      is_active: joi.number().required(),
+      is_active: joi.any().required(),
     })
     .required();
   const {
@@ -76,7 +76,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
     },
   });
   const mutationAdd = useMutation({
-    mutationFn: AutoFormAPI.createAutoConfig,
+    mutationFn:  async (data) => await AutoFormAPI.add(data),
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey:["auto_form"]})
       toast("Creation Succesfull", {

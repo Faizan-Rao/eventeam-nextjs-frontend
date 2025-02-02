@@ -239,6 +239,10 @@ export const AutoFormAPI = {
     const response = await axiosWithToken.put(`/admin-automatic-form/update/${id}`, data)
     return response
   },
+  add : async (data : any) =>{
+    const response = await axiosWithToken.post(`/admin-automatic-form/create`, data)
+    return response
+  },
   
   autoformConfigFetch : async (id:any) =>{
     const response = await axiosWithToken.get(`/events/automatic-form/${id}`)
