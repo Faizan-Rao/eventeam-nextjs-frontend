@@ -239,6 +239,11 @@ export const AutoFormAPI = {
     const response = await axiosWithToken.put(`/admin-automatic-form/update/${id}`, data)
     return response
   },
+  delete : async (id:number) =>{
+    const response = await axiosWithToken.delete(`/admin-automatic-form/delete/${id}`)
+    return response
+  },
+  
   add : async (data : any) =>{
     const response = await axiosWithToken.post(`/admin-automatic-form/create`, data)
     return response

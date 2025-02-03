@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
+import AutoFormDeleteDialog from "./DeleteAutoForm";
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
   return (
@@ -32,7 +33,6 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           </div>
         </div>
       </div>
-       
 
       <div className="grid grid-cols-3 place-content-center place-items-center   rounded-md border p-4 bg-[#7655fa]">
         <div className="flex flex-col ">
@@ -48,9 +48,16 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           <h1 className="text-[#e8e8e8] text-sm">End date</h1>
         </div>
         {user && user.role === "admin" && event && (
-          <span className="hover:bg-[#45309b] active:scale-[0.90]  rounded-full justify-self-end aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
-            <AutoEditDialog type="edit" data={event} />
-          </span>
+          <div className="flex gap-4 justify-end items-center">
+            <span className="hover:bg-[#45309b] active:scale-[0.90]  rounded-full justify-self-end aspect-square object-cover h-[30px] w-[30px]  cursor-pointer transition-all p-1 ">
+              <AutoEditDialog type="edit" data={event} />
+            </span>
+            <span className="hover:bg-[#45309b] active:scale-[0.90]  rounded-full justify-self-end aspect-square object-cover   cursor-pointer transition-all  ">
+
+              <AutoFormDeleteDialog data={event.id} />
+            </span>
+           
+          </div>
         )}
         {user && user.role === "company" && event && (
           <a

@@ -4,6 +4,7 @@ import EmailTemplateItem from "./EmailTemplateItem";
 import { access } from "fs";
 import { useQuery } from "@tanstack/react-query";
 import { EmailTempApi } from "@/configs/apiRoutes";
+import clsx from "clsx";
 
 const template = {
   thankYou: {
@@ -39,7 +40,11 @@ const EmailTemplateMain = () => {
 
   const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-3 justify-items-center ">
+    <div className={clsx("grid sm:grid-cols-1  justify-items-center ", 
+      user.role === "company" &&  "md:grid-cols-2 justify-items-stretch",
+      user.role === "admin" &&  "md:grid-cols-3 justify-items-stretch"
+
+    )}>
 
       
       {user.role === "admin" && (

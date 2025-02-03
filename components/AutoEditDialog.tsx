@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { ChevronRight, DollarSign, Plus } from "lucide-react";
+import { ChevronRight, DollarSign, PencilLine, Plus } from "lucide-react";
 import { register } from "module";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -116,7 +116,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
       <DialogTrigger className="active:scale-[0.95] transition-all justify-self-center">
         {" "}
         {type !== "add" ? (
-          <ChevronRight className="text-white " />
+          <PencilLine className="text-white " />
         ) : (
           <div className="flex gap-4  items-center bg-[#7655fa] rounded-full text-white px-4 py-2">
             <Plus size={18} /> <p className="sm:hidden lg:block">Autoform</p>

@@ -53,7 +53,7 @@ const RegisterEvent = () => {
       EventReg.eventRegistration( params.eventid[0], params.eventid[1], formData),
     onSuccess: () => {
       toast("Event Registration Successful", { type: "success" });
-     
+      window.location.replace(`/companies/${singleEvent?.company}`);
     },
     onError: (error) => {
       if ((error as any).status !== 200) {

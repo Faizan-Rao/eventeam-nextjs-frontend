@@ -9,7 +9,7 @@ import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
 import { useRouter } from "next/navigation";
-
+import parser from "html-react-parser"
 const EmailTempaleEditForm = ({
   data,
   setData,
@@ -124,10 +124,11 @@ const EmailTempaleEditForm = ({
       />
 
       <h1 className="text-sm font-semibold">Body*</h1>
-
+        
       <JoditEditor
         onChange={(value) => setData({ ...data, body: value })}
-        value={data.body}
+        value={parser(data?.body).toString().trim() !== "" ? data?.body : "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non totam blanditiis voluptatem aliquid ducimus esse vitae impedit explicabo! Accusantium molestias, officia, exercitationem nemo quas deserunt ex natus quam iusto quo recusandae fugit.</p>"}
+        
         config={joditConfig as any}
       />
 

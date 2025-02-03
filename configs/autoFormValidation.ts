@@ -18,7 +18,7 @@ export const subevent = joi.object({
 });
 
 const activity = joi.object({
-  sub_event_id: joi.string().default(""),
+  sub_event_id: joi.any().default(""),
   activities: joi
     .array()
     .items(

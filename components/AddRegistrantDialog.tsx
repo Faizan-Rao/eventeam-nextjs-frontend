@@ -65,7 +65,7 @@ const AddRegistrantDialog = ({
     name: "",
     email: "",
     phone: "",
-    ticketType: [``] as string[],
+    ticketType: [`${formData?.sub_events?.[0].products?.[0].title}`]  as string[],
     subEvents: [] as string[],
   };
   const [guestData, setGuestData] = useState(
@@ -185,7 +185,7 @@ const AddRegistrantDialog = ({
       setTotal(0);
     }
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     filterTicketTypes();
     getTicketsWithPrices();
   }, [filterTicketTypes, getTicketsWithPrices]);
@@ -293,12 +293,13 @@ const AddRegistrantDialog = ({
                       <SelectValue placeholder={"Select Ticket Type..."} />
                     </SelectTrigger>
                     <SelectContent>
-                      {ticketTypes.map((el, i) => {
+                      {ticketTypes.length > 0 && ticketTypes.map((el, i) => {
                         return (
                           <SelectItem
                             key={i}
                             className="mx-0 active:scale-[0.95] transition-all"
                             value={el as string}
+                           
                           >
                             {el as string}
                           </SelectItem>
