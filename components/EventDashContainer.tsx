@@ -92,7 +92,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
             <div className="flex gap-4 my-2">
               <span className="font-bold text-4xl">“”</span>
               <p className="text-center m-4">
-                { `${parse(data?.description)}`.trim() === "" ? parse(data?.automaticSettings.event_description) : parse(data?.description)}
+                { `${parse(data?.description)}`.trim() === "" ? parse(`${data?.automaticSettings?.event_description}`) : parse(data?.description)}
               </p>
               <span className="font-bold text-4xl self-end">“”</span>
             </div>
