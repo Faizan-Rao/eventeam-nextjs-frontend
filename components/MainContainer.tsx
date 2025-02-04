@@ -11,7 +11,7 @@ const MainContainer = ({ data }: { data: any }) => {
         <KPIContainer />
       </div>
       <div className="flex-1 ">
-        <EventDashContainer data={data?.data?.["upcoming_events"][0]} />
+        <EventDashContainer data={data?.data?.recent_auto_event} />
       </div>
 
       {/* <div className=" flex-1 flex sm:flex-col md:flex-row justify-between gap-2 flex-wrap"> */}

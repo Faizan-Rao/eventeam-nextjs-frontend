@@ -71,7 +71,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
               {isPending && <Loader2 className="animate-spin h-5 w-5"/>} Publish Directly
               </button>
               <button className="bg-[#E0A450] text-base rounded-full aspect-square object-cover py-2 px-3 text-center">
-                <a href={`/dashboard/my-events/edit/${data.id}`}>
+                <a href={`/dashboard/use-auto/${data.id}`}>
                   <SimplePancilLine />
                 </a>
               </button>
@@ -92,7 +92,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
             <div className="flex gap-4 my-2">
               <span className="font-bold text-4xl">“”</span>
               <p className="text-center m-4">
-                {data.description && parse(data.description)}
+                { `${parse(data?.description)}`.trim() === "" ? parse(data?.automaticSettings.event_description) : parse(data?.description)}
               </p>
               <span className="font-bold text-4xl self-end">“”</span>
             </div>

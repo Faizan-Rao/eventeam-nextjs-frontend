@@ -31,11 +31,13 @@ const EventDeleteDialog = ({
       toast("Delete Successfull", {
         type:"info"
       })
+      setOpen(false)
     },
     onError : ()=>{
       toast("Delete Failed..", {
         type:"error"
       })
+      setOpen(false)
     }
   })
   return (
