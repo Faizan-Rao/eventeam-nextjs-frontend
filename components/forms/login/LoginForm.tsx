@@ -21,7 +21,7 @@ const schema = joi
 
 const LoginForm = () => {
   const router = useRouter();
-  const [isPending, setPending] = useState(false)
+  const [isPending, setPending] = useState(false);
   const {
     control,
     register,
@@ -40,29 +40,32 @@ const LoginForm = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      setPending(true)
+      setPending(true);
       const response = await Auth.login(data);
-     
+
       const user = {
         token: response.data.data["token"],
         ...response.data.data["user"],
       };
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("recent-login", "1");
-      toast("Login Successful", { type: "success" });
+      toast(response.data.message, { type: "success" });
+      if(!response.data.data.is_active)
+      {
+        window.location.replace("/pending-approval");
+        return 
+      }
+      
       window.location.replace("/dashboard");
-      setPending(false)
+      setPending(false);
     } catch (error) {
       if ((error as any).status !== 200) {
-         
-                   toast((error as any)?.response?.data.message, { type: "error" })
-                
-             
+        toast((error as any)?.response?.data.message, { type: "error" });
       }
-    
-      setPending(false)
+
+      setPending(false);
+    }
   };
-  }
   return (
     <div className=" flex flex-col justify-center items-center  md:min-h-screen ">
       <form
@@ -107,12 +110,17 @@ const LoginForm = () => {
               <span className="text-red-700">Password is Required</span>
             )}
           </div>
-          <a href="/forget-password" className="text-[#7655fa] ">Forgot Password?</a>
+          <a href="/forget-password" className="text-[#7655fa] ">
+            Forgot Password?
+          </a>
         </div>
 
-        <button disabled={isPending} className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full">
+        <button
+          disabled={isPending}
+          className="px-4 py-2 flex justify-center items-center gap-4 active:scale-[0.98] disabled:bg-[#999999] transition-all bg-[#7655fa] font-semibold text-white rounded-full"
+        >
           {" "}
-         {isPending && <Loader2 className="animate-spin h-5 w-5"/>} Sign In
+          {isPending && <Loader2 className="animate-spin h-5 w-5" />} Sign In
         </button>
       </form>
     </div>

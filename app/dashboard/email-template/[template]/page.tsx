@@ -12,7 +12,7 @@ const EditEmailTemplate = () => {
   const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
   
   return (
-    <div className='flex flex-col gap-4 p-4'>
+    <div className='flex flex-col gap-4 md:p-4'>
          <PageTitleContainer title={`Edit Email Template`} />
         {data && <EmailTemplateContainer data={data}/>}
     </div>

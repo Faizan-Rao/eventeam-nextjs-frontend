@@ -32,11 +32,19 @@ const CompanyDeleteDialog = ({
       toast("Delete Successfull", {
         type:"info"
       })
+      setOpen(false)
     },
-    onError : ()=>{
-      toast("Delete Failed..", {
-        type:"error"
-      })
+    onError : (error)=>{
+      if ((error as any).status !== 200) {
+              Object.values((error as any)?.response?.data.data ?? {}).forEach(
+                (el: any) => {
+                  el.forEach((el: any) => {
+                    toast(el, { type: "error" });
+                  });
+                }
+              );
+            }
+            setOpen(false)
     }
   })
   return (

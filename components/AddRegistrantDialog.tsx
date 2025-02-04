@@ -141,6 +141,8 @@ const AddRegistrantDialog = ({
     }
   };
 
+
+  console.log("registrant watch",watch)
   const addGuest = (e: any) => {
     e.preventDefault();
 
@@ -209,7 +211,7 @@ const AddRegistrantDialog = ({
           </DialogTitle>
           <DialogDescription>
             <form className="flex flex-col gap-4 row-span-2">
-              {settings.guest_name_required === "1" && (
+              {(watch.guests.length <= 0 || settings.guest_name_required === "1") && (
                 <div className="flex flex-col gap-2">
                   <label htmlFor="full_name">Full Name</label>
                   <input
@@ -229,7 +231,7 @@ const AddRegistrantDialog = ({
               )}
 
               <div className="flex sm:flex-col md:flex-row gap-2  min-h-[30px]">
-                {settings.guest_email_required === "1" && (
+                { (watch.guests.length <= 0 || settings.guest_email_required === "1") && (
                   <div className="flex flex-col flex-1 gap-2">
                     <label htmlFor="full_name">Email</label>
                     <input
@@ -249,7 +251,7 @@ const AddRegistrantDialog = ({
                     )}
                   </div>
                 )}
-                {settings.guest_phone_required === "1" && (
+                { (watch.guests.length <= 0 || settings.guest_phone_required === "1" )&& (
                   <div className="flex flex-col flex-1 gap-2">
                     <label htmlFor="full_name">Phone</label>
                     <input

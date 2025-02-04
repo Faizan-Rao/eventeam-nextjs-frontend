@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import CompanyCard from "./CompanyCard";
 import KPICard from "./KPICard";
 import {
@@ -64,34 +64,38 @@ const CompaniesMainCont = () => {
   });
   const [filteredData, setFilteredData] = useState([]);
 console.log("Companies Filtered Data", filteredData)
-  const handleSearch = (value: any, name: string) => {
+  const handleSearch = useCallback( (value: any, name: string) => {
    
     if (_.isString(value)) {
-      const searchedData = (companies?.data["data"] as any).filter(
+      const searchedData = (companies?.data["data"] as any)?.filter(
         (el: any, index: number) => {
           return (el as any)[name].toLowerCase().includes(value.toLowerCase());
         }
       );
-      if(searchedData.length === 0)
+      if(searchedData?.length === 0)
       {
         setFilteredData([]);
         return
       }
       setFilteredData(searchedData as any);
     } else {
-      const searchedData = (companies?.data["data"] as any).filter(
+      const searchedData = (companies?.data["data"] as any)?.filter(
         (el: any, index: number) => {
           return (el as any)[name] === value;
         }
       );
-      if(searchedData.length === 0)
+      if(searchedData?.length === 0)
         {
           setFilteredData([]);
           return
         }
       setFilteredData(searchedData as any);
     }
-  };
+  }, [companies])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useLayoutEffect(()=>handleSearch(searchString, "full_name"), [companies])
+
 
   console.log("companies", companies);
   return (
@@ -177,9 +181,9 @@ console.log("Companies Filtered Data", filteredData)
         <h1 className="text-[#4a4a4a] text-lg col-sp font-semibold">
           All Companies{" "}
           {`(${
-            filteredData.length <= 0 && searchString === ""
+            filteredData?.length <= 0 && searchString === ""
             ? companies?.data.data.length || 0  
-            : filteredData.length
+            : (filteredData?.length ?? 0)
                
           })`}
         </h1>

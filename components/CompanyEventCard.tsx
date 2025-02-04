@@ -21,8 +21,8 @@ const CompanyEventCard = ({
   return !isNaN(index) && (
     <div
       className={clsx(
-        index === 0 && "lg:translate-y-[-25%] md:min-w-[420px] sm:min-w-[300px]   bg-[white]",
-        "backdrop-blur-lg  md:max-w-[35%] justify-self-stretch shadow-lg hover:shadow-2xl hover:bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] md:rounded-3xl   min-w-[400px] "
+        index === 0 && "lg:translate-y-[-25%]    bg-[white]",
+        "backdrop-blur-lg   justify-self-stretch shadow-lg hover:shadow-2xl bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] md:rounded-3xl   w-full "
       )}
     >
       <span

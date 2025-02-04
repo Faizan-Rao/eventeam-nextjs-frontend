@@ -18,10 +18,10 @@ const EmailTemplateView = ({ data }: { data: any }) => {
   const profileData = profile && profile?.data.data;
   const params = useParams();
   return (
-    <div className="flex relative  flex-col rounded-2xl p-10  w-auto flex-1  overflow-hidden bg-[#f0f0f0]   box-border">
-      <div className="bg-gradient-to-r absolute -top-[100%] -right-[85%]  r from-[#BD55FA] to-[#7655fa] z-[1] rotate-  h-[2000px] rounded-full w-[2000px] "></div>
+    <div className="flex relative  flex-col rounded-2xl md:p-10  w-auto flex-1  overflow-hidden bg-[#f0f0f0]   box-border">
+      <div className=" sm:hidden md:block bg-gradient-to-r absolute -top-[100%] -right-[85%]  r from-[#BD55FA] to-[#7655fa] z-[1] rotate-  h-[2000px] rounded-full w-[2000px] "></div>
 
-      <div className=" flex flex-col  justify-center p-6 bg-white mx-auto rounded-2xl  w-auto  z-[2] ">
+      <div className=" flex flex-col  justify-center p-6 bg-white md:mx-auto rounded-2xl  w-auto  z-[2] ">
         {/* Header */}
         {profileData && (
           <div className="flex justify-center items-center gap-4 mb-4">
@@ -48,13 +48,13 @@ const EmailTemplateView = ({ data }: { data: any }) => {
           />
         </div>
         {/* Body */}
-        <div className="flex flex-1 max-w-[40vw] text-center break-words break-all my-4 justify-between items-center">
+        <div className="flex flex-1 md:max-w-[40vw] text-center break-words break-all my-4 justify-between items-center">
           <h1 className="text-2xl mx-auto  font-semibold">
             {(data && data.subject) || "No Subject Here"}
           </h1>
         </div>
 
-        <div className="flex flex-1 max-w-[40vw]  my-4 justify-between items-center break-words break-all  text-justify">
+        <div className="flex flex-1 md:max-w-[40vw]  my-4 justify-between items-center break-words break-all  text-justify">
           <div className="text-base  w-auto">
             {(data && (parser(data.body)))}
             
