@@ -35,6 +35,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const DashboardPaymentViewModal = ({
   row,
@@ -50,7 +51,7 @@ const DashboardPaymentViewModal = ({
   const [status, setSetStatus] = useState(row?.original?.status as any);
   const [open, setOpen] = useState(false);
   const { data, setData }: any = useContext(PaymentDetailContext);
-
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
@@ -63,14 +64,14 @@ const DashboardPaymentViewModal = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>View Payment Details</DialogTitle>
+          <DialogTitle>{t("View Payment Details")}</DialogTitle>
         </DialogHeader>
         <DialogDescription className="flex-1 max-h-[600px] px-2 overflow-y-scroll">
           <div className="  flex flex-col gap-4  o">
             <div className="flex border-b-[1px] pb-5 justify-between mt-4 gap-4">
               <div className="flex flex-col gap-2">
                 <h1 className="text-[#7655fa] font-semibold text-sm">
-                  Registration Details
+                  {t("Registration Details")}
                 </h1>
                 <h1 className="  font-semibold sm:text-2xl md:text-3xl text-black">
                   {type !== "view_event" && row?.event?.title}
@@ -97,7 +98,7 @@ const DashboardPaymentViewModal = ({
                     row?.payment_clear === "1" && "bg-[#C2FFCC]"
                   )}
                 >
-                  {row?.payment_clear === "0" ? "Pending" : "Cleared"}
+                  {row?.payment_clear === "0" ? t("Pending") : t("Cleared")}
                 </span>
                 <p className="text-sm text-[#tatata] font-semibold">
                   {type !== "view_event" &&  row?.created_at.split('T')[0]}
@@ -110,7 +111,7 @@ const DashboardPaymentViewModal = ({
             </div>
 
             <h1 className="text-[#7655FA] font-semibold text-base">
-              Guest List
+              {t("Guest List")}
             </h1>
             <div className=" flex flex-col gap-3 w-full flex-1">
               {type !== "view_event" &&
@@ -145,7 +146,7 @@ const DashboardPaymentViewModal = ({
                               </span>
                               <div className="flex flex-col flex-1 text-nowrap">
                                 <h1 className=" font-semibold text-sm">
-                                  Ticket Type
+                                  {t("Ticket Type")}
                                 </h1>
                                 <p className="text-base font-semibold">
                                   {el.ticket_type}
@@ -158,7 +159,7 @@ const DashboardPaymentViewModal = ({
                               </span>
                               <div className="flex  flex-col gap-2">
                                 <h1 className=" font-semibold text-sm">
-                                  Events Attending
+                                  {t("Events Attending")}
                                 </h1>
                                 <div className="flex flex-wrap gap-1">
                                   {el.guest_details.map((item: any) => (
@@ -217,7 +218,7 @@ const DashboardPaymentViewModal = ({
                               </span>
                               <div className="flex flex-col flex-1 text-nowrap">
                                 <h1 className=" font-semibold text-sm">
-                                  Ticket Type
+                                  {t("Ticket Type")}
                                 </h1>
                                 <p className="text-base font-semibold">
                                   {el.ticket_type}
@@ -230,7 +231,7 @@ const DashboardPaymentViewModal = ({
                               </span>
                               <div className="flex  flex-col gap-2">
                                 <h1 className=" font-semibold text-sm">
-                                  Events Attending
+                                  {t("Events Attending")}
                                 </h1>
                                 <div className="flex flex-wrap gap-1">
                                   {el.guest_details.map((item: any) => (
@@ -258,7 +259,7 @@ const DashboardPaymentViewModal = ({
                 })}
             </div>
             <h1 className="text-[#7655FA] font-semibold text-base">
-              Price Breakdown
+              {t("Price Breakdown")}
             </h1>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               {type !== "view_event" &&
@@ -306,7 +307,7 @@ const DashboardPaymentViewModal = ({
             </div>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
-                <p className="font-semibold px-2">Total</p>
+                <p className="font-semibold px-2">{t("Total")}</p>
                 <p className="font-semibold px-2">${row?.total_amount}</p>
               </div>
             </div>

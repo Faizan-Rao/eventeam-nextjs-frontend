@@ -25,7 +25,11 @@ import { queryClient } from "./MainLayoutGrid";
 import { AutoFormAPI } from "@/configs/apiRoutes";
 import joi, { bool } from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useTranslation } from "react-i18next";
+import i18n from "@/configs/i18n";
 const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
+
+  const {t} = useTranslation(["translation"])
   const defaultValues = {
     title: data?.title,
     start_date: data?.start_date,
@@ -119,12 +123,12 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
           <PencilLine className="text-white " />
         ) : (
           <div className="flex gap-4  items-center bg-[#7655fa] rounded-full text-white px-4 py-2">
-            <Plus size={18} /> <p className="sm:hidden lg:block">Autoform</p>
+            <Plus size={18} /> <p className="sm:hidden lg:block">{t("Autoform")}</p>
           </div>
         )}
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>{type === "add" && "Add AutoForm"}</DialogTitle>
+        <DialogTitle>{type === "add" && t("Add AutoForm")}</DialogTitle>
         <DialogHeader>
           <DialogTitle>{data?.title}</DialogTitle>
           <DialogDescription>
@@ -134,7 +138,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
             >
               <div className="flex flex-col gap-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Title
+                  {t("Title")}
                 </span>
 
                 <div className="flex gap-4  border-[1px] rounded-md items-center ">
@@ -153,13 +157,13 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
 
               <div className="flex flex-col gap-2 ">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Status
+                  {t("Status")}
                 </span>
                 <div className="flex justify-between border-[1px] rounded-md p-2">
-                  <span className="text-[#4a4a4a] flex-1">Active</span>
+                  <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
                   <Switch
                     defaultChecked={(data?.status || watch?.is_active) === 1 ? true : false}
-                    
+                    dir={i18n.dir()}
                     onCheckedChange={(value) =>
                     setValue("is_active", value ? 1 : 0)
                     }
@@ -170,7 +174,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
 
               <div className="flex justify-between flex-col">
                 <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
-                  Start Date
+                  {t("Start Date")}
                 </label>
                 <input
                   type="date"
@@ -190,7 +194,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
 
               <div className="flex justify-between flex-col">
                 <label className={"text-[#4a4a4a] mb-1 font-semibold text-sm"}>
-                  End Date
+                  {t("End Date")}
                 </label>
                 <input
                   type="date"
@@ -212,7 +216,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
                   className="px-4 py-2 active:scale-[0.90] transition-all bg-[#7655fa] text-white rounded-full"
                 >
                   {" "}
-                  {type !== "add" ? "Save Changes" : "Add Autoform"}
+                  {type !== "add" ? t("Save Changes") : t("Add Autoform")}
                 </button>
               </div>
             </form>

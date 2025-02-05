@@ -11,6 +11,7 @@ import SubeventPreview from "./SubeventPreview";
 import { DialogHeader } from "./ui/dialog";
 import ViewEye from "./icons/ViewEye";
 import { Eye } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const UpcomingSubeventPreviewDialog = ({
   data,
@@ -19,6 +20,7 @@ const UpcomingSubeventPreviewDialog = ({
   data: any;
   type?: string;
 }) => {
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.95] p-2 transition-all hover:bg-[#7655fa26] rounded-full">
@@ -35,7 +37,7 @@ const UpcomingSubeventPreviewDialog = ({
              
             )}
           >
-            View Details
+            {t("View Details")}
           </span>
         )}
       </DialogTrigger>
@@ -54,7 +56,7 @@ const UpcomingSubeventPreviewDialog = ({
                 );
               })}
 
-              {(data.sub_events.length <= 0) &&  <p className="border-[4px] flex-1 mt-4 p-4 border-dashed text-center text-[#999999]">No Upcoming Events Right Now</p>}
+              {(data.sub_events.length <= 0) &&  <p className="border-[4px] flex-1 mt-4 p-4 border-dashed text-center text-[#999999]">{t("No Upcoming Events Right Now")}</p>}
             </div>
           </DialogDescription>
         </DialogHeader>

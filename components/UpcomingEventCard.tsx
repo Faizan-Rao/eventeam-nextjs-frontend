@@ -14,9 +14,11 @@ import {
 } from "./ui/dropdown-menu";
 import { user } from "@/configs/axios";
 import { EllipsisVertical } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const UpcomingEventCard = ({ data }: { data: any }) => {
   const status = true;
+  const {t} = useTranslation(["translation"])
   console.log("upcoming event data", data);
   return (
     <div className="grid grid-cols-1  p-4 bg-[#F7F6F9] rounded-md">
@@ -34,7 +36,7 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
               )}
             />
             <span className="font-semibold text-sm text-[#999999]">
-              {data["status"] === 1 ? "Active" : "Inactive"}
+              {data["status"] === 1 ? t("Active") : t("Inactive")}
             </span>
           </span>
         </div>
@@ -48,14 +50,14 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
-              <a href={`/dashboard/my-events/${data.id}`}>View Event</a>
+              <a href={`/dashboard/my-events/${data.id}`}>{t("View Event")}</a>
             </DropdownMenuItem>
             <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
-              <a href={`/dashboard/my-events/edit/${data.id}`}>Edit Event</a>
+              <a href={`/dashboard/my-events/edit/${data.id}`}>{t("Edit Event")}</a>
             </DropdownMenuItem>
             <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
               <a href={`/events/${user.slug}/${data.id}`}>
-                View Registration Form
+                {t("View Registration Form")}
               </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -70,7 +72,7 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
           </div>
 
           <div className="flex justify-center  flex-col  ">
-            <p className="text-[#999999] text-xs font-semibold">Dates</p>
+            <p className="text-[#999999] text-xs font-semibold">{t("Dates")}</p>
             <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
               {data["start_date"] &&
                 format(new Date(data["start_date"]), "LLL d") +
@@ -86,7 +88,7 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
           </div>
 
           <div className="flex justify-center  flex-col  ">
-            <p className="text-[#999999] text-xs font-semibold">Guests</p>
+            <p className="text-[#999999] text-xs font-semibold">{t("Guests")}</p>
             <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
               {data["registrations"]?.length}
             </p>

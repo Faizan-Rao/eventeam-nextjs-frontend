@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
 
 const AutomaticForm = () => {
   const [filtered, setFiltered] = useState([]);
@@ -37,7 +38,7 @@ const AutomaticForm = () => {
     setFiltered([]);
     setSearchString("");
   };
-
+  const {t} = useTranslation(["translation"])
   const {
     data: autoforms,
     isError,
@@ -81,7 +82,7 @@ const AutomaticForm = () => {
         {/* <EventDashContainer data={autoformData[0]}  /> */}
         <div className="flex gap-4 sm:flex-col md:flex-row justify-between md:items-center">
           <h1 className="text-xl my-4 font-semibold text-[#4a4a4a]">
-            All Upcoming events
+           {t("All Upcoming events")}
           </h1>
           <div className="grid justify-self-end sm:grid-cols-1 md:grid-cols-2 justify-items-end gap-3 ">
             <div
@@ -92,7 +93,7 @@ const AutomaticForm = () => {
             >
               <Search className=" text-[#4a4a4a]" />
               <input
-                placeholder={"Search Event..."}
+                placeholder={t("Search Event...")}
                 onChange={searchCard}
                 value={searchString}
                 className="flex-1 w-auto outline-none"
@@ -107,11 +108,11 @@ const AutomaticForm = () => {
                       <DropdownMenuTrigger className="active:scale-[0.95] transition-all w-full">
                         <button className=" flex  flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
                           <ListFilter size={20} />
-                          Filter
+                          {t("Filter")}
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="overflow-auto max-h-[300px] max-w-[240px]">
-                        <DropdownMenuLabel>Active State</DropdownMenuLabel>
+                        <DropdownMenuLabel>{t("Active State")}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className="flex items-center active:scale-[0.95] transition-all justify-between"
@@ -121,7 +122,7 @@ const AutomaticForm = () => {
                             setSelectedFilter("active");
                           }}
                         >
-                          <span>Active</span>
+                          <span>{t("Active")}</span>
                           <div
                             className={clsx(
                               selectedFilter === "active" &&
@@ -139,7 +140,7 @@ const AutomaticForm = () => {
                             setSelectedFilter("inactive");
                           }}
                         >
-                          <span>Inactive</span>
+                          <span>{t("Inactive")}</span>
                           <div
                             className={clsx(
                               selectedFilter === "inactive" &&
@@ -159,7 +160,7 @@ const AutomaticForm = () => {
                               setSelectedFilter("");
                             }}
                           >
-                            Clear Filters
+                            {t("Clear Filters")}
                           </button>
 
                           <button
@@ -168,7 +169,7 @@ const AutomaticForm = () => {
                               setOpen(false);
                             }}
                           >
-                            Close
+                            {t("Close")}
                           </button>
                         </span>
                       </DropdownMenuContent>
@@ -182,13 +183,13 @@ const AutomaticForm = () => {
                 <div className="flex md:px-4 py-1  items-center justify-center  gap-4">
                  
 
-                  <h1 className="font-semibold  ">Auto Publish</h1>
+                  <h1 className="font-semibold  ">{t("Auto Publish")}</h1>
                   <HoverCard>
                     <HoverCardTrigger className=" flex aspect-square bg-[#c2c2c2]   rounded-full p-1 h-6 w-6 object-cover justify-center items-center ">
                       <h1 className=" text-white p-2 text-sm">?</h1>
                     </HoverCardTrigger>
                     <HoverCardContent className="text-xs">
-                      Auto Publish Newly Created Auto forms by Admin.
+                     {t("Auto Publish Newly Created Auto forms by Admin.")}
                     </HoverCardContent>
                   </HoverCard>
                   <Switch />
@@ -222,7 +223,7 @@ const AutomaticForm = () => {
           {filtered.length <= 0 && searchString !== "" && (
             <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
               {" "}
-              No Results Found
+              {t("No Results Found")}
             </p>
           )}
         </div>

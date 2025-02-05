@@ -14,8 +14,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Profile } from "@/configs/apiRoutes";
 import { Skeleton } from "./ui/skeleton";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const ProfileDropdown = ({ setNav }: { setNav?: any }) => {
+  const { t } = useTranslation(["translation"]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(false);
   const router = useRouter();
@@ -78,7 +80,7 @@ const ProfileDropdown = ({ setNav }: { setNav?: any }) => {
                 className="flex justify-between items-center gap-6"
               >
                 <User size={18} />
-                <span>Profile</span>
+                <span>{t("Profile")}</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

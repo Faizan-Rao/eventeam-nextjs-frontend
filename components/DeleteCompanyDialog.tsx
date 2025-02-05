@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
 import { Companies } from "@/configs/apiRoutes";
+import { useTranslation } from "react-i18next";
 
 const CompanyDeleteDialog = ({
   open,
@@ -24,7 +25,7 @@ const CompanyDeleteDialog = ({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-
+  const {t} = useTranslation(["translation"])
   const mutate = useMutation({
     mutationFn: Companies.delete,
     onSuccess: ()=>{
@@ -62,18 +63,18 @@ const CompanyDeleteDialog = ({
               </span>
               <div className="flex flex-1 flex-col gap-4">
                 <h1 className="font-semibold text-lg text-[#4a4a4a] ">
-                  Are you sure you want to delete company?
+                  {t("Are you sure you want to delete company?")}
                 </h1>
                  
               </div>
             </div>
             <div className="flex justify-end gap-4">
               <button className="font-semibold active:scale-[0.90] transition-all text-base rounded-full px-4 py-2" onClick={()=>setOpen(false)}>
-                Close
+                {t("Close")}
               </button>
 
               <button onClick={()=>{mutate.mutate(data)}} className="bg-[#FF6161] active:scale-[0.90] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
-                Delete
+                {t("Delete")}
               </button>
             </div>
 

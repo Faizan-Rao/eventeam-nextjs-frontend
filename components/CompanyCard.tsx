@@ -26,6 +26,8 @@ import { useMutation } from "@tanstack/react-query";
 import { Companies } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
+import { useTranslation } from "react-i18next";
+import i18n from "@/configs/i18n";
 
 interface ICompanyCard {
   logo?: string;
@@ -63,6 +65,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
   });
   const [openDelete, setDeleteOpen] = useState(false);
   const [openEdit, setEditOpen] = useState(false);
+  const { t } = useTranslation(["translation"]);
   const dummyImage =
     "https://lh5.googleusercontent.com/proxy/t08n2HuxPfw8OpbutGWjekHAgxfPFv-pZZ5_-uTfhEGK8B5Lp-VN4VjrdxKtr8acgJA93S14m9NdELzjafFfy13b68pQ7zzDiAmn4Xg8LvsTw1jogn_7wStYeOx7ojx5h63Gliw";
   return (
@@ -88,13 +91,14 @@ const CompanyCard: React.FC<ICompanyCard> = ({
                 )}
               />
               <span className="text-sm font-semibold text-[#999999]">
-                {isActive === 1 ? "Active" : "Inactive"}
+                {isActive === 1 ? t("Active") : t("Inactive")}
               </span>
             </div>
           </div>
         </div>
         <div className="flex justify-center ml-4 items-center gap-1 self-start">
           <Switch
+            dir={"ltr"}
             onCheckedChange={() => mutate.mutate()}
             checked={data.is_active === 1 ? true : false}
           />
@@ -104,19 +108,19 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem className="active:scale-[0.95] transition-all">
-                <Link href={`/companies/${slug}`}>Company Events</Link>
+                <Link href={`/companies/${slug}`}>{t("Company Events")}</Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="active:scale-[0.95] transition-all"
                 onClick={() => setDeleteOpen(true)}
               >
-                <p>Delete Company</p>
+                <p>{t("Delete Company")}</p>
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="active:scale-[0.95] transition-all"
                 onClick={() => setEditOpen(true)}
               >
-                <p>Edit Company</p>
+                <p>{t("Edit Company")}</p>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -144,7 +148,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           </span>
           <div className="flex  self-start  flex-col gap-1 ">
             <span className="text-sm font-semibold text-[#999999]">
-              Phone Number
+              {t("Phone Number")}
             </span>
             <p className="text-[#4a4a4a] font-semibold text-sm break-words break-all">
               {phone}
@@ -156,7 +160,9 @@ const CompanyCard: React.FC<ICompanyCard> = ({
             <AtSign className="text-white" />
           </span>
           <div className="flex flex-1     flex-col gap-1">
-            <span className="text-sm font-semibold text-[#999999]">Email</span>
+            <span className="text-sm font-semibold text-[#999999]">
+              {t("Email")}
+            </span>
             <p className="text-[#4a4a4a] break-words break-all font-semibold text-base  text-wrap">
               {email}
             </p>
@@ -168,7 +174,9 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           <MapPin className="text-white" />
         </span>
         <div className="flex flex-col ">
-          <span className="text-sm font-semibold text-[#999999]">Address</span>
+          <span className="text-sm font-semibold text-[#999999]">
+            {t("Address")}
+          </span>
           <p className="text-[#4a4a4a] font-semibold text-base">{address}</p>
         </div>
       </div>
@@ -179,7 +187,7 @@ const CompanyCard: React.FC<ICompanyCard> = ({
           stripe === "1" ? "bg-[#7655fa]" : "bg-[#999999]"
         )}
       >
-        {stripe === "1" ? "Stripe is Activated" : "Stripe is Disabled"}
+        {stripe === "1" ? t("Stripe is Activated") : t("Stripe is Disabled")}
       </div>
     </div>
   );

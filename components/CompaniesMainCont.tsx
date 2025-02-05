@@ -38,6 +38,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Autoplay } from "swiper/modules";
+import { useTranslation } from "react-i18next";
 
 const CompaniesMainCont = () => {
   const [open, setOpen] = useState(false);
@@ -95,32 +96,32 @@ console.log("Companies Filtered Data", filteredData)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(()=>handleSearch(searchString, "full_name"), [companies])
-
+  const {t} = useTranslation(["translation"])
 
   console.log("companies", companies);
   return (
     <div className="flex flex-col gap-4 bg-white sm:p-2 lg:p-6 md:rounded-lg min-h-screen">
       <div className="sm:hidden md:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white p-2 mb-4  ">
         <KPICard
-          title="Total Companies"
+          title={t("Total Companies")}
           value={kpis?.data.data["total_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
-          title="Active Companies"
+          title={t("Active Companies")}
           value={kpis?.data.data["active_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
-          title="Inactive Companies"
+          title={t("Inactive Companies")}
           value={kpis?.data.data["inactive_companies"] || "0"}
           currency=""
           icon={<Building2 />}
         />
         <KPICard
-          title="Stripe Connected"
+          title={t("Stripe Connected")}
           value={kpis?.data.data["stripe_connected"] || "0"}
           currency=""
           icon={<Building2 />}
@@ -145,7 +146,7 @@ console.log("Companies Filtered Data", filteredData)
         >
           <SwiperSlide>
             <KPICard
-              title="Total Companies"
+              title={t("Total Companies")}
               value={kpis?.data.data["total_companies"] || "0"}
               currency=""
               icon={<Building2 />}
@@ -153,7 +154,7 @@ console.log("Companies Filtered Data", filteredData)
           </SwiperSlide>
           <SwiperSlide>
             <KPICard
-              title="Active Companies"
+              title={t("Active Companies")}
               value={kpis?.data.data["active_companies"] || "0"}
               currency=""
               icon={<Building2 />}
@@ -168,7 +169,7 @@ console.log("Companies Filtered Data", filteredData)
           </SwiperSlide>
           <SwiperSlide>
             <KPICard
-              title="Stripe Connected"
+              title={t("Stripe Connected")}
               value={kpis?.data.data["stripe_connected"] || "0"}
               currency=""
               icon={<Building2 />}
@@ -179,7 +180,7 @@ console.log("Companies Filtered Data", filteredData)
       </div>
       <div className="grid items-center sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 justify-center gap-4 mx-2">
         <h1 className="text-[#4a4a4a] text-lg col-sp font-semibold">
-          All Companies{" "}
+         {t("All Companies")}
           {`(${
             filteredData?.length <= 0 && searchString === ""
             ? companies?.data.data.length || 0  
@@ -193,7 +194,7 @@ console.log("Companies Filtered Data", filteredData)
           <div className="flex w-full place-items-center lg:col-span-1 bg-white gap-2 rounded-md border-[1px] p-1">
             <Search size={18} />
             <input
-              placeholder={"Search Companies..."}
+              placeholder={t("Search Companies...")}
               onChange={(event) => {
 
                 handleSearch(event.target.value, "full_name")
@@ -212,11 +213,11 @@ console.log("Companies Filtered Data", filteredData)
                 <DropdownMenuTrigger>
                   <button className="flex justify-center items-center sm:text-sm md:text-base min-w-full  bg-white  place-items-center gap-2 px-4 rounded-md sm:py-2 md:py-1 border-[1px]">
                     <ListFilter size={20} />
-                    Filter
+                    {t("Filter")}
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>Active State</DropdownMenuLabel>
+                  <DropdownMenuLabel>{t("Active State")}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
@@ -226,7 +227,7 @@ console.log("Companies Filtered Data", filteredData)
                       handleSearch(1, "is_active");
                     }}
                   >
-                    <span>Active</span>
+                    <span>{t("Active")}</span>
                     <div
                       className={clsx(
                         selectedFilter === "active" &&
@@ -244,7 +245,7 @@ console.log("Companies Filtered Data", filteredData)
                       handleSearch(0, "is_active");
                     }}
                   >
-                    <span>Inactive</span>
+                    <span>{t("Inactive")}</span>
                     <div
                       className={clsx(
                         selectedFilter === "inactive" &&
@@ -255,7 +256,7 @@ console.log("Companies Filtered Data", filteredData)
                     </div>
                   </DropdownMenuItem>
 
-                  <DropdownMenuLabel>Stripe</DropdownMenuLabel>
+                  <DropdownMenuLabel>{t("Stripe")}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="flex items-center justify-between active:scale-[0.95] transition-all"
@@ -265,7 +266,7 @@ console.log("Companies Filtered Data", filteredData)
                       handleSearch(1, "stripe_account_status");
                     }}
                   >
-                    <span>Connected</span>
+                    <span>{t("Connected")}</span>
                     <div
                       className={clsx(
                         selectedFilter === "connected" &&
@@ -283,7 +284,7 @@ console.log("Companies Filtered Data", filteredData)
                       handleSearch(0, "stripe_account_status");
                     }}
                   >
-                    <span>Disconnected</span>
+                    <span>{t("Disconnected")}</span>
                     <div
                       className={clsx(
                         selectedFilter === "disconnected" &&
@@ -306,7 +307,7 @@ console.log("Companies Filtered Data", filteredData)
                         setSearchString("")
                       }}
                     >
-                      Clear Filters
+                      {t("Clear Filters")}
                     </button>
 
                     <button
@@ -315,7 +316,7 @@ console.log("Companies Filtered Data", filteredData)
                         setOpen(false);
                       }}
                     >
-                      Close
+                      {t("Close")}
                     </button>
                   </span>
                 </DropdownMenuContent>
@@ -344,7 +345,7 @@ console.log("Companies Filtered Data", filteredData)
             />
           ))}
 
-          {filteredData.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> No Results Found</p>}
+          {filteredData.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> {t("No Results Found")}</p>}
         </div>
       )}
 
@@ -366,7 +367,7 @@ console.log("Companies Filtered Data", filteredData)
                 data={companies.data.data[key]}
               />
             ))}
-            {companies?.data.data.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> No Results Found</p>}
+            {companies?.data.data.length === 0 && <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4"> {t("No Results Found")}</p>}
         </div>
       )}
     </div>

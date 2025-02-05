@@ -19,6 +19,7 @@ import { Companies } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "./MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 const CompanyAddDialog = ({
   editOpen,
@@ -36,7 +37,7 @@ const CompanyAddDialog = ({
     email: data?.email,
     phone: data?.phone,
   };
-
+  const {t} = useTranslation(["translation"])
   const schema = joi
     .object({
       full_name: joi.string().min(5).required(),
@@ -136,7 +137,7 @@ const CompanyAddDialog = ({
         <DialogTrigger>
           <div className="flex justify-self-center md:cols-span-2 active:scale-[0.95] items-center transition-all sm:text-sm md:text-base gap-2 px-4 py-2 bg-[#7655fa] rounded-full text-white">
             <Plus />
-            <p className="sm:hidden md:block text-sm">Company</p>
+            <p className="sm:hidden md:block text-sm">{t("Company")}</p>
           </div>
         </DialogTrigger>
       )}
@@ -144,7 +145,7 @@ const CompanyAddDialog = ({
         <DialogHeader>
           <DialogTitle>
             {" "}
-            {type !== "edit" ? "Add New Company" : "Edit Company"}
+            {type !== "edit" ? t("Add New Company") : t("Edit Company")}
           </DialogTitle>
           <DialogDescription>
             <form
@@ -153,7 +154,7 @@ const CompanyAddDialog = ({
             >
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Company Name
+                  {t("Company Name")}
                 </span>
                 <input
                   type="text"
@@ -169,7 +170,7 @@ const CompanyAddDialog = ({
               <div className="grid sm:grid-cols-1  md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <span className="text-[#4a4a4a] text-sm font-semibold">
-                    Email
+                    {t("Email")}
                   </span>
                   <input
                     type="email"
@@ -183,7 +184,7 @@ const CompanyAddDialog = ({
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="text-[#4a4a4a] text-sm font-semibold">
-                    Phone
+                    {t("Phone")}
                   </span>
                   <input
                     type="text"
@@ -218,7 +219,7 @@ const CompanyAddDialog = ({
               </div> */}
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Password
+                  {t("Password")}
                 </span>
                 <input
                   type="text"
@@ -237,7 +238,7 @@ const CompanyAddDialog = ({
                   className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full"
                 >
                   {" "}
-                  {type !== "edit" ? "Add Company" : "Edit Company"}
+                  {type !== "edit" ? t("Add Company") : t("Edit Company")}
                 </button>
               </div>
             </form>

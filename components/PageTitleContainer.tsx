@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { paths } from "@/configs/paths";
 import Link from "next/link";
 import { user } from "@/configs/axios";
+import { useTranslation } from "react-i18next";
 interface IPageTitleContainer {
   title: string;
   className?: string;
@@ -25,7 +26,7 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
 }) => {
   const pathname = usePathname();
   const [subPaths, setSubPaths] = useState<Array<Paths>>([]);
-
+  const {t} = useTranslation(["translation"])
   useEffect(() => {
     paths.map((el, index) => {
       el.children &&
@@ -74,7 +75,7 @@ const PageTitleContainer: React.FC<IPageTitleContainer> = ({
                 )}
               >
                
-                <span className="text-base ">{el.name}</span>
+                <span className="text-base ">{t(el.name)}</span>
               </Link>
             );
           })}

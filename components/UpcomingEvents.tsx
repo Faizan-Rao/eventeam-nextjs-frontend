@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import UpcomingEventCard from "./UpcomingEventCard";
 
@@ -5,11 +6,13 @@ import ArrowDown from "./icons/ArrowDown";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
 import { user } from "@/configs/axios";
+import { useTranslation } from "react-i18next";
 const UpcomingEvents = ({ data }: { data: any }) => {
   console.log("upcoming event data", data);
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col sm:min-w-[100vw] md:min-w-[350px]  rounded-md  max-h-[700px] gap-4  p-6  bg-[white]">
-      <h1 className="font-semibold text-[#4A4A4A] text-xl">Upcoming Events</h1>
+      <h1 className="font-semibold text-[#4A4A4A] text-xl">{t("Upcoming Events")}</h1>
       <div className="flex  flex-1 flex-col gap-5 overflow-auto md:overflow-x-hidden ">
         {/* Skeleton Loader */}
         {/* {(data?.data?.["upcoming_events"] || []).length <= 0 && (
@@ -36,10 +39,10 @@ const UpcomingEvents = ({ data }: { data: any }) => {
           <span className="rotate-[-270deg]">
             <ArrowDown />
           </span>
-          Add New Event
+          {t("Add New Event")}
         </Link>
         <Link href={"/dashboard/my-events"} className="bg-[#7655FA] text-nowrap px-4 text-base py-2 active:scale-[0.95] transition-all text-white rounded-full">
-          View All Events
+          {t("View All Events")}
         </Link>
       </div>}
     </div>

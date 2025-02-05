@@ -13,8 +13,10 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import AutoFormDeleteDialog from "./DeleteAutoForm";
+import { useTranslation } from "react-i18next";
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
+  const {t} = useTranslation(["translation"])
   return (
     <div className="grid grid-cols-1  gap-4 sm:min-w-[310px] md:min-w-[350px]  shadow-md flex-wrap rounded-md  sm:p-4 md:p-6">
       <div className="flex flex-col justify-between">
@@ -39,13 +41,13 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
           <h1 className="text-white text-lg font-semibold">
             {dateFormatter(event.start_date, "MMM dd, yyyy")}
           </h1>
-          <h1 className="text-[#e8e8e8] text-sm">Start date</h1>
+          <h1 className="text-[#e8e8e8] text-sm">{t("Start date")}</h1>
         </div>
         <div className=" ">
           <h1 className="text-white text-lg font-semibold">
             {dateFormatter(event.end_date, "MMM dd, yyyy")}
           </h1>
-          <h1 className="text-[#e8e8e8] text-sm">End date</h1>
+          <h1 className="text-[#e8e8e8] text-sm">{t("End date")}</h1>
         </div>
         {user && user.role === "admin" && event && (
           <div className="flex gap-4 justify-end items-center">
@@ -64,7 +66,7 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
             className="text-white active:scale-[0.90] transition-all bg-[#482cb9] justify-self-end  rounded-full py-2 px-3 hover:bg-[#C2FFCC] hover:text-black  "
             href={`/dashboard/use-auto/${event.id}`}
           >
-            Use
+            {t("Use")}
           </a>
         )}
       </div>
