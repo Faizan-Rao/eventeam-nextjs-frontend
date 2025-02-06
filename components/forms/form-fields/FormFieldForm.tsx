@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import JoditEditor from "jodit-react";
 import React, { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 interface FormField {
@@ -29,6 +30,9 @@ const FormFieldForm = ({ data }: { data: any }) => {
       
   });
 console.log(data)
+
+const {t} = useTranslation(["translation"])
+  
   const mutation = useMutation({
     mutationFn: FormFields.updateFormField,
     onSuccess: () => {
@@ -65,14 +69,14 @@ console.log(data)
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
-          Form Field Settings
+          {t("Form Field Settings")}
         </h1>
       </div>
 
       <div className="flex flex-col gap-4">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
-            Regulation Text
+           {t("Regulation Text")}
           </span>
           <Controller
             name="regulation_text"
@@ -99,7 +103,7 @@ console.log(data)
       <div className="flex flex-col gap-4">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
-            Pay as Cash Text
+            {t("Pay as Cash Text")}
           </span>
           <Controller
             name="cod_text"
@@ -126,7 +130,7 @@ console.log(data)
       <div className="flex flex-col gap-4">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
-            Donation Field Text
+           {t("Donation Field Text")}
           </span>
           <Controller
             name="donation_field_text"
@@ -153,7 +157,7 @@ console.log(data)
       <div className="flex justify-end  items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all  bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Changes
+          {t("Save Changes")}
         </button>
       </div>
     </form>

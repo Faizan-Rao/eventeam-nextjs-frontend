@@ -1,6 +1,7 @@
 import autoConfigSteps from '@/configs/autoConfigs'
 import clsx from 'clsx'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 
 interface IStepperSection {
@@ -10,6 +11,7 @@ interface IStepperSection {
 const StepperSection : React.FC<IStepperSection> = ({
     currentStep
 }) => {
+  const {t} = useTranslation(["translation"])
   return (
     <div className="bg-[white] py-6 min-w-[300px] flex flex-col gap-4 max-w-[45%] w-[35%] min-h-[400px] rounded-md container">
     {autoConfigSteps.map((el, index) => (
@@ -34,7 +36,7 @@ const StepperSection : React.FC<IStepperSection> = ({
               currentStep === index && "text-[#7655FA] border-[#7655FA]"
             )}
           >
-            {el.title}
+            {t(el.title)}
           </p>
           <p className="flex-1 text-[#4a4a4a] text-sm">{el.description}</p>
         </span>

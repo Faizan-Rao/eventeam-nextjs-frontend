@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,12 +13,14 @@ import { useMutation } from "@tanstack/react-query";
 import { Donations } from "@/configs/apiRoutes";
 import { queryClient } from "./MainLayoutGrid";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const DeleteDonationDialog = ({
   id,
 }: {
   id: number;
 }) => {
+  const {t} = useTranslation(["translation"])
   const mutate = useMutation({
     mutationFn: Donations.delete,
     onSuccess: () => {
@@ -45,7 +47,7 @@ const DeleteDonationDialog = ({
         </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle> Are you sure you want to delete?</DialogTitle>
+          <DialogTitle> {t("Are you sure you want to delete?")}</DialogTitle>
           <DialogDescription>
             <div className="flex items-center gap-4 my-4">
               {/* Icon */}
@@ -57,8 +59,8 @@ const DeleteDonationDialog = ({
               <div className="flex flex-1 flex-col">
              
                 <p className="text-sm">
-                  Confirming this dialogue box will permanently delete the event
-                  and all it’s data.
+                 {t(`Confirming this dialogue box will permanently delete the event
+                  and all it’s data.`)}
                 </p>
               </div>
             </div>
@@ -67,11 +69,11 @@ const DeleteDonationDialog = ({
                 className="font-semibold active:scale-[0.90] transition-all text-base rounded-full px-4 py-2"
                 onClick={() => setOpen(false)}
               >
-                Close
+                {t("Close")}
               </button>
 
               <button onClick={()=>mutate.mutate(id)} className="bg-[#FF6161] active:scale-[0.95] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
-                Delete
+                {t("Delete")}
               </button>
             </div>
 

@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { clsx } from "clsx";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SingleEvent = () => {
   const params = useParams();
@@ -21,6 +22,7 @@ const SingleEvent = () => {
   });
   const eventDetail = eventDetailData?.data?.data;
   console.log("view event details data", eventDetail);
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col ">
       {/* Mobile Tab Btns */}
@@ -32,7 +34,7 @@ const SingleEvent = () => {
             tab === "event" && "border-b-[2px] border-[#7655fa] "
           )}
         >
-          Event
+          {t("Event")}
         </button>
         <button
           onClick={() => setTab("reg-info")}
@@ -42,7 +44,7 @@ const SingleEvent = () => {
           )}
         >
           {" "}
-          Reg Info
+          {t("Reg Info")}
         </button>
       </div>
       <div className="sm:hidden md:block p-4">

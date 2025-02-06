@@ -2,23 +2,25 @@ import React from "react";
 import UserCirclePlus from "../../icons/UserCirclePlus";
 import ViewEye from "../../icons/ViewEye";
 import DashboardPaymentViewModal from "@/components/DasboardPaymentViewModal";
+import { useTranslation } from "react-i18next";
 
 const SingleEventTable = ({data} : {data: any}) => {
   console.log("required data view event", data)
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex-1 flex flex-col  gap-4 p-4 h-auto overflow-auto    rounded-md    bg-white">
 
-      <h1 className="font-semibold text-xl mb-4">Recent Registrations</h1>
+      <h1 className="font-semibold text-xl mb-4">{t("Recent Registrations")}</h1>
     <div className="flex  flex-col gap-5 justify-center sm:max-w-[360px] md:max-w-full    overflow-auto   ">
       <table cellSpacing={4} cellPadding={4} >
         <thead className="text-base text-center sticky top-[-25px]  bg-[#ffffff]">
           <tr className="text-[#999999] text-[13px]  border-b-[1px]">
             <th className="font-semibold mx-4 "></th>
-            <th className="font-semibold mx-4 ">Event Name</th>
-            <th className="font-semibold mx-4 ">Payment Method</th>
-            <th className="font-semibold mx-4 ">Seats</th>
-            <th className="font-semibold mx-4 ">T.Amount</th>
-            <th className="font-semibold mx-4 ">V.Details</th>
+            <th className="font-semibold mx-4 ">{t("Event Name")}</th>
+            <th className="font-semibold mx-4 ">{t("Payment Method")}</th>
+            <th className="font-semibold mx-4 ">{t("Seats")}</th>
+            <th className="font-semibold mx-4 ">{t("T.Amount")}</th>
+            <th className="font-semibold mx-4 ">{t("V.Details")}</th>
           </tr>
         </thead>
   

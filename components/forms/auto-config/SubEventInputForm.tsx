@@ -14,6 +14,7 @@ import {
 
 import AddSubEventDialog from "./AddSubEventDialog";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 export const SubEventInput = ({}: { errors?: string[] }) => {
   const {
@@ -25,6 +26,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
     name: "sub_events",
   });
   const watch = useWatch({ control });
+  const { t } = useTranslation(["translation"]);
 
   // const [open, setOpen] = useState(false);
   return (
@@ -62,8 +64,8 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                   <h1 className="text-sm text-[#4a4a4a] ">
                     {_.isDate(el.date)
                       ? format(el.date, "MMM dd, yyyy  hh:mm")
-                      // : format(el.date.split("/")[1], "MMM dd, yyyy  hh:mm")}
-                      : el.date.split(" ")[0] + " " + el.date.split(" ")[1]}
+                      : // : format(el.date.split("/")[1], "MMM dd, yyyy  hh:mm")}
+                        el.date.split(" ")[0] + " " + el.date.split(" ")[1]}
                   </h1>
 
                   <div className="flex gap-4   text-sm flex-wrap">
@@ -89,7 +91,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                                 "bg-[#eeeeee]  rounded-full p-2 active:scale-[0.95] transition-all"
                             )}
                           >
-                            Active
+                            {t("Active")}
                           </button>
                           <button
                             onClick={(e) => {
@@ -108,7 +110,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                                 " p-2 bg-[#FF9395] active:scale-[0.95] transition-all  rounded-full px-4 py-2"
                             )}
                           >
-                            Inactive
+                            {t("Inactive")}
                           </button>
                         </>
                       )}

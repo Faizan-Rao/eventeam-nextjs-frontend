@@ -16,6 +16,7 @@ import { Donations } from "@/configs/apiRoutes";
 import { usePathname } from "next/navigation";
 import { USDollar } from "@/configs/currentFormat";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 const AutoDonationDialog = () => {
   const { control, setValue, watch } = useFormContext();
@@ -68,6 +69,7 @@ const AutoDonationDialog = () => {
     }
     console.log(selectedDonations);
   };
+  const {t} =  useTranslation("translation") 
 
   console.log(selectedDonations);
   return (
@@ -79,19 +81,20 @@ const AutoDonationDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Select donations for form</DialogTitle>
+          <DialogTitle>{t("Select donations for form")}</DialogTitle>
           <DialogDescription>
           <div className="flex my-4 flex-col gap-2 ">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Enable Custom Donations
+                  {t("Enable Desired Donations")}
                 </span>
                 <div className="flex justify-between border-[1px] rounded-md p-2">
-                  <span className="text-[#4a4a4a] flex-1">Active</span>
+                  <p  className="text-[#4a4a4a] ">{t("Active")}</p>
                   <Controller
                     name="advance.donations.is_enable_donation"
                     control={control}
                     render={({ field }) => (
                       <Switch
+                      dir={"ltr"}
                         checked={
                           wt_form.advance.donations?.is_enable_donation === "1"
                             ? true
@@ -155,7 +158,7 @@ const AutoDonationDialog = () => {
                     setValue("advance_form.donations.other_donations", []);
                   }}
                 >
-                  Clear Donations
+                  {t("Clear Donations")}
                 </button>
               </div>
             </div>

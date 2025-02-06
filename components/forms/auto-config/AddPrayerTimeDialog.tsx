@@ -31,6 +31,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { t } from "i18next";
 
 
 interface IPrayerField {
@@ -77,7 +78,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                 className="flex items-center text-sm gap-4 my-4  justify-self-start"
               >
                 {" "}
-                <Plus /> <span>Add Activity</span>
+                <Plus /> <span>{t("Add Activity")}</span>
               </button>
             </div>
           )}
@@ -93,13 +94,13 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{ type === "edit" ? "Edit Activity": "Add Activity"}</DialogTitle>
+            <DialogTitle>{ type === "edit" ? t("Edit Activity"): t("Add Activity")}</DialogTitle>
             <DialogDescription>
               <div className="flex  justify-center flex-col gap-4 ">
                 <div>
                   <div className="flex my-4 flex-col flex-wrap gap-4 flex-1">
                     <span className="flex flex-col gap-2">
-                      <label className="text-sm font-semibold ">Activity Title</label>
+                      <label className="text-sm font-semibold ">{t("Activity Title")}</label>
                       <input
                         type="text"
                         className="border-[1px] p-2 outline-none rounded-md "
@@ -118,7 +119,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                       />
                     </span>
                     <span className="flex flex-col gap-2">
-                      <label className="text-sm font-semibold">Time Type</label>
+                      <label className="text-sm font-semibold">{t("Time Type")}</label>
 
                       <Select
                         defaultValue={
@@ -135,17 +136,17 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="before_sunset" defaultChecked>
-                            Before Sunset
+                          {t("Before Sunset")}
                           </SelectItem>
-                          <SelectItem value="fixed_time">Fixed Time</SelectItem>
+                          <SelectItem value="fixed_time">{t("Fixed Time")}</SelectItem>
                           <SelectItem value="after_sunset">
-                            After Sunset
+                          {t("After Sunset")}t
                           </SelectItem>
                           <SelectItem value="before_candle">
-                            Before candle light
+                            {t("Before candle light")}
                           </SelectItem>
                           <SelectItem value="after_candle">
-                            After candle light
+                          {t("After candle light")}
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -153,7 +154,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
 
                     {data?.activity_type !== "fixed_time" && (
                       <span className="flex   flex-col gap-2">
-                        <label className="text-sm font-semibold">Activity Time</label>
+                        <label className="text-sm font-semibold">{t("Activity Time")}</label>
                         <div className="flex justify-center  bg-[#7655fa] rounded-md  px-4 py-2 ">
                           <CirclePlus
                             onClick={() => {
@@ -197,7 +198,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
 
                     {(data?.activity_type === "fixed_time") && (
                       <span className="flex   flex-col gap-2">
-                        <label className="text-sm font-semibold">Fixed Time</label>
+                        <label className="text-sm font-semibold">{t("Fixed Time")}</label>
                         <div className="flex justify-center  border-[1px] rounded-md  px-4 py-2 ">
                           <input
                             type="time"
@@ -219,9 +220,9 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                     )}
 
                     <span className="flex   flex-col gap-2">
-                      <label className="text-sm font-semibold ">Active Status</label>
+                      <label className="text-sm font-semibold ">{t("Active Status")}</label>
                       <div className="flex justify-between px-4 py-2 border-[1px] gap-6 rounded-md">
-                        <span>Active</span>
+                        <span>{t("Active")}</span>
                         <Switch
                           checked={
                              data.activity_status === 1
@@ -255,7 +256,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                   }
                 }}
               >
-                { type === "edit" ? "Edit Activity": "Add Activity"}
+                { type === "edit" ? t("Edit Activity"): t("Add Activity")}
               </button>
               </div>
             </DialogDescription>

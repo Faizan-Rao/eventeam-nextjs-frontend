@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Donations } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import DeleteDonationDialog from "./DeleteDonationDialog";
+import { useTranslation } from "react-i18next";
 const DonationCard = ({ data }: { data: any }) => {
   const queryClient = useQueryClient()
   const mutation = useMutation({
@@ -18,6 +19,7 @@ const DonationCard = ({ data }: { data: any }) => {
       });
     },
   });
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex-1 flex flex-col shadow-md gap-4 p-6 bg-[#F7F6F9] sm:w-[100%] md:min-w-[350px]    rounded-lg">
       <div className="flex items-stretch justify-center  pb-4  border-b-[1px] gap-4">
@@ -44,11 +46,12 @@ const DonationCard = ({ data }: { data: any }) => {
       </div>
 
       <div className="flex justify-between mt-auto justify-self-end bg-[white] border-[1px] rounded-md p-2">
-        <span className="text-[#4a4a4a] flex-1">Active</span>
+        <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
 
         <Switch
         checked={data.status === 1 ? true : false}
-          onCheckedChange={async (value) =>{
+        dir="ltr"  
+        onCheckedChange={async (value) =>{
 
             console.log("checked value", value)
             mutation.mutate({

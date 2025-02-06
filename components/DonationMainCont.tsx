@@ -6,6 +6,7 @@ import DonationSuggestCont from "./DonationSuggestCont";
 import DonationCard from "./DonationCard";
 import { useQuery } from "@tanstack/react-query";
 import { Donations } from "@/configs/apiRoutes";
+import { useTranslation } from "react-i18next";
 const DonationMainCont = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [filtered, setFiltered] = useState<any[]>([]);
@@ -17,7 +18,7 @@ const DonationMainCont = () => {
     queryKey: ["donations"],
     queryFn: Donations.getList,
   });
-
+  const {t} = useTranslation(["translation"])
   const donationData = donations && donations.data.data.data.company_donations;
   return (
     <div className="flex flex-col transition-all ease-in bg-white p-5 gap-4 rounded-md min-h-screen">
@@ -26,7 +27,7 @@ const DonationMainCont = () => {
           <Search size={18} />
           <input
           type="number"
-            placeholder={"Search Amount..."}
+            placeholder={t("Search Amount...")}
             onChange={(event) => {
               let payload = [...donationData];
               let filteredData = payload.filter(
@@ -47,7 +48,7 @@ const DonationMainCont = () => {
           >
             <NotepadText className="text-[#4a4a4a]" strokeWidth={1} />
             <span className="text-[#4a4a4a] sm:text-xs md:text-sm  font-semibold">
-              {!isOpen ? "See" : "Close"} Suggestions
+              {!isOpen ? "See" : "Close"} {t("Suggestions")}
             </span>
           </button>
           <DonationAddDialog />

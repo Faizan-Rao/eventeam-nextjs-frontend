@@ -25,6 +25,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useTranslation } from "react-i18next";
 
 interface IPrayerField {
   update: (index: number , data: any ) => unknown;
@@ -45,6 +46,7 @@ const EditPrayerTimeDialog: React.FC<IPrayerField> = ({
   const [data, setData] = useState(prayerFields[index]);
 console.log("Edit Prayer : " , data)
   const [open ,setOpen] = useState(false)
+  const {t} = useTranslation(["translation"])
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -53,13 +55,13 @@ console.log("Edit Prayer : " , data)
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit Prayer Activity</DialogTitle>
+            <DialogTitle>{t("Edit Activity")}</DialogTitle>
             <DialogDescription>
               <div className="flex  justify-center flex-col gap-4 ">
                 <div>
                   <div className="flex my-4 flex-col flex-wrap gap-4 flex-1">
                     <span className="flex flex-col gap-1">
-                      <label className="text-sm ">Activity Title</label>
+                      <label className="text-sm ">{t("Activity Title")}</label>
                       <input
                         type="text"
                         className="border-[1px] p-[4.5px] outline-none rounded-md "
@@ -74,7 +76,7 @@ console.log("Edit Prayer : " , data)
                       />
                     </span>
                     <span className="flex flex-col gap-1">
-                      <label className="text-sm ">Time Type</label>
+                      <label className="text-sm ">{t("Time Type")}</label>
 
                       <Select
                         defaultValue={data.time_type}
@@ -87,11 +89,11 @@ console.log("Edit Prayer : " , data)
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="before-sunset" defaultChecked>
-                            Before Sunset
+                            {t("Before Sunset")}
                           </SelectItem>
-                          <SelectItem value="fixed-time">Fixed Time</SelectItem>
+                          <SelectItem value="fixed-time">{t("Fixed Time")}</SelectItem>
                           <SelectItem value="after-sunset">
-                            After Sunset
+                            {t("After Sunset")}
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -99,7 +101,7 @@ console.log("Edit Prayer : " , data)
 
                     {data?.time_type === "before-sunset" && (
                       <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">Before Time</label>
+                        <label className="text-sm ">{t("Before Time")}</label>
                         <div className="flex justify-center  bg-[#7655fa] rounded-md  px-4 py-2 ">
                           <CirclePlus
                             onClick={() => {
@@ -133,7 +135,7 @@ console.log("Edit Prayer : " , data)
                     )}
                     {data?.time_type === "after-sunset" && (
                       <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">After Time</label>
+                        <label className="text-sm ">{t("After Time")}</label>
                         <div className="flex justify-center  bg-[#7655fa] rounded-md  px-4 py-2 ">
                           <CirclePlus
                             onClick={() => {
@@ -170,7 +172,7 @@ console.log("Edit Prayer : " , data)
 
                     {data?.time_type === "fixed-time" && (
                       <span className="flex   flex-col gap-1">
-                        <label className="text-sm ">Fixed Time</label>
+                        <label className="text-sm ">{t("Fixed Time")}</label>
                         <div className="flex justify-center  border-[1px] rounded-md  px-4 py-2 ">
                           <input
                             type="time"
@@ -193,9 +195,9 @@ console.log("Edit Prayer : " , data)
                     )}
 
                     <span className="flex   flex-col gap-1">
-                      <label className="text-sm ">Active Status</label>
+                      <label className="text-sm ">{t("Active Status")}</label>
                       <div className="flex justify-between px-4 py-2 border-[1px] gap-6">
-                        <span>Active</span>
+                        <span>{t("Active")}</span>
                         <Switch
                           onCheckedChange={(value) => {
                           
@@ -219,7 +221,7 @@ console.log("Edit Prayer : " , data)
                   }
                 }}
               >
-                Save Changes
+                {t("Save Changes")}
               </button>
             </DialogDescription>
           </DialogHeader>

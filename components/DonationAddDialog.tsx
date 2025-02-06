@@ -21,6 +21,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Donations } from "@/configs/apiRoutes";
 import { queryClient } from "./MainLayoutGrid";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const DonationAddDialog = () => {
   const {
@@ -52,24 +53,24 @@ const DonationAddDialog = () => {
     payload['amount'] = `${parseInt(data.amount)}`
     mutate.mutate(payload)
   }
-
+  const {t} = useTranslation(["translation"])
   const [open ,setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <div className="flex justify-self-center items-center active:scale-[0.95] transition-all sm:gap-1 md:gap-4 px-4 py-2 bg-[#7655fa] rounded-full text-white">
           <Plus />
-          <span className=" sm:hidden md:block sm:text-sm">Add New Donation</span>
+          <span className=" sm:hidden md:block sm:text-sm">{t("Add New Donation")}</span>
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add New Donation</DialogTitle>
+          <DialogTitle>{t("Add New Donation")}</DialogTitle>
           <DialogDescription>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col my-4 gap-4 ">
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Donation Name
+                  {t("Donation Name")}
                 </span>
                 <input
                   type="text"
@@ -82,7 +83,7 @@ const DonationAddDialog = () => {
 
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Donation Description
+                  {t("Donation Description")}
                 </span>
                 <textarea
                   placeholder="Company Name"
@@ -93,7 +94,7 @@ const DonationAddDialog = () => {
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                Amount
+                {t("Amount")}
                 </span>
 
                 <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
@@ -115,15 +116,16 @@ const DonationAddDialog = () => {
 
               <div className="flex flex-col gap-2 flex-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Status
+                  {t("Status")}
                 </span>
-                <div className="flex justify-between border-[1px] rounded-md p-2">
-                  <span className="text-[#4a4a4a] flex-1">Active</span>
+                <div className="flex justify-between border-[1px] rounded-md p-2 gap-4">
+                  <span className="text-[#4a4a4a] ">{t("Active")}</span>
                   <Controller
                     name="status"
                     control={control}
                     render={({ field }) => (
                       <Switch
+                      dir="ltr"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         
@@ -136,7 +138,7 @@ const DonationAddDialog = () => {
               <div className="flex justify-end items-center gap-4">
                 <button className="px-4 active:scale-[0.95] transition-all py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
-                Add Donation
+                {t("Add Donation")}
                 </button>
               </div>
             </form>

@@ -34,6 +34,7 @@ import {
 import EditPaymentStatusDialog from "./EditPaymentStatusDialog";
 import { data } from "./PaymentDetailMain";
 import ViewPaymentDetailDialog from "./ViewPaymentDetailDialog";
+import { useTranslation } from "react-i18next";
 
 interface ICompanyCard {
   logo?: string;
@@ -63,7 +64,7 @@ const LeadsCard: React.FC<any> = ({
   selectedRecord,
   setSelectedRecord
 }) => {
- 
+ const {t} = useTranslation(["translation"])
   return (
     <>
       <div className="flex-1  shadow-md  sm:hidden md:flex   gap-5 p-6 flex-col bg-white rounded-lg">
@@ -90,7 +91,7 @@ const LeadsCard: React.FC<any> = ({
             </span>
             <div className="flex flex-wrap flex-col break-words break-all ">
               <span className="text-sm font-semibold text-[#999999]">
-                Email
+                {t("Email")}
               </span>
               <p className="text-[#4a4a4a] text-wrap font-semibold break-words text-sm">
                 {email}
@@ -103,7 +104,7 @@ const LeadsCard: React.FC<any> = ({
             </span>
             <div className="flex flex-col ">
               <span className="text-sm font-semibold text-[#999999]">
-                Phone Number
+                {t("Phone Number")}
               </span>
               <p className="text-[#4a4a4a] font-semibold text-sm">{phone}</p>
             </div>
@@ -115,7 +116,7 @@ const LeadsCard: React.FC<any> = ({
             </span>
             <div className="flex flex-col ">
               <span className="text-sm font-semibold text-[#999999]">
-                Ticket Type
+                {t("Ticket Type")}
               </span>
               <p className="text-[#4a4a4a] font-semibold text-base">{ticket}</p>
             </div>
@@ -126,7 +127,7 @@ const LeadsCard: React.FC<any> = ({
             </span>
             <div className="flex flex-col ">
               <span className="text-sm font-semibold text-[#999999]">
-                Event Date
+                {t("Event Date")}
               </span>
               <p className="text-[#4a4a4a] font-semibold text-base">{date}</p>
             </div>
@@ -168,7 +169,7 @@ const LeadsCard: React.FC<any> = ({
                 </span>
                 <div className="flex flex-col ">
                   <span className="text-sm font-semibold text-[#999999]">
-                    Phone Number
+                    {t("Phone Number")}
                   </span>
                   <p className="text-[#4a4a4a] font-semibold text-sm">
                     {phone}
@@ -181,7 +182,7 @@ const LeadsCard: React.FC<any> = ({
                 </span>
                 <div className="flex flex-wrap flex-col  ">
                   <span className="text-sm font-semibold text-[#999999]">
-                    Email
+                    {t("Email")}
                   </span>
                   <p className="text-[#4a4a4a] text-wrap font-semibold  text-sm">
                     {email}
@@ -194,7 +195,7 @@ const LeadsCard: React.FC<any> = ({
                 </span>
                 <div className="flex flex-col ">
                   <span className="text-sm font-semibold text-[#999999]">
-                    Ticket Type
+                    {t("Ticket Type")}
                   </span>
                   <p className="text-[#4a4a4a] font-semibold text-base">
                     {ticket}
@@ -207,7 +208,7 @@ const LeadsCard: React.FC<any> = ({
                 </span>
                 <div className="flex flex-col ">
                   <span className="text-sm font-semibold text-[#999999]">
-                    Event Date
+                    {t("Event Date")}
                   </span>
                   <p className="text-[#4a4a4a] font-semibold text-base">
                     {date}

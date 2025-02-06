@@ -17,6 +17,7 @@ import SubEventWebActivity from "./SubEventWebActivity";
 import PrayerForm from "./PrayerForm";
 import MobileActivitySection from "./MobileActivitySection";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 interface IPrayerTime {
   control: Control<any, any>;
@@ -31,14 +32,14 @@ const PrayerTimeForm: React.FC<IPrayerTime> = ({ control, register }) => {
   const {
     formState: { errors },
   } = useFormContext();
-
+  const {t} = useTranslation(["translation"])
   return (
     <>
       {/* Web Interface */}
       <div className="sm:hidden md:flex flex-col gap-4">
         {(watch.sub_events || []).length > 0 && pathname.includes("/auto-config") &&<PrayerForm />}
         {(watch.sub_events || []).length <= 0 && (
-          <p className="text-lg text-center p-7 text-[#999999] border-[4px] border-dashed">Create a Subevent First...</p>
+          <p className="text-lg text-center p-7 text-[#999999] border-[4px] border-dashed">{t("Create a Subevent First...")}</p>
         )}
         {(watch.sub_events || []).map((el: any, i: number) => {
           return <SubEventWebActivity key={i} data={el} subEventId={i} />;

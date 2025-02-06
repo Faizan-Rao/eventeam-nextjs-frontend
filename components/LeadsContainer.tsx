@@ -19,6 +19,7 @@ import { CSVLink } from "react-csv";
 import { format } from "date-fns";
 import { set } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const LeadsContainer = () => {
   const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ const LeadsContainer = () => {
   });
   
 
-
+const {t} = useTranslation(["translation"])
   const headers = [
     { label: "Name", key: "name" },
     { label: "Event", key: "registration.event.title" },
@@ -116,7 +117,7 @@ const LeadsContainer = () => {
       {companyLeads.length > 0 && (
         <div className="flex flex-wrap sm:px-5 md:px-0 p-4 justify-between gap-4 ">
           <h1 className="text-[#4a4a4a] self-center text-lg font-semibold">
-            All Leads{" "}
+            {t("All Leads")}{" "}
             {`(${
               filteredData.length <= 0
                 ? companyLeads?.length || 0
@@ -127,7 +128,7 @@ const LeadsContainer = () => {
             <span className="flex self-center  place-items-center bg-white gap-2 rounded-md border-[2px] p-1">
               <Search size={18} />
               <input
-                placeholder={"Search Companies..."}
+                placeholder={t("Search Companies...")}
                 onChange={(event) => {
                   handleSearch(event.target.value, "name");
                   setSearchString(event.target.value);
@@ -146,7 +147,7 @@ const LeadsContainer = () => {
                 data={companyLeads || []}
                 className="flex gap-4 justify-self-center md:ml-4 px-4 py-2 text-center bg-[#7655fa] rounded-full sm:text-sm md:text-base text-white active:scale-[0.95] transition-all"
               >
-                Export CSV
+                {t("Export CSV")}
               </CSVLink>
               <button
                 className="rounded-full justify-self-center text-xl text-[red] cursor-pointer p-2"
@@ -185,7 +186,7 @@ const LeadsContainer = () => {
           {deferredFilter.length <= 0 && (
             <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
               {" "}
-              No Results Found
+              {t("No Results Found")}
             </p>
           )}
         </div>
@@ -199,7 +200,7 @@ const LeadsContainer = () => {
               type="text"
               value={searchCompanyString}
               className="text-xl  flex-1 outline-none text-[#999999] "
-              placeholder="Search Company Leads"
+              placeholder={t("Search Company Leads")}
               onChange={(e) => {
                 setSearchCompanies(e.target.value);
                 handleCompanySearch(e.target.value, "full_name");
@@ -220,7 +221,7 @@ const LeadsContainer = () => {
                  
                 </>
               )}
-              <h1 className="font-semibold text-[#999999] text-right">{`Total Companies (${
+              <h1 className="font-semibold text-[#999999] text-right">{`${t("Total Companies")} (${
                 filteredCompanies.length <= 0
                   ? companies?.data.data?.length 
                   : filteredCompanies.length
@@ -266,13 +267,13 @@ const LeadsContainer = () => {
             {searchCompanyString !== "" && filteredCompanies.length <= 0 && (
               <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
                 {" "}
-                No Results Found
+                {t("No Results Found")}
               </p>
             )}
             {companies?.data.data.length <= 0 && (
               <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
                 {" "}
-                No Companies Found
+                {t("No Companies Found")}
               </p>
             )}
           </div>

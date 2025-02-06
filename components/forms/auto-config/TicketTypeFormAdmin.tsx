@@ -11,6 +11,7 @@ import {
 } from "react-hook-form";
 
 import { ErrorMessage } from "@hookform/error-message";
+import { useTranslation } from "react-i18next";
 export const TicketTypes = ({}: { errors?: string[] }) => {
   const {
     control,
@@ -21,12 +22,12 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
     control,
     name: "tickets",
   });
-
+  const {t} = useTranslation("translation")
   return (
     <div className="flex  flex-col   gap-6  ">
       {/* Event Name */}
       <div className="flex -1 w-full gap-2 flex-col">
-        <label className={"text-[#4a4a4a] font-semibold"}>Ticket Names</label>
+        <label className={"text-[#4a4a4a] font-semibold"}>{t("Ticket Names")}</label>
         {fields.map((el, index: number) => {
           return (
             <>
@@ -66,7 +67,7 @@ export const TicketTypes = ({}: { errors?: string[] }) => {
             className="flex items-center gap-4 my-4 active:scale-[0.95] transition-all  justify-self-start sm:text-sm md:text-base text-[#7655fA]"
           >
             {" "}
-            <Plus /> <span>Add Another Ticket</span>
+            <Plus /> <span>{t("Add Another Ticket")}</span>
           </button>
         </div>
       </div>

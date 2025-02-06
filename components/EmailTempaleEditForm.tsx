@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
 import { useRouter } from "next/navigation";
 import parser from "html-react-parser"
+import { useTranslation } from "react-i18next";
 const EmailTempaleEditForm = ({
   data,
   setData,
@@ -43,7 +44,7 @@ const EmailTempaleEditForm = ({
   const handleDataChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  const {t} = useTranslation(["translation"])
   const mutate = useMutation({
     mutationFn: EmailTempApi.save,
     onSuccess: () => {
@@ -67,17 +68,16 @@ const EmailTempaleEditForm = ({
 
   return (
     <div className="flex flex-col p-6 rounded-xl bg-white flex-1 gap-3">
-      <h1 className="text-2xl font-semibold leading-relaxed">Introduction</h1>
+      <h1 className="text-2xl font-semibold leading-relaxed">{t("Introduction")}</h1>
       <p>
-        This is a visual editor for email template. You can edit the email
-        template by entering the field here. <br />
-        Once you have edited your desired section, just click save button
+        {t("This is a visual editor for email template. You can edit the email template by entering the field here.")} <br />
+        {t("Once you have edited your desired section, just click save button")}
       </p>
 
-      <h1 className="text-2xl font-semibold">General Settings</h1>
-      <h1 className="text-sm font-semibold">Status</h1>
+      <h1 className="text-2xl font-semibold">{t("General Settings")}</h1>
+      <h1 className="text-sm font-semibold">{t("Status")}</h1>
       <div className="flex justify-between border-[2px] rounded-md p-2">
-        <span className="text-[#4a4a4a] flex-1">Active</span>
+        <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
         {template && (
         <Switch
           defaultChecked={template?.status === "1" ? true : false}
@@ -90,7 +90,7 @@ const EmailTempaleEditForm = ({
         
       </div>
 
-      <h1 className="text-sm font-semibold">CC email*</h1>
+      <h1 className="text-sm font-semibold">{t("CC email")}*</h1>
       <div className="flex  border-[2px] rounded-md p-2 w-auto flex-wrap">
         {emails.map((e, i) => {
           return (
@@ -111,7 +111,7 @@ const EmailTempaleEditForm = ({
         />
       </div>
 
-      <h1 className="text-sm font-semibold">Subject*</h1>
+      <h1 className="text-sm font-semibold">{t("Subject")}*</h1>
 
       <input
         type="text"
@@ -123,7 +123,7 @@ const EmailTempaleEditForm = ({
         id=""
       />
 
-      <h1 className="text-sm font-semibold">Body*</h1>
+      <h1 className="text-sm font-semibold">{t("Body")}*</h1>
         
       <JoditEditor
         onChange={(value) => setData({ ...data, body: value })}
@@ -145,7 +145,7 @@ const EmailTempaleEditForm = ({
         }}
         className="px-4 py-2 active:scale-[0.95] transition-all text-white rounded-full bg-[#7655fa] ml-auto my-3"
       >
-        Save Changes
+        {t("Save Changes")}
       </button>
     </div>
   );

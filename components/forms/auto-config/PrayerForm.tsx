@@ -1,15 +1,17 @@
 import { CirclePlus, CircleMinus } from "lucide-react";
 import React, { ChangeEvent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 const PrayerForm = () => {
   const { control } = useFormContext();
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col flex-1 bg-[#ebe6fe] sm:mb-4 md:m-4 p-4 rounded-lg">
-      <h1 className="text-[#7655fa] font-semibold">Time</h1>
+      <h1 className="text-[#7655fa] font-semibold">{t("Time")}</h1>
       <div className="flex items-center flex-wrap gap-4">
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm ">Before Sunset</label>
+          <label className="text-sm ">(t{"Before Sunset"})</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.before_sunset_time`}
@@ -51,7 +53,7 @@ const PrayerForm = () => {
           </div>
         </div>
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm ">After Sunset</label>
+          <label className="text-sm ">{t("After Sunset")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.after_sunset_time`}
@@ -101,7 +103,7 @@ const PrayerForm = () => {
             render={({ field }) => (
               <>
                 <label className={"text-[#4a4a4a]  sm:text-sm md:text-sm"}>
-                  End Time
+                  {t("End Time")}
                 </label>
                 <input
                   type="time"

@@ -16,6 +16,7 @@ import JoditEditor from "jodit-react";
 import { usePathname } from "next/navigation";
 import { ErrorMessage } from "@hookform/error-message";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 
 // export const GeneralInfoInput = ({errors} : {errors?: any[]}) => {
 export const GeneralInfoInput = ({}: { errors?: any[] }) => {
@@ -29,6 +30,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
   const Controller = useController({ name: "event_description", control });
   const watch = useWatch({ control });
   console.log("Start Date Watch");
+  const {t} = useTranslation("translation")
   return (
     <div className="flex flex-col gap-6  w-full">
       {/* Event Name */}
@@ -37,7 +39,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
           <label
             className={"text-[#4a4a4a] sm:text-sm md:text-base font-semibold"}
           >
-            Event Name
+            {t("Event Name")}
           </label>
           <input
             type="text"
@@ -61,7 +63,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
             <label
               className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}
             >
-              Start Date
+             {t("Start Date")}
             </label>
             <input
               type="date"
@@ -85,7 +87,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
             <label
               className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}
             >
-              End Date
+              {t("End Date")}
             </label>
             <input
               type="date"
@@ -110,7 +112,7 @@ export const GeneralInfoInput = ({}: { errors?: any[] }) => {
           // htmlFor={id}
           className={"text-[#4a4a4a] font-semibold sm:text-sm md:text-base"}
         >
-          Event Description
+         {t("Event Description")}
         </label>
         <JoditEditor
           value={Controller.field.value || ""}

@@ -37,6 +37,7 @@ import PaginationControls from "@/components/PaginationControls";
 import PaymentCard from "@/components/PaymentCard";
 import clsx from "clsx";
 import { user } from "@/configs/axios";
+import { useTranslation } from "react-i18next";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -125,7 +126,7 @@ export function PaymentDetailsTable<TData, TValue>({
     }
   });
   const [selectedRecord, setSelectedRecord] = useState(0);
-
+  const {t} = useTranslation(["translation"])
 const handleSearch = (value: any, name: string) => {
   
   let filteredData = data.filter((el) => {
@@ -150,7 +151,7 @@ const handleSearch = (value: any, name: string) => {
           <ManifyingGlass />
           <input
           name="search field"
-            placeholder={"Search Event..."}
+            placeholder={t("Search Event...")}
             onChange={(event) => {
               setFilter
               if (filteredRows.length > 0) {
@@ -174,11 +175,11 @@ const handleSearch = (value: any, name: string) => {
           <DropdownMenuTrigger>
             <button className="flex text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
               <ListFilter size={20} />
-              Filter
+              {t("Filter")}
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="overflow-y-auto max-h-[300px] sm:max-w-[200px] md:max-w-[400px]">
-            <DropdownMenuLabel>Active State</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("Active State")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between active:scale-[0.95] transition-all"
@@ -186,7 +187,7 @@ const handleSearch = (value: any, name: string) => {
                 setSelectedFilter("pending")
                 handleDropDownFilter("Pending", "payment_status")}}
             >
-              <span>Pending</span>
+              <span>{t("Pending")}</span>
               <div
                 className={clsx(
                   selectedFilter === "pending" &&
@@ -202,7 +203,7 @@ const handleSearch = (value: any, name: string) => {
                 setSelectedFilter("cleared")
                 handleDropDownFilter("Cleared", "payment_status")}}
             >
-              <span>Cleared</span>
+              <span>{t("Cleared")}</span>
               <div
                 className={clsx(
                   selectedFilter === "cleared" &&
@@ -213,7 +214,7 @@ const handleSearch = (value: any, name: string) => {
               </div>
             </DropdownMenuItem>
 
-            <DropdownMenuLabel>Payment Method</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("Payment Method")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="flex items-center justify-between active:scale-[0.95] transition-all"
@@ -221,7 +222,7 @@ const handleSearch = (value: any, name: string) => {
                 setSelectedFilter("stripe")
                 handleDropDownFilter("stripe", "payment_method")}}
             >
-              <span>Stripe</span>
+              <span>{t("Stripe")}</span>
               <div
                 className={clsx(
                   selectedFilter === "stripe" &&
@@ -237,7 +238,7 @@ const handleSearch = (value: any, name: string) => {
                 setSelectedFilter("cash")
                 handleDropDownFilter("cash", "payment_method")}}
             >
-              <span>Cash</span>
+              <span>{t("Cash")}</span>
               <div
                 className={clsx(
                   selectedFilter === "cash" &&
@@ -248,11 +249,11 @@ const handleSearch = (value: any, name: string) => {
               </div>
             </DropdownMenuItem>
 
-            <DropdownMenuLabel>Total Payments</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("Total Payments")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <div className="flex gap-2 px-4 my-4 flex-wrap">
               <span className="flex flex-col">
-                Min :
+                {t("Min")} :
                 <input
                   placeholder="Min"
                   defaultValue={0}
@@ -266,7 +267,7 @@ const handleSearch = (value: any, name: string) => {
               </span>
 
               <span className="flex flex-col">
-                Max :
+              {t("Max")} :
                 <input
                   placeholder="Max"
                   defaultValue={0}
@@ -289,7 +290,7 @@ const handleSearch = (value: any, name: string) => {
                   setFilterData([])
                 }}
               >
-                Clear Filters
+                {t("Clear Filters")}
               </button>
 
               <button
@@ -298,7 +299,7 @@ const handleSearch = (value: any, name: string) => {
                   setOpen(false);
                 }}
               >
-                Close
+                {t("Close")}
               </button>
             </span>
           </DropdownMenuContent>

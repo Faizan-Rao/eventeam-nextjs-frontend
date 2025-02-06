@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const PaginationControls = ({
   table,
@@ -8,23 +9,24 @@ const PaginationControls = ({
   table: any;
   totalRecords: number;
 }) => {
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex justify-between flex-wrap items-center">
       {/* Pagination Controls */}
       <span className="font-semibold flex  gap-4 text-nowrap text-[#4a4a4a]">
         <p className="text-[#4a4a4a] flex-1">
-          Page: {" "}
+          {t("Page")}: {" "}
           <span className="text-[#7655fa]">
             {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount() || "1"}
           </span>
         </p>
         <p className="text-[#4a4a4a] flex-1">
-          Total Records: <span className="text-[#7655fa]">{totalRecords} </span>
+          {t("Total Records")}: <span className="text-[#7655fa]">{totalRecords} </span>
         </p>
       </span>
 
-      <span className="flex items-center justify-end space-x-2 py-4">
+      <span className="flex items-center justify-end space-x-2 gap-4  py-4">
         <button
           className={clsx(
             "px-4 py-1 bg-[#7655FA]  active:scale-[0.95] transition-all text-[white] rounded-full",
@@ -33,7 +35,7 @@ const PaginationControls = ({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          {t("Previous")}
         </button>
         <button
           className={clsx(
@@ -43,7 +45,7 @@ const PaginationControls = ({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          {t("Next")}
         </button>
         <select
           className="outline-none border-none cursor-pointer "

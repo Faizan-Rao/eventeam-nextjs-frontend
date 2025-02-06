@@ -5,18 +5,19 @@ import AdvanceFormOption from "./AdvanceFormOption";
 import { Banknote, MapPin, CreditCard, Notebook, HandHeart, Check } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import AutoDonationDialog from "@/components/AutoDonationDialog";
+import { useTranslation } from "react-i18next";
 
 
 const AdvanceForm = () => {
   const {control, formState: {errors}} = useFormContext()
   const watch = useWatch({control})
- 
+  const {t} = useTranslation("translation")
   return (
     <div className="  flex flex-col gap-4 my-4">
       {errors.advance && <p className="text-red-800">Please setup this section</p>}
       {errors?.advance && <p className="text-red-800">{` ${(errors?.advance.root as any).message ?? ""}`}</p>}
       <AdvanceFormOption
-        title={"Show address for all subevents?"}
+        title={t("Show address for all subevents?")}
         description="Description of the option"
         icon={<MapPin />}
       >
@@ -37,7 +38,7 @@ const AdvanceForm = () => {
       </AdvanceFormOption>
 
       <AdvanceFormOption
-        title={"Enable Cash Payments?"}
+        title={t("Enable Cash Payments?")}
         description="Description of the option"
         icon={<Banknote />}
       >
@@ -58,7 +59,7 @@ const AdvanceForm = () => {
       </AdvanceFormOption>
 
       <AdvanceFormOption
-        title={"Show regulations on forms?"}
+        title={t("Show regulations on forms?")}
         description="Description of the option"
         icon={<Notebook />}
       >
@@ -79,7 +80,7 @@ const AdvanceForm = () => {
       </AdvanceFormOption>
       
       <AdvanceFormOption
-        title={"Show stripe on the form?"}
+        title={t("Show stripe on the form?")}
         description="Description of the option"
         icon={<CreditCard />}
       >
@@ -100,7 +101,7 @@ const AdvanceForm = () => {
       </AdvanceFormOption>
 
       <AdvanceFormOption
-        title={"Show the donations on registration form for this event?"}
+        title={t("Show the donations on registration form for this event?")}
         description="Description of the option"
         icon={<HandHeart />}
       >

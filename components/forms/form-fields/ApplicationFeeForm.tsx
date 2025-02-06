@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/components/MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 interface ApplicationField {
   plateform_fee : string,
@@ -34,7 +35,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
       
     }
   });
-
+  const {t} = useTranslation(["translation"])
 
   const mutation = useMutation({
     mutationFn: FormFields.updateApplication,
@@ -88,13 +89,13 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
     <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
-          Application Fee Settings
+          {t("Application Fee Settings")}
         </h1>
       </div>
 
       <div className="flex flex-col gap-2">
         <span className="text-[#4a4a4a] text-sm font-semibold">
-          Platform fee
+          {t("Platform fee")}
         </span>
 
         <div className="flex   border-[1px] rounded-md items-center  ">
@@ -110,7 +111,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
 
       <div className="flex flex-col gap-2">
         <span className="text-[#4a4a4a] text-sm font-semibold">
-          Application fee text
+          {t("Application fee text")}
         </span>
 
         <div className="flex  border-[1px] rounded-md items-center  ">
@@ -129,7 +130,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
       <div className="flex justify-between  items-center gap-4">
         
         <span className="flex flex-col gap-2 flex-1">
-              <label className="text-sm text-[#4a4a4a] font-semibold">Select Application Fee Mode</label>
+              <label className="text-sm text-[#4a4a4a] font-semibold">{t("Select Application Fee Mode")}</label>
 
               <Controller
                 name="is_show_app_fee"
@@ -140,11 +141,11 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
                     onValueChange={(value) => field.onChange(value)}
                   >
                     <SelectTrigger >
-                      <SelectValue placeholder="Select Mode..." />
+                      <SelectValue placeholder={t("Select Mode...")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={"1"}>Show application fee</SelectItem>
-                      <SelectItem value={"0"}>Show default fee</SelectItem>
+                      <SelectItem value={"1"}>{t("Show application fee")}</SelectItem>
+                      <SelectItem value={"0"}>{t("Show default fee")}</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
@@ -154,7 +155,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Changes
+          {t("Save Changes")}
         </button>
       </div>
     </form>

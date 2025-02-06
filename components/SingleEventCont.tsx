@@ -51,7 +51,7 @@ import DonationViewDialog from "./DonationViewDialog";
 import EventEditDialog from "./EventEditDialog";
 
 const SingleEventCont = ({ data }: { data: any }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["translation"]);
   const status = true;
   const [open, setOpen] = useState(false);
   console.log("single event data", data);
@@ -60,7 +60,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
       {/* Header */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col ">
-          <h1 className="text-[#7655fa] font-semibold text-sm">Event Title</h1>
+          <h1 className="text-[#7655fa] font-semibold text-sm">{t("Event Title")}</h1>
           <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1 break-words break-all">
             {(data && data && data?.event.title) || "No title"}
           </h1>
@@ -78,21 +78,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               className="cursor-pointer text-[#7655fa] p-2 hover:bg-[#7655fa26] rounded-full transition-all"
             />
           </EventEditDialog>
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger>
-              <EllipsisVertical
-                size={38}
-                className="text-[#4a4a4a]  p-2 hover:bg-[#7655fa26] rounded-full transition-all "
-                strokeWidth={1.5}
-              />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */}
+         
         </div>
       </div>
       {/* KPI's  */}
@@ -182,7 +168,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
       </div>
       <div className="flex flex-col gap-4 pb-4 border-b-[1px]">
         <h1 className="text-[#7655fa] font-semibold text-sm">
-          Event Description
+          {t("Event Description")}
         </h1>
         <p className="text-sm text-[#999999] ">
           {htmlToReact(
@@ -197,7 +183,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
           <AccordionItem value="item-1" className=" rounded-md ">
             <AccordionTrigger className="px-4 bg-[#7655FA26] text-left">
               <h1 className="text-[#7655fa] font-semibold text-sm">
-                Sub Events
+                {t("Sub Events")}
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
@@ -227,7 +213,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
           <AccordionItem value="item-1" className=" rounded-md  outline-none">
             <AccordionTrigger className=" px-4  bg-[#7655FA26] text-left">
               <h1 className="text-[#7655fa] font-semibold text-sm">
-                Activities
+                {t("Activities")}
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
@@ -256,11 +242,11 @@ const SingleEventCont = ({ data }: { data: any }) => {
       {/* Permissions */}
       <div className="flex flex-col gap-4">
         <h1 className="text-[#7655fa] font-semibold text-sm">
-          Application Settings
+          {t("Application Settings")}
         </h1>
         <div className=" w-auto sm:min-w-[92vw] md:min-w-full flex flex-col gap-4 my-4">
           <AdvanceFormOption
-            title={"Show address for all subevents?"}
+            title={t("Show address for all subevents?")}
             description="Description of the option"
             icon={<MapPin />}
           >
@@ -282,15 +268,15 @@ const SingleEventCont = ({ data }: { data: any }) => {
                     {data &&
                    
                     data?.event.advances?.is_show_address === "1"
-                      ? "Active"
-                      : "Inactive"}
+                      ? t("Active")
+                      : t("Inactive")}
                   </span>
                 )}
             </span>
           </AdvanceFormOption>
 
           <AdvanceFormOption
-            title={"Enable Cash Payments?"}
+            title={t("Enable Cash Payments?")}
             description="Description of the option"
             icon={<Banknote />}
           >
@@ -308,14 +294,14 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 {data &&
                 data?.event.advances
                   ?.is_cash_allowed === "1"
-                  ? "Active"
-                  : "Inactive"}
+                  ? t("Active")
+                  : t("Inactive")}
               </span>
             </span>
           </AdvanceFormOption>
 
           <AdvanceFormOption
-            title={"Show regulations on forms?"}
+            title={t("Show regulations on forms?")}
             description="Description of the option"
             icon={<Notebook />}
           >
@@ -333,14 +319,14 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 {data &&
                 data?.event.advances
                   ?.is_show_regulation === "1"
-                  ? "Active"
-                  : "Inactive"}
+                  ? t("Active")
+                  : t("Inactive")}
               </span>
             </span>
           </AdvanceFormOption>
 
           <AdvanceFormOption
-            title={"Show stripe on the form?"}
+            title={t("Show stripe on the form?")}
             description="Description of the option"
             icon={<CreditCard />}
           >
@@ -364,7 +350,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             </span>
           </AdvanceFormOption>
           <AdvanceFormOption
-            title={"All donations on this registration form of this event?"}
+            title={t("All donations on this registration form of this event?")}
             description="Description of the option"
             icon={<HandHeart />}
           >
@@ -386,8 +372,8 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 {data &&
                 data?.event.advances
                   ?.is_donation_allowed === "1"
-                  ? "Active"
-                  : "Inactive"}
+                  ? t("Active")
+                  : t("Inactive")}
                 </span>
               </span>
             </div>

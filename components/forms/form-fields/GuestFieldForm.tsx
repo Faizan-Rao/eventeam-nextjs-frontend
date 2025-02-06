@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/components/MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 interface GuestField {
   guest_name_required: boolean;
@@ -38,7 +39,7 @@ const GuestFieldForm = ({data}:{data:any}) => {
     handleSubmit,
     formState: { errors },
   } = methods;
-
+  const {t} = useTranslation(["translation"])
   const mutation = useMutation({
     mutationFn: FormFields.updateGuestField,
     onSuccess: () => {
@@ -85,21 +86,22 @@ const GuestFieldForm = ({data}:{data:any}) => {
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
-          Guest Field Settings
+          {t("Guest Field Settings")}
         </h1>
       </div>
 
       <div className="flex flex-col gap-2 ">
         <span className="text-[#4a4a4a] text-sm font-semibold">
-          Guest Name Required
+          {t("Guest Name Required")}
         </span>
         <div className="flex justify-between border-[1px] rounded-md p-2">
-          <span className="text-[#4a4a4a] flex-1">Active</span>
+          <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
           <Controller
             name="guest_name_required"
             control={control}
             render={({ field }) => (
               <Switch
+              dir="ltr"
                 checked={field.value}
                 onCheckedChange={field.onChange}
                 name={"guest_name_required"}
@@ -110,15 +112,16 @@ const GuestFieldForm = ({data}:{data:any}) => {
       </div>
       <div className="flex flex-col gap-2 ">
         <span className="text-[#4a4a4a] text-sm font-semibold">
-          Guest Phone Required
+          {t("Guest Phone Required")}
         </span>
         <div className="flex justify-between border-[1px] rounded-md p-2">
-          <span className="text-[#4a4a4a] flex-1">Active</span>
+          <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
           <Controller
             name="guest_phone_required"
             control={control}
             render={({ field }) => (
               <Switch
+              dir="ltr"
                 checked={field.value}
                 onCheckedChange={field.onChange}
                 name={"guest_phone_required"}
@@ -129,15 +132,16 @@ const GuestFieldForm = ({data}:{data:any}) => {
       </div>
       <div className="flex flex-col gap-2 ">
         <span className="text-[#4a4a4a] text-sm font-semibold">
-          Guest Email Required
+          {t("Guest Email Required")}
         </span>
         <div className="flex justify-between border-[1px] rounded-md p-2">
-          <span className="text-[#4a4a4a] flex-1">Active</span>
+          <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
           <Controller
             name="guest_email_required"
             control={control}
             render={({ field }) => (
               <Switch
+              dir="ltr"
                 checked={field.value}
                 onCheckedChange={field.onChange}
                 name={"guest_email_required"}
@@ -150,7 +154,7 @@ const GuestFieldForm = ({data}:{data:any}) => {
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Changes
+          {t("Save Changes")}
         </button>
       </div>
     </form>

@@ -65,6 +65,7 @@ const EmailTemplateItem: React.FC<Option> = ({
         </p>
         {data && (
         <Switch
+        dir="ltr"
           checked={data?.status === "1" ? true : false}
           onCheckedChange={(value: any) => {
             mutate.mutate({

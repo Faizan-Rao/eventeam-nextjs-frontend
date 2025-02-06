@@ -46,6 +46,7 @@ import {
 } from "@/configs/autoFormValidation";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { queryClient } from "@/components/MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 const defaultValues = {
   tickets: [
@@ -216,6 +217,8 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     //   mutateEvent.mutate(payload)
     // }
   };
+
+  const {t} = useTranslation(["translation"])
   return (
     <FormProvider {...methods}>
       <div className="flex sm:flex-col md:flex-row  gap-5    p-0">
@@ -229,7 +232,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
           {deferStep === 0 && (
             <>
               <FormHeader
-                title="General Information"
+                title={t("General Information")}
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
@@ -240,7 +243,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
           {deferStep === 1 && (
             <>
               <FormHeader
-                title="Ticket Types"
+                title={t("Ticket Types")}
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
@@ -251,7 +254,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
           {deferStep === 2 && (
             <>
               <FormHeader
-                title="Sub Events"
+                title={t("Sub Events")}
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
@@ -262,7 +265,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
           {deferStep === 3 && (
             <>
               <FormHeader
-                title="Advance Form Settings"
+                title={t("Advance Form Settings")}
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />
@@ -273,7 +276,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
           {deferStep === 4 && (
             <>
               <FormHeader
-                title="Activities"
+                title={t("Activities")}
                 currentStep={currentStep + 1}
                 totalSteps={autoConfigSteps.length}
               />

@@ -4,6 +4,7 @@ import { current } from "@reduxjs/toolkit";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export const FormStepperButtons = ({
   currentStep,
@@ -21,6 +22,7 @@ export const FormStepperButtons = ({
     clearErrors
   } = useFormContext();
 
+  const {t} = useTranslation(["translation"])
   const handleValidation = (e: any) => {
     e.preventDefault();
    
@@ -51,7 +53,7 @@ export const FormStepperButtons = ({
           className="flex active:scale-[0.95] transition-all justify-between select-none items-center gap-2 "
         >
           <ChevronLeft size={15} />
-          <span>Previous</span>
+          <span>{t("Previous")}</span>
         </button>
       )}
       {currentStep + 1 !== autoConfigSteps.length && (
@@ -69,7 +71,7 @@ export const FormStepperButtons = ({
           }}
           className="bg-[#7655FA] active:scale-[0.95] transition-all text-white mx-4 px-7 py-2 rounded-full"
         >
-          Continue
+          {t("Continue")}
         </button>
       )}
       {currentStep + 1 === autoConfigSteps.length && (
@@ -77,7 +79,7 @@ export const FormStepperButtons = ({
           type="submit"
           className="bg-[#7655FA] active:scale-[0.95] transition-all mx-4 select-none text-white px-7 py-2 rounded-full"
         >
-          Submit
+          {t("Submit")}
         </button>
       )}
     </span>
