@@ -8,6 +8,7 @@ import joi from "joi";
 import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 export const commissionDetailsEditSchema = joi.object({
@@ -45,6 +46,7 @@ const EditComissionDetails = ({
   commissionDetails: any;
 }) => {
   const [isPending, setIsPending] = useState(false);
+  const {t} = useTranslation(["translation"])
 
   const mutate = useMutation({
     mutationKey: ["update-commission"],
@@ -132,12 +134,12 @@ const EditComissionDetails = ({
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
-          Commission Details
+          {t("Commission Details")}
         </h1>
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Commission %
+          {t("Commission %")}
         </span>
         <input
           type="text"
@@ -154,14 +156,13 @@ const EditComissionDetails = ({
         className="flex items-center justify-center cursor-pointer gap-4 px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa26] text-[#7655fa] hover:bg-[#7655fa] hover:text-white rounded-md"
       >
         {" "}
-        {isPending && <Loader2 className="animate-spin h-5 w-5" />} Send
-        Confirmation OTP
+        {isPending && <Loader2 className="animate-spin h-5 w-5" />} {t("Send Confirmation OTP")}
       </button>
       <div className="flex flex-col gap-2">
-        <span className="text-[#999999] text-sm font-semibold">Enter OTP</span>
+        <span className="text-[#999999] text-sm font-semibold">{t("Enter OTP")}</span>
         <input
           type="text"
-          placeholder="Enter Confirmation OTP"
+          placeholder={t("Enter Confirmation OTP")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           {...register("admin_commission_otp")}
         />
@@ -174,8 +175,7 @@ const EditComissionDetails = ({
           type="submit"
           className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full"
         >
-          {" "}
-          Save Settings
+          {t("Save Settings")}
         </button>
       </div>
     </form>

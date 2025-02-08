@@ -10,6 +10,7 @@ import { Profile } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { queryClient } from "@/components/MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -38,25 +39,27 @@ const CommissionCalculation = ({formField} : {formField: any}) => {
       }
     },
   });
+
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">Commission Calculation Setting</h1>
+        <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Commission Calculation Setting")}</h1>
       </div>
       <div className="flex flex-col gap-2 min-w-full">
         <span className="text-[#999999] text-sm font-semibold">
-          Do You want to get commission on donation amount?
+          {t("Do You want to get commission on donation amount?")}
         </span>
         <Select onValueChange={(value)=>{
           setCommissionPermission(value)
           
         }}  defaultValue={`${formField?.data.data?.fields?.get_donation_percentage}`} >
           <SelectTrigger  className="min-w-full text-[#999999] font-semibold">
-            <SelectValue placeholder="Select Permission"  />
+            <SelectValue placeholder={t("Select Permission")}  />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="1">Yes, calculate commission on donation </SelectItem>
-            <SelectItem value="0">{`No, don't calculate commission on donation`}</SelectItem>
+            <SelectItem value="1">{t("Yes, calculate commission on donation")} </SelectItem>
+            <SelectItem value="0">{t(`No, don't calculate commission on donation`)}</SelectItem>
            
           </SelectContent>
         </Select>
@@ -68,7 +71,7 @@ const CommissionCalculation = ({formField} : {formField: any}) => {
           mutate.mutate({get_donation_percentage: commissionPermission})
         }} className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Settings
+          {t("Save Settings")}
         </button>
       </div>
     </div>

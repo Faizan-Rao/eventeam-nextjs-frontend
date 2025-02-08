@@ -37,6 +37,7 @@ import PaginationControls from "@/components/PaginationControls";
 import Link from "next/link";
 import MyEventCard from "@/components/MyEventCard";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -54,6 +55,9 @@ export function MyEventTable<TData, TValue>({
   const [selectedRecord, setSelectedRecord] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [FilteredData, setFilteredData] = useState([]);
+
+  const {t} = useTranslation(["translation"])
+
   const handleSearch = (value: any, name: string) => {
   
     let filteredData = data.filter((el) => {
@@ -150,7 +154,7 @@ export function MyEventTable<TData, TValue>({
         <span className="sm:flex-1 md:flex-grow-0 md:col-span-3    md:max-w-lg  flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <ManifyingGlass />
           <input
-            placeholder={"Search Event..."}
+            placeholder={t("Search Event...")}
             onChange={(event) => {
               if (filteredRows.length > 0) {
                 setFilteredRows([]);
@@ -170,11 +174,11 @@ export function MyEventTable<TData, TValue>({
               <DropdownMenuTrigger className="active:scale-[0.95] transition-all w-full">
                 <button className=" flex  flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
                   <ListFilter size={20} />
-                  Filter
+                  {t("Filter")}
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="overflow-auto max-h-[300px] max-w-[240px]">
-                <DropdownMenuLabel>Active State</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("Active State")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="flex items-center active:scale-[0.95] transition-all justify-between"
@@ -183,7 +187,7 @@ export function MyEventTable<TData, TValue>({
                     setSelectedFilter("active");
                   }}
                 >
-                  <span>Active</span>
+                  <span>{t("Active")}</span>
                   <div
                     className={clsx(
                       selectedFilter === "active" &&
@@ -200,7 +204,7 @@ export function MyEventTable<TData, TValue>({
                     setSelectedFilter("inactive");
                   }}
                 >
-                  <span>Inactive</span>
+                  <span>{t("Inactive")}</span>
                   <div
                     className={clsx(
                       selectedFilter === "inactive" &&
@@ -211,7 +215,7 @@ export function MyEventTable<TData, TValue>({
                   </div>
                 </DropdownMenuItem>
 
-                <DropdownMenuLabel>Operational State</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("Operational State")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="flex items-center active:scale-[0.95] transition-all justify-between"
@@ -220,7 +224,7 @@ export function MyEventTable<TData, TValue>({
                     setSelectedFilter("operational");
                   }}
                 >
-                  <span>Active</span>
+                  <span>{t("Active")}</span>
                   <div
                     className={clsx(
                       selectedFilter === "operational" &&
@@ -237,7 +241,7 @@ export function MyEventTable<TData, TValue>({
                     setSelectedFilter("ended");
                   }}
                 >
-                  <span>Ended</span>
+                  <span>{t("Ended")}</span>
                   <div
                     className={clsx(
                       selectedFilter === "ended" &&
@@ -249,11 +253,11 @@ export function MyEventTable<TData, TValue>({
                 </DropdownMenuItem>
               
 
-                <DropdownMenuLabel>Registrations</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("Registrations")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <div className="flex gap-2 px-4 my-4 flex-wrap">
                   <span className="flex flex-col">
-                    Min :
+                    {t("Min")} :
                     <input
                       placeholder="Min"
                       defaultValue={0}
@@ -268,7 +272,7 @@ export function MyEventTable<TData, TValue>({
                   </span>
 
                   <span className="flex flex-col">
-                    Max :
+                    {t("Max")} :
                     <input
                       placeholder="Max"
                       defaultValue={0}
@@ -291,7 +295,7 @@ export function MyEventTable<TData, TValue>({
                       setSelectedFilter("")
                     }}
                   >
-                    Clear Filters
+                    {t("Clear Filters")}
                   </button>
 
                   <button
@@ -300,7 +304,7 @@ export function MyEventTable<TData, TValue>({
                       setOpen(false);
                     }}
                   >
-                    Close
+                    {t("Close")}
                   </button>
                 </span>
               </DropdownMenuContent>
@@ -309,7 +313,7 @@ export function MyEventTable<TData, TValue>({
           <Link href={"/dashboard/add-event"} className="sm:justify-self-end">
             <button className="flex  active:scale-[0.95] transition-all gap-4 bg-[#7655FA] text-white py-2 px-4 rounded-full">
               <Plus />
-              <span className="sm:hidden md:block"> Event</span>
+              <span className="sm:hidden md:block">{t("Event")}</span>
             </button>
           </Link>
         </div>
@@ -372,7 +376,7 @@ export function MyEventTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {t("No Results Found")}
                 </TableCell>
               </TableRow>
             )}

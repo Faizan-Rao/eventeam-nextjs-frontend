@@ -5,6 +5,7 @@ import UpcomingEvents from "./UpcomingEvents";
 import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
 import { Dashboard } from "@/configs/apiRoutes";
+import { useTranslation } from "react-i18next";
 
 const DashboardGrid = () => {
   const [tab, setTab] = useState("dashboard");
@@ -28,6 +29,7 @@ const DashboardGrid = () => {
 
   console.log(kpis?.data.data)
   console.log(dashboard?.data.data)
+  const {t} = useTranslation("translation")
   return (
     <div className="flex flex-col ">
       {/* Mobile Tab Btns */}
@@ -39,7 +41,7 @@ const DashboardGrid = () => {
             tab === "dashboard" && "border-b-[2px] border-[#7655fa] "
           )}
         >
-          Dasboard
+          {t("Dasboard")}
         </button>
         <button
           onClick={() => setTab("upcoming-events")}
@@ -49,7 +51,7 @@ const DashboardGrid = () => {
           )}
         >
           {" "}
-          Upcomming Events
+          {t("Upcoming Events")}
         </button>
       </div>
       {/* Web Template */}

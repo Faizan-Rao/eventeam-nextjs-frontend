@@ -25,7 +25,7 @@ const UpcomingEvents = ({ data }: { data: any }) => {
           </div>
         )} */}
        {(data?.data?.["upcoming_events"] || []).length <= 0 && (
-          <p className="border-[4px] p-4 border-dashed text-center text-[#999999]">No Upcoming Events Right Now</p>
+          <p className="border-[4px] p-4 border-dashed text-center text-[#999999]">{t("No Upcoming Events Right Now")}</p>
         )} 
 
         {(data?.data?.["upcoming_events"] || []).length > 0 &&

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import joi from "joi";
 import { Loader2 } from "lucide-react";
 import { user } from "@/configs/axios";
+import { useTranslation } from "react-i18next";
 export const stripeSettingsEditSchema = joi.object({
   stripe_publishable_key: joi.string().label("Stripe Publishable Key"),
   stripe_secret_key: joi.string().label("Stripe Secret Key"),
@@ -100,21 +101,23 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       setIsPending(false);
     }
   };
+
+  const {t} = useTranslation(["translation"])
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">Stripe Setting</h1>
+        <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Stripe Setting")}</h1>
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Stripe Publishable Key
+          {t("Stripe Publishable Key")}
         </span>
         <input
           type="text"
-          placeholder="Enter The Publishable Key"
+          placeholder={t("Stripe Publishable Key")}
           {...register("stripe_publishable_key")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
@@ -125,11 +128,11 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
 
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Stripe Secret key
+          {t("Stripe Secret key")}
         </span>
         <input
           type="text"
-          placeholder="Enter The Secret Key"
+          placeholder={t("Stripe Secret key")}
           {...register("stripe_secret_key")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
@@ -142,16 +145,15 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         className="flex items-center justify-center cursor-pointer gap-4 px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa26] text-[#7655fa] hover:bg-[#7655fa] hover:text-white rounded-md"
       >
         {" "}
-        {isPending && <Loader2 className="animate-spin h-5 w-5" />} Send
-        Confirmation OTP
+        {isPending && <Loader2 className="animate-spin h-5 w-5" />} {t("Send Confirmation OTP")}
       </button>
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Stripe Confirmation OTP
+          {t("Stripe Confirmation OTP")}
         </span>
         <input
           type="text"
-          placeholder="Enter Confirmation OTP"
+          placeholder={t("Stripe Confirmation OTP")}
           {...register("update_stripe_keys_otp")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
@@ -162,7 +164,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Settings
+          {t("Save Settings")}
         </button>
       </div>
     </form>

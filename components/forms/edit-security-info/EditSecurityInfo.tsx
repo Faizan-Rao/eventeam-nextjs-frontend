@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
 export const securityEditSchema = joi.object({
   current_password: joi.string().allow("").label("Current Password"),
@@ -131,6 +132,8 @@ const EditSecurityForm = ({
       setIsPending(false);
     }
   };
+
+  const {t} = useTranslation(["translation"])
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -138,13 +141,13 @@ const EditSecurityForm = ({
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
-          {formName ? formName : "Security"}
+          {formName ? t(formName) : t("Security")}
         </h1>
       </div>
       {!pathname.includes("forget-password") && (
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            Current Password
+            {t("Current Password")}
           </span>
           <input
             type="password"
@@ -161,7 +164,7 @@ const EditSecurityForm = ({
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            New Password
+           {t("New Password")}
           </span>
           <input
             type="password"
@@ -175,7 +178,7 @@ const EditSecurityForm = ({
         </div>
         <div className="flex-1 flex justify-center flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            Confirm Password
+            {t("Confirm Password")}
           </span>
           <input
             type="password"
@@ -193,14 +196,13 @@ const EditSecurityForm = ({
         className="flex items-center justify-center cursor-pointer gap-4 px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa26] text-[#7655fa] hover:bg-[#7655fa] hover:text-white rounded-md"
       >
         {" "}
-        {isPending && <Loader2 className="animate-spin h-5 w-5" />} Send
-        Confirmation OTP
+        {isPending && <Loader2 className="animate-spin h-5 w-5" />} {t("Send Confirmation OTP")}
       </button>
       <div className="flex flex-col gap-2">
-        <span className="text-[#999999] text-sm font-semibold">Enter OTP</span>
+        <span className="text-[#999999] text-sm font-semibold">{t("Enter OTP")}</span>
         <input
           type="text"
-          placeholder="Enter Confirmation OTP"
+          placeholder={t("Enter Confirmation OTP")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           {...register("change_password_otp")}
         />
@@ -210,8 +212,7 @@ const EditSecurityForm = ({
       </div>
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
-          {" "}
-          Save Password
+          {t("Save Password")}
         </button>
       </div>
     </form>

@@ -344,8 +344,8 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 {data &&
                 data?.event.advances
                   ?.is_show_stripe === "1"
-                  ? "Active"
-                  : "Inactive"}
+                  ? t("Active")
+                  : t("Inactive")}
               </span>
             </span>
           </AdvanceFormOption>

@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { useMutation } from "@tanstack/react-query";
 import { Profile } from "@/configs/apiRoutes";
+import { useTranslation } from "react-i18next";
 const EditProfileGenInfo = ({ profile }: { profile: any }) => {
   const hiddenInputRef = useRef(null);
   const [fileUrl, setFileUrl] = useState<string>(profile?.photo);
@@ -103,6 +104,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
     mutateProfile.mutate(formData);
   };
 
+  const {t} = useTranslation(["translation"])
   return (
     <>
       {
@@ -115,7 +117,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
 
           {/* File Upload */}
           <span className="text-[#999999] text-sm font-semibold">
-            Upload Profile Pic
+            {t("Upload Profile Pic")}
           </span>
           <div className="flex sm:flex-col md:flex-row  items-center rounded-md border-[1px] p-4 gap-4">
             <input
@@ -137,7 +139,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
                     height={60}
                   />
                   <button onClick={handleClearFile} className="text-[#D04B4B]">
-                    Remove
+                    {t("Remove")}
                   </button>
                 </>
               )}
@@ -157,7 +159,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
               onClick={handleUpload}
               className="flex cursor-pointer justify-center self-stretch bg-[#F7F6F9] rounded-md flex-col flex-1 items-center gap-1"
             >
-              <h1 className="text-[#999999]">Click Here to upload new logo</h1>
+              <h1 className="text-[#999999]">{t("Click Here to upload new logo")}</h1>
               <h1 className="text-[#4a4a4a]">
                 {"SVG, PNG, JPG. (1080x1080 Max)"}
               </h1>
@@ -168,12 +170,12 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
             <div className="flex flex-col gap-4 ">
               <div className="flex flex-col gap-2">
                 <span className="text-[#999999] text-sm font-semibold">
-                  Company Name
+                  {t("Company Name")}
                 </span>
                 <input
                   type="text"
                   defaultValue={profile?.full_name}
-                  placeholder="Company Name"
+                  placeholder={t("Company Name")}
                   className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
                   {...register("company")}
                 />
@@ -182,11 +184,11 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
               <div className="flex justify-between items-center gap-4 flex-wrap">
                 <div className="flex-1 flex flex-col gap-2">
                   <span className="text-[#999999] text-sm font-semibold">
-                    Email
+                    {t("Email")}
                   </span>
                   <input
                     type="text"
-                    placeholder="Email"
+                    placeholder={t("Email")}
                     defaultValue={profile?.email}
                     className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
                     {...register("email")}
@@ -194,11 +196,11 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
                 </div>
                 <div className="flex-1 flex flex-col gap-2">
                   <span className="text-[#999999] text-sm font-semibold">
-                    Phone
+                  {t("Phone")}
                   </span>
                   <input
                     type="number"
-                    placeholder="Phone Number"
+                    placeholder={t("Phone")}
                     defaultValue={profile?.phone}
                     className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
                     {...register("phone", { setValueAs: String })}
@@ -210,7 +212,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
             <div className="flex mt-4 flex-col gap-4">
               <div className="flex-1 flex flex-col">
                 <span className="text-[#999999] text-sm mb-1 font-semibold">
-                  About
+                  {t("About")}
                 </span>
                 <Controller
                   name="about"
@@ -231,7 +233,7 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
             <div className="flex justify-end items-center gap-4">
               <button className="px-4 mt-5 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
                 {" "}
-                Save Changes
+                {t("Save Changes")}
               </button>
             </div>
           </form>

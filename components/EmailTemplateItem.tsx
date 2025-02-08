@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { EmailTempApi } from "@/configs/apiRoutes";
 import { queryClient } from "./MainLayoutGrid";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface Option {
   heading: string;
@@ -42,6 +43,7 @@ const EmailTemplateItem: React.FC<Option> = ({
       }
     },
   });
+  const {t} = useTranslation(["translation"])
   return (
     <div
       className={clsx(
@@ -76,14 +78,14 @@ const EmailTemplateItem: React.FC<Option> = ({
         />
         )}
       </div>
-      <h4 className="text-3xl font-semibold">{heading}</h4>
-      <p className="text-base ">{body}</p>
+      <h4 className="text-3xl font-semibold">{t(heading)}</h4>
+      <p className="text-base ">{t(body)}</p>
       <Link
         className="bg-[#7655fa] active:scale-[0.95] transition-all rounded-full text-white px-5 py-2"
         href={`/dashboard/email-template/${data && data.type}`}
       >
         {" "}
-        Edit {heading}{" "}
+        {t("Edit")} {t(heading)}{" "}
       </Link>
     </div>
   );

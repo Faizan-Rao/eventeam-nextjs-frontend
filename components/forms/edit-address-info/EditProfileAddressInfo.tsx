@@ -9,6 +9,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import joi from "joi";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const addressInfoEditSchema = joi.object({
   address: joi.string().min(10).label("Address"),
@@ -101,7 +102,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       console.error(error);
     }
   };
-
+  const {t} = useTranslation(["translation"])
   const onSubmit = (data: any) => data !== undefined && mutateAddress.mutate(data);
   return (
     <form
@@ -109,16 +110,16 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">Address</h1>
+        <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Address")}</h1>
       </div>
 
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Google Map Link (Embeded Map)
+          {t("Google Map Link")} (Embeded Map)
         </span>
         <input
           type="text"
-          placeholder="Google Map Link"
+          placeholder={t("Google Map Link")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           {...register("googlemaplink")}
         />
@@ -134,11 +135,11 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
 
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Street Address
+          {t("Street Address")}
         </span>
         <input
           type="text"
-          placeholder="Street Address"
+          placeholder={t("Street Address")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           {...register("address")}
         />
@@ -149,10 +150,10 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
 
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex-1 flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">City</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("City")}</span>
           <input
             type="text"
-            placeholder="City"
+            placeholder={t("City")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
             {...register("city")}
           />
@@ -161,10 +162,10 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
           )}
         </div>
         <div className="flex-1 flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">State</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("State")}</span>
           <input
             type="text"
-            placeholder="State"
+            placeholder={t("State")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
             {...register("state")}
           />
@@ -175,11 +176,11 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       </div>
       <div className="flex-1 flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
-          Country Code
+          {t("Country Code")}
         </span>
         <input
           type="text"
-          placeholder="Country Code"
+          placeholder= {t("Country Code")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           {...register("country_code")}
         />
@@ -190,11 +191,11 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            Postal Code
+            {t("Postal Code")}
           </span>
           <input
             type="number"
-            placeholder="Postal Code"
+            placeholder={t("Postal Code")}
             min={0}
             defaultValue={profile?.address?.zip_code}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
@@ -205,10 +206,10 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
           )}
         </div>
         <div className="flex-1 flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">Country</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("Country")}</span>
           <input
             type="text"
-            placeholder="Country"
+            placeholder={t("Country")}
             defaultValue={profile?.address?.country}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
             {...register("country")}
@@ -217,16 +218,16 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       </div>
 
       <span className="text-[#999999] my-4 text-sm font-semibold">
-        Default City
+        {t("Default City")}
       </span>
       <div className="flex flex-col gap-2 border-[1px] rounded-md p-4">
         <div className="bg-[#7655FA26] text-[#4a4a4a] flex items-center justify-center h-[40px] w-auto text-center rounded-md text-sm ">
-          <span>Your default city to calculate sabbath time</span>
+          <span>{t("Your default city to calculate sabbath time")}</span>
         </div>
-        <span className="text-[#999999] text-sm font-semibold">City</span>
+        <span className="text-[#999999] text-sm font-semibold">{t("City")}</span>
         <input
           type="text"
-          placeholder="Default City"
+          placeholder={t("Default City")}
           
           defaultValue={profile?.default_city}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
@@ -252,7 +253,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
-          Save Changes
+         {t("Save Changes")}
         </button>
       </div>
     </form>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Trash } from "lucide-react";
 import { StripeAPI } from "@/configs/apiRoutes";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 
 const PaymentMethodCard = () => {
@@ -17,7 +18,7 @@ const PaymentMethodCard = () => {
     const link = await response.data.data["onboard-link"];
     window.location.href = link;
   };
-
+  const {t} = useTranslation(["translation"])
 
   return (
     <div className=" flex gap-4 justify-between md:flex-row sm:flex-col p-4 border-[1px] rounded-md">
@@ -32,20 +33,20 @@ const PaymentMethodCard = () => {
         </span>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4">
-            <h1 className="text-lg font-semibold">Stripe Integration</h1>
+            <h1 className="text-lg font-semibold">{t("Stripe Integration")}</h1>
             {stripeId && (
               <span className=" text-sm rounded-full font-semibold py-1 px-2  bg-[#7655fa] text-white">
-                Connected
+                {t("Connected")}
               </span>
             )}
             {!stripeId && (
               <span className=" text-sm rounded-full font-semibold py-1 px-2 bg-[#7655fa26] text-[#999999]">
-                Disconnected
+                {t("Disconnected")}
               </span>
             )}
           </div>
           <h1 className="text-[#999999] text-sm font-semibold">
-            Allow your guests to pay with stripe when they register for an event
+            {t("Allow your guests to pay with stripe when they register for an event")}
           </h1>
         </div>
       </div>
@@ -64,7 +65,7 @@ const PaymentMethodCard = () => {
           className=" text-base active:scale-[0.95] transition-all rounded-full w-full py-2 px-4  bg-[#7655fa] text-white"
           onClick={connectStrip}
         >
-          {stripeId ? "Change Account" : "Setup Account"}
+          {stripeId ? t("Change Account") : t("Setup Account")}
         </button>
       </div>
     </div>

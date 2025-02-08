@@ -102,7 +102,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
           <input
             type="number"
             className=" outline-none p-2 flex-1"
-            placeholder="Enter Price"
+            placeholder={t("Platform fee")}
            {...register("plateform_fee")}
           />
           <DollarSign size={18}  className="mx-3"/>
@@ -118,7 +118,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
           <input
             type="text"
             className=" outline-none p-2 flex-1"
-            placeholder="Enter application fee text"
+            placeholder={t("Application fee text")}
            {...register("application_fee_text")}
           />
          

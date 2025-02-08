@@ -2,20 +2,35 @@ import React from "react";
 import { Control, Controller, useFormContext, useWatch } from "react-hook-form";
 
 import AdvanceFormOption from "./AdvanceFormOption";
-import { Banknote, MapPin, CreditCard, Notebook, HandHeart, Check } from "lucide-react";
+import {
+  Banknote,
+  MapPin,
+  CreditCard,
+  Notebook,
+  HandHeart,
+  Check,
+} from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import AutoDonationDialog from "@/components/AutoDonationDialog";
 import { useTranslation } from "react-i18next";
 
-
 const AdvanceForm = () => {
-  const {control, formState: {errors}} = useFormContext()
-  const watch = useWatch({control})
-  const {t} = useTranslation("translation")
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const watch = useWatch({ control });
+  const { t } = useTranslation("translation");
   return (
     <div className="  flex flex-col gap-4 my-4">
-      {errors.advance && <p className="text-red-800">Please setup this section</p>}
-      {errors?.advance && <p className="text-red-800">{` ${(errors?.advance.root as any).message ?? ""}`}</p>}
+      {errors.advance && (
+        <p className="text-red-800">Please setup this section</p>
+      )}
+      {errors?.advance && (
+        <p className="text-red-800">{` ${
+          (errors?.advance.root as any).message ?? ""
+        }`}</p>
+      )}
       <AdvanceFormOption
         title={t("Show address for all subevents?")}
         description="Description of the option"
@@ -26,10 +41,10 @@ const AdvanceForm = () => {
           control={control}
           render={({ field }) => (
             <Switch
-            checked={watch.advance.is_show_address === "1" ? true : false}
-              onCheckedChange={(value)=>{
-
-                field.onChange(value ? "1" : "0")
+              dir="ltr"
+              checked={watch.advance.is_show_address === "1" ? true : false}
+              onCheckedChange={(value) => {
+                field.onChange(value ? "1" : "0");
               }}
               name={"advance.is_show_address"}
             />
@@ -47,11 +62,11 @@ const AdvanceForm = () => {
           control={control}
           render={({ field }) => (
             <Switch
-            checked={watch.advance.is_cash_allowed === "1" ? true : false}
-            onCheckedChange={(value)=>{
-
-              field.onChange(value ? "1" : "0")
-            }}
+              dir="ltr"
+              checked={watch.advance.is_cash_allowed === "1" ? true : false}
+              onCheckedChange={(value) => {
+                field.onChange(value ? "1" : "0");
+              }}
               name={"advance.is_cash_allowed"}
             />
           )}
@@ -68,17 +83,17 @@ const AdvanceForm = () => {
           control={control}
           render={({ field }) => (
             <Switch
-            checked={watch.advance.is_show_regulation === "1" ? true : false}
-            onCheckedChange={(value)=>{
-
-              field.onChange(value ? "1" : "0")
-            }}
-             className="bg-yellow-200"
+              dir="ltr"
+              checked={watch.advance.is_show_regulation === "1" ? true : false}
+              onCheckedChange={(value) => {
+                field.onChange(value ? "1" : "0");
+              }}
+              className="bg-yellow-200"
             />
           )}
         />
       </AdvanceFormOption>
-      
+
       <AdvanceFormOption
         title={t("Show stripe on the form?")}
         description="Description of the option"
@@ -89,11 +104,11 @@ const AdvanceForm = () => {
           control={control}
           render={({ field }) => (
             <Switch
-            checked={watch.advance.is_show_stripe === "1" ? true : false}
-            onCheckedChange={(value)=>{
-
-              field.onChange(value ? "1" : "0")
-            }}
+              dir="ltr"
+              checked={watch.advance.is_show_stripe === "1" ? true : false}
+              onCheckedChange={(value) => {
+                field.onChange(value ? "1" : "0");
+              }}
               name={"advance.is_show_stripe"}
             />
           )}
@@ -105,17 +120,17 @@ const AdvanceForm = () => {
         description="Description of the option"
         icon={<HandHeart />}
       >
-        <AutoDonationDialog/>
+        <AutoDonationDialog />
         <Controller
           name="advance.is_donation_allowed"
           control={control}
           render={({ field }) => (
             <Switch
-            checked={watch.advance.is_donation_allowed === "1" ? true : false}
-            onCheckedChange={(value)=>{
-
-              field.onChange(value ? "1" : "0")
-            }}
+              dir="ltr"
+              checked={watch.advance.is_donation_allowed === "1" ? true : false}
+              onCheckedChange={(value) => {
+                field.onChange(value ? "1" : "0");
+              }}
             />
           )}
         />

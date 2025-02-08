@@ -7,6 +7,7 @@ import { Profile } from "@/configs/apiRoutes";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { toast } from "react-toastify";
 import { set } from "lodash";
+import { useTranslation } from "react-i18next";
 
 export const editEmailSettingSchema = joi.object({
   mail_from_name: joi.string().max(30).label("From Name"),
@@ -83,20 +84,20 @@ const handleIsShow = (e : any)=>{
 
   const onSubmit = (data: any) =>
     data !== undefined && mutate.mutate(data);
-
+  const {t} = useTranslation(["translation"])
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ">
       <div className="flex justify-between items-center">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">Email Setting</h1>
+        <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Email Setting")}</h1>
       </div>
       <div className="grid sm:grid-cols-1  md:grid-cols-3 gap-4 ">
         <div className="flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">Mailer</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("Mailer")}</span>
           <input
             type="text"
-            placeholder="Enter Mailer"
+            placeholder={t("Mailer")}
             {...register("mail_mailer")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           />
@@ -105,7 +106,7 @@ const handleIsShow = (e : any)=>{
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">Port</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("Port")}</span>
           <input
             type="number"
             placeholder="0000"
@@ -118,11 +119,11 @@ const handleIsShow = (e : any)=>{
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            Encryption
+            {t("Encryption")}
           </span>
           <input
             type="text"
-            placeholder="Enter Encryption"
+            placeholder={t("Encryption")}
             {...register("mail_encryption")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           />
@@ -133,10 +134,10 @@ const handleIsShow = (e : any)=>{
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="text-[#999999] text-sm font-semibold">Host</span>
+        <span className="text-[#999999] text-sm font-semibold">{t("Host")}</span>
         <input
           type="text"
-          placeholder="Enter Host"
+          placeholder={t("Host")}
           {...register("mail_host")}
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
@@ -148,11 +149,11 @@ const handleIsShow = (e : any)=>{
       <div className="grid sm:grid-cols-1  md:grid-cols-2 gap-4 ">
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            From Name
+            {t("From Name")}
           </span>
           <input
             type="text"
-            placeholder="Enter From Name"
+            placeholder={t("From Name")}
             {...register("mail_from_name")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           />
@@ -162,11 +163,11 @@ const handleIsShow = (e : any)=>{
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-            From Email
+            {t("From Email")}
           </span>
           <input
             type="text"
-            placeholder="Enter From Email"
+            placeholder={t("From Email")}
             {...register("mail_from_address")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           />
@@ -175,10 +176,10 @@ const handleIsShow = (e : any)=>{
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">Username</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("Username")}</span>
           <input
             type="text"
-            placeholder="Enter Username"
+            placeholder={t("Username")}
             {...register("mail_username")}
             className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
           />
@@ -188,12 +189,12 @@ const handleIsShow = (e : any)=>{
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-[#999999] text-sm font-semibold">Password</span>
+          <span className="text-[#999999] text-sm font-semibold">{t("Password")}</span>
           <div className="border-[2px] flex justify-between px-2">
 
           <input
             type={isShow}
-            placeholder="Enter Password"
+            placeholder={t("Password")}
             {...register("mail_password")}
             className="text-[#4a4a4a] flex-1 text-base  p-2  outline-none rounded-md"
           />
@@ -206,8 +207,7 @@ const handleIsShow = (e : any)=>{
       </div>
       <div className="flex justify-end items-center gap-4">
         <button type="submit" className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
-          {" "}
-          Test and Save Settings
+          {t("Test and Save Settings")}
         </button>
       </div>
     </form>

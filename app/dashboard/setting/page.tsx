@@ -18,6 +18,7 @@ import { Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import { useTranslation } from "react-i18next";
 const EditProfileAddressInfo = dynamic(
   () => import("@/components/forms/edit-address-info/EditProfileAddressInfo")
 );
@@ -62,6 +63,8 @@ const Setting = () => {
       return await FormFields.GetFormField();
     },
   });
+
+  const {t} = useTranslation(["translation"])
   return (
     <>
       <MainContentGrid className="sm:hidden md:flex">
@@ -114,7 +117,7 @@ const Setting = () => {
                   tab === "gen-info" && "border-b-[2px] border-[#7655fa]"
                 )}
               >
-                General
+                {t("General")}
               </button>
             </SwiperSlide>
 
@@ -126,7 +129,7 @@ const Setting = () => {
                   tab === "address-info" && "border-b-[2px] border-[#7655fa]"
                 )}
               >
-                Address
+                {t("Address")}
               </button>
             </SwiperSlide>
 
@@ -138,7 +141,7 @@ const Setting = () => {
                   tab === "security-info" && "border-b-[2px] border-[#7655fa]"
                 )}
               >
-                Security
+                {t("Security")}
               </button>
             </SwiperSlide>
 
@@ -151,7 +154,7 @@ const Setting = () => {
                     tab === "email-info" && "border-b-[2px] border-[#7655fa]"
                   )}
                 >
-                  Email
+                  {t("Email")}
                 </button>
               </SwiperSlide>
             )}
@@ -166,7 +169,7 @@ const Setting = () => {
                       "border-b-[2px] border-[#7655fa]"
                   )}
                 >
-                  Commission
+                  {t("Commission")}
                 </button>
               </SwiperSlide>
             )}
@@ -180,7 +183,7 @@ const Setting = () => {
                     tab === "stripe-info" && "border-b-[2px] border-[#7655fa]"
                   )}
                 >
-                  Stripe
+                  {t("Stripe")}
                 </button>
               </SwiperSlide>
             )}

@@ -17,6 +17,7 @@ import Link from "next/link";
 import { set } from "lodash";
 import ActionDropDown from "./ActionDropDown";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 // interface RowData {
 //   event_name: string;
@@ -38,7 +39,7 @@ const MyEventCard = ({
   selectedRecord: number;
   setSelectedRecord: React.Dispatch<SetStateAction<number>>;
 }) => {
-  console.log("Required Data 213", data);
+  const {t} = useTranslation(["translation"])
   return (
     <Accordion
       value={selectedRecord === index ? "item-1" : "No Element"}
@@ -85,12 +86,12 @@ const MyEventCard = ({
                       index === selectedRecord && "text-[white]"
                     )}
                   >
-                    {data.status === 1 ? "Active" : "Inactive"}
+                    {data.status === 1 ? t("Active") : t("Inactive")}
                   </span>
                 </div>
               </Link>
             </div>
-            <div className={clsx("mx-4 " )}>
+            <div className={clsx("mx-4")}>
               <ActionDropDown row={data} id={index} selectedRecord={selectedRecord}/>
             </div>
             <div
@@ -124,7 +125,7 @@ const MyEventCard = ({
                 )}
               >
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
-                  Start Date
+                  {t("Start Date")}
                 </p>
                 <p className="font-semibold flex  ">{format(new Date(data.start_date), "MMM dd, yyyy")}</p>
               </div>
@@ -147,7 +148,7 @@ const MyEventCard = ({
                 )}
               >
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
-                  End Date
+                  {t("End Date")}
                 </p>
                 <p className="font-semibold flex  ">{format(new Date(data.end_date), "MMM dd, yyyy")}</p>
               </div>
@@ -171,7 +172,7 @@ const MyEventCard = ({
                 )}
               >
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
-                  Registrations
+                  {t("Registrations")}
                 </p>
                 <p className="font-semibold flex  ">{data.registrations_count || 0}</p>
               </div>
@@ -194,10 +195,10 @@ const MyEventCard = ({
                 )}
               >
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
-                  Operational State
+                  {t("Operational State")}
                 </p>
                 <p className={clsx("font-semibold flex text-[#2AE75C] ", data.current_status === "active" &&  "text-[#2AE75C] ", data.current_status !== "active" &&  "text-[#FF0000] " )}>
-                 {data.current_status === "active" ? "Active" : "Ended"}
+                 {data.current_status === "active" ? t("Active") : t("Ended")}
                 </p>
               </div>
             </div>

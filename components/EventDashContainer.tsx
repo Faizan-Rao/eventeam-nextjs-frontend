@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { set } from "lodash";
 import { Loader2 } from "lucide-react";
 import { user } from "@/configs/axios";
+import { useTranslation } from "react-i18next";
 const EventDashContainer = ({ data }: { data: any }) => {
   let ref = useRef(null);
   const [isPending ,setPending] = useState(false)
@@ -35,20 +36,21 @@ const EventDashContainer = ({ data }: { data: any }) => {
       setPending(false)
     }
   };
+  const {t} = useTranslation(["translation"])
   return (
     <>
       {!data && (
         <div className="flex container p-8 gap-6 md:rounded-md flex-col bg-[#1E1640] text-white">
           <div className="flex sm:justify-center md:justify-between items-center gap-4 flex-wrap">
             <div className="flex flex-col gap-1">
-              <h4 className="text-2xl">No Upcoming Event Right Now</h4>
+              <h4 className="text-2xl">{t("No Upcoming Event Right Now")}</h4>
             </div>
             <span className="flex items-center gap-2">
               <a
                 href={"/dashboard/add-event"}
                 className="bg-[#7655FA] text-base rounded-full px-7 py-3 text-center"
               >
-                Start Here
+                {t("Start Here")}
               </a>
             </span>
           </div>
@@ -68,7 +70,7 @@ const EventDashContainer = ({ data }: { data: any }) => {
             <div  className="flex gap-4">
            { user.role === "company" && <span className="flex items-center gap-2">
               <button disabled={isPending} onClick={publishDirectly} className="bg-[#7655FA] flex gap-4 items-center disabled:bg-[#999999] text-base rounded-full px-7 py-3 text-center">
-              {isPending && <Loader2 className="animate-spin h-5 w-5"/>} Publish Directly
+              {isPending && <Loader2 className="animate-spin h-5 w-5"/>} {t("Publish Directly")}
               </button>
               <button className="bg-[#E0A450] text-base rounded-full aspect-square object-cover py-2 px-3 text-center">
                 <a href={`/dashboard/use-auto/${data.id}`}>

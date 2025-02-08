@@ -1,11 +1,14 @@
 import React from "react";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 interface ISubeventPreview {
   className?: string;
   data: any;
 }
 
 const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
+  
+  const {t} = useTranslation(["translation"])
   return (
     <div
       className={clsx(
@@ -21,8 +24,8 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
       <table cellPadding={5} cellSpacing={9}>
         <thead>
           <tr className="border-b-[1px] my-4 ">
-            <td className="font-semibold ">Ticket</td>
-            <td className="font-semibold text-right">Price</td>
+            <td className="font-semibold ">{t("Ticket")}</td>
+            <td className="font-semibold text-right">{t("Price")}</td>
           </tr>
         </thead>
         <tbody className="">
