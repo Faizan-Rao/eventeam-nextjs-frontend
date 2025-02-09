@@ -105,7 +105,7 @@ const AutomaticForm = () => {
                       open={open}
                       onOpenChange={setOpen}
                     >
-                      <DropdownMenuTrigger className="active:scale-[0.95] transition-all w-full">
+                      <DropdownMenuTrigger className="active:scale-[0.95] transition-all ">
                         <button className=" flex  flex-1 text-base place-items-center gap-2 px-4 rounded-md py-1 border-[2px]">
                           <ListFilter size={20} />
                           {t("Filter")}

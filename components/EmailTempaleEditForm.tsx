@@ -80,6 +80,7 @@ const EmailTempaleEditForm = ({
         <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
         {template && (
         <Switch
+        dir="ltr"
           defaultChecked={template?.status === "1" ? true : false}
           onCheckedChange={(value: any) => {
             setStatus(value);

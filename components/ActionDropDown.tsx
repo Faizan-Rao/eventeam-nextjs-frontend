@@ -18,6 +18,7 @@ import Link from "next/link";
 import { user } from "@/configs/axios";
 import clsx from "clsx";
 import { EllipsisVertical } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ActionDropDown = ({row, id, table, selectedRecord}: {
   row?: any;
@@ -32,6 +33,7 @@ const ActionDropDown = ({row, id, table, selectedRecord}: {
 
   console.log("row data af", row, "id data af", id, "table af", table)
   console.log("fetched user", user)
+  const {t} = useTranslation(["translation"])
   return (
     <>
       <DropdownMenu modal={false}>
@@ -39,12 +41,12 @@ const ActionDropDown = ({row, id, table, selectedRecord}: {
           <EllipsisVertical className={clsx( selectedRecord === id && "text-[white]")} size={20} />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>Edit Status</DropdownMenuItem>
-          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><Link href={`/dashboard/my-events/${row.id}`}>View Event</Link></DropdownMenuItem>
-          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/dashboard/my-events/edit/${row.id}`}>Edit Event</a></DropdownMenuItem>
-          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/events/${user.slug}/${row.id}`}>View Registration Form</a></DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all" onClick={() => setEditOpen(true)}>{t("Edit Status")}</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><Link href={`/dashboard/my-events/${row.id}`}>{t("View Event")}</Link></DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/dashboard/my-events/edit/${row.id}`}>{t("Edit Event")}</a></DropdownMenuItem>
+          <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all"><a href={`/events/${user.slug}/${row.id}`}>{t("View Registration Form")}</a></DropdownMenuItem>
           <DropdownMenuItem className="active:scale-[0.95] transition-all" onClick={() => setDeleteOpen(true)}>
-            Delete Event
+            {t("Delete Event")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

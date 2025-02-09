@@ -333,6 +333,7 @@ const PrayerField: React.FC<IPrayerField> = ({
                     <div className="flex gap-6">
                       <span>{t("Active")}</span>
                       <Switch
+                      dir="ltr"
                         onCheckedChange={(value) => field.onChange(value ? 1 : 0)}
                         className="text-[white] cursor-pointer"
                         checked={field.value === 1 ? true : false }

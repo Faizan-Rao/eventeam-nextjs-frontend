@@ -22,6 +22,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const EventEditDialog = ({
   open,
@@ -64,23 +65,25 @@ const EventEditDialog = ({
     payload.id = data.id
     mutate.mutate(payload)
   }
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger> {children} </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Status</DialogTitle>
+          <DialogTitle>{t("Edit Status")}</DialogTitle>
           <DialogDescription>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4  my-4 ">
               <span className=" flex-1 rounde-md flex flex-col gap-1">
-                <label className="text-sm font-semibold ">Activate Event</label>
-                <span className="flex   border-2 p-2">
-                  <span>Active</span>
+                <label className="text-sm font-semibold ">{t("Activate Event")}</label>
+                <span className="flex gap-4  border-2 p-2">
+                  <span>{t("Active")}</span>
                   <Controller
                     name={"status"}
                     control={control}
                     render={({ field }) => (
                       <Switch
+                      dir="ltr"
                         defaultChecked={data && data.status === 1 ? true : false}
                         onCheckedChange={(data) => field.onChange(data)}
                         className="text-[white] ml-auto justify-self-end cursor-pointer"
@@ -90,7 +93,7 @@ const EventEditDialog = ({
                 </span>
               </span>
               <span className=" flex-1 flex flex-col gap-1">
-                <label className="text-sm font-semibold ">Operation Type</label>
+                <label className="text-sm font-semibold ">{t("Operation Type")}</label>
 
                 <Controller
                   name={"current_status"}
@@ -105,9 +108,9 @@ const EventEditDialog = ({
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="active">
-                          Active
+                          {t("Active")}
                         </SelectItem>
-                        <SelectItem value="ended">Ended</SelectItem>
+                        <SelectItem value="ended">{t("Ended")}</SelectItem>
                       </SelectContent>
                     </Select>
                   )}
@@ -121,11 +124,11 @@ const EventEditDialog = ({
                     e.preventDefault()
                     setOpen(false)}}
                 >
-                  Close
+                  {t("Close")}
                 </button>
 
                 <button onClick={() => setOpen(false)} className="bg-[#7655fa] active:scale-[0.95] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
-                  Save Changes
+                  {t("Save Changes")}
                 </button>
               </div>
             </form>

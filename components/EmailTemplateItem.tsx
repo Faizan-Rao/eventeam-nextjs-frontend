@@ -63,7 +63,7 @@ const EmailTemplateItem: React.FC<Option> = ({
       />
       <div className="flex gap-2">
         <p className={clsx(data && data.status !== "1" && "text-red-700")}>
-          {data && data.status === "1" ? "Active" : "Disable"}
+          {data && data.status === "1" ? t("Active") : t("Disable")}
         </p>
         {data && (
         <Switch

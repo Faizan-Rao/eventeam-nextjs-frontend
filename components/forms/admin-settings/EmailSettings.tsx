@@ -198,7 +198,7 @@ const handleIsShow = (e : any)=>{
             {...register("mail_password")}
             className="text-[#4a4a4a] flex-1 text-base  p-2  outline-none rounded-md"
           />
-          <button onClick={handleIsShow} className="text-[#7655fa] active:scale-[0.95] transition-all] font-semibold">{isShow === "password" ? "Show" : "Hide"}</button>
+          <button onClick={handleIsShow} className="text-[#7655fa] active:scale-[0.95] transition-all] font-semibold">{isShow === "password" ? t("Show") : t("Hide")}</button>
           </div>
            {errors?.mail_password && (
             <span className="text-red-800 ">{`${errors?.mail_password?.message}`}</span>

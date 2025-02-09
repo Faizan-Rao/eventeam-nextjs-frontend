@@ -15,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Donations } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 const DonationEditDialog = ({ data }: { data: any }) => {
   const {
@@ -32,7 +33,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
   });
 
   const watch = useWatch({ control });
-
+  const {t} = useTranslation(["translation"])
   const mutate = useMutation({
     mutationFn: Donations.update,
     onSuccess: ()=>{
@@ -66,7 +67,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Donation</DialogTitle>
+          <DialogTitle>{t("Edit Donation")}</DialogTitle>
           <DialogDescription>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -74,7 +75,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
             >
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Donation Name
+                 {t("Donation Name")}
                 </span>
                 <input
                   type="text"
@@ -86,7 +87,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
 
               <div className="flex flex-col gap-2">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Donation Description
+                 {t("Donation Description")}
                 </span>
                 <textarea
                   placeholder="Description"
@@ -97,7 +98,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
 
               <div className="flex flex-col gap-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Amount
+                  {t("Amount")}
                 </span>
 
                 <div className="flex gap-4  border-[1px] rounded-md items-center px-3 ">
@@ -116,15 +117,16 @@ const DonationEditDialog = ({ data }: { data: any }) => {
 
               <div className="flex flex-col gap-2 flex-1">
                 <span className="text-[#4a4a4a] text-sm font-semibold">
-                  Status
+                  {t("Status")}
                 </span>
-                <div className="flex justify-between border-[1px] rounded-md p-2">
-                  <span className="text-[#4a4a4a] flex-1">Active</span>
+                <div className="flex justify-between border-[1px] gap-4 rounded-md p-2">
+                  <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
                   <Controller
                     name="status"
                     control={control}
                     render={({ field }) => (
                       <Switch
+                      dir="ltr"
                         defaultChecked={data.status === 1 ? true : false}
                         onCheckedChange={field.onChange}
                       />
@@ -136,7 +138,7 @@ const DonationEditDialog = ({ data }: { data: any }) => {
               <div className="flex justify-end items-center gap-4">
                 <button className="px-4 active:scale-[0.95] transition-all py-2 bg-[#7655fa] text-white rounded-full">
                   {" "}
-                  Save Changes
+                  {t("Save Changes")}
                 </button>
               </div>
             </form>

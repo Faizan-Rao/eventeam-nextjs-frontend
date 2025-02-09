@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Events } from "@/configs/apiRoutes";
 import { toast } from "react-toastify";
 import { queryClient } from "./MainLayoutGrid";
+import { useTranslation } from "react-i18next";
 
 const EventDeleteDialog = ({
   open,
@@ -40,11 +41,12 @@ const EventDeleteDialog = ({
       setOpen(false)
     }
   })
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Event Deletion Confirmation</DialogTitle>
+          <DialogTitle>{t("Event Deletion Confirmation")}</DialogTitle>
           <DialogDescription>
             <div className="flex items-center gap-4 my-4">
               {/* Icon */}
@@ -55,18 +57,18 @@ const EventDeleteDialog = ({
               </span>
               <div className="flex flex-1 flex-col gap-4">
                 <h1 className="font-semibold text-lg text-[#4a4a4a] ">
-                  Are you sure you want to delete event?
+                  {t("Are you sure you want to delete event?")}
                 </h1>
                  
               </div>
             </div>
             <div className="flex justify-end gap-4">
               <button className="font-semibold active:scale-[0.95] transition-all text-base rounded-full px-4 py-2" onClick={()=>setOpen(false)}>
-                Close
+                {t("Close")}
               </button>
 
               <button onClick={()=>{mutate.mutate(data.id)}} className="bg-[#FF6161] active:scale-[0.95] transition-all font-semibold  text-base rounded-full px-6 text-white py-2">
-                Delete
+                {t("Delete")}
               </button>
             </div>
 

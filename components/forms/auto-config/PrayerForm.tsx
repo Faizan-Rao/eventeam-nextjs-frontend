@@ -11,7 +11,7 @@ const PrayerForm = () => {
       <h1 className="text-[#7655fa] font-semibold">{t("Time")}</h1>
       <div className="flex items-center flex-wrap gap-4">
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm ">(t{"Before Sunset"})</label>
+          <label className="text-sm ">{t("Before Sunset")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.before_sunset_time`}

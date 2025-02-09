@@ -12,8 +12,8 @@ const ChartsMain = ({chartData}: {chartData: any}) => {
     <div className="grid grid-cols-1    gap-4 ">
     {/* {!chartData && <Skeleton className=" m-4 w-[100%] rounded-xl" />}
     {!chartData && <Skeleton className="m-4 w-auto rounded-xl" />} */}
-    {chartData && <BarChartJSX data={chartData} title={t("Guests Per Event")} barName={t("guest")} />}
-    {chartData && <BarChartJSX data={chartData} title={t("Earnings Per Event")} barName={t("earnings")} />}
+    {chartData && <BarChartJSX data={chartData} title={t("Guests Per Event")} barName={"guest"} />}
+    {chartData && <BarChartJSX data={chartData} title={t("Earnings Per Event")} barName={"earnings"} />}
 
     </div>
   );

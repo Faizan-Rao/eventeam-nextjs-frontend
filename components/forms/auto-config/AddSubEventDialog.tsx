@@ -32,6 +32,7 @@ import { useWatch } from "react-hook-form";
 import { subevent, Validator } from "@/configs/autoFormValidation";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   data,
@@ -124,6 +125,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   const [selectedDate, setSelectedDate] = useState<string>();
   const [date, setDate] = useState<Date | null>();
   const pathname = usePathname();
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {type === "edit" && (
@@ -144,7 +146,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
             }}
             className="flex w-full active:scale-[0.95] transition-all justify-center items-center h-[128px]  flex-1 cursor-pointer  border-dashed gap-4  border-[3.5px]   "
           >
-            <Plus /> <span>Add Another Subevent</span>
+            <Plus /> <span>{t("Add Another Subevent")}</span>
           </button>
         </DialogTrigger>
       )}
@@ -155,7 +157,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
           </DialogTitle>
           <DialogDescription className=" overflow-auto max-h-[600px]">
             <div className="flex flex-col gap-6 sm:p-0 md:p-4 ">
-              <h1 className="font-semibold text-xl">General Information</h1>
+              <h1 className="font-semibold text-xl">{t("General Information")}</h1>
               <div className="flex flex-1 flex-wrap gap-4">
                 <AddSubEventGenInfo
                   index={index}
@@ -198,7 +200,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   {selectedDate && (
                     <div className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
                       <label className={"text-white font-semibold"}>
-                        Start Time
+                        {t("Start Time")}
                       </label>
 
                       <input
@@ -222,7 +224,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     </div>
                   )}
 
-                  <p className="text-[#7655fa] p-2">{`*Select Date First Then Time`}</p>
+                  <p className="text-[#7655fa] p-2">{`*${t("Select Date First Then Time")}`}</p>
                   {customErrors?.includes("date") && (
                     <p className="text-red-800 m-4">{`Date & Time is Required`}</p>
                   )}
@@ -237,12 +239,12 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   )}
                 </div>
               </div>
-              <h1 className="font-semibold text-xl">Ticket Types</h1>
+              <h1 className="font-semibold text-xl">{t("Ticket Types")}</h1>
               <div className="flex flex-col  gap-6 ">
                 {/* Event Name */}
                 <div className="flex gap-2 flex-col">
                   <label className={"text-[#4a4a4a] font-semibold"}>
-                    Tickets
+                    {t("Tickets")}
                   </label>
                   
                   {(type === "edit" ? field.ticket_types : watch.tickets).map(
@@ -298,7 +300,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                 className="font group cursor-pointer font-semibold flex items-center gap-4 text-xl"
                 onClick={() => setSettingOpen(!isSettingOpen)}
               >
-                Advance Settings{" "}
+                {t("Advance Settings")}{" "}
                 <ChevronDown
                   className=" font-semibold group-hover:rotate-180"
                   size={18}
@@ -308,8 +310,8 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                 <>
                   <span className="flex gap-2 flex-col">
                     <label className={"text-[#4a4a4a] font-semibold"}>
-                      Location Address{" "}
-                      <span className="text-[gray]">(optional)</span>
+                      {t("Location Address")}{" "}
+                      <span className="text-[gray]">{`(${t("optional")})`}</span>
                     </label>
                     <input
                       type="text"
@@ -321,8 +323,8 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   </span>
                   <span className="flex gap-2 flex-col">
                     <label className={"text-[#4a4a4a] font-semibold"}>
-                      Max Capacity{" "}
-                      <span className="text-[gray]">(optional)</span>
+                      {t("Max Capacity")}{" "}
+                      <span className="text-[gray]">{`(${t("optional")})`}</span>
                     </label>
                     <input
                       type="number"
@@ -377,7 +379,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     }
                   }}
                 >
-                  {type === "edit" ? "Edit Event" : "Add Event"}
+                  {type === "edit" ? t("Edit Event") : t("Add Event")}
                 </button>
               </div>
             </div>

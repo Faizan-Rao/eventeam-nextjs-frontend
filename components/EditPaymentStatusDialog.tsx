@@ -27,6 +27,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Payments } from "@/configs/apiRoutes";
 import { queryClient } from "./MainLayoutGrid";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
   const [status, setSetStatus] = useState(row?.original?.payment_status);
@@ -44,6 +45,8 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
       setOpen(false);
     },
   })
+
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
@@ -51,13 +54,13 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Payment Status</DialogTitle>
+          <DialogTitle>{t("Edit Payment Status")}</DialogTitle>
           <DialogDescription>
             <div className=" flex flex-col gap-4 max-h-[600px] overflow-y-scroll">
               <div className="flex justify-between my-4 gap-4">
                 <div className="flex flex-col gap-2">
                   <h1 className="text-[#7655fa] font-semibold text-sm">
-                    Registration Details
+                    {t("Registration Details")}
                   </h1>
                   <h1 className="  font-semibold text-2xl text-black">
                     {row?.original?.event.title}
@@ -76,8 +79,8 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
                     )}
                   >
                     { row?.original?.payment_status === "pending"
-                      ? "Pending"
-                      : "Cleared"}
+                      ? t("Pending")
+                      : t("Cleared")}
                   </span>
                   {/* <p className="text-sm text-[#tatata] font-semibold">
                     { new Date(row?.original?.created_at).toLocaleDateString()}
@@ -90,7 +93,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
 
               <div className="my-5 flex flex-col gap-2 ">
               <h1 className="text-[#7655fa]  font-semibold text-sm">
-                   Payment Status
+                   {t("Payment Status")}
                   </h1>
                 <Select onValueChange={setSetStatus}>
                   <SelectTrigger >
@@ -101,8 +104,8 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
                     />
                   </SelectTrigger>
                   <SelectContent className="text-base" >
-                    <SelectItem className="cursor-pointer " value="pending">Pending</SelectItem>
-                    <SelectItem className="cursor-pointer " value="cleared">Cleared</SelectItem>
+                    <SelectItem className="cursor-pointer " value="pending">{t("Pending")}</SelectItem>
+                    <SelectItem className="cursor-pointer " value="cleared">{t("Cleared")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -110,7 +113,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
 
             <div className="flex justify-end my-6 gap-6">
               <button className="font-semibold active:scale-[0.90] transition-all  text-sm" onClick={() => setOpen(false)}>
-                Cancel
+                {t("Cancel")}
               </button>
               <button
                 className="bg-[#7655fa] px-5 py-2  active:scale-[0.90] transition-all text-sm rounded-full text-white"
@@ -121,7 +124,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
                   mutation.mutate(row?.original?.id)
                 }}
               >
-                Save Changes
+                {t("Save Changes")}
               </button>
             </div>
           </DialogDescription>

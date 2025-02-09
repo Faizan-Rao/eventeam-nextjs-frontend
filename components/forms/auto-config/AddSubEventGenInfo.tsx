@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { IFieldElement } from "./AddSubEventDialog";
 import { useFormContext, useWatch } from "react-hook-form";
 import { watch } from "fs";
+import { useTranslation } from "react-i18next";
 
 interface IAddSubEnventGenInfo {
   index?: number;
@@ -24,10 +25,11 @@ const AddSubEventGenInfo: React.FC<IAddSubEnventGenInfo> = ({
   const watch = useWatch({ control });
 
   console.log("errors", errors);
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col gap-4 flex-1">
       <div className="flex gap-2 flex-col">
-        <label className={"text-[#4a4a4a] font-semibold"}>Event Name</label>
+        <label className={"text-[#4a4a4a] font-semibold"}>{t("Event Name")}</label>
         <input
           type="text"
           className="border-[2px] outline-none p-2 w-full"
@@ -45,10 +47,11 @@ const AddSubEventGenInfo: React.FC<IAddSubEnventGenInfo> = ({
       {/* Event Dates */}
 
       <div className="flex flex-col gap-2">
-        <label className={"text-[#4a4a4a] font-semibold"}>Status</label>
-        <div className="flex   border-2 p-2">
-          <span>Active</span>
+        <label className={"text-[#4a4a4a] font-semibold"}>{t("Status")}</label>
+        <div className="flex  gap-4 border-2 p-2">
+          <span>{t("Active")}</span>
           <Switch
+          dir="ltr"
             defaultChecked={
               type === "edit"
                 ? watch.sub_events[index as number].status === "1"
@@ -68,7 +71,7 @@ const AddSubEventGenInfo: React.FC<IAddSubEnventGenInfo> = ({
 
       <div className="flex flex-col gap-4">
         <label className={"text-[#4a4a4a] font-semibold"}>
-          Event Description
+          {t("Event Description")}
         </label>
         <JoditEditor
           onChange={(value) => setField({ ...field, description: value })}
