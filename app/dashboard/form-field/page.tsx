@@ -52,10 +52,10 @@ const FormField = () => {
       </div>
       {/* Web Template */}
       <div className="sm:hidden md:flex justify-between gap-4">
-       {formfieldData && <FormFieldForm  data={formfieldData}/>}
+       {!isLoading && <FormFieldForm  data={formfieldData}/>}
         <div className="flex-1 flex flex-col gap-4">
-          {formfieldData &&<ApplicationFeeForm data={formfieldData}/>}
-          {formfieldData &&<GuestFieldForm data={formfieldData}/>}
+          {!isLoading &&<ApplicationFeeForm data={formfieldData}/>}
+          {!isLoading &&<GuestFieldForm data={formfieldData}/>}
         </div>
       </div>
     </MainContentGrid>

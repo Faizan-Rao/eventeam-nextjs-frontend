@@ -19,13 +19,13 @@ export const FormStepperButtons = ({
   const {
     formState: { errors },
     trigger,
-    clearErrors
+    clearErrors,
   } = useFormContext();
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   const handleValidation = (e: any) => {
     e.preventDefault();
-   
+
     if (
       currentStep === 0 &&
       !errors?.event_description &&
@@ -49,7 +49,12 @@ export const FormStepperButtons = ({
     <span className="flex gap-6 my-6 justify-end items-center">
       {currentStep > 0 && (
         <button
-          onClick={handleStepDec}
+          onClick={async (e) => {
+            const result = await trigger();
+            if (result) {
+              handleStepDec(e);
+            }
+          }}
           className="flex active:scale-[0.95] transition-all justify-between select-none items-center gap-2 "
         >
           <ChevronLeft size={15} />
@@ -59,14 +64,12 @@ export const FormStepperButtons = ({
       {currentStep + 1 !== autoConfigSteps.length && (
         <button
           onClick={async (e) => {
-           const result =  await trigger()
-           console.log("trigger result",result)
-           if(result)
-           {
-            
-            handleStepInc(e);
-           }
-           
+            const result = await trigger();
+
+            if (result) {
+              handleStepInc(e);
+            }
+
             // handleValidation(e);
           }}
           className="bg-[#7655FA] active:scale-[0.95] transition-all text-white mx-4 px-7 py-2 rounded-full"

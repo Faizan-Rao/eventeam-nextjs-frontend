@@ -64,15 +64,15 @@ const handleIsShow = (e : any)=>{
     formState: { errors },
   } = useForm({
     defaultValues: {
-      mail_from_name: emailSettings?.data.data.email_settings.mail_from_name,
-      mail_mailer: emailSettings?.data.data.email_settings.mail_mailer,
+      mail_from_name: emailSettings?.data.data?.email_settings?.mail_from_name,
+      mail_mailer: emailSettings?.data.data?.email_settings?.mail_mailer,
       mail_from_address:
         emailSettings?.data.data?.email_settings?.mail_from_address,
-      mail_host: emailSettings?.data.data.email_settings.mail_host,
-      mail_port: emailSettings?.data.data.email_settings.mail_port,
-      mail_username: emailSettings?.data.data.email_settings.mail_username,
-      mail_password: emailSettings?.data.data.email_settings.mail_password,
-      mail_encryption: emailSettings?.data.data.email_settings.mail_encryption,
+      mail_host: emailSettings?.data.data?.email_settings?.mail_host,
+      mail_port: emailSettings?.data.data?.email_settings?.mail_port,
+      mail_username: emailSettings?.data.data?.email_settings?.mail_username,
+      mail_password: emailSettings?.data.data?.email_settings?.mail_password,
+      mail_encryption: emailSettings?.data.data?.email_settings?.mail_encryption,
     },
     resolver: (values, constext, options) => {
       const resolver = joiResolver(editEmailSettingSchema, {

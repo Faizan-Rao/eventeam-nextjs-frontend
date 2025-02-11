@@ -39,7 +39,17 @@ const ticketType = joi.object({
 });
 export const addEventSchema = joi.object({
   title: joi.string().required().label("Event Title"),
-  start_date: joi.date().required().label("Start Date"),
+  start_date: joi
+    .date()
+    .required()
+    .label("Start Date")
+    .custom((value, helpers) => {
+      const { start_date } = helpers.state.ancestors[0];
+      if (Date.now() > value) {
+        return helpers.message(`"Start Date" must not be previous from today"` as any);
+      }
+      return value; // Valid case
+    }),
   end_date: joi
     .date()
     .required()
@@ -88,30 +98,30 @@ export const autoConfigSchema = joi.object({
 // export const autoForm = window.location.href.includes("add-event") ? addEventSchema : autoConfigSchema
 
 export const autoFormDefaults = {
-  "title": "asasas",
-  "start_date": "2025-01-07T22:22:14.000000Z",
-  "end_date": "2025-01-07T22:22:14.000000Z",
-  event_description: "<p>ascsdcsacSDC</p",
+  // title: "asasas",
+  // start_date: "2025-01-07T22:22:14.000000Z",
+  // end_date: "2025-01-07T22:22:14.000000Z",
+  // event_description: "<p>ascsdcsacSDC</p",
   tickets: [
     {
-      title: "Child",
+      title: "Ticket",
       price: "10",
       description: "",
     },
-    {
-      title: "Adult",
-      price: "20",
-      description: "",
-    },
+    // {
+    //   title: "Adult",
+    //   price: "20",
+    //   description: "",
+    // },
   ],
-  sub_events: [  ],
+  sub_events: [],
   advance: {
     is_attendees_required: "1",
     is_show_address: "1",
     is_cash_allowed: "1",
     is_donation_allowed: "1",
     is_show_regulation: "1",
-    
+
     is_show_stripe: "1",
   },
   activities: [
@@ -126,10 +136,8 @@ export const autoFormDefaults = {
           activity_time: "0",
           activity_status: 1,
         },
-       
       ],
     },
-    
   ],
 };
 

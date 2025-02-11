@@ -12,12 +12,15 @@ import { useTranslation } from "react-i18next";
 export const stripeSettingsEditSchema = joi.object({
   stripe_publishable_key: joi.string().label("Stripe Publishable Key"),
   stripe_secret_key: joi.string().label("Stripe Secret Key"),
-  update_stripe_keys_otp: joi.string().custom((value, helpers) => {
-    if (!new RegExp(/^[0-9]+$/).test(value)) {
-      return helpers.message("Input must be numeric only" as any);
-    }
-    return value;
-  }).label("Stripe OTP"),
+  update_stripe_keys_otp: joi
+    .string()
+    .custom((value, helpers) => {
+      if (!new RegExp(/^[0-9]+$/).test(value)) {
+        return helpers.message("Input must be numeric only" as any);
+      }
+      return value;
+    })
+    .label("Stripe OTP"),
 });
 
 const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
@@ -51,11 +54,14 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     control,
     register,
     handleSubmit,
+    getValues,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      stripe_publishable_key: stripeKeys?.data.data.stripe_publishable_key,
-      stripe_secret_key: stripeKeys?.data.data.stripe_secret_key,
+      stripe_publishable_key: stripeKeys?.data.data?.stripe_publishable_key,
+      stripe_secret_key: stripeKeys?.data.data?.stripe_secret_key,
       update_stripe_keys_otp: "",
     },
     resolver: (values, constext, options) => {
@@ -102,14 +108,16 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     }
   };
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Stripe Setting")}</h1>
+        <h1 className="text-[#4a4a4a] text-lg font-semibold">
+          {t("Stripe Setting")}
+        </h1>
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
@@ -117,8 +125,15 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
-          placeholder={t("Stripe Publishable Key")}
+         
           {...register("stripe_publishable_key")}
+          value={
+            watch("stripe_publishable_key") ===
+            stripeKeys?.data.data?.stripe_publishable_key
+              ? watch("stripe_publishable_key").slice(0, 25) + "************"
+              : watch("stripe_publishable_key")
+          }
+          onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_publishable_key && (
@@ -132,8 +147,14 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
-          placeholder={t("Stripe Secret key")}
           {...register("stripe_secret_key")}
+          value={
+            watch("stripe_secret_key") ===
+            stripeKeys?.data.data?.stripe_secret_key
+              ? watch("stripe_secret_key").slice(0, 25) + "************"
+              : watch("stripe_secret_key")
+          }
+          onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_secret_key && (
@@ -145,7 +166,8 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         className="flex items-center justify-center cursor-pointer gap-4 px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa26] text-[#7655fa] hover:bg-[#7655fa] hover:text-white rounded-md"
       >
         {" "}
-        {isPending && <Loader2 className="animate-spin h-5 w-5" />} {t("Send Confirmation OTP")}
+        {isPending && <Loader2 className="animate-spin h-5 w-5" />}{" "}
+        {t("Send Confirmation OTP")}
       </button>
       <div className="flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">

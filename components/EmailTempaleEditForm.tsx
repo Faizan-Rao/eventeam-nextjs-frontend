@@ -78,7 +78,7 @@ const EmailTempaleEditForm = ({
       <h1 className="text-sm font-semibold">{t("Status")}</h1>
       <div className="flex justify-between border-[2px] rounded-md p-2">
         <span className="text-[#4a4a4a] flex-1">{t("Active")}</span>
-        {template && (
+       
         <Switch
         dir="ltr"
           defaultChecked={template?.status === "1" ? true : false}
@@ -86,7 +86,7 @@ const EmailTempaleEditForm = ({
             setStatus(value);
           }}
         />
-        )}
+       
         
         
       </div>

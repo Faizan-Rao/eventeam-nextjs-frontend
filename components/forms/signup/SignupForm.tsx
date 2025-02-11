@@ -67,7 +67,13 @@ const SignupForm = () => {
       };
       localStorage.setItem("user", JSON.stringify(user));
       toast("Signup Successful", { type: "success" });
-      window.location.replace("/dashboard");
+      if(!response.data.data.is_active)
+        {
+          window.location.replace("/pending-approval");
+          return 
+        }
+        
+        window.location.replace("/dashboard");
       setPending(false);
     } catch (error) {
       if ((error as any).status !== 200) {

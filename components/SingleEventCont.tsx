@@ -98,7 +98,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
         />
         <KPICard
           title={t("Cleared Earnings")}
-          icon={<HandCoins size={28} />}
+          icon={<CircleDollarSign size={28} />}
           value={USDollar.format((data && data && data.stats.cleared) || 0)}
           currency=""
         />
@@ -131,9 +131,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <KPICard
               title={t("Event Guests")}
               icon={<UsersRound size={25} />}
-              value={USDollar.format(
-                (data && data && data.stats.total_registrations) || 0
-              )}
+              value={(data && data && data.stats.total_registrations) || 0}
             />
           </SwiperSlide>
           <SwiperSlide>

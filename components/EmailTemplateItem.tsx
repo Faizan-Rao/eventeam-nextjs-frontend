@@ -9,6 +9,7 @@ import { EmailTempApi } from "@/configs/apiRoutes";
 import { queryClient } from "./MainLayoutGrid";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { AxiosError } from "axios";
 
 interface Option {
   heading: string;
@@ -32,7 +33,7 @@ const EmailTemplateItem: React.FC<Option> = ({
       
     },
     onError: (error) => {
-      if ((error as any).status !== 200) {
+      if ((error as AxiosError).status !== 200) {
         Object.values((error as any)?.response?.data.data ?? {}).forEach(
           (el: any) => {
             el.forEach((el: any) => {
@@ -41,6 +42,9 @@ const EmailTemplateItem: React.FC<Option> = ({
           }
         );
       }
+    if((error as AxiosError).status !== 200){
+      toast((error as any)?.response?.data.message, { type: "error" })
+    }
     },
   });
   const {t} = useTranslation(["translation"])
@@ -65,7 +69,7 @@ const EmailTemplateItem: React.FC<Option> = ({
         <p className={clsx(data && data.status !== "1" && "text-red-700")}>
           {data && data.status === "1" ? t("Active") : t("Disable")}
         </p>
-        {data && (
+       
         <Switch
         dir="ltr"
           checked={data?.status === "1" ? true : false}
@@ -76,7 +80,7 @@ const EmailTemplateItem: React.FC<Option> = ({
             });
           }}
         />
-        )}
+       
       </div>
       <h4 className="text-3xl font-semibold">{t(heading)}</h4>
       <p className="text-base ">{t(body)}</p>

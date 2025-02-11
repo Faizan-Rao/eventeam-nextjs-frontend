@@ -91,7 +91,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
               Register for event
             </button>
           )}
-         {(!watch.stripeToken && watch.paymentMethod === "cash") && (
+         {( watch.paymentMethod === "cash") && (
             <button
               type="submit"
               disabled={!watch.accept_cash_terms}

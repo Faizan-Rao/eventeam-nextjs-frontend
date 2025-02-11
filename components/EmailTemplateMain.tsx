@@ -38,7 +38,7 @@ if (typeof window !== undefined) {
 }
 const EmailTemplateMain = () => {
 
-  const {data} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
+  const {data, isLoading} = useQuery({queryKey: ["email_templates"], queryFn: EmailTempApi.get})
   return (
     <div className={clsx("grid sm:grid-cols-1  justify-items-center ", 
       user.role === "company" &&  "md:grid-cols-2 justify-items-stretch",
@@ -48,12 +48,12 @@ const EmailTemplateMain = () => {
 
       
       {user.role === "admin" && (
-        data && <>
+        !isLoading && <>
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("signup"))} {...template.thankYou} />
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("approved_company"))} {...template.access} />
         </>
       )}
-      {data && <>
+      {!isLoading && <>
       
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("thankyou"))} {...template.completion} />
           <EmailTemplateItem data={data?.data.data.find((e:any)=> e.type.includes("confirmation"))} {...template.registration} />
