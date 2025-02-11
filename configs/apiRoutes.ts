@@ -199,6 +199,10 @@ export const Profile = {
     const response = await axiosWithToken.get(`/stripe/get-stripe-keys`)
     return response
   },
+  getStripeToken : async () =>{
+    const response = await axiosWithToken.get(`/stripe/get-public-key`)
+    return response
+  },
   sendOTPCommission : async (data:any) =>{
     const response = await axiosWithToken.post(`/send/otp`, data)
     return response

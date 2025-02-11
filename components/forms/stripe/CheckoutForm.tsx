@@ -10,11 +10,11 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { CircleX } from "lucide-react";
 import { watch } from "fs";
 import { toast } from "react-toastify";
+import { Profile } from "@/configs/apiRoutes";
 
 // Load your publishable key
-const stripePromise = loadStripe(
-  "pk_test_51OFX75FlIzt1ONhGf5IKCvzZouk8cCKKIjjnvCLJ2dctVaS0ew0rK4JugvzhiMyvBNy7Y2eXi3n9XzFN6fwfbEE000XuXyd5GK"
-);
+
+
 
 export const CheckoutForm = () => {
   const stripe = useStripe();
