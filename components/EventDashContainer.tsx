@@ -46,12 +46,12 @@ const EventDashContainer = ({ data }: { data: any }) => {
               <h4 className="text-2xl">{t("No Upcoming Event Right Now")}</h4>
             </div>
             <span className="flex items-center gap-2">
-              <a
+              {user.role === "company" && <a
                 href={"/dashboard/add-event"}
                 className="bg-[#7655FA] text-base rounded-full px-7 py-3 text-center"
               >
                 {t("Start Here")}
-              </a>
+              </a>}
             </span>
           </div>
         </div>

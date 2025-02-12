@@ -91,6 +91,23 @@ export const columns: ColumnDef<any>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "company_name",
+    
+    header: ({ table }) => (
+      <div className="flex gap-3 items-center ">
+       
+        <p>Company</p>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <span className="flex items-center gap-3">
+        <span className="flex items-center">{row.original.company_name}</span>
+      </span>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     accessorKey: "event.title",
     header: ({ column }) => {
       return (
