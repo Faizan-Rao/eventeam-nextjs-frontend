@@ -10,6 +10,7 @@ import joi from "joi";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { user } from "@/configs/axios";
 
 export const addressInfoEditSchema = joi.object({
   address: joi.string().min(10).label("Address"),
@@ -109,7 +110,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
     >
-      <div className="flex justify-between items-center">
+      { user.role === "company" && <><div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">{t("Address")}</h1>
       </div>
 
@@ -215,7 +216,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
             {...register("country")}
           />
         </div>
-      </div>
+      </div> </>}
 
       <span className="text-[#999999] my-4 text-sm font-semibold">
         {t("Default City")}
@@ -250,12 +251,12 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
         )}
       </div>
 
-      <div className="flex justify-end items-center gap-4">
+     {user.role === "company" && <div className="flex justify-end items-center gap-4">
         <button className="px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa] text-white rounded-full">
           {" "}
          {t("Save Changes")}
         </button>
-      </div>
+      </div>}
     </form>
   );
 };

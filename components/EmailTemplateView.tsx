@@ -27,7 +27,7 @@ const EmailTemplateView = ({ data }: { data: any }) => {
           <div className="flex justify-center items-center gap-4 mb-4">
             <div className="h-[60px] w-[60px] border-[2px] aspect-square  overflow-hidden rounded-full">
               <Image
-                src={profileData.photo}
+                src={profileData?.photo || "https://github.com/shadcn.png"}
                 height={120}
                 width={150}
                 alt="logo"

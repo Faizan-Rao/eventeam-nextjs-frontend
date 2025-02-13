@@ -5,6 +5,7 @@ import ProfileAddressInfo from '@/components/ProfileAddressInfo'
 import ProfileGeneralInfo from '@/components/ProfileGeneralInfo'
 import ProfileHeader from '@/components/ProfileHeader'
 import { Profile } from '@/configs/apiRoutes'
+import { user } from '@/configs/axios'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 
@@ -22,7 +23,7 @@ const CompanyProfile = () => {
         <ProfileHeader data={profileData}/>
         <div className='flex justify-between  gap-4  '>
             <ProfileGeneralInfo profile={profileData}/>
-            <ProfileAddressInfo profile={profileData}/>
+            { user.role === "company" && <ProfileAddressInfo profile={profileData}/>}
         </div>
     </MainContentGrid>
 
@@ -32,7 +33,7 @@ const CompanyProfile = () => {
         <ProfileHeader data={profileData}/>
         <div className='flex-1 flex justify-between min-w-sm  md:gap-4 sm:flex-wrap md:flex-nowrap '>
             <ProfileGeneralInfo profile={profileData}/>
-            <ProfileAddressInfo profile={profileData}/>
+           { user.role === "company" && <ProfileAddressInfo profile={profileData}/>}
         </div>
     </div>
     </>
