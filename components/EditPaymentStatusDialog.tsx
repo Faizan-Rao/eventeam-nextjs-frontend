@@ -18,7 +18,6 @@ import {
 
 import { PencilLine } from "lucide-react";
 
-
 import { Row } from "@tanstack/react-table";
 import { clsx } from "clsx";
 import { PaymentDetailContext } from "@/context/PaymentDetailProvider";
@@ -36,17 +35,22 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
   const mutation = useMutation({
     mutationFn: Payments.updateStatus,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["payments"]})
-      toast("Status Updated", {type:"success"})
+      queryClient.invalidateQueries({
+        queryKey: ["payments"], type:"all"
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["kpis"], type:"all"
+      });
+      toast("Status Updated", { type: "success" });
       setOpen(false);
     },
     onError: () => {
-      toast("Status Not Updated", {type:"error"})
+      toast("Status Not Updated", { type: "error" });
       setOpen(false);
     },
-  })
+  });
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
@@ -66,7 +70,7 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
                     {row?.original?.event.title}
                   </h1>
                   <p className="text-sm text-[#tatata] font-semibold">
-                 {(row?.original?.created_at.split("T")[0])}
+                    {row?.original?.created_at.split("T")[0]}
                   </p>
                 </div>
 
@@ -74,11 +78,13 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
                   <span
                     className={clsx(
                       " px-4 py-1 rounded-full text-black text-center text-nowrap",
-                      row?.original?.payment_status === "pending" && "bg-[#FBE394]",
-                      row?.original?.payment_status !== "pending" && "bg-[#C2FFCC]"
+                      row?.original?.payment_status === "pending" &&
+                        "bg-[#FBE394]",
+                      row?.original?.payment_status !== "pending" &&
+                        "bg-[#C2FFCC]"
                     )}
                   >
-                    { row?.original?.payment_status === "pending"
+                    {row?.original?.payment_status === "pending"
                       ? t("Pending")
                       : t("Cleared")}
                   </span>
@@ -92,36 +98,40 @@ const EditPaymentStatusDialog = ({ row }: { row: Row<any> }) => {
               </div>
 
               <div className="my-5 flex flex-col gap-2 ">
-              <h1 className="text-[#7655fa]  font-semibold text-sm">
-                   {t("Payment Status")}
-                  </h1>
+                <h1 className="text-[#7655fa]  font-semibold text-sm">
+                  {t("Payment Status")}
+                </h1>
                 <Select onValueChange={setSetStatus}>
-                  <SelectTrigger >
+                  <SelectTrigger>
                     <SelectValue
-                    className="text-base"
-                      placeholder={ row?.original?.payment_status}
-                      defaultValue={ row?.original?.payment_status}
+                      className="text-base"
+                      placeholder={row?.original?.payment_status}
+                      defaultValue={row?.original?.payment_status}
                     />
                   </SelectTrigger>
-                  <SelectContent className="text-base" >
-                    <SelectItem className="cursor-pointer " value="pending">{t("Pending")}</SelectItem>
-                    <SelectItem className="cursor-pointer " value="cleared">{t("Cleared")}</SelectItem>
+                  <SelectContent className="text-base">
+                    <SelectItem className="cursor-pointer " value="pending">
+                      {t("Pending")}
+                    </SelectItem>
+                    <SelectItem className="cursor-pointer " value="cleared">
+                      {t("Cleared")}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="flex justify-end my-6 gap-6">
-              <button className="font-semibold active:scale-[0.90] transition-all  text-sm" onClick={() => setOpen(false)}>
+              <button
+                className="font-semibold active:scale-[0.90] transition-all  text-sm"
+                onClick={() => setOpen(false)}
+              >
                 {t("Cancel")}
               </button>
               <button
                 className="bg-[#7655fa] px-5 py-2  active:scale-[0.90] transition-all text-sm rounded-full text-white"
                 onClick={() => {
-                  
-                 
-
-                  mutation.mutate(row?.original?.id)
+                  mutation.mutate(row?.original?.id);
                 }}
               >
                 {t("Save Changes")}

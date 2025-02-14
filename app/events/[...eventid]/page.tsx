@@ -75,8 +75,7 @@ const RegisterEvent = () => {
     },
   });
 
-
-  const watch = useWatch({control})
+  const watch = useWatch({ control });
   useEffect(() => {
     reset({
       ...getValues(),
@@ -92,22 +91,18 @@ const RegisterEvent = () => {
       parseFloat(data.donation_field);
     const plateFormFee =
       (totalfee * parseFloat(singleEvent?.settings.plateform_fee)) / 100;
-      if(watch.allowPlateformFee)
-      {
-        const finalFee = totalfee + plateFormFee;
-        data.totalAmount = finalFee;
-        return data;
-
-      }
-      else
-      {
-        data.totalAmount = totalfee;
-        return data;
-      }
+    if (watch.allowPlateformFee) {
+      const finalFee = totalfee + plateFormFee;
+      data.totalAmount = finalFee;
+      return data;
+    } else {
+      data.totalAmount = totalfee;
+      return data;
+    }
   };
   const onSubmit = (formData123: any) => {
     const payload = platformFee(formData123);
-    mutate.mutate(formData123);
+    mutate.mutate(payload);
   };
 
   return (

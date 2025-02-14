@@ -42,10 +42,7 @@ export const Companies = {
 export const Dashboard = {
   getKPI: async () => {
 
-    const currentDate = new Date(Date.now())
-      .toISOString()
-      .split("T")[0]
-      .replaceAll("-", "/");
+  
 
     let data = {
       kpis: [
@@ -63,7 +60,7 @@ export const Dashboard = {
         "active_companies",
         "inactive_companies"
       ],
-      daterange: `2020/01/01 - ${currentDate}`,
+      daterange: `2020/01/01 - 2060/01/01`,
     };
 
     const response = await axiosWithToken.post("/kpis", data);
