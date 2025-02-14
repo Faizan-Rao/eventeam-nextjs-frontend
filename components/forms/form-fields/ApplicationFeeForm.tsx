@@ -5,7 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import JoditEditor from "jodit-react";
 import { DollarSign } from "lucide-react";
 import React, { useRef, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { FormFields } from "@/configs/apiRoutes";
 import { useMutation } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 interface ApplicationField {
   plateform_fee : string,
   is_show_app_fee : string,
-  is_default_app_fee: boolean,
+  is_default_app_fee: string,
   application_fee_text : string
 }
 
@@ -25,6 +25,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
     control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ApplicationField>({
     defaultValues:{
@@ -59,16 +60,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
         throw new Error("Data is Empty...!")
       }
       let payload = {...data}
-      if(payload["is_show_app_fee"] !== "1")
-      {
-        payload["is_default_app_fee"] = 1
-        payload["is_show_app_fee"] = 0
-      }
-      else
-      {
-        payload["is_show_app_fee"] = 1
-        payload["is_default_app_fee"] = 0
-      }
+     
 
       
       mutation.mutate(payload)
@@ -83,7 +75,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
     }
     
   }
-
+  const watch = useWatch({control})
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 sm:p-4 md:p-10 rounded-md bg-white ">
@@ -102,8 +94,9 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
           <input
             type="number"
             className=" outline-none p-2 flex-1"
+            {...register("plateform_fee")}
+           
             placeholder={t("Platform fee")}
-           {...register("plateform_fee")}
           />
           <DollarSign size={18}  className="mx-3"/>
         </div>
@@ -138,7 +131,16 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
                 render={({ field }) => (
                   <Select
                     defaultValue={field.value}
-                    onValueChange={(value) => field.onChange(value)}
+                    onValueChange={(value) => {
+                      if(value === "0")
+                      {
+                        setValue(
+                          "plateform_fee",
+                          "0"
+                        )
+                      }
+                      field.onChange(value)
+                    }}
                   >
                     <SelectTrigger >
                       <SelectValue placeholder={t("Select Mode...")} />
@@ -146,6 +148,34 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
                     <SelectContent>
                       <SelectItem value={"1"}>{t("Show application fee")}</SelectItem>
                       <SelectItem value={"0"}>{t("Show default fee")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </span>
+      </div>
+
+      <div className="flex justify-between  items-center gap-4">
+        
+        <span className="flex flex-col gap-2 flex-1">
+              <label className="text-sm text-[#4a4a4a] font-semibold">{t("Default Application Fee State")}</label>
+
+              <Controller
+                name="is_default_app_fee"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    defaultValue={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value)
+                    }}
+                  >
+                    <SelectTrigger >
+                      <SelectValue placeholder={t("Select Mode...")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={"1"}>{t("Checked By Default")}</SelectItem>
+                      <SelectItem value={"0"}>{t("Unchecked By Default")}</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

@@ -11,19 +11,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { Metadata } from "next/types";
-import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const formDefaultValue = {
-  donation_field: "0",
-  other_donation: 0,
-  platformFee: "",
-  guests: [],
-  totalAmount: "00.00",
-  accept_cash_terms: false,
-  paymentMethod: "cash", //fpr stripe PM we must need stripeToken param as well
-};
 const RegisterEvent = () => {
   const params = useParams();
   const { data } = useQuery({
@@ -31,50 +22,94 @@ const RegisterEvent = () => {
     queryFn: () =>
       Companies.getCompaniesEvents((params.eventid[0] as string) || ""),
   });
-  
-  console.log("api data",data)
+
+  console.log("api data", data);
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events?.company;
-  console.log("send params",params);
+  console.log("send params", params);
   const { data: event } = useQuery({
     queryKey: ["single-event"],
     queryFn: () => EventReg.singleEvent(params.eventid[0], params.eventid[1]),
   });
 
-  console.log("required event 123",event);
+  console.log("required event 123", event);
   const singleEvent = event?.data.data;
+
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
   const methods = useForm({
-    defaultValues: formDefaultValue,
+    defaultValues: {
+      donation_field: "0",
+      other_donation: 0,
+      platformFee: "",
+      allowPlateformFee: false,
+      guests: [],
+      totalAmount: "00.00",
+      accept_cash_terms: false,
+      paymentMethod: "cash", //fpr stripe PM we must need stripeToken param as well
+    },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, control, reset, getValues } = methods;
   const mutate = useMutation({
     mutationFn: (formData) =>
-      EventReg.eventRegistration( params.eventid[0], params.eventid[1], formData),
+      EventReg.eventRegistration(
+        params.eventid[0],
+        params.eventid[1],
+        formData
+      ),
     onSuccess: () => {
       toast("Event Registration Successful", { type: "success" });
-      window.location.replace(`/companies/${singleEvent?.company}`);
+      // window.location.replace(`/companies/${singleEvent?.company}`);
     },
     onError: (error) => {
       if ((error as any).status !== 200) {
-              Object.values((error as any)?.response?.data.data ?? {}).forEach(
-                (el: any) => {
-                  el.forEach((el: any) => {
-                    toast(el, { type: "error" });
-                  });
-                }
-              );
-            }
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+      }
     },
   });
-  const onSubmit = (formData123: any) =>{
-    console.log("send formdata", formData123)
-    mutate.mutate(formData123)
+  const watch = useWatch({control})
+  useEffect(() => {
+    reset({
+      ...getValues(),
+      allowPlateformFee:
+        singleEvent?.settings.is_default_app_fee === "1" ? true : false,
+    });
+  }, [getValues, reset, singleEvent?.settings.is_default_app_fee]);
+
+  const platformFee = (data: any) => {
+    const totalfee =
+      parseFloat(data.totalAmount) +
+      parseFloat(data.other_donation) +
+      parseFloat(data.donation_field);
+    const plateFormFee =
+      (totalfee * parseFloat(singleEvent?.settings.plateform_fee)) / 100;
+      if(watch.allowPlateformFee)
+      {
+        const finalFee = totalfee + plateFormFee;
+        data.totalAmount = finalFee;
+        return data;
+
+      }
+      else
+      {
+        data.totalAmount = totalfee;
+        return data;
+      }
+  };
+  const onSubmit = (formData123: any) => {
+    const payload = platformFee(formData123);
+    mutate.mutate(formData123);
   };
 
   return (
     <>
-     <CompanyHeader data={companies} />
+      <CompanyHeader data={companies} />
       <MainContentGrid className="md:translate-y-[-15%]">
         {/* <PageTitleContainer title='Register Event'/> */}
         <FormProvider {...methods}>
@@ -90,7 +125,6 @@ const RegisterEvent = () => {
                   <RegisterForEventForm2 data={singleEvent} />
                 </>
               )}
-              
             </form>
           </Elements>
         </FormProvider>

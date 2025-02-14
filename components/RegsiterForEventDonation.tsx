@@ -128,7 +128,7 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
           data.event?.advances.is_donation_allowed === "1" &&<div className="grid grid-cols-1 gap-2">
           <input
             className="border-[1px] rounded-md px-4 py-2 outline-[#7655fa]"
-            placeholder="Enter Custom Donation"
+            placeholder="Enter Desired Donation"
             type="number"
             onChange={(event) => {
               setValue(
