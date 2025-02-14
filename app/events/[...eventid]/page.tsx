@@ -50,6 +50,7 @@ const RegisterEvent = () => {
     },
   });
   const { handleSubmit, control, reset, getValues } = methods;
+
   const mutate = useMutation({
     mutationFn: (formData) =>
       EventReg.eventRegistration(
@@ -59,7 +60,7 @@ const RegisterEvent = () => {
       ),
     onSuccess: () => {
       toast("Event Registration Successful", { type: "success" });
-      // window.location.replace(`/companies/${singleEvent?.company}`);
+      window.location.replace(`/companies/${singleEvent?.company}`);
     },
     onError: (error) => {
       if ((error as any).status !== 200) {
@@ -73,6 +74,8 @@ const RegisterEvent = () => {
       }
     },
   });
+
+
   const watch = useWatch({control})
   useEffect(() => {
     reset({

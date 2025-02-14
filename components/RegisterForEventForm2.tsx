@@ -8,7 +8,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CheckoutForm } from "./forms/stripe/CheckoutForm";
 import parser from "html-react-parser";
-const RegisterForEventForm2 = ({ data,  }: { data: any }) => {
+const RegisterForEventForm2 = ({ data }: { data: any }) => {
   // stripe-Specific
 
   const formContext = useFormContext();
@@ -28,7 +28,8 @@ const RegisterForEventForm2 = ({ data,  }: { data: any }) => {
     }
     return totalfee;
   };
-
+  const plateFormFee = (totalfee: any) =>
+    (totalfee * parseFloat(data?.settings.plateform_fee)) / 100;
   return (
     <div className="flex-1 items-start  rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
       {data.event.advances &&
@@ -36,27 +37,6 @@ const RegisterForEventForm2 = ({ data,  }: { data: any }) => {
           <RegsiterForEventDonation data={data} />
         )}
 
-      {data.settings.is_show_app_fee === "1" && (
-        <div className="flex px-4 pb-4 flex-col  my-4  gap-4">
-          <div className=" flex items-center gap-3 text-[#4a4a4a] font-semibold">
-            {data.settings && (
-              <Checkbox
-                onCheckedChange={(e) => {
-                  console.log("chekcbox change", e);
-                  setValue("allowPlateformFee", e);
-                }}
-                checked={
-                 watch.allowPlateformFee
-                }
-              />
-            )}
-
-            <span className="text-[rgb(153,153,153)] text-sm ">
-              {data.settings.application_fee_text}
-            </span>
-          </div>
-        </div>
-      )}
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
         <div className="flex gap-4 text-base justify-between">
@@ -67,16 +47,6 @@ const RegisterForEventForm2 = ({ data,  }: { data: any }) => {
             {"$" + watch.totalAmount}
           </p>
         </div>
-        {watch.allowPlateformFee && (
-          <div className="flex gap-4 text-base justify-between">
-            <p className="font-semibold px-2 text-[#999999] text-sm">
-              {"Plateform Fee"}
-            </p>
-            <p className="font-semibold px-2 text-[#999999] text-sm">
-              {` ${data.settings.plateform_fee} %`}
-            </p>
-          </div>
-        )}
 
         {data?.event?.advances &&
           data?.event?.advances.is_donation_allowed === "1" && (
@@ -102,6 +72,36 @@ const RegisterForEventForm2 = ({ data,  }: { data: any }) => {
             </div>
           )}
 
+        {data.settings.is_show_app_fee === "1" && (
+          <div className="flex ps-2 justify-between items-center     ">
+            <div className=" flex items-center gap-3 text-[#4a4a4a] font-semibold">
+              {data.settings && (
+                <Checkbox
+                  onCheckedChange={(e) => {
+                    console.log("chekcbox change", e);
+                    setValue("allowPlateformFee", e);
+                  }}
+                  checked={watch.allowPlateformFee}
+                />
+              )}
+
+              <span className="text-[rgb(153,153,153)] text-sm ">
+                {data.settings.application_fee_text}
+              </span>
+              <p className=" font-semibold  text-[#999999] text-sm">
+              {`( ${data.settings.plateform_fee} ) %`}
+            </p>
+            </div>
+           
+            <p className="ml-auto font-semibold px-2 text-[#999999] text-sm">
+              {`$${plateFormFee(
+                parseFloat(watch.totalAmount) +
+                  parseFloat(watch.other_donation) +
+                  parseFloat(watch.donation_field)
+              )}`}
+            </p>
+          </div>
+        )}
         <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
           <div className="flex gap-4 text-base justify-between">
             <p className="font-semibold px-2">Total</p>

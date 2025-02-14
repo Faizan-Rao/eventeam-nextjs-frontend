@@ -3,7 +3,7 @@ import { Switch } from "@/components/ui/switch";
 import { joditConfig } from "@/configs/joditConfig";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import JoditEditor from "jodit-react";
-import { DollarSign } from "lucide-react";
+import { DollarSign, Percent } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -98,25 +98,11 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
            
             placeholder={t("Platform fee")}
           />
-          <DollarSign size={18}  className="mx-3"/>
+          <Percent size={18}  className="mx-3"/>
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-[#4a4a4a] text-sm font-semibold">
-          {t("Application fee text")}
-        </span>
-
-        <div className="flex  border-[1px] rounded-md items-center  ">
-          <input
-            type="text"
-            className=" outline-none p-2 flex-1"
-            placeholder={t("Application fee text")}
-           {...register("application_fee_text")}
-          />
-         
-        </div>
-      </div>
+    
 
       
 
