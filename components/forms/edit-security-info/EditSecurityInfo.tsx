@@ -94,6 +94,9 @@ const EditSecurityForm = ({
           }
         );
       }
+      if ((error as any).status !== 200) {
+        toast((error as any)?.response?.data.message, { type: "error" });
+      }
     },
   });
   const onSubmit = (data: any) => {
@@ -102,6 +105,11 @@ const EditSecurityForm = ({
       data.otp_type = pathname.includes("forget-password")
         ? "forget_password"
         : "change_password";
+
+      if (pathname.includes("/forget-password")) {
+        data.forgot_password_otp = data.change_password_otp;
+        delete data.change_password_otp;
+      }
       mutate.mutate(data);
     }
   };
@@ -133,11 +141,14 @@ const EditSecurityForm = ({
     }
   };
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={clsx(pathname.includes("forget-password") && "min-w-[60vw]","z-[1]  flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white ")}
+      className={clsx(
+        pathname.includes("forget-password") && "min-w-[60vw]",
+        "z-[1]  flex flex-col gap-4 sm:px-4 sm:py-6 md:p-10 rounded-md bg-white "
+      )}
     >
       <div className="flex justify-between items-center">
         <h1 className="text-[#4a4a4a] text-lg font-semibold">
@@ -164,7 +175,7 @@ const EditSecurityForm = ({
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
-           {t("New Password")}
+            {t("New Password")}
           </span>
           <input
             type="password"
@@ -196,10 +207,13 @@ const EditSecurityForm = ({
         className="flex items-center justify-center cursor-pointer gap-4 px-4 py-2 active:scale-[0.95] transition-all bg-[#7655fa26] text-[#7655fa] hover:bg-[#7655fa] hover:text-white rounded-md"
       >
         {" "}
-        {isPending && <Loader2 className="animate-spin h-5 w-5" />} {t("Send Confirmation OTP")}
+        {isPending && <Loader2 className="animate-spin h-5 w-5" />}{" "}
+        {t("Send Confirmation OTP")}
       </button>
       <div className="flex flex-col gap-2">
-        <span className="text-[#999999] text-sm font-semibold">{t("Enter OTP")}</span>
+        <span className="text-[#999999] text-sm font-semibold">
+          {t("Enter OTP")}
+        </span>
         <input
           type="text"
           placeholder={t("Enter Confirmation OTP")}
