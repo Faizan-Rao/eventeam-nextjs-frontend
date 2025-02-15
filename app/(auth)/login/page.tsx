@@ -64,7 +64,7 @@ const Login = () => {
             
             <LoginForm />
             <button
-                className=" sm:block md:hidden active:scale-[0.95] transition-all  mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
+                className=" sm:block md:hidden active:scale-[0.95] transition-all my-4 mx-auto  px-4  rounded-full text-[#7655fa] font-semibold"
                 onClick={() => setLeft("right")}
               >
                 New Here? Sign up now

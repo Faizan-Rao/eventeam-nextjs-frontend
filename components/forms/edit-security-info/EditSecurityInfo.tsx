@@ -46,6 +46,11 @@ const EditSecurityForm = ({
   formName?: string;
 }) => {
   const [isPending, setIsPending] = useState(false);
+  const [isShow, setIsShow] = useState({
+      current_password:false,
+      password: false,
+      confirm_password: false,
+    });
   const pathname = usePathname();
   const {
     control,
@@ -160,12 +165,28 @@ const EditSecurityForm = ({
           <span className="text-[#999999] text-sm font-semibold">
             {t("Current Password")}
           </span>
-          <input
-            type="password"
-            placeholder="* * * * * *"
-            {...register("current_password")}
-            className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
-          />
+          <div className="flex justify-between pe-2 items-center  outline-[#7655fa]  p-2 border-[1px]  rounded-md">
+            <input
+              {...register("current_password", {
+                required: true,
+                minLength: 5,
+              })}
+              type={isShow.current_password ? "text" : "password"}
+              placeholder="*********"
+              className="text-[#4a4a4a] outline-none flex-1 text-base"
+            />
+            <p
+              className="font-semibold cursor-pointer text-base text-[#7655fa]"
+              onClick={() =>
+                setIsShow({
+                  ...isShow,
+                  current_password: !isShow.current_password,
+                })
+              }
+            >
+              {isShow.current_password ? "Hide" : "Show"}
+            </p>
+          </div>
           {errors?.current_password && (
             <span className="text-red-800">{`${errors.current_password.message}`}</span>
           )}
@@ -177,12 +198,28 @@ const EditSecurityForm = ({
           <span className="text-[#999999] text-sm font-semibold">
             {t("New Password")}
           </span>
-          <input
-            type="password"
-            placeholder="* * * * * *"
-            {...register("password")}
-            className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
-          />
+          <div className="flex justify-between pe-2 items-center  outline-[#7655fa]  p-2 border-[1px]  rounded-md">
+            <input
+              {...register("password", {
+                required: true,
+                minLength: 5,
+              })}
+              type={isShow.password ? "text" : "password"}
+              placeholder="*********"
+              className="text-[#4a4a4a] text-base outline-none flex-1"
+            />
+            <p
+              className="font-semibold text-base cursor-pointer text-[#7655fa]"
+              onClick={() =>
+                setIsShow({
+                  ...isShow,
+                  password: !isShow.password,
+                })
+              }
+            >
+              {isShow.password ? "Hide" : "Show"}
+            </p>
+          </div>
           {errors?.password && (
             <span className="text-red-800">{`${errors.password.message}`}</span>
           )}
@@ -191,12 +228,28 @@ const EditSecurityForm = ({
           <span className="text-[#999999] text-sm font-semibold">
             {t("Confirm Password")}
           </span>
-          <input
-            type="password"
-            placeholder="* * * * * *"
-            {...register("confirm_password")}
-            className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
-          />
+          <div className="flex justify-between pe-2 items-center  outline-[#7655fa]  p-2 border-[1px]  rounded-md">
+            <input
+              {...register("confirm_password", {
+                required: true,
+                minLength: 5,
+              })}
+              type={isShow.confirm_password ? "text" : "password"}
+              placeholder="*********"
+              className="text-[#4a4a4a]  outline-none flex-1 text-base"
+            />
+            <p
+              className="font-semibold text-base cursor-pointer text-[#7655fa]"
+              onClick={() =>
+                setIsShow({
+                  ...isShow,
+                  confirm_password: !isShow.confirm_password,
+                })
+              }
+            >
+              {isShow.confirm_password ? "Hide" : "Show"}
+            </p>
+          </div>
           {errors?.confirm_password && (
             <span className="text-red-800">{`${errors.confirm_password.message}`}</span>
           )}

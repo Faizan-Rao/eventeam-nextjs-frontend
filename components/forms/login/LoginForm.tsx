@@ -20,7 +20,7 @@ const schema = joi
   .required();
 
 const LoginForm = () => {
-  const router = useRouter();
+  const [isShow, setIsShow] = useState(false)
   const [isPending, setPending] = useState(false);
   const {
     control,
@@ -96,16 +96,19 @@ const LoginForm = () => {
               <span className="text-red-700">Email is Required</span>
             )}
           </div>
-          <div className=" flex flex-col flex-1 gap-2">
+          <div className=" flex flex-col flex-1 gap-2 ">
             <span className="text-[#4a4a4a] text-sm font-semibold">
               Password
             </span>
+            <div className="flex outline-[#7655fa] rounded-md items-center justify-between border-[2px] pe-2">
             <input
-              className="p-2 outline-[#7655fa] border-[2px] rounded-md"
+              className="p-2  flex-1 outline-none  "
               placeholder="Enter password"
-              type="password"
+              type={isShow ? "text" : "password"}
               {...register("password", { required: true, minLength: 5 })}
             />
+            <p className="font-semibold cursor-pointer text-[#7655fa]" onClick={()=>setIsShow(!isShow)}>{isShow ? "Hide" : "Show"}</p>
+            </div>
             {errors.password && (
               <span className="text-red-700">Password is Required</span>
             )}

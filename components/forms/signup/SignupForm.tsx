@@ -17,21 +17,30 @@ const schema = joi
     regemail: joi
       .string()
       .email({ tlds: { allow: false } })
-      .required().label("Email"),
+      .required()
+      .label("Email"),
     regpassword: joi.string().min(5).required().label("Password"),
-    confirm_password: joi.string().min(5).custom((value, helpers)=>{
-      const {regpassword} = helpers.state.ancestors[0]
-      if(regpassword !== value)
-      {
-        return helpers.message("Password Missmatched" as any)
-      }
-      return value
-    }).required().label("Confirm Password"),
+    confirm_password: joi
+      .string()
+      .min(5)
+      .custom((value, helpers) => {
+        const { regpassword } = helpers.state.ancestors[0];
+        if (regpassword !== value) {
+          return helpers.message("Password Missmatched" as any);
+        }
+        return value;
+      })
+      .required()
+      .label("Confirm Password"),
   })
   .required();
 
 const SignupForm = () => {
   const router = useRouter();
+  const [isShow, setIsShow] = useState({
+    password: false,
+    confirm_password: false,
+  });
   const [isPending, setPending] = useState(false);
   const {
     register,
@@ -67,13 +76,12 @@ const SignupForm = () => {
       };
       localStorage.setItem("user", JSON.stringify(user));
       toast("Signup Successful", { type: "success" });
-      if(!response.data.data.is_active)
-        {
-          window.location.replace("/pending-approval");
-          return 
-        }
-        
-        window.location.replace("/dashboard");
+      if (!response.data.data.is_active) {
+        window.location.replace("/pending-approval");
+        return;
+      }
+
+      window.location.replace("/dashboard");
       setPending(false);
     } catch (error) {
       if ((error as any).status !== 200) {
@@ -130,9 +138,9 @@ const SignupForm = () => {
               className="text-[#4a4a4a] flex-1 text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
               {...register("regemail", { required: true, minLength: 5 })}
             />
-             {errors?.regemail && (
-            <span className="text-red-700">{`${errors.regemail.message}`}</span>
-          )}
+            {errors?.regemail && (
+              <span className="text-red-700">{`${errors.regemail.message}`}</span>
+            )}
           </div>
           <div className="flex flex-1 flex-col gap-2">
             <span className="text-[#4a4a4a] text-sm font-semibold">Phone</span>
@@ -150,28 +158,54 @@ const SignupForm = () => {
 
         <div className="flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">Password</span>
-          <input
-            type="password"
-            placeholder="Password"
-            className="text-[#4a4a4a] text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
-            {...register("regpassword", { required: true, minLength: 5 })}
-          />
-           {errors.regpassword && (
-              <span className="text-red-700">{`${errors.regpassword.message}`}</span>
-            )}
+          <div className="flex justify-between pe-2 items-center  outline-[#7655fa]  p-2 border-[1px]  rounded-md">
+            <input
+              {...register("regpassword", { required: true, minLength: 5 })}
+              type={isShow.password ? "text" : "password"}
+              placeholder="Password"
+              className="text-[#4a4a4a] outline-none flex-1 text-base"
+            />
+            <p
+              className="font-semibold cursor-pointer text-[#7655fa]"
+              onClick={() =>
+                setIsShow({ ...isShow, password: !isShow.password })
+              }
+            >
+              {isShow.password ? "Hide" : "Show"}
+            </p>
+          </div>
+          {errors.regpassword && (
+            <span className="text-red-700">{`${errors.regpassword.message}`}</span>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-[#4a4a4a] text-sm font-semibold">
             Confirm Password
           </span>
-          <input
-            type="password"
-            placeholder="Password"
-            className="text-[#4a4a4a] text-base outline-[#7655fa]  p-2 border-[1px]  rounded-md"
-            {...register("confirm_password", { required: true, minLength: 5 })}
-          />
+          <div className="flex justify-between pe-2 items-center  outline-[#7655fa]  p-2 border-[1px]  rounded-md">
+            <input
+              {...register("confirm_password", {
+                required: true,
+                minLength: 5,
+              })}
+              type={isShow.confirm_password ? "text" : "password"}
+              placeholder="Password"
+              className="text-[#4a4a4a] outline-none flex-1 text-base"
+            />
+            <p
+              className="font-semibold cursor-pointer text-[#7655fa]"
+              onClick={() =>
+                setIsShow({
+                  ...isShow,
+                  confirm_password: !isShow.confirm_password,
+                })
+              }
+            >
+              {isShow.confirm_password ? "Hide" : "Show"}
+            </p>
+          </div>
           {errors.confirm_password && (
-           <span className="text-red-700">{`${errors.confirm_password.message}`}</span>
+            <span className="text-red-700">{`${errors.confirm_password.message}`}</span>
           )}
         </div>
 

@@ -37,7 +37,9 @@ const CompanyAddDialog = ({
     email: data?.email,
     phone: data?.phone,
   };
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
+
+  const [isShow, setIsShow] = useState(false);
   const schema = joi
     .object({
       full_name: joi.string().min(5).required(),
@@ -221,12 +223,20 @@ const CompanyAddDialog = ({
                 <span className="text-[#4a4a4a] text-sm font-semibold">
                   {t("Password")}
                 </span>
-                <input
-                  type="text"
-                  placeholder="Password"
-                  className="text-[#4a4a4a] text-base  p-2 border-[1px] outline-none rounded-md"
-                  {...register("password")}
-                />
+                <div className="flex outline-[#7655fa] rounded-md items-center justify-between border-[2px] pe-2">
+                  <input
+                    className="p-2  flex-1 outline-none text-base "
+                    placeholder="Enter password"
+                    type={isShow ? "text" : "password"}
+                    {...register("password", { required: true, minLength: 5 })}
+                  />
+                  <p
+                    className="font-semibold text-base cursor-pointer text-[#7655fa]"
+                    onClick={() => setIsShow(!isShow)}
+                  >
+                    {isShow ? "Hide" : "Show"}
+                  </p>
+                </div>
                 {type !== "edit" && errors?.password && (
                   <span className="text-red-700">Password is Required</span>
                 )}
