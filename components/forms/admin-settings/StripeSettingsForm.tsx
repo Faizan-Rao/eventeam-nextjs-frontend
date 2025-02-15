@@ -2,7 +2,7 @@
 import { Profile } from "@/configs/apiRoutes";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import joi from "joi";
@@ -57,6 +57,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
     getValues,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -72,6 +73,27 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       return resolver(values, constext, options);
     },
   });
+
+  const [formatedStripe, setFormatedStripe] = useState({
+    stripe_publishable_key: "",
+    stripe_secret_key: "",
+  });
+
+  useEffect(() => {
+    if (stripeKeys?.data.data) {
+      setFormatedStripe({
+        ...formatedStripe,
+        stripe_publishable_key: getValues("stripe_publishable_key") === stripeKeys?.data.data?.["stripe_publishable_key"]
+        ? watch("stripe_publishable_key" as any).slice(0, 5) + "************"
+        : watch("stripe_publishable_key" as any),
+        stripe_secret_key: getValues("stripe_secret_key") === stripeKeys?.data.data?.["stripe_secret_key"]
+        ? watch("stripe_secret_key" as any).slice(0, 5) + "************"
+        : watch("stripe_secret_key" as any),
+      });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = (data: any) => {
     if (data !== undefined) {
@@ -107,6 +129,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       setIsPending(false);
     }
   };
+  
 
   const { t } = useTranslation(["translation"]);
   return (
@@ -125,15 +148,11 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
-         
+          value={getValues("stripe_publishable_key") === stripeKeys?.data.data?.["stripe_publishable_key"]
+            ? watch("stripe_publishable_key" as any).slice(0, 25) + "************"
+            : watch("stripe_publishable_key" as any)}
           {...register("stripe_publishable_key")}
-          value={
-            watch("stripe_publishable_key") ===
-            stripeKeys?.data.data?.stripe_publishable_key
-              ? watch("stripe_publishable_key").slice(0, 25) + "************"
-              : watch("stripe_publishable_key")
-          }
-          onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
+          onChange={(e) => setValue("stripe_publishable_key", e.target.value)} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_publishable_key && (
@@ -147,13 +166,10 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
+          value={getValues("stripe_secret_key") === stripeKeys?.data.data?.["stripe_secret_key"]
+            ? watch("stripe_secret_key" as any).slice(0, 25) + "************"
+            : watch("stripe_secret_key" as any)}
           {...register("stripe_secret_key")}
-          value={
-            watch("stripe_secret_key") ===
-            stripeKeys?.data.data?.stripe_secret_key
-              ? watch("stripe_secret_key").slice(0, 25) + "************"
-              : watch("stripe_secret_key")
-          }
           onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
