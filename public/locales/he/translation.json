@@ -301,6 +301,12 @@
   "Hide": "הסתר",
   "Platform Settings": "הגדרות פלטפורמה",
 
-"Default Application Fee State": "מצב דמי בקשה ברירת מחדל"
+"Default Application Fee State": "מצב דמי בקשה ברירת מחדל",
+  "Collect/Show Application Fee on Guest Form": "איסוף/הצגה של דמי בקשה בטופס אורח",
+  "Yes": "כן",
+  "No": "לא",
+  "Checked By Default": "מסומן כברירת מחדל",
+  "Unchecked By Default": "לא מסומן כברירת מחדל"
+
 
 }

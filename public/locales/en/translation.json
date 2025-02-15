@@ -297,7 +297,12 @@
   "Show":"Show",
   "Hide":"Hide",
   "Platform Settings":"Platform Settings",
-  "Default Application Fee State":"Default Application Fee State"
+  "Default Application Fee State":"Default Application Fee State",
+  "Collect/Show Application Fee on Guest Form":"Collect/Show Application Fee on Guest Form",
+  "Yes":"Yes",
+  "No":"No",
+  "Checked By Default":"Checked By Default",
+  "Unchecked By Default":"Unchecked By Default"
 }
 
 

@@ -109,7 +109,7 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
       <div className="flex justify-between  items-center gap-4">
         
         <span className="flex flex-col gap-2 flex-1">
-              <label className="text-sm text-[#4a4a4a] font-semibold">{t("Select Application Fee Mode")}</label>
+              <label className="text-sm text-[#4a4a4a] font-semibold">{t("Collect/Show Application Fee on Guest Form")}</label>
 
               <Controller
                 name="is_show_app_fee"
@@ -132,8 +132,8 @@ const ApplicationFeeForm = ({data}:{data:any}) => {
                       <SelectValue placeholder={t("Select Mode...")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={"1"}>{t("Show application fee")}</SelectItem>
-                      <SelectItem value={"0"}>{t("Show default fee")}</SelectItem>
+                      <SelectItem value={"1"}>{t("Yes")}</SelectItem>
+                      <SelectItem value={"0"}>{t("No")}</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
