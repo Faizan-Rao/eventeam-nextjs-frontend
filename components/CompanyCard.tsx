@@ -184,10 +184,10 @@ const CompanyCard: React.FC<ICompanyCard> = ({
       <div
         className={clsx(
           " text-white font-semibold rounded-md text-center p-3 text-base",
-          stripe === "1" ? "bg-[#7655fa]" : "bg-[#999999]"
+          stripe === 1 ? "bg-[#7655fa]" : "bg-[#999999]"
         )}
       >
-        {stripe === "1" ? t("Stripe is Activated") : t("Stripe is Disabled")}
+        {stripe === 1 ? t("Stripe is Activated") : t("Stripe is Disabled")}
       </div>
     </div>
   );
