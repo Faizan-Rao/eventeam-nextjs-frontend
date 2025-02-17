@@ -166,11 +166,24 @@ export function PaymentDetailsTable<TData, TValue>({
         company: "",
         event: value,
       });
-      let filteredData = data.filter(
-        (el) =>
-          (el as any)[col].title.toLowerCase() === text &&
-          (el as any).company_name === specificParams.company
-      );
+      let filteredData : any
+      if(user.role === "admin"){
+
+         filteredData = data.filter(
+          (el) =>
+            (el as any)[col].title.toLowerCase() === text &&
+            (el as any).company_name === specificParams.company
+        );
+
+      }
+      else{
+
+         filteredData = data.filter(
+          (el) =>
+            (el as any)[col].title.toLowerCase() === text 
+        );
+      }
+      
       if (filteredData.length === 0) {
         setFilteredRows([]);
         setFilterData([] as any);

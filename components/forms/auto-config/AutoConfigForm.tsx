@@ -184,7 +184,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       }
       if (pathname.includes("auto-config")) {
         
-        
+        data.prayer = {...data.prayer}
         mutateAutoConfig.mutate(data);
       }
       if (pathname.includes("/my-events/edit")) {

@@ -364,7 +364,7 @@ const PrayerField: React.FC<IPrayerField> = ({
               activity_id: "",
               activity_title: "",
               activity_type: "before_sunset",
-              activity_time: "0",
+              activity_time: Number("0"),
               activity_status: 0,
             })
           }}

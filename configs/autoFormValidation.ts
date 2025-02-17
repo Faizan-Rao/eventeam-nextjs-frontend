@@ -92,6 +92,7 @@ export const autoConfigSchema = joi.object({
     is_show_stripe: joi.string().required(),
     // renew_advance_fields: joi.string().required(),
   }),
+ 
   activities: joi.array().items(activity).min(1).required(),
 });
 
@@ -124,6 +125,7 @@ export const autoFormDefaults = {
 
     is_show_stripe: "1",
   },
+  prayer:{},
   activities: [
     {
       sub_event_id: "send_it_empty_in_create_event",

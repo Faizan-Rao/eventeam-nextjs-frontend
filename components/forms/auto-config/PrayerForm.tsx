@@ -1,11 +1,13 @@
 import { CirclePlus, CircleMinus } from "lucide-react";
-import React, { ChangeEvent } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 const PrayerForm = () => {
-  const { control } = useFormContext();
+  const { control, setValue, reset, getValues } = useFormContext();
   const {t} = useTranslation(["translation"])
+
+
   return (
     <div className="flex flex-col flex-1 bg-[#ebe6fe] sm:mb-4 md:m-4 p-4 rounded-lg">
       <h1 className="text-[#7655fa] font-semibold">{t("Time")}</h1>
@@ -31,9 +33,9 @@ const PrayerForm = () => {
                     type="number"
                     className="text-white  outline-none border-none w-[60px] text-center   bg-transparent"
                     onChange={(e: ChangeEvent) =>
-                      field.onChange((e.target as any).value)
+                      field.onChange(Number((e.target as any).value))
                     }
-                    value={field.value || 0}
+                    value={ Number(field.value || 0) }
                     defaultValue={0}
                     min={0}
                   />
@@ -77,7 +79,7 @@ const PrayerForm = () => {
 
                         
                     }}
-                    value={field.value || 0}
+                    value={Number(field.value || 0)}
                     defaultValue={0}
                     min={0}
                   />
