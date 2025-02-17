@@ -16,6 +16,7 @@ import { ArrowDown } from "lucide-react";
 import SideBarNav from "./SideBarNav";
 import clsx from "clsx";
 import Link from "next/link";
+import { user } from "@/configs/axios";
 
 
 const SearchInput = () => {
@@ -26,7 +27,15 @@ const SearchInput = () => {
 
   const handleFilter = (value : string)=> {
     let filtered = paths.flatMap(el => el.children ?? el)
-    filtered = filtered.filter(el => (el.name.toLowerCase()).includes(value.toLowerCase()))
+    filtered = filtered.filter(el =>  {
+      if(el.role.includes(user.role))
+      {
+        return (el.name.toLowerCase()).includes(value.toLowerCase())
+      }
+      else{
+        return false
+      }
+    })
     setFiltered((filtered as any))
   }
 
@@ -43,7 +52,7 @@ const SearchInput = () => {
         <div className="flex gap-4 sm:w-full mx-4  md:min-w-[300px] cursor-pointer  min-h-1 text-[#BABABA] py-2    sm:border-b-none md:border-b-[2px] border-b-[#e7e7e7] items-center text-sm bottom-1 ">
           <ManifyingGlass />
           <span className="sm:hidden md:block">{t("Search here...")}</span>
-          {/*  */}
+          
         </div>
       </DialogTrigger>
       <DialogContent>
