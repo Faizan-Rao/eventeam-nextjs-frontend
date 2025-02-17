@@ -210,7 +210,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         (user && user.role === "company") && <div className="text-center">
-       <EditPaymentStatusDialog row={row as any}/>
+      {row.original.payment_method  === "cash" && <EditPaymentStatusDialog row={row as any}/>}
         </div>
       );
     },

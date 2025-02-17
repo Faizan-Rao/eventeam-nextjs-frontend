@@ -67,10 +67,15 @@ export function PaymentDetailsTable<TData, TValue>({
   const [open, setOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");
   const [filterData, setFilterData] = useState([]);
-  const [specificFilter, setSpecificFilter] = useState({
-    companyFilter: "",
-    eventFilter: "",
+  const [specificParams, setSpecificParams] = useState({
+    company: "Select Company",
+    event: "Select Event",
   });
+  const [specificFilterData, setSpecificFilterData] = useState({
+    company: new Set<string>(),
+    event: new Set<string>(),
+  });
+
   const handleRangeFilter = () => {
     table.setGlobalFilter("");
     let filteredData = data.filter((el) => {
@@ -90,9 +95,9 @@ export function PaymentDetailsTable<TData, TValue>({
     setFilteredRows([]);
     setSorting([]);
     setFilter([0, 0]);
-    setSpecificFilter({
-      companyFilter: "",
-      eventFilter: "",
+    setSpecificParams({
+      company: "",
+      event: "",
     });
     table.reset();
   };
@@ -105,6 +110,30 @@ export function PaymentDetailsTable<TData, TValue>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Filling Companies and Events Sets
+  useEffect(() => {
+    const companySet = new Set<string>();
+    const eventSet = new Set<string>();
+    if(user.role === "admin")
+    {
+      data.forEach((el: any) => {
+        companySet.add(el.company_name);
+        if (el.company_name === specificParams.company) {
+          eventSet.add(el.event.title);
+        }
+      });
+    }
+    else
+    {
+      data.forEach((el: any) => {
+        companySet.add(el.company_name);
+        eventSet.add(el.event.title);
+      });
+    }
+    setSpecificFilterData({ company: companySet, event: eventSet });
+  }, [data, specificParams.company]);
+
+  // Handle Dropdown functionality
   const handleDropDownFilter = (value: string, col: string) => {
     let text = value.toLowerCase();
     let filteredData = data.filter(
@@ -117,6 +146,10 @@ export function PaymentDetailsTable<TData, TValue>({
   const handleSpecificFilter = (value: string, col: string, type: string) => {
     if (type === "company") {
       let text = value.toLowerCase();
+      setSpecificParams({
+        company: value,
+        event: "",
+      });
       let filteredData = data.filter(
         (el) => (el as any)[col].toLowerCase() === text
       );
@@ -129,8 +162,14 @@ export function PaymentDetailsTable<TData, TValue>({
       setFilterData(filteredData as any);
     } else if (type === "event") {
       let text = value.toLowerCase();
+      setSpecificParams({
+        company: "",
+        event: value,
+      });
       let filteredData = data.filter(
-        (el) => (el as any)[col].title.toLowerCase() === text
+        (el) =>
+          (el as any)[col].title.toLowerCase() === text &&
+          (el as any).company_name === specificParams.company
       );
       if (filteredData.length === 0) {
         setFilteredRows([]);
@@ -211,16 +250,11 @@ export function PaymentDetailsTable<TData, TValue>({
           {user.role === "admin" && (
             <Select
               value={
-                specificFilter.companyFilter === ""
-                  ? ""
-                  : specificFilter.companyFilter
+                specificParams.company === "" ? "" : specificParams.company
               }
+              defaultValue={Array.from(specificFilterData.company)[0] as any}
               onValueChange={(value) => {
-                handleSpecificFilter(value, "company_name", "company");
-                setSpecificFilter({
-                  eventFilter: "",
-                  companyFilter: value,
-                });
+                setSpecificParams({ ...specificParams, company: value });
               }}
             >
               <SelectTrigger className="w-[180px]">
@@ -228,12 +262,14 @@ export function PaymentDetailsTable<TData, TValue>({
               </SelectTrigger>
               <SelectContent>
                 {data.length > 0 &&
-                  (data ?? []).map((el: any) => (
-                    <SelectItem key={el?.id} value={el?.company_name}>
-                      {el?.company_name && el?.company_name}
-                    </SelectItem>
-                  ))}
-                {data.length <= 0 && (
+                  Array.from(specificFilterData.company).map(
+                    (el: any, index: number) => (
+                      <SelectItem key={index} value={el}>
+                        {el}
+                      </SelectItem>
+                    )
+                  )}
+                {Array.from(specificFilterData.company).length <= 0 && (
                   <p className="text-sm py-2 text-center">No Data Found</p>
                 )}
               </SelectContent>
@@ -243,32 +279,43 @@ export function PaymentDetailsTable<TData, TValue>({
           {/* Event Filter */}
           <Select
             value={
-              specificFilter.eventFilter === ""
-                ? ""
-                : specificFilter.eventFilter
+              (Array.from(specificFilterData.event) as any).includes(
+                specificParams.event
+              )
+                ? specificParams.event
+                : ""
             }
             onValueChange={(value) => {
               handleSpecificFilter(value, "event", "event");
-              setSpecificFilter({
-                companyFilter: "",
-                eventFilter: value,
-              });
+              setSpecificParams({ ...specificParams, event: value });
             }}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Event " />
             </SelectTrigger>
-            <SelectContent>
-              {data.length > 0 &&
-                (data ?? []).map((el: any) => (
-                  <SelectItem key={el?.id} value={el?.event?.title}>
-                    {el?.event?.title && el?.event?.title}
-                  </SelectItem>
-                ))}
-              {data.length <= 0 && (
-                <p className="text-sm py-2 text-center">No Data Found</p>
-              )}
-            </SelectContent>
+            
+              <SelectContent>
+                {data.length > 0 &&
+                  Array.from(specificFilterData.event).map(
+                    (el: any, index: number) => (
+                      <SelectItem
+                        key={el}
+                        defaultChecked={
+                          (Array.from(specificFilterData.event)[0] as any) ===
+                          el
+                        }
+                        value={el}
+                      >
+                        {el}
+                      </SelectItem>
+                    )
+                  )}
+                  {
+                    Array.from(specificFilterData.event).length <= 0 && <p className="text-sm py-2 text-center">{t("No Data Found")}</p>
+
+                  }
+              </SelectContent>
+           
           </Select>
           {/* Filter Dropdown */}
           <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>

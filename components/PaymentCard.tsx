@@ -97,7 +97,7 @@ const PaymentCard = ({
                 index === selectedRecord && "text-[white]"
               )}
             >
-              <EditPaymentStatusDialog row={row}></EditPaymentStatusDialog>
+              {row.original.payment_method === "cash" && <EditPaymentStatusDialog row={row}/>}
 
               <ChevronDown size={20} className="  justify-self-end" />
             </div>
