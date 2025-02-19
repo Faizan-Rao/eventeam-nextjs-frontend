@@ -13,7 +13,7 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
   
   return (
     <div className=" rounded-md sm:w-[100%] md:w-[100%] lg:w-[70%] gap-4  bg-[white] sm:p-4 md:p-8 ">
-      <div className=" grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  items-center border-b-[1px]">
+      <div className=" grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  items-center ">
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] sm:text-sm md:text-base font-semibold">Get Registered for</h1>
           <h1 className="text-[#4a4a4a] sm:text-2xl md:text-4xl font-semibold">
@@ -23,15 +23,17 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
       {/* <div className="flex justify-between flex-col items-center gap-4 w-full flex-wrap">
 
       </div> */}
-        <div className="grid md:grid-cols-1   bg-[#F7F6F9]  my-6 rounded-lg    p-1 ">
-          {/* <div className="flex gap-4 self-stretch p-2 items-center  ">
+     
+      </div>
+        <div className="grid md:grid-cols-2   bg-[#F7F6F9]  my-6 rounded-lg    p-1 ">
+          <div className="flex gap-4 self-stretch p-2 items-center  ">
             <span className="bg-[#FFE58A] rounded-full p-2 font-semibold">
               <MapPin className="text-[#4a4a4a]" size={20} />
             </span>
             <h1 className="text-[#4a4a4a] text-sm font-semibold">
-              21 59, New Jersey Street, New York
+              {data.event.company_address || "No Specified Address"}
             </h1>
-          </div> */}
+          </div>
 
           <div className="flex gap-4 self-stretch p-2 items-center  ">
             <span className="bg-[#E1FF81] rounded-full p-2 font-semibold">
@@ -53,11 +55,9 @@ const RegisterForEventForm1 = ({ data }: { data: any }) => {
             </h1>
           </div>
         </div>
-      <p className="text-[#999999] text-base min-w-[100%]  py-4 ">
+        <p className="text-[#999999] text-base min-w-[100%]  py-4 ">
         {parser(data.event.description)}
       </p>
-      </div>
-
       <div className=" border-b-[1px] my-4  ">
         <h1 className="text-[#7655fa] font-semibold">Sub Events</h1>
         <div className="grid sm:grid-cols-1  md:grid-cols-1 lg:grid-cols-3  my-2 gap-2">

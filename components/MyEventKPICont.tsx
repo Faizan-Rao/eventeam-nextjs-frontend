@@ -33,21 +33,27 @@ const MyEventKPICont = () => {
               icon={<Calendar size={28} />}
               value={kpis?.data.data["total_events"] || "0"}
             />
-         <KPICard
+             <KPICard
               title={t("Active Events")}
               icon={<Calendar size={28} />}
               value={kpis?.data.data["active_events"] || "0"}
             />
+             <KPICard
+              title={t("Inactive Events")}
+              icon={<Calendar size={28} />}
+              value={kpis?.data.data["inactive_events"] || "0"}
+            />
+         <KPICard
+              title={t("Operational")}
+              icon={<Calendar size={28} />}
+              value={kpis?.data.data["operational_active_events"] || "0"}
+            />
        <KPICard
-              title={t("Automatic Events")}
+              title={t("Ended")}
               icon={<CircuitBoard size={28} />}
-              value={kpis?.data.data["automatic_events"] || "0"}
+              value={kpis?.data.data["operational_ended_events"] || "0"}
             />
-        <KPICard
-              title={t("Total Registrations")}
-              icon={<UserPlus size={28} />}
-              value={kpis?.data.data["total_registrations"] || "0"}
-            />
+        
       </div>
 
       <div className="sm:flex  md:hidden sm:max-w-[99vw]">
@@ -83,18 +89,27 @@ const MyEventKPICont = () => {
             />
           </SwiperSlide>
           <SwiperSlide>
+            {" "}
             <KPICard
-              title={t("Automatic Events")}
-              icon={<CircuitBoard size={28} />}
-              value={kpis?.data.data["automatic_events"] || "0"}
+              title={t("Inactive Events")}
+              icon={<Calendar size={28} />}
+              value={kpis?.data.data["inactive_events"] || "0"}
             />
           </SwiperSlide>
           <SwiperSlide>
             {" "}
             <KPICard
-              title={t("Total Registrations")}
-              icon={<UserPlus size={28} />}
-              value={kpis?.data.data["total_registrations"] || "0"}
+              title={t("Operational")}
+              icon={<Calendar size={28} />}
+              value={kpis?.data.data["operational_active_events"] || "0"}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <KPICard
+              title={t("Ended")}
+              icon={<Calendar size={28} />}
+              value={kpis?.data.data["operational_ended_events"] || "0"}
             />
           </SwiperSlide>
        

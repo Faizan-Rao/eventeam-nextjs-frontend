@@ -100,7 +100,7 @@ const AutomaticForm = () => {
               />
             </div>
             <div className="flex gap-4  ">
-                    <DropdownMenu
+                    {user.role === "admin" && <DropdownMenu
                       modal={true}
                       open={open}
                       onOpenChange={setOpen}
@@ -173,7 +173,7 @@ const AutomaticForm = () => {
                           </button>
                         </span>
                       </DropdownMenuContent>
-                    </DropdownMenu>
+                    </DropdownMenu>}
                   
 
             {user && user.role === "admin" && <AutoEditDialog type="add" />}

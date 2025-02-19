@@ -58,7 +58,10 @@ export const Dashboard = {
         "total_guests",
         "total_registrations",
         "active_companies",
-        "inactive_companies"
+        "inactive_companies",
+        "inactive_events",
+        "operational_active_events",
+        "operational_ended_events"
       ],
       daterange: `2020/01/01 - 2060/01/01`,
     };

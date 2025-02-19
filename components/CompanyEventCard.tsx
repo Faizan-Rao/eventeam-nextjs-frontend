@@ -1,4 +1,4 @@
-import { ChevronRight, Clock, Droplet, Info, MapPin, Watch } from "lucide-react";
+import { ChevronRight, Clock, Droplet, Flame, Info, MapPin, Star, Watch } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import parse from "html-react-parser";
@@ -21,7 +21,7 @@ const CompanyEventCard = ({
   return !isNaN(index) && (
     <div
       className={clsx(
-        index === 0 && "lg:translate-y-[-25%]    bg-[white]",
+        index === 0 && "    bg-[white]",
         "backdrop-blur-lg   justify-self-stretch shadow-lg hover:shadow-2xl bg-[white] transition-all duration-300 flex-1 flex flex-col p-6 sm:-translate-y-[0%] lg:-translate-y-[5%] md:rounded-3xl   w-full "
       )}
     >
@@ -48,7 +48,7 @@ const CompanyEventCard = ({
 
       <div className="flex flex-1 pb-4 border-b-[1px] max-h-[140px] gap-2 justify-stretch">
         <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
-          <Watch className="text-[#7655fa]" size={35} />
+          <Flame className="text-[#7655fa]" size={35} />
           <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
             Start Date
           </span>
@@ -57,7 +57,7 @@ const CompanyEventCard = ({
           </span>
         </span>
         <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
-          <Watch className="text-[#7655fa]" size={35} />
+          <Star className="text-[#7655fa]" size={35} />
           <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
             End Date
           </span>

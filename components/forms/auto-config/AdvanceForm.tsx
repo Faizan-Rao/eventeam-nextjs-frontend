@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 
 const AdvanceForm = () => {
   const {
+    getValues,
+    setValue,
     control,
     formState: { errors },
   } = useFormContext();
@@ -65,6 +67,10 @@ const AdvanceForm = () => {
               dir="ltr"
               checked={watch.advance.is_cash_allowed === "1" ? true : false}
               onCheckedChange={(value) => {
+                const values = getValues()
+                if(values.advance.is_show_stripe === "0" && (!value)){
+                  setValue("advance.is_show_stripe", "1")
+                }
                 field.onChange(value ? "1" : "0");
               }}
               name={"advance.is_cash_allowed"}
@@ -86,6 +92,7 @@ const AdvanceForm = () => {
               dir="ltr"
               checked={watch.advance.is_show_regulation === "1" ? true : false}
               onCheckedChange={(value) => {
+                
                 field.onChange(value ? "1" : "0");
               }}
               className="bg-yellow-200"
@@ -107,6 +114,10 @@ const AdvanceForm = () => {
               dir="ltr"
               checked={watch.advance.is_show_stripe === "1" ? true : false}
               onCheckedChange={(value) => {
+                const values = getValues()
+                if(values.advance.is_cash_allowed === "0" && (!value)){
+                  setValue("advance.is_cash_allowed", "1")
+                }
                 field.onChange(value ? "1" : "0");
               }}
               name={"advance.is_show_stripe"}

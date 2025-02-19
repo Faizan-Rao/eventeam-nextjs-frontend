@@ -4,7 +4,7 @@ import React from 'react'
 import parser from 'html-react-parser'
 const CompanyHeader = ({data} : {data : any}) => {
   return (
-    <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[450px]">
+    <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[250px]">
     {/* Header Container*/}
     <div className="container">
       <div className="flex-1 flex justify-between items-center gap-4 pb-4 border-b-[1px] border-[#FFFFFFB2]  text-white">
