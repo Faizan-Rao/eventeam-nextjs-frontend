@@ -84,8 +84,8 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
             </Tooltip>
           </TooltipProvider>
         </div>
-        {data.settings &&
-          data.settings.show_donation_fields_on_forms === "1" &&
+        {data.event &&
+          data.event.advances.is_donation_allowed === "1" &&
           data.donations.map((el: any, index: number) => (
             <div
               className={clsx(

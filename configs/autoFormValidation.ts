@@ -56,7 +56,7 @@ export const addEventSchema = joi.object({
     .label("End Date")
     .custom((value, helpers) => {
       const { start_date } = helpers.state.ancestors[0];
-      if (value <= start_date) {
+      if (value < start_date) {
         return helpers.message(`"End Date" must be after start date"` as any);
       }
       return value; // Valid case

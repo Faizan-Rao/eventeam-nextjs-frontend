@@ -45,14 +45,12 @@ const AddRegistrantDialog = ({
   const schema = joi.object({
     name: joi.string(),
     email: joi.string().email({ tlds: { allow: false } }),
-    phone: joi.string().custom((value, helper)=>{
-      if(!new RegExp(/^[0-9]+$/).test(value))
-      {
-      
-        return helper.message("Input must be numeric" as any)
+    phone: joi.string().custom((value, helper) => {
+      if (!new RegExp(/^[0-9]+$/).test(value)) {
+        return helper.message("Input must be numeric" as any);
       }
-      console.log(value, "custom validation error")
-      return value
+      console.log(value, "custom validation error");
+      return value;
     }),
     ticketType: joi.array<string>().min(1).required(),
     subEvents: joi.array<number>().min(1).required(),
@@ -65,7 +63,9 @@ const AddRegistrantDialog = ({
     name: "",
     email: "",
     phone: "",
-    ticketType: [`${formData?.sub_events?.[0].products?.[0].title}`]  as string[],
+    ticketType: [
+      `${formData?.sub_events?.[0].products?.[0].title}`,
+    ] as string[],
     subEvents: [] as string[],
   };
   const [guestData, setGuestData] = useState(
@@ -79,6 +79,7 @@ const AddRegistrantDialog = ({
     register,
     control,
     setValue,
+    getValues,
     trigger,
     // formState: { errors },
   } = useFormContext();
@@ -141,8 +142,7 @@ const AddRegistrantDialog = ({
     }
   };
 
-
-  console.log("registrant watch",watch)
+  console.log("registrant watch", watch);
   const addGuest = (e: any) => {
     e.preventDefault();
 
@@ -160,9 +160,26 @@ const AddRegistrantDialog = ({
         return el.path[0];
       })
       .filter((el) => el && el);
+    const { guests } = getValues();
 
     setErrors(errors);
+    if (
+      (guests.length <= 0 && errors?.includes("email")) ||
+      (guests.length <= 1 &&
+        settings.guest_email_required === "1" &&
+        errors?.includes("email"))
+    ) {
+      return;
+    }
 
+    if (
+      (guests.length <= 0 && errors?.includes("phone")) ||
+      (guests.length <= 1 &&
+        settings.guest_phone_required === "1" &&
+        errors?.includes("phone"))
+    ) {
+      return;
+    }
     // Code for Addition
     if (!errors?.includes("subEvents") && type !== "edit") {
       append(guestData);
@@ -187,6 +204,7 @@ const AddRegistrantDialog = ({
       setTotal(0);
     }
   };
+
   useEffect(() => {
     filterTicketTypes();
     getTicketsWithPrices();
@@ -211,7 +229,8 @@ const AddRegistrantDialog = ({
           </DialogTitle>
           <DialogDescription>
             <form className="flex flex-col gap-4 row-span-2">
-              {(watch.guests.length <= 0 || settings.guest_name_required === "1") && (
+              {(watch.guests.length <= 0 ||
+                settings.guest_name_required === "1") && (
                 <div className="flex flex-col gap-2">
                   <label htmlFor="full_name">Full Name</label>
                   <input
@@ -231,7 +250,8 @@ const AddRegistrantDialog = ({
               )}
 
               <div className="flex sm:flex-col md:flex-row gap-2  min-h-[30px]">
-                { (watch.guests.length <= 0 || settings.guest_email_required === "1") && (
+                {(watch.guests.length <= 0 ||
+                  settings.guest_email_required === "1") && (
                   <div className="flex flex-col flex-1 gap-2">
                     <label htmlFor="full_name">Email</label>
                     <input
@@ -251,20 +271,20 @@ const AddRegistrantDialog = ({
                     )}
                   </div>
                 )}
-                { (watch.guests.length <= 0 || settings.guest_phone_required === "1" )&& (
+                {(watch.guests.length <= 0 ||
+                  settings.guest_phone_required === "1") && (
                   <div className="flex flex-col flex-1 gap-2">
                     <label htmlFor="full_name">Phone</label>
                     <input
                       type="text"
                       className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                       onChange={(e) => {
-                         handleFieldChange(e)
+                        handleFieldChange(e);
                       }}
                       placeholder="phone"
                       name="phone"
                       defaultValue={guestData.phone}
                       required
-                     
                     />
                     {error && error.includes("phone") && (
                       <span className="text-red-700">
@@ -295,18 +315,18 @@ const AddRegistrantDialog = ({
                       <SelectValue placeholder={"Select Ticket Type..."} />
                     </SelectTrigger>
                     <SelectContent>
-                      {ticketTypes.length > 0 && ticketTypes.map((el, i) => {
-                        return (
-                          <SelectItem
-                            key={i}
-                            className="mx-0 active:scale-[0.95] transition-all"
-                            value={el as string}
-                           
-                          >
-                            {el as string}
-                          </SelectItem>
-                        );
-                      })}
+                      {ticketTypes.length > 0 &&
+                        ticketTypes.map((el, i) => {
+                          return (
+                            <SelectItem
+                              key={i}
+                              className="mx-0 active:scale-[0.95] transition-all"
+                              value={el as string}
+                            >
+                              {el as string}
+                            </SelectItem>
+                          );
+                        })}
                     </SelectContent>
                   </Select>
                 </div>
@@ -353,7 +373,7 @@ const AddRegistrantDialog = ({
                   })}
                 {error && error.includes("subEvents") && total === 0 && (
                   <span className="text-red-700">
-                   {`"Ticket Type" is required select atleast one`}
+                    {`"Ticket Type" is required select atleast one`}
                   </span>
                 )}
               </div>
@@ -371,7 +391,7 @@ const AddRegistrantDialog = ({
 
               <button
                 className="p-2 rounded-full active:scale-[0.95] transition-all bg-[#7655fa] text-white"
-                onClick={(e) => {
+                onClick={async (e) => {
                   addGuest(e);
                 }}
               >

@@ -50,7 +50,7 @@ const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any })
                         new Date(
                           data.date.replace(" ", "T")
                         ),
-                        "h : m a, MMMM do yyyy"
+                        "h : mm a, MMMM do yyyy"
                       )) ||
                       "No Specified Time"}
                       

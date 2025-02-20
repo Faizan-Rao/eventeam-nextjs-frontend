@@ -85,11 +85,12 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
                 />
               )}
 
-              <span className="text-[rgb(153,153,153)] text-sm ">
+             
+              <p className=" font-semibold  text-[#999999] text-sm">
+              <span className="text-[rgb(153,153,153)] text-sm mx-1">
                 {data.settings.application_fee_text}
               </span>
-              <p className=" font-semibold  text-[#999999] text-sm">
-              {`( ${data.settings.plateform_fee} ) %`}
+              {`${data.settings.plateform_fee}%`}
             </p>
             </div>
            

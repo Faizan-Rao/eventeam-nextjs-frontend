@@ -87,7 +87,7 @@ const AutoDonationDialog = () => {
                 <span className="text-[#4a4a4a] text-sm font-semibold">
                   {t("Enable Desired Donations")}
                 </span>
-                <div className="flex justify-between border-[1px] rounded-md p-2">
+                {/* <div className="flex justify-between border-[1px] rounded-md p-2">
                   <p  className="text-[#4a4a4a] ">{t("Active")}</p>
                   <Controller
                     name="advance.donations.is_enable_donation"
@@ -106,12 +106,12 @@ const AutoDonationDialog = () => {
                       />
                     )}
                   />
-                </div>
+                </div> */}
               </div>
             <div className="flex max-h-[500px] overflow-y-auto flex-col mt-4 gap-2">
               {donations.map((el: any, i: number) => {
                 return (
-                  <div
+                 el.status === 1 && <div
                     key={i}
                     onClick={() => selectDonation(el)}
                     className={clsx(

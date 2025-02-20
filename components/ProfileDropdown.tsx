@@ -67,7 +67,11 @@ const ProfileDropdown = ({ setNav }: { setNav?: any }) => {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem
+          <Link
+                href={"/dashboard/company-profile"}
+               
+              > <DropdownMenuItem
+              className="flex  w-full flex-1 items-center gap-6"
               onClick={() => {
                 handleOpen();
                 if (setNav !== undefined) {
@@ -75,14 +79,11 @@ const ProfileDropdown = ({ setNav }: { setNav?: any }) => {
                 }
               }}
             >
-              <Link
-                href={"/dashboard/company-profile"}
-                className="flex justify-between items-center gap-6"
-              >
+            
                 <User size={18} />
                 <span>{t("Profile")}</span>
-              </Link>
             </DropdownMenuItem>
+              </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       )}
