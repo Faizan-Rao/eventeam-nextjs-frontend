@@ -1,3 +1,4 @@
+import { Switch } from "@/components/ui/switch";
 import { CirclePlus, CircleMinus } from "lucide-react";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
@@ -13,7 +14,7 @@ const PrayerForm = () => {
       <h1 className="text-[#7655fa] font-semibold">{t("Time")}</h1>
       <div className="flex items-center flex-wrap gap-4">
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm ">{t("Before Sunset")}</label>
+          <label className="text-sm text-[#999999] text-nowrap font-semibold">{t("Before Time Margin (min)")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.before_sunset_time`}
@@ -55,7 +56,7 @@ const PrayerForm = () => {
           </div>
         </div>
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm ">{t("After Sunset")}</label>
+          <label className="text-sm text-[#999999] text-nowrap font-semibold">{t("After Time Margin (min)")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.after_sunset_time`}
@@ -104,8 +105,8 @@ const PrayerForm = () => {
             control={control}
             render={({ field }) => (
               <>
-                <label className={"text-[#4a4a4a]  sm:text-sm md:text-sm"}>
-                  {t("End Time")}
+                <label className={"text-[#999999] font-semibold  sm:text-sm md:text-sm"}>
+                  {t(`Time of 2nd Subevent`)}
                 </label>
                 <input
                   type="time"
@@ -119,6 +120,31 @@ const PrayerForm = () => {
             )}
           />
         </span>
+
+        <div className="flex flex-1  flex-col gap-1">
+          <label className="text-sm text-[#999999] font-semibold">{t("Time API")}</label>
+          <div className="flex justify-between bg-[white] rounded-md items-center px-4 py-2 ">
+          <p  className="text-[#4a4a4a] ">{t("Active")}</p>
+                  <Controller
+                    name="prayer.is_api_enable"
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                      dir={"ltr"}
+                        checked={
+                         field.value === 1
+                            ? true
+                            : false
+                        }
+                        onCheckedChange={(value) => {
+                          field.onChange(value ? 1 : 0);
+                        }}
+                      />
+                    )}
+                  />
+           
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ import {
 import { joiResolver } from "@hookform/resolvers/joi";
 import { queryClient } from "@/components/MainLayoutGrid";
 import { useTranslation } from "react-i18next";
+import { AxiosError } from "axios";
 
 const defaultValues = {
   tickets: [
@@ -64,18 +65,22 @@ const defaultValues = {
     is_show_stripe: "1",
   },
 };
-const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
+const AutoConfigForm = ({ data, type }: { data?: any; type: string }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [errors, setErrors] = useState<string[]>([]);
   const deferStep = useDeferredValue(currentStep);
   const pathname = usePathname();
   const router = useRouter();
-  const params = useParams()
+  const params = useParams();
 
   const methods = useForm<autoFormType>({
     resolver: (values, context, options) => {
       const resolver = joiResolver(
-        (pathname.includes("add-event") || pathname.includes("my-events/edit") || pathname.includes("/use-auto"))  ? addEventSchema : autoConfigSchema,
+        pathname.includes("add-event") ||
+          pathname.includes("my-events/edit") ||
+          pathname.includes("/use-auto")
+          ? addEventSchema
+          : autoConfigSchema,
         {
           context: context,
           abortEarly: false,
@@ -99,8 +104,6 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
   const watch = useWatch({ control });
   console.log("autoconfig watch", watch);
 
-  
-
   const handleStepInc = (e: React.MouseEvent) => {
     e.preventDefault();
     if (deferStep < autoConfigSteps.length - 1) {
@@ -121,7 +124,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       toast("AutoConfig Saved Successfully...", {
         type: "success",
       });
-      window.location.replace("/dashboard/my-events")
+      window.location.replace("/dashboard/my-events");
     },
     onError: () => {
       toast("AutoConfig Not Saved...", {
@@ -130,12 +133,13 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     },
   });
   const mutateAutoFormCreateEvent = useMutation({
-    mutationFn: async (formData)=> AutoFormAPI.createEventAutoConfig(params.eventid as any, formData),
+    mutationFn: async (formData) =>
+      AutoFormAPI.createEventAutoConfig(params.eventid as any, formData),
     onSuccess: () => {
       toast("AutoEvent Created Successfully...", {
         type: "success",
       });
-      router.replace("/dashboard/my-events")
+      router.replace("/dashboard/my-events");
     },
     onError: () => {
       toast("AutoEvent Creation Failed...", {
@@ -144,18 +148,26 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     },
   });
   const mutateEditEvent = useMutation({
-    mutationFn: async (formData)=> Events.editEvent(params.eventid, formData),
+    mutationFn: async (formData) => Events.editEvent(params.eventid, formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["my-events"]})
+      queryClient.invalidateQueries({ queryKey: ["my-events"] });
       toast("Changes Saved Successfully...", {
         type: "success",
       });
-      router.replace("/dashboard/my-events")
+      router.replace("/dashboard/my-events");
     },
-    onError: () => {
-      toast("Changes Not Saved...", {
-        type: "error",
-      });
+    onError: (error: AxiosError) => {
+      if ((error as any).status !== 200) {
+        Object.values((error as any)?.response?.data.data ?? {}).forEach(
+          (el: any) => {
+            el.forEach((el: any) => {
+              toast(el, { type: "error" });
+            });
+          }
+        );
+
+        toast((error as any)?.response?.data.message, { type: "error" });
+      }
     },
   });
 
@@ -165,7 +177,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
       toast("Event Saved Successfully...", {
         type: "success",
       });
-      router.replace("/dashboard/my-events")
+      router.replace("/dashboard/my-events");
     },
     onError: () => {
       toast("Event Not Saved...", {
@@ -179,25 +191,19 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     if (Object.keys(errors).length <= 0) {
       if (pathname.includes("add-event")) {
         console.log("add event triggerd");
-        
+
         mutateEvent.mutate(data);
       }
       if (pathname.includes("auto-config")) {
-        
-        data.prayer = {...data.prayer}
+        data.prayer = { ...data.prayer };
         mutateAutoConfig.mutate(data);
       }
       if (pathname.includes("/my-events/edit")) {
-        
-        
         mutateEditEvent.mutate(data);
       }
-      if(pathname.includes("/use-auto"))
-      {
-       
-        mutateAutoFormCreateEvent.mutate(data)
+      if (pathname.includes("/use-auto")) {
+        mutateAutoFormCreateEvent.mutate(data);
       }
-      
     }
 
     // if (!data) {
@@ -218,7 +224,7 @@ const AutoConfigForm = ({ data, type }: {data?:any, type: string }) => {
     // }
   };
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <FormProvider {...methods}>
       <div className="flex sm:flex-col md:flex-row  gap-5    p-0">

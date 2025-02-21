@@ -44,8 +44,8 @@ export const addEventSchema = joi.object({
     .required()
     .label("Start Date")
     .custom((value, helpers) => {
-      const { start_date } = helpers.state.ancestors[0];
-      if (Date.now() > value) {
+      
+      if ( value < Date.now()) {
         return helpers.message(`"Start Date" must not be previous from today"` as any);
       }
       return value; // Valid case

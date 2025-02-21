@@ -33,7 +33,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   return (
     <div className="flex-1 items-start  rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
       {data.event.advances &&
-        data.event.advances.is_donation_allowed === "1" && (
+        (
           <RegsiterForEventDonation data={data} />
         )}
 
