@@ -86,7 +86,7 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
         </div>
         {data.event &&
           data.event.advances.is_enable_donation === "1" &&
-          data.donations.map((el: any, index: number) => (
+          data.event.event_donations.map((el: any, index: number) => (
             <div
               className={clsx(
                 "flex-1 border-[1px] active:scale-[0.98] transition-all py-2 px-4 rounded-md  flex items-center cursor-pointer",
