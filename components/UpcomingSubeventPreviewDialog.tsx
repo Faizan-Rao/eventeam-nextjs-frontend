@@ -13,6 +13,7 @@ import ViewEye from "./icons/ViewEye";
 import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SubActivitiesPreview from "./SubActivtiesPreview";
+import { usePathname } from "next/navigation";
 
 const UpcomingSubeventPreviewDialog = ({
   data,
@@ -22,6 +23,7 @@ const UpcomingSubeventPreviewDialog = ({
   type?: string;
 }) => {
   const { t } = useTranslation(["translation"]);
+  const pathname = usePathname()
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.95] p-2 transition-all hover:bg-[#7655fa26] rounded-full">
@@ -41,12 +43,12 @@ const UpcomingSubeventPreviewDialog = ({
           </span>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:min-w-full md:min-w-[800px]">
+      <DialogContent className="sm:min-w-full md:min-w-[800px] max-h-[600px] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{data.title}</DialogTitle>
           <DialogDescription>
-            <div className="flex  justify-center   flex-wrap flex-col">
-              <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Subevents")}</h1>
+            <div className="flex  justify-center    flex-wrap flex-col">
+              {pathname.includes("/companies") && <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Subevents")}</h1>}
               <div className="flex  justify-center   flex-wrap ">
                 {data.sub_events.map((el: any, i: number) => {
                   return (
@@ -60,9 +62,11 @@ const UpcomingSubeventPreviewDialog = ({
                   );
                 })}
               </div>
+             {  pathname.includes("/companies") && <>
+             
               <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Activities")}</h1>
-              <div className="flex  justify-center   flex-wrap  gap-4">
-                {data.sub_events.map((el: any, i: number) => {
+              <div className="flex  justify-center   flex-wrap   gap-4">
+                { data.sub_events.map((el: any, i: number) => {
                   return (
                     <SubActivitiesPreview
                       key={i}
@@ -74,6 +78,7 @@ const UpcomingSubeventPreviewDialog = ({
                   );
                 })}
               </div>
+             </>}
               {data.sub_events.length <= 0 && (
                 <p className="border-[4px] flex-1 mt-4 p-4 border-dashed text-center text-[#999999]">
                   {t("No Upcoming Events Right Now")}

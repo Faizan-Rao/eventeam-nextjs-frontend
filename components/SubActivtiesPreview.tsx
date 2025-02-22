@@ -30,7 +30,7 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({ data, className }) =
           </tr>
         </thead>
         <tbody className="">
-          {data.sub_event_activities.map((el: any, i: number) => {
+          {data?.sub_event_activities?.map((el: any, i: number) => {
             return (
               <tr key={i} className="">
                 <td>{el.title}</td>

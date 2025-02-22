@@ -39,7 +39,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   type,
   index,
 }) => {
-  const { control, trigger, setValue } = useFormContext();
+  const { control} = useFormContext();
   const watch = useWatch({ control });
   const [dateError, setDateError] = useState(false);
   const { append, replace } = useFieldArray({ control, name: "sub_events" });
@@ -247,7 +247,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     {t("Tickets")}
                   </label>
                   
-                  {(type === "edit" ? field.ticket_types : watch.tickets).map(
+                  { (watch.tickets).map(
                     (el: any, index: number) => {
                       return (
                         <div

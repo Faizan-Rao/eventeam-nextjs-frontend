@@ -106,13 +106,13 @@ const PrayerForm = () => {
             render={({ field }) => (
               <>
                 <label className={"text-[#999999] font-semibold  sm:text-sm md:text-sm"}>
-                  {t(`Time of 2nd Subevent`)}
+                  {t(`End Time of 2nd Subevent`)}
                 </label>
                 <input
                   type="time"
                   className="border-[2px] rounded-lg  outline-none p-2 w-full "
                   onChange={field.onChange}
-                  defaultValue={0}
+                  defaultValue={field.value}
                   placeholder="0:00"
                   min={0}
                 />
