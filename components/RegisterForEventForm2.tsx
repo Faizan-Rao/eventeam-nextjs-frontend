@@ -49,7 +49,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
         </div>
 
         {data?.event?.advances &&
-          data?.event?.advances.is_donation_allowed === "1" && (
+          data?.event?.advances.is_enable_donation === "1" && (
             <div className="flex gap-4 text-base justify-between">
               <p className="font-semibold px-2 text-[#999999] text-sm">
                 Donations
