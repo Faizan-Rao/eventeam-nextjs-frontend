@@ -131,7 +131,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <KPICard
               title={t("Event Guests")}
               icon={<UsersRound size={25} />}
-              value={(data && data && data.stats.total_registrations) || 0}
+              value={(data && data && data.stats.total_guests) || 0}
             />
           </SwiperSlide>
           <SwiperSlide>
