@@ -119,7 +119,7 @@ const RegisterEvent = () => {
               {singleEvent && (
                 <>
                   {" "}
-                  <RegisterForEventForm1 data={singleEvent} />
+                  <RegisterForEventForm1 data={singleEvent} company={companies} />
                   <RegisterForEventForm2 data={singleEvent} />
                 </>
               )}

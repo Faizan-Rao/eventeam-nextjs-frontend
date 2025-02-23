@@ -41,7 +41,7 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
       title: joi.string().required(),
       start_date: joi.date().required(),
       end_date: joi.date().required(),
-      is_active: joi.any().required(),
+      is_active: joi.any().default(false),
     })
     .required();
   const {
@@ -73,10 +73,17 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
         type: "info",
       });
     },
-    onError: () => {
-      toast("Changes not saved", {
-        type: "error",
-      });
+    onError: (error) => {
+      if ((error as any).status !== 200) {
+              Object.values((error as any)?.response?.data.data ?? {}).forEach(
+                (el: any) => {
+                  el.forEach((el: any) => {
+                    toast(el, { type: "error" });
+                  });
+                }
+              );
+              toast((error as any)?.response?.data.message, { type: "error" });
+            }
     },
   });
   const mutationAdd = useMutation({
@@ -88,9 +95,16 @@ const AutoEditDialog = ({ data, type }: { data?: any; type?: string }) => {
       });
     },
     onError: (error) => {
-      toast("Creation Failed", {
-        type: "error",
-      });
+     if ((error as any).status !== 200) {
+             Object.values((error as any)?.response?.data.data ?? {}).forEach(
+               (el: any) => {
+                 el.forEach((el: any) => {
+                   toast(el, { type: "error" });
+                 });
+               }
+             );
+             toast((error as any)?.response?.data.message, { type: "error" });
+           }
     },
   });
 

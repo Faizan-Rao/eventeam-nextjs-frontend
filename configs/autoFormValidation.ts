@@ -1,5 +1,5 @@
 import joi from "joi";
-
+import { differenceInDays } from "date-fns";
 const ticket = joi.object({
   title: joi.string().required(),
   price: joi.number().min(0).required(),
@@ -44,8 +44,9 @@ export const addEventSchema = joi.object({
     .required()
     .label("Start Date")
     .custom((value, helpers) => {
-      
-      if ( value < Date.now()) {
+      let difference = differenceInDays(value, Date.now())
+    
+      if ( difference < 0 ) {
         return helpers.message(`"Start Date" must not be previous from today"` as any);
       }
       return value; // Valid case
@@ -56,7 +57,8 @@ export const addEventSchema = joi.object({
     .label("End Date")
     .custom((value, helpers) => {
       const { start_date } = helpers.state.ancestors[0];
-      if (value < start_date) {
+      let difference = differenceInDays(value, start_date)
+      if ( difference < 0 ) {
         return helpers.message(`"End Date" must be after start date"` as any);
       }
       return value; // Valid case

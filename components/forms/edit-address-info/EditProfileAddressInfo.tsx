@@ -13,13 +13,13 @@ import { useTranslation } from "react-i18next";
 import { user } from "@/configs/axios";
 
 export const addressInfoEditSchema = joi.object({
-  address: joi.string().min(10).label("Address"),
-  city: joi.string().max(30).label("City"),
-  state: joi.string().max(20).label("State"),
-  country: joi.string().min(3).label("Country"),
+  address: joi.string().allow("").min(10).label("Address"),
+  city: joi.string().allow("").max(30).label("City"),
+  state: joi.string().allow("").max(20).label("State"),
+  country: joi.string().allow("").min(3).label("Country"),
   googlemaplink: joi.string().allow("").label("Google Link"),
-  zip_code: joi.string().min(4).max(8).label("Zip Code"),
-  country_code: joi.string().min(2).max(3).label("Country Code"),
+  zip_code: joi.string().allow("").min(4).max(8).label("Zip Code"),
+  // country_code: joi.string().min(2).max(3).label("Country Code"),
 });
 
 const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
@@ -39,7 +39,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
       googlemaplink: profile?.address?.googlemaplink,
       zip_code: profile?.address?.zip_code,
       state: profile?.address?.state,
-      country_code: profile?.address?.country_code,
+      // country_code: profile?.address?.country_code,
     },
     resolver: (values, constext, options) => {
       const resolver = joiResolver(addressInfoEditSchema, {
@@ -78,6 +78,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
             });
           }
         );
+        toast((error as any)?.response?.data.message, { type: "error" });
       }
     },
   });
@@ -175,7 +176,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
           )}
         </div>
       </div>
-      <div className="flex-1 flex flex-col gap-2">
+      {/* <div className="flex-1 flex flex-col gap-2">
         <span className="text-[#999999] text-sm font-semibold">
           {t("Country Code")}
         </span>
@@ -188,7 +189,7 @@ const EditProfileAddressInfo = ({ profile }: { profile: any }) => {
         {errors?.country_code && (
           <span className="text-red-800 ">{`${errors?.country_code?.message}`}</span>
         )}
-      </div>
+      </div> */}
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div className="flex-1 flex flex-col gap-2">
           <span className="text-[#999999] text-sm font-semibold">
