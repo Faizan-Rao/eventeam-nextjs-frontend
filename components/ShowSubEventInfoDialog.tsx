@@ -11,7 +11,14 @@ import { Clock, EllipsisVertical, Info, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { USDollar } from "@/configs/currentFormat";
 
-const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any }) => {
+const ShowSubEventInfoDialog = ({
+  data,
+  payload,
+}: {
+  data: any;
+  payload?: any;
+  index: number;
+}) => {
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.90] transition-all">
@@ -31,29 +38,38 @@ const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any })
                 </h1>
               </div>
               <div className="flex flex-col justify-center bg-[#7655fa] rounded-lg p-4 gap-3">
-                {payload?.advances?.is_show_address === "1" && <div className="flex gap-4  p- items-center ">
-                  <span className="bg-[#FFE58A] rounded-full p-1 font-semibold">
-                    <MapPin className="text-[#4a4a4a]" size={20} />
-                  </span>
-                  <h1 className="text-[white] text-sm font-semibold">
-                    {data.sub_event_address || "No Specified Address"}
-                  </h1>
-                </div>}
+                {payload?.advances?.is_show_address === "1" && (
+                  <div className="flex gap-4  p- items-center ">
+                    <span className="bg-[#FFE58A] rounded-full p-1 font-semibold">
+                      <MapPin className="text-[#4a4a4a]" size={20} />
+                    </span>
+                    <h1 className="text-[white] text-sm font-semibold">
+                      {data.sub_event_address || "No Specified Address"}
+                    </h1>
+                  </div>
+                )}
 
                 <div className="flex gap-4   items-center  ">
                   <span className="bg-[#E1FF81] rounded-full p-1 font-semibold">
                     <Clock className="text-[#4a4a4a]" size={20} />
                   </span>
                   <h1 className="text-[white]  text-sm font-semibold">
-                    {(data.date &&
+                    {data.is_api_enable === 0 &&
+                      data.date &&
                       format(
-                        new Date(
-                          data.date.replace(" ", "T")
-                        ),
+                        new Date(data.date.replace(" ", "T")),
                         "h : mm a, MMMM do yyyy"
-                      )) ||
-                      "No Specified Time"}
-                      
+                      )}
+
+                    {data.is_api_enable === 1 &&
+                      data.hebTimes.first_event_time &&
+                      `${data.hebTimes.second_event_time} 
+                     ${format(
+                       new Date(
+                         data.hebTimes.first_event_time.replace(" ", "T")
+                       ),
+                       "MMMM do yyyy"
+                     )}`}
                   </h1>
                 </div>
               </div>
@@ -65,9 +81,13 @@ const ShowSubEventInfoDialog = ({ data , payload}: { data: any, payload?: any })
                       key={i}
                       className="border-b-[1px] flex justify-between"
                     >
-                      <p className="text-[#4a4a4a] text-base font-semibold my-2">{el.title}</p>
+                      <p className="text-[#4a4a4a] text-base font-semibold my-2">
+                        {el.title}
+                      </p>
 
-                      <p className="text-[#4a4a4a] text-base font-semibold my-2">{USDollar.format(el.price)}</p>
+                      <p className="text-[#4a4a4a] text-base font-semibold my-2">
+                        {USDollar.format(el.price)}
+                      </p>
                     </div>
                   );
                 })}

@@ -53,9 +53,9 @@ const CompanyEventCard = ({
         <p className=" text-[#999999] sm:text-sm md:text-base pb-4 border-b-[1px] ">
           {parse(data.description)}
         </p>
-        <div className="flex my-2 justify-between items-center">
+        <div className="flex my-4 justify-between items-center">
           <h1 className="text-[#999999] font-semibold">Important Times</h1>
-          <UpcomingSubeventPreviewDialog type={"comp_events"} data={data} />
+          {data && <UpcomingSubeventPreviewDialog type={"comp_events"} data={data} />}
         </div>
 
         <div className="flex flex-1 pb-4 border-b-[1px] max-h-[140px] gap-2 justify-stretch">

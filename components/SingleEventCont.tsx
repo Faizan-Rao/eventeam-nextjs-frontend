@@ -353,8 +353,8 @@ const SingleEventCont = ({ data }: { data: any }) => {
             icon={<HandHeart />}
           >
             <div className="flex items-center gap-4">
-              {data && data?.donations?.length > 0 && (
-                <DonationViewDialog data={data.donations} />
+              {data && data?.event?.selected_event_donations?.length > 0 && (
+                <DonationViewDialog data={data?.event?.selected_event_donations} />
               )}
               <span
                 className={clsx(

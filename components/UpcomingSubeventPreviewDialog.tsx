@@ -10,10 +10,11 @@ import React from "react";
 import SubeventPreview from "./SubeventPreview";
 import { DialogHeader } from "./ui/dialog";
 import ViewEye from "./icons/ViewEye";
-import { Eye } from "lucide-react";
+import { Eye, Flame, Info, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SubActivitiesPreview from "./SubActivtiesPreview";
 import { usePathname } from "next/navigation";
+import { format } from "date-fns";
 
 const UpcomingSubeventPreviewDialog = ({
   data,
@@ -48,6 +49,42 @@ const UpcomingSubeventPreviewDialog = ({
           <DialogTitle>{data.title}</DialogTitle>
           <DialogDescription>
             <div className="flex  justify-center    flex-wrap flex-col">
+            {  pathname.includes("/companies") && <>
+             
+             <h1 className="text-base my-4 text-[#7655fa] font-semibold ">{t("Important Times")}</h1>
+             <div className="flex  justify-center   flex-wrap   gap-4">
+             <div className="flex flex-1 pb-4 border-b-[1px] max-h-[140px] gap-2 justify-stretch">
+          <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 ">
+            <Flame className="text-[#E0A450]" size={35} />
+            <span className="text-[#E0A450] sm:text-sm md:text-sm font-semibold">
+            {data.sub_events?.[0].hebTimes?.prayer_times?.[0].title_orig}
+            </span>
+            <span className="text-[#E0A450] sm:text-base md:text-lg font-semibold">
+              {format(
+                new Date(data.sub_events?.[0].hebTimes?.prayer_times?.[0].date),
+                 "HH:mm, yyyy/MM/dd"
+              )}
+            </span>
+          </span>
+          <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 ">
+            <Star className="text-[#E0A450]" size={35} />
+            <span className="text-[#E0A450] sm:text-sm md:text-sm font-semibold">
+              {data.sub_events?.[0].hebTimes?.prayer_times?.[1].title_orig}
+            </span>
+            <span className="text-[#E0A450] sm:text-base md:text-lg font-semibold">
+            {format(
+                new Date(data.sub_events?.[0].hebTimes?.prayer_times?.[1].date),
+                "HH:mm, yyyy/MM/dd"
+              )}
+            </span>
+          </span>
+        </div>
+       
+          
+        </div>
+            
+            </>}
+
               {pathname.includes("/companies") && <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Subevents")}</h1>}
               <div className="flex  justify-center   flex-wrap ">
                 {data.sub_events.map((el: any, i: number) => {

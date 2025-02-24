@@ -87,7 +87,7 @@ const RegisterForEventForm1 = ({
                   <h1 className="font-semibold sm:text-sm md:text-base">
                     {el.title}
                   </h1>
-                  <ShowSubEventInfoDialog payload={data.event} data={el} />
+                  <ShowSubEventInfoDialog payload={data.event} data={el} index={index} />
                 </div>
               );
             })}
