@@ -49,7 +49,7 @@ const UpcomingSubeventPreviewDialog = ({
           <DialogTitle>{data.title}</DialogTitle>
           <DialogDescription>
             <div className="flex  justify-center    flex-wrap flex-col">
-            {  pathname.includes("/companies") && <>
+            {  pathname.includes("/companies") && data.auto_id !== null &&<>
              
              <h1 className="text-base my-4 text-[#7655fa] font-semibold ">{t("Important Times")}</h1>
              <div className="flex  justify-center   flex-wrap   gap-4">
