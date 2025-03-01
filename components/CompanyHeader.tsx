@@ -2,9 +2,15 @@ import { AtSign, Phone, MapPin, Book } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import parser from 'html-react-parser'
+import LanguageSelector from './LanguageSelector'
+import { useTranslation } from 'react-i18next'
 const CompanyHeader = ({data} : {data : any}) => {
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[400px]">
+      <div className='sm:absolute md:fixed sm:top-[6rem] md:top-5 md:right-5 sm:right-[2rem] bg-[white] rounded-full'>
+        <LanguageSelector/>
+      </div>
     {/* Header Container*/}
     <div className="container">
       <div className="flex-1 flex justify-between items-center gap-4 pb-4 border-b-[1px] border-[#FFFFFFB2]  text-white">
@@ -30,7 +36,7 @@ const CompanyHeader = ({data} : {data : any}) => {
              {data?.full_name ?? ""}
             </h1>
             <h1 className="text-[#FFFFFFB2] font-semibold text-base">
-              Company events
+              {t("Company events")}
             </h1>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 import { Clock, EllipsisVertical, Info, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { USDollar } from "@/configs/currentFormat";
+import { useTranslation } from "react-i18next";
 
 const ShowSubEventInfoDialog = ({
   data,
@@ -19,6 +20,7 @@ const ShowSubEventInfoDialog = ({
   payload?: any;
   index: number;
 }) => {
+  const {t} = useTranslation(["translation"])
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.90] transition-all">
@@ -28,11 +30,11 @@ const ShowSubEventInfoDialog = ({
       </DialogTrigger>
       <DialogContent className="md:min-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="hidden">Subevent Info</DialogTitle>
+          <DialogTitle className="hidden">{t("Subevent Info")}</DialogTitle>
           <DialogDescription>
             <div className="flex flex-col gap-4 mt-4 ">
               <div className="flex flex-col border-b-[1px] my-1 ">
-                <h1 className="text-[#7655fa] font-semibold">Sub Event Name</h1>
+                <h1 className="text-[#7655fa] font-semibold">{t("Sub Event Name")}</h1>
                 <h1 className="text-[#4a4a4a] text-2xl font-semibold my-1">
                   {data.title}
                 </h1>
@@ -44,7 +46,7 @@ const ShowSubEventInfoDialog = ({
                       <MapPin className="text-[#4a4a4a]" size={20} />
                     </span>
                     <h1 className="text-[white] text-sm font-semibold">
-                      {data.sub_event_address || "No Specified Address"}
+                      {data.sub_event_address || t("No Specified Address")}
                     </h1>
                   </div>
                 )}
@@ -83,7 +85,7 @@ const ShowSubEventInfoDialog = ({
                 </div>
               </div>
               <div className="flex flex-col  my-1 ">
-                <h1 className="text-[#7655fa] font-semibold">Ticket Types</h1>
+                <h1 className="text-[#7655fa] font-semibold">{t("Ticket Types")}</h1>
                 {data.products.map((el: any, i: number) => {
                   return (
                     <div

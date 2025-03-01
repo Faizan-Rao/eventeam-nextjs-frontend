@@ -2,7 +2,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 const CompanyFooter = () => {
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col  bg-[#7655fa] py-10 min-h-[250px]">
     {/* Header Container*/}
@@ -44,11 +46,11 @@ const CompanyFooter = () => {
       </div>
 
       <div className="flex-1 sm:text-sm md:text-base flex justify-between sm:flex-col md:flex-row  md:items-center sm:items-start gap-4 pb-4 my-8 text-white">
-        <h1 className=" sm:text-sm md:text-base">Copyright © 2024. All rights reserved</h1>
+        <h1 className=" sm:text-sm md:text-base">{t("Copyright © 2024. All rights reserved")}</h1>
         <div className="flex sm:flex-col md:flex-row gap-4">
-        <Link href={"#"} className="text-white">Privacy Policy</Link>
-        <Link href={"#"} className="text-white">Terms of Service</Link>
-        <Link href={"#"} className="text-white">Cookie Settings</Link>
+        <Link href={"#"} className="text-white">{t("Privacy Policy")}</Link>
+        <Link href={"#"} className="text-white">{t("Terms of Service")}</Link>
+        <Link href={"#"} className="text-white">{t("Cookie Settings")}</Link>
         </div>
       </div>
     </div>

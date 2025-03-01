@@ -23,7 +23,7 @@ const RegisterForEventForm1 = ({
       <div className=" grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  items-center ">
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] sm:text-sm md:text-base font-semibold">
-            Get Registered for
+            {t('Get Registered for')}
           </h1>
           <h1 className="text-[#4a4a4a] sm:text-2xl md:text-4xl font-semibold">
             {data.event.title}
@@ -63,10 +63,10 @@ const RegisterForEventForm1 = ({
               new Date(
                 data.event.start_date.toLocaleString().replace(" ", "T")
               ),
-              "MMM dd yyyy"
+              "dd/MM/yyy"
             )} - ${format(
               new Date(data.event.end_date.toLocaleString().replace(" ", "T")),
-              "MMM dd yyyy"
+              "dd/MM/yyy"
             )}`}
           </h1>
         </div>
@@ -75,7 +75,7 @@ const RegisterForEventForm1 = ({
         {parser(data.event.description)}
       </p>
       <div className=" border-b-[1px] my-4  ">
-        <h1 className="text-[#7655fa] font-semibold">Sub Events</h1>
+        <h1 className="text-[#7655fa] font-semibold">{t("Sub Events")}</h1>
         <div className="grid sm:grid-cols-1  md:grid-cols-1 lg:grid-cols-3  my-2 gap-2">
           {data &&
             data.event.sub_events.map((el: any, index: number) => {
@@ -95,7 +95,7 @@ const RegisterForEventForm1 = ({
       </div>
 
       <div className="flex flex-col  self-start gap-4">
-        <h1 className="text-[#7655fa] font-semibold">Guests</h1>
+        <h1 className="text-[#7655fa] font-semibold">{t("Guests")}</h1>
         <div className="grid grid-cols-1 overflow-y-auto overflow-x-hidden max-h-[300px] gap-4">
           {(watch.guests.length > 0 &&
             watch.guests.map((el: any, i: number) => {
@@ -109,7 +109,7 @@ const RegisterForEventForm1 = ({
               );
             })) || (
             <p className="p-7 w-full border-dashed border-[4px] font-semibold text-center text-[#999999]">
-              {"No Guests Currently"}
+              {t("No Guests Currently")}
             </p>
           )}
         </div>

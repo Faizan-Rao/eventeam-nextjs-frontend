@@ -30,6 +30,7 @@ import { CircleCheck, PencilIcon, PencilLine } from "lucide-react";
 import clsx from "clsx";
 import joi from "joi";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const AddRegistrantDialog = ({
   formData,
@@ -59,6 +60,7 @@ const AddRegistrantDialog = ({
   const [ticketTypes, setTicketTypes] = useState<string[]>([]);
   const [tickets, setTickets] = useState([]);
   const [selectedTicket, setSeletedTickets] = useState<string>("");
+  const {t} = useTranslation(["translation"])
   const defaultFormState = {
     name: "",
     email: "",
@@ -218,27 +220,27 @@ const AddRegistrantDialog = ({
           <PencilLine className="text-[#7655fa]" strokeWidth={1.2} />
         ) : (
           <p className="border-[2px] w-full outline-none border-[#7655fa] text-[#7655fa] sm:text-sm md:text-base rounded-full p-2 font-semibold">
-            Add New Guest
+            {t("Add New Guest")}
           </p>
         )}
       </DialogTrigger>
       <DialogContent className="md:min-w-[600px]">
         <DialogHeader>
           <DialogTitle className="my-2">
-            {type === "edit" ? "Edit Guest" : "Add New Guest"}
+            {type === "edit" ? t("Edit Guest") : t("Add New Guest")}
           </DialogTitle>
           <DialogDescription>
             <form className="flex flex-col gap-4 row-span-2">
               {(watch.guests.length <= 0 ||
                 settings.guest_name_required === "1") && (
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="full_name">Full Name</label>
+                  <label htmlFor="full_name">{t("Name")}</label>
                   <input
                     type="text"
                     className=" outline-none p-2 flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                     id="full_name"
                     onChange={handleFieldChange}
-                    placeholder="name"
+                    placeholder={t("Name")}
                     name="name"
                     defaultValue={guestData.name}
                     required
@@ -253,12 +255,12 @@ const AddRegistrantDialog = ({
                 {(watch.guests.length <= 0 ||
                   settings.guest_email_required === "1") && (
                   <div className="flex flex-col flex-1 gap-2">
-                    <label htmlFor="full_name">Email</label>
+                    <label htmlFor="full_name">{t("Email")}</label>
                     <input
                       type="email"
                       className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                       onChange={handleFieldChange}
-                      placeholder="email"
+                      placeholder={t("Email")}
                       name="email"
                       defaultValue={guestData.email}
                       disabled={type === "edit"}
@@ -274,14 +276,14 @@ const AddRegistrantDialog = ({
                 {(watch.guests.length <= 0 ||
                   settings.guest_phone_required === "1") && (
                   <div className="flex flex-col flex-1 gap-2">
-                    <label htmlFor="full_name">Phone</label>
+                    <label htmlFor="full_name">{t("Phone")}</label>
                     <input
                       type="text"
                       className=" outline-none p-2 max-h-[40px] flex-1 border-[2px] focus:border-[#7655fa] rounded-lg"
                       onChange={(e) => {
                         handleFieldChange(e);
                       }}
-                      placeholder="phone"
+                      placeholder={t("Phone")}
                       name="phone"
                       defaultValue={guestData.phone}
                       required
@@ -297,7 +299,7 @@ const AddRegistrantDialog = ({
 
               {
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="full_name">Ticket Type</label>
+                  <label htmlFor="full_name">{t("Ticket Type")}</label>
                   <Select
                     disabled={type === "edit"}
                     required
@@ -381,7 +383,7 @@ const AddRegistrantDialog = ({
               {type !== "edit" && (
                 <div className="flex border-b-[1px] justify-between">
                   <h1 className="text-[#7655fa] text-base font-semibold">
-                    Total
+                    {t("Total")}
                   </h1>
                   <h1 className="text-[#4a4a4a] text-base font-semibold">
                     {USDollar.format(total)}
@@ -395,7 +397,7 @@ const AddRegistrantDialog = ({
                   addGuest(e);
                 }}
               >
-                {type === "edit" ? "Edit Guest" : "Add New Guest"}
+                {type === "edit" ? t("Edit Guest") : t("Add New Guest")}
               </button>
             </form>
           </DialogDescription>

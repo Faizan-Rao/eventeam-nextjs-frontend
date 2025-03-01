@@ -9,8 +9,7 @@ interface ISubeventPreview {
 }
 
 const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
-  
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <div
       className={clsx(
@@ -20,15 +19,18 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
     >
       <div className="flex flex-col gap-1 ">
         <div className="grid grid-cols-2 gap-4 ">
-        <h1 className="text-xl font-semibold">{data.title}</h1>
-        {
+          <h1 className="text-xl font-semibold">{data.title}</h1>
+          {
             <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
               <Clock size={15} />
-              {data.date.split(" ")[1]}
+              {data.date &&
+                format(new Date(data.date.replace(" ", "T")), "h:mm a")}
             </span>
           }
         </div>
-        <p className="text-xs text-[#E0A450]">{data.date.split(" ")[0].replaceAll("-", "/")}</p>
+        <p className="text-xs text-[#E0A450]">
+          {format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")}
+        </p>
       </div>
 
       <table cellPadding={5} cellSpacing={9}>

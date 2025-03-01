@@ -4,10 +4,12 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import parser from "html-react-parser"
+import { useTranslation } from "react-i18next";
 const RegisterForEventRadioGroup = ({settings, payload}:{settings:any, payload?:any}) => {
   const formContext = useFormContext();
   const { control } = formContext;
  console.log("settings group",settings)
+ const {t} = useTranslation(["translation"])
   return (
     <Controller
     control={control}
@@ -18,7 +20,7 @@ const RegisterForEventRadioGroup = ({settings, payload}:{settings:any, payload?:
         <RadioGroupItem value="cash" id="option-one" />
         <Label htmlFor="option-one">
           <div className="flex flex-col justify-center ">
-            <h1 className="text-base font-semibold">Cash</h1>
+            <h1 className="text-base font-semibold">{t("Cash")}</h1>
             <p className="text-sm   text-[#999999] ">
               {settings && parser(`${payload?.cod_text}`)}
             </p>
@@ -33,7 +35,7 @@ const RegisterForEventRadioGroup = ({settings, payload}:{settings:any, payload?:
               Stripe
             </h1>
             <p className="text-sm  text-[#999999]  ">
-              Pay with your Visa/Mastercard
+              {t("Pay with your Visa/Mastercard")}
             </p>
           </div>
         </Label>

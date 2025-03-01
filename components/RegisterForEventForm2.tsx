@@ -8,6 +8,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CheckoutForm } from "./forms/stripe/CheckoutForm";
 import parser from "html-react-parser";
+import { useTranslation } from "react-i18next";
 const RegisterForEventForm2 = ({ data }: { data: any }) => {
   // stripe-Specific
 
@@ -30,6 +31,9 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   };
   const plateFormFee = (totalfee: any) =>
     (totalfee * parseFloat(data?.settings.plateform_fee)) / 100;
+
+
+  const {t} = useTranslation(["translation"])
   return (
     <div className="flex-1 items-start  rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
       {data.event.advances &&
@@ -38,10 +42,10 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
         )}
 
       <div className="flex flex-col  px-4 pb-4 gap-4">
-        <h1 className="text-[#7655fa] font-semibold">Price Breakdown</h1>
+        <h1 className="text-[#7655fa] font-semibold">{t("Price Breakdown")}</h1>
         <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">
-            Ticket Total Amount
+           {t("Ticket Total Amount")}
           </p>
           <p className="font-semibold px-2 text-[#999999] text-sm">
             {"$" + watch.totalAmount}
@@ -52,7 +56,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
           data?.event?.advances.is_enable_donation === "1" && (
             <div className="flex gap-4 text-base justify-between">
               <p className="font-semibold px-2 text-[#999999] text-sm">
-                Donations
+                {t("Donations")}
               </p>
               <p className="font-semibold px-2 text-[#999999] text-sm">
                 {"$" + watch.donation_field}
@@ -64,7 +68,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
           data?.event?.advances.is_donation_allowed === "1" && (
             <div className="flex gap-4 text-base justify-between">
               <p className="font-semibold px-2 text-[#999999] text-sm">
-                Desired Donation
+                {t("Desired Donation")}
               </p>
               <p className="font-semibold px-2 text-[#999999] text-sm">
                 {"$" + watch.other_donation}
@@ -105,14 +109,14 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
         )}
         <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
           <div className="flex gap-4 text-base justify-between">
-            <p className="font-semibold px-2">Total</p>
+            <p className="font-semibold px-2">{t("Total")}</p>
             <p className="font-semibold px-2">{`$${platformFee()}`}</p>
           </div>
         </div>
       </div>
 
       <div className="flex flex-col border-b-[1px]  px-4 pb-4 gap-4">
-        <h1 className="text-[#7655fa] font-semibold">Payment Method</h1>
+        <h1 className="text-[#7655fa] font-semibold">{t("Payment Method")}</h1>
         <RegisterForEventRadioGroup
           payload={data.settings}
           settings={data?.event?.advances}
@@ -143,7 +147,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             disabled={!watch.accept_cash_terms}
             className="rounded-full bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
           >
-            Register for event
+            {t("Register for event")}
           </button>
         )}
         {watch.paymentMethod === "cash" && (
@@ -152,7 +156,7 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
             disabled={!watch.accept_cash_terms}
             className="rounded-full active:scale-[0.95] transition-all bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
           >
-            Register for event
+            {t("Register for event")}
           </button>
         )}
       </div>

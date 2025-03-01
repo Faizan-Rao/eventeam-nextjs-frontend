@@ -18,6 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { useTranslation } from "react-i18next";
 
 const RegsiterForEventDonation = ({ data }: { data: any }) => {
   // const [customDonation, setDonation] = useState<number>(0);
@@ -65,14 +66,14 @@ const RegsiterForEventDonation = ({ data }: { data: any }) => {
       console.log(error);
     }
   };
-
+  const {t} = useTranslation(["translation"])
   return (
     (data.event.advances.is_enable_donation ||
       data.event.advances.is_donation_allowed) === "1" && <div className="flex flex-col  my-4 px-4 pb-4 gap-4">
       <div className=" flex flex-col overflow-y-auto gap-3 text-[#4a4a4a] font-semibold">
         <div className="flex gap-2">
           <h1 className="text-[#7655fa] self-start font-semibold">
-            Donations{" "}
+            {t("Donations")}{" "}
           </h1>
           <TooltipProvider>
             <Tooltip>

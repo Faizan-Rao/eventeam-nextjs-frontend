@@ -16,6 +16,7 @@ import UpcomingEventCard from "./UpcomingEventCard";
 import UpcomingSubeventPreviewDialog from "./UpcomingSubeventPreviewDialog";
 import { useParams } from "next/navigation";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 const CompanyEventCard = ({
   data,
   company,
@@ -27,6 +28,8 @@ const CompanyEventCard = ({
 }) => {
   console.log("most upcoming", data);
   const params = useParams();
+
+  const {t} = useTranslation(["translation"])
   return (
     !isNaN(index) && (
       <div
@@ -43,8 +46,8 @@ const CompanyEventCard = ({
           )}
         >
           {index === 0 && data.current_status === "active"
-            ? "Most Upcoming"
-            : "Upcoming"}
+            ? t("Most Upcoming")
+            : t("Upcoming")}
           {data.current_status !== "active" && "Ended"}
         </span>
         <h1 className="font-semibold sm:text-lg md:text-xl mb-2">
@@ -54,7 +57,7 @@ const CompanyEventCard = ({
           {parse(data.description)}
         </p>
         <div className="flex my-4 justify-between items-center">
-          <h1 className="text-[#999999] font-semibold">Important Times</h1>
+          <h1 className="text-[#999999] font-semibold">{t("Important Times")}</h1>
           {data && <UpcomingSubeventPreviewDialog type={"comp_events"} data={data} />}
         </div>
 
@@ -62,22 +65,22 @@ const CompanyEventCard = ({
           <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
             <Flame className="text-[#7655fa]" size={35} />
             <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
-              Start Date
+              {t("Start Date")}
             </span>
             <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
               {format(
                 new Date(data.start_date.replace(" ", "T")),
-                "MMM dd yyyy"
+                "dd/MM/yyyy"
               )}
             </span>
           </span>
           <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
             <Star className="text-[#7655fa]" size={35} />
             <span className="text-[#999999] sm:text-sm md:text-sm font-semibold">
-              End Date
+              {t("End Date")}
             </span>
             <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
-              {format(new Date(data.end_date.replace(" ", "T")), "MMM dd yyyy")}
+              {format(new Date(data.end_date.replace(" ", "T")), "dd/MM/yyyy")}
             </span>
           </span>
         </div>
@@ -92,7 +95,7 @@ const CompanyEventCard = ({
             "h a, do MMMM yyyy"
           )}`}</span> */}
             <span className="text-sm text-[#999999]">
-              To Get Regsitered Press the Button Below.
+              {t("To Get Regsitered Press the Button Below.")}
             </span>
           </div>
           {/* <div className="flex gap-4">
@@ -109,7 +112,7 @@ const CompanyEventCard = ({
         >
           <div className="flex text-base active:scale-[0.95] transition-all justify-center items-center bg-[#7655fa] rounded-full py-3 px-4">
             <span className="text-white sm:text-sm md:text-base ">
-              Register For Event
+              {t("Register For Event")}
             </span>
             <ChevronRight className="text-white" />
           </div>

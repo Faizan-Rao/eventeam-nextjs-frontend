@@ -50,7 +50,7 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
               "yyyy/MM/dd"
             )} */}
 
-          {data.date.split(" ")[0].replaceAll("-", "/")}
+          {format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")}
         </p>
       </div>
 
@@ -66,11 +66,11 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
             return (
               <tr key={i} className="">
                 <td>{el.title}</td>
-                {/* Old time And Type */}
-                {/* <td className="text-right">{`${
+               
+                <td className="text-right">{`${
                   data.is_api_enable === 1 ? el.api_time : el.time
-                }   ${data.is_api_enable === 0 ? el.type : ""} `}</td> */}
-                <td className="text-right">{`${el.time}   ${el.type} `}</td>
+                }   ${data.is_api_enable === 0 ? el.type : ""} `}</td>
+                
               </tr>
             );
           })}

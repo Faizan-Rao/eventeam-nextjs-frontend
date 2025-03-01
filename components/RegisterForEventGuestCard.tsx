@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 
 const RegisterForEventGuestCard = ({
   index,
@@ -21,7 +22,7 @@ const RegisterForEventGuestCard = ({
   index: number;
 }) => {
   const [subevents, setSubevents] = useState<any>([]);
-
+  const {t} = useTranslation(["translation"])
   const getProducts = useCallback(() => {
     if (!data) return;
     const subevent = data.subEvents;
@@ -65,7 +66,7 @@ const RegisterForEventGuestCard = ({
           <div className="flex items-center place-items-end gap-2">
             <div className="flex flex-col gap-1 ">
               <h1 className=" font-semibold text-[#999999] text-sm">
-                Ticket Type
+                {t("Ticket Type")}
               </h1>
               <p className="text-lg font-semibold">{data.ticketType[0]}</p>
             </div>
@@ -74,7 +75,7 @@ const RegisterForEventGuestCard = ({
         <div className="flex items-center gap-4 lg:justify-self-end">
           <div className="flex  flex-col gap-1">
             <h1 className=" font-semibold tex text-sm text-[#999999]">
-              Sub Events
+              {t("Sub Events")}
             </h1>
             <div className=" grid grid-cols-2  ">
               {subevents.length > 0 &&
@@ -145,7 +146,7 @@ const RegisterForEventGuestCard = ({
                 <div className="flex items-center place-items-end gap-2">
                   <div className="flex flex-col gap-1 ">
                     <h1 className=" font-semibold text-[#999999] text-sm">
-                      Ticket Type
+                      {t("Ticket Type")}
                     </h1>
                     <p className="sm:text-base md:text-lg font-semibold">
                       {data.ticketType[0]}
@@ -156,7 +157,7 @@ const RegisterForEventGuestCard = ({
               <div className="flex items-center gap-4 lg:justify-self-end">
                 <div className="flex  flex-col gap-1">
                   <h1 className=" font-semibold tex text-sm text-[#999999]">
-                    Sub Events
+                    {t("Sub Events")}
                   </h1>
                   <div className=" grid grid-cols-2  ">
                     {subevents.length > 0 &&

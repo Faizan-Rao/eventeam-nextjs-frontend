@@ -62,7 +62,7 @@ const UpcomingSubeventPreviewDialog = ({
             <span className="text-[#E0A450] sm:text-base md:text-lg font-semibold">
               {format(
                 new Date(data.sub_events?.[0].hebTimes?.prayer_times?.[0].date),
-                 "HH:mm, yyyy/MM/dd"
+                 "HH:mm, dd/MM/yyyy"
               )}
             </span>
           </span>
@@ -74,7 +74,7 @@ const UpcomingSubeventPreviewDialog = ({
             <span className="text-[#E0A450] sm:text-base md:text-lg font-semibold">
             {format(
                 new Date(data.sub_events?.[0].hebTimes?.prayer_times?.[1].date),
-                "HH:mm, yyyy/MM/dd"
+                "HH:mm, dd/MM/yyyy"
               )}
             </span>
           </span>
