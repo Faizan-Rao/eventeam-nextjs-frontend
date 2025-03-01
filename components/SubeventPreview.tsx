@@ -1,6 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { Clock } from "lucide-react";
 interface ISubeventPreview {
   className?: string;
   data: any;
@@ -17,7 +19,15 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
       )}
     >
       <div className="flex flex-col gap-1 ">
+        <div className="grid grid-cols-2 gap-4 ">
         <h1 className="text-xl font-semibold">{data.title}</h1>
+        {
+            <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
+              <Clock size={15} />
+              {data.date.split(" ")[1]}
+            </span>
+          }
+        </div>
         <p className="text-xs text-[#E0A450]">{data.date.split(" ")[0].replaceAll("-", "/")}</p>
       </div>
 
