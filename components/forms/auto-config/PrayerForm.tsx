@@ -121,7 +121,8 @@ const PrayerForm = () => {
           />
         </span>
 
-        <div className="flex flex-1  flex-col gap-1">
+            {/* API Time Controller */}
+        {/* <div className="flex flex-1  flex-col gap-1">
           <label className="text-sm text-[#999999] font-semibold">{t("Time API")}</label>
           <div className="flex justify-between bg-[white] rounded-md items-center px-4 py-2 ">
           <p  className="text-[#4a4a4a] ">{t("Active")}</p>
@@ -144,7 +145,7 @@ const PrayerForm = () => {
                   />
            
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -22,20 +22,24 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
     >
       <div className="flex flex-col gap-1 ">
         <div className="grid grid-cols-2  ">
-        <h1 className="text-xl flex-1 font-semibold">
-          {data.title}{" "}
-        </h1>
-          {data.is_api_enable === 1 && (
+          <h1 className="text-xl flex-1 font-semibold">{data.title} </h1>
+          {/* API Based Time  */}
+          {/* {data.is_api_enable === 1 && (
             <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
               <Clock size={15}/>
               {`${data.hebTimes.second_event_time} 
                             `}
             </span>
-          )}
-
+          )} */}
+          {
+            <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
+              <Clock size={15} />
+              {data.date &&
+                format(new Date(data.date.replace(" ", "T")), "h:mm a")}
+            </span>
+          }
         </div>
         <p className="text-xs text-[#E0A450]">
-
           {/* OLD Date (API Based) */}
 
           {/* {data.is_api_enable !== 1 &&
@@ -46,7 +50,7 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
               "yyyy/MM/dd"
             )} */}
 
-            { data.date.split(" ")[0].replaceAll("-", "/")}
+          {data.date.split(" ")[0].replaceAll("-", "/")}
         </p>
       </div>
 
@@ -66,9 +70,7 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
                 {/* <td className="text-right">{`${
                   data.is_api_enable === 1 ? el.api_time : el.time
                 }   ${data.is_api_enable === 0 ? el.type : ""} `}</td> */}
-                <td className="text-right">{`${
-                   el.time
-                }   ${el.type } `}</td>
+                <td className="text-right">{`${el.time}   ${el.type} `}</td>
               </tr>
             );
           })}
