@@ -54,7 +54,8 @@ const ShowSubEventInfoDialog = ({
                     <Clock className="text-[#4a4a4a]" size={20} />
                   </span>
                   <h1 className="text-[white]  text-sm font-semibold">
-                    {data.is_api_enable === 0 &&
+                    {/* API BASED DATE */}
+                    {/* {data.is_api_enable === 0 &&
                       data.date &&
                       format(
                         new Date(data.date.replace(" ", "T")),
@@ -69,7 +70,15 @@ const ShowSubEventInfoDialog = ({
                          data.hebTimes.first_event_time.replace(" ", "T")
                        ),
                        "MMMM do yyyy"
-                     )}`}
+                     )}
+                     
+                     `} */}
+
+                     {data.date &&
+                      format(
+                        new Date(data.date.replace(" ", "T")),
+                        "h : mm a, MMMM do yyyy"
+                      )}
                   </h1>
                 </div>
               </div>

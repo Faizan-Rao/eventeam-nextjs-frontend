@@ -86,7 +86,7 @@ const UpcomingSubeventPreviewDialog = ({
             </>}
 
               {pathname.includes("/companies") && <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Subevents")}</h1>}
-              <div className="flex  justify-center   flex-wrap ">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2  justify-items-stretch  gap-4">
                 {data.sub_events.map((el: any, i: number) => {
                   return (
                     <SubeventPreview
@@ -101,8 +101,8 @@ const UpcomingSubeventPreviewDialog = ({
               </div>
              {  pathname.includes("/companies") && <>
              
-              <h1 className="text-base mt-4 text-[#7655fa] font-semibold ">{t("Activities")}</h1>
-              <div className="flex  justify-center   flex-wrap   gap-4">
+              <h1 className="text-base my-4 text-[#7655fa] font-semibold ">{t("Activities")}</h1>
+              <div className="grid sm:grid-cols-1 md:grid-cols-2  justify-items-stretch  gap-4">
                 { data.sub_events.map((el: any, i: number) => {
                   return (
                     <SubActivitiesPreview

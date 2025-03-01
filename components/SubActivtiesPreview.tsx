@@ -16,17 +16,17 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
   return (
     <div
       className={clsx(
-        "flex flex-1 min-w-[140px] m-4 p-5 flex-col  gap-2  bg-[#7655fa26] rounded-md",
+        "flex flex-1 min-w-[140px] p-5 flex-col w-full  gap-2  bg-[#7655fa26] rounded-md",
         className
       )}
     >
       <div className="flex flex-col gap-1 ">
-        <div className="flex flex-1 items-center justify-between ">
+        <div className="grid grid-cols-2  ">
         <h1 className="text-xl flex-1 font-semibold">
           {data.title}{" "}
         </h1>
           {data.is_api_enable === 1 && (
-            <span className="flex items-center gap-1 text-sm text-[#E0A450] text-end ">
+            <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
               <Clock size={15}/>
               {`${data.hebTimes.second_event_time} 
                             `}
@@ -35,13 +35,18 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
 
         </div>
         <p className="text-xs text-[#E0A450]">
-          {data.is_api_enable !== 1 &&
+
+          {/* OLD Date (API Based) */}
+
+          {/* {data.is_api_enable !== 1 &&
             data.date.split(" ")[0].replaceAll("-", "/")}
           {data.is_api_enable === 1 &&
             format(
               new Date(data.hebTimes.first_event_time.replace(" ", "T")),
               "yyyy/MM/dd"
-            )}
+            )} */}
+
+            { data.date.split(" ")[0].replaceAll("-", "/")}
         </p>
       </div>
 
@@ -57,9 +62,13 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
             return (
               <tr key={i} className="">
                 <td>{el.title}</td>
-                <td className="text-right">{`${
+                {/* Old time And Type */}
+                {/* <td className="text-right">{`${
                   data.is_api_enable === 1 ? el.api_time : el.time
-                }   ${data.is_api_enable === 0 ? el.type : ""} `}</td>
+                }   ${data.is_api_enable === 0 ? el.type : ""} `}</td> */}
+                <td className="text-right">{`${
+                   el.time
+                }   ${el.type } `}</td>
               </tr>
             );
           })}
