@@ -33,6 +33,7 @@ import { subevent, Validator } from "@/configs/autoFormValidation";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   data,
@@ -297,6 +298,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                         min="00:00"
                         max="24:00"
                         onChange={(e) => {
+                          
                           const newDate = new Date();
                           console.log("targeted Date 2", date);
                           const currentState = new Date(date);
@@ -312,10 +314,19 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                           currentState.setMonth(date.getMonth());
                           currentState.setFullYear(date.getFullYear());
                           console.log("targeted date", currentState);
-                          setField({
-                            ...field,
-                            date: format(currentState, "dd/MM/yyyy HH:mm"),
-                          });
+                          try {
+                            setField({
+                              ...field,
+                              date: format(currentState, "dd/MM/yyyy HH:mm"),
+                            });
+                            
+                          } catch (error) {
+                            if(error !== undefined)
+                            {
+
+                              toast("Please Change Date First then Time", {type:"error"})
+                            }
+                          }
                         }}
                         className=" rounded-md outline-none p-2 w-full cursor-pointer text-black"
                       />
