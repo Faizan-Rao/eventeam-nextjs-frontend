@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { CircleX, PencilLine, Plus } from "lucide-react";
+import { CircleX, Clock, PencilLine, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
 import {
@@ -35,7 +35,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
         (watch.sub_events as any[]).map((el, index) => {
           return (
             <div
-              className="flex gap-1 px-4    items-center  bg-[#f6f6f6] shadow-md   rounded-lg w-auto "
+              className="flex gap-1 px-4  flex-wrap  items-center  bg-[#f6f6f6] shadow-md   rounded-lg w-auto "
               key={el.id}
             >
               {/* Card Content */}
@@ -61,14 +61,21 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                     {el.title}
                   </h1>
 
-                  <h1 className="text-sm text-[#4a4a4a] ">
+                  <h1 className="text-base font-semibold text-[#4a4a4a] ">
                     {_.isDate(el.date)
-                      ? format(el.date, "MMM dd, yyyy  hh:mm")
+                      ? format(el.date, "MMM dd, yyyy")
                       : // : format(el.date.split("/")[1], "MMM dd, yyyy  hh:mm")}
-                        el.date.split(" ")[0] + " " + el.date.split(" ")[1]}
+                        el.date.split(" ")[0]}
+                  </h1>
+                  <h1 className="text-sm flex gap-1 items-center font-semibold text-[#E0A450] ">
+                  <Clock size={15} />
+                    {_.isDate(el.date)
+                      ? format(el.date, "  hh:mm")
+                      : // : format(el.date.split("/")[1], "MMM dd, yyyy  hh:mm")}
+                         el.date.split(" ")[1]}
                   </h1>
 
-                  <div className="flex gap-4   text-sm flex-wrap">
+                  {/* <div className="flex gap-4   text-sm flex-wrap">
                     <Controller
                       control={control}
                       name={`sub_events.${index}.status`}
@@ -115,7 +122,7 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                         </>
                       )}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* Card Controls */}

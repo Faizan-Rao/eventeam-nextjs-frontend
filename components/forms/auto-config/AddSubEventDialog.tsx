@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import {
   useFieldArray,
   UseFieldArrayAppend,
@@ -39,7 +39,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   type,
   index,
 }) => {
-  const { control} = useFormContext();
+  const { control } = useFormContext();
   const watch = useWatch({ control });
   const [dateError, setDateError] = useState(false);
   const { append, replace } = useFieldArray({ control, name: "sub_events" });
@@ -123,9 +123,14 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
   };
 
   const [selectedDate, setSelectedDate] = useState<string>();
-  const [date, setDate] = useState<Date | null>();
+  const [date, setDate] = useState<Date>(
+    new Date(data?.date.split(" ")[0]) || new Date(Date.now())
+  );
   const pathname = usePathname();
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
+
+  console.log("selected edit data", date);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {type === "edit" && (
@@ -157,7 +162,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
           </DialogTitle>
           <DialogDescription className=" overflow-auto max-h-[600px]">
             <div className="flex flex-col gap-6 sm:p-0 md:p-4 ">
-              <h1 className="font-semibold text-xl">{t("General Information")}</h1>
+              <h1 className="font-semibold text-xl">
+                {t("General Information")}
+              </h1>
               <div className="flex flex-1 flex-wrap gap-4">
                 <AddSubEventGenInfo
                   index={index}
@@ -167,8 +174,10 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   setField={setField}
                 />
                 <div className="shadow-md self-start rounded-md md:mx-4 sm:w-full md:max-w-[300px]">
-                  <Calendar
+                   <Calendar
                     mode="single"
+                 
+
                     selected={date as any}
                     onSelect={(value: Date | any) => {
                       if (pathname.includes("add-event")) {
@@ -190,14 +199,91 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                           setDate(value);
                         }
                       } else {
-                        setSelectedDate(format(value, "MM/dd/yyyy"));
+                        if(type === "edit")
+                        {
+                          if (value === undefined) {
+                            value = new Date();
+                          }
+  
+                          const currentState = new Date(date);
+                          currentState.setMinutes(
+                            parseInt(data.date.split(" ")[1].split(":")[1])
+                          );
+                          currentState.setHours(
+                            parseInt(data.date.split(" ")[1].split(":")[0])
+                          );
+                          currentState.setDate(value.getDate());
+                          currentState.setMonth(value.getMonth());
+                          currentState.setFullYear(value.getFullYear());
+  
+                          setField({
+                            ...field,
+                            date: format(currentState, "dd/MM/yyyy HH:mm"),
+                          });
+                        }
+                        
                         setDate(value);
                         setDateError(false);
                       }
                     }}
                     className="max-h-[400px] w-full text-black font-semibold"
                   />
-                  {selectedDate && (
+                  {/* { type === "edit" && data && <Calendar
+                    mode="single"
+                   
+
+                    selected={date as any}
+                    onSelect={(value: Date | any) => {
+                      if (pathname.includes("add-event")) {
+                        const startDate = new Date(`${watch.start_date}`);
+                        const endDate = new Date(`${watch.end_date}`);
+                        console.log("start date", startDate === value);
+                        const isInBetween = isDateBetween(
+                          value?.toLocaleDateString(),
+                          startDate.toLocaleDateString(),
+                          endDate.toLocaleDateString()
+                        );
+                        if (isInBetween) {
+                          setSelectedDate(format(value, "MM/dd/yyyy"));
+                          setDate(value);
+                          setDateError(false);
+                        } else {
+                          setSelectedDate(format(value, "MM/dd/yyyy"));
+                          setDateError(true);
+                          setDate(value);
+                        }
+                      } else {
+                        if(type === "edit")
+                        {
+                          if (value === undefined) {
+                            value = new Date();
+                          }
+  
+                          const currentState = new Date(date);
+                          currentState.setMinutes(
+                            parseInt(data.date.split(" ")[1].split(":")[1])
+                          );
+                          currentState.setHours(
+                            parseInt(data.date.split(" ")[1].split(":")[0])
+                          );
+                          currentState.setDate(value.getDate());
+                          currentState.setMonth(value.getMonth());
+                          currentState.setFullYear(value.getFullYear());
+  
+                          setField({
+                            ...field,
+                            date: format(currentState, "dd/MM/yyyy HH:mm"),
+                          });
+                        }
+                        
+                        setDate(value);
+                        setDateError(false);
+                      }
+                    }}
+                    className="max-h-[400px] w-full text-black font-semibold"
+                  />} */}
+
+                  {date && (
                     <div className=" flex rounded-md  flex-col bg-[#7655fa]  p-4 gap-2 m-3 ">
                       <label className={"text-white font-semibold"}>
                         {t("Start Time")}
@@ -205,18 +291,30 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
 
                       <input
                         type="time"
-                        defaultValue={"00:00"}
+                        defaultValue={
+                          type === "edit" ? data?.date.split(" ")[1] : "00:00"
+                        }
                         min="00:00"
                         max="24:00"
                         onChange={(e) => {
-                          console.log(e.target.value);
-
+                          const newDate = new Date();
+                          console.log("targeted Date 2", date);
+                          const currentState = new Date(date);
+                          console.log("targeted Date 2", date);
+                          newDate.setMinutes(
+                            parseInt(e.target.value.split(":")[1])
+                          );
+                          newDate.setHours(
+                            parseInt(e.target.value.split(":")[0])
+                          );
+                          currentState.setTime(newDate.getTime());
+                          currentState.setDate(date.getDate());
+                          currentState.setMonth(date.getMonth());
+                          currentState.setFullYear(date.getFullYear());
+                          console.log("targeted date", currentState);
                           setField({
                             ...field,
-                            date: format(
-                              new Date(`${selectedDate} ${e.target.value}`),
-                              "dd/MM/yyyy HH:mm"
-                            ),
+                            date: format(currentState, "dd/MM/yyyy HH:mm"),
                           });
                         }}
                         className=" rounded-md outline-none p-2 w-full cursor-pointer text-black"
@@ -224,7 +322,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     </div>
                   )}
 
-                  <p className="text-[#7655fa] p-2">{`*${t("Select Date First Then Time")}`}</p>
+                  <p className="text-[#7655fa] p-2">{`*${t(
+                    "Select Date First Then Time"
+                  )}`}</p>
                   {customErrors?.includes("date") && (
                     <p className="text-red-800 m-4">{`Date & Time is Required`}</p>
                   )}
@@ -246,51 +346,49 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   <label className={"text-[#4a4a4a] font-semibold"}>
                     {t("Tickets")}
                   </label>
-                  
-                  { (watch.tickets).map(
-                    (el: any, index: number) => {
-                      return (
-                        <div
-                          className="grid sm:grid-cols-2 md:grid-cols-3 gap-2"
-                          key={index}
-                        >
-                          <input
-                            type="text"
-                            className="border-[2px] outline-none p-2  sm:max-w-xs md:max-w-full flex-1"
-                            placeholder="Enter Ticket Name"
-                            value={el.title}
-                            disabled={true}
-                          />
-                          <div className="flex gap-4  border-[2px] items-center    ">
-                            <input
-                              type="number"
-                              className=" outline-none p-2 flex-1 sm:max-w-[90px] md:max-w-full "
-                              placeholder="Enter Price"
-                              defaultValue={
-                                type === "edit" &&
-                                data?.ticket_types[index]?.price
-                              }
-                              onChange={(e) => {
-                                const newArr = [...field.ticket_types];
-                                let obj = {
-                                  title: el.title as string,
-                                  price: e.target.value as string,
-                                  description: "" as string,
-                                };
 
-                                newArr[index] = obj as any;
-                                setField({
-                                  ...field,
-                                  ticket_types: [...newArr],
-                                });
-                              }}
-                            />
-                            <DollarSign className="ml-auto" size={18} />
-                          </div>
+                  {watch.tickets.map((el: any, index: number) => {
+                    return (
+                      <div
+                        className="grid sm:grid-cols-2 md:grid-cols-3 gap-2"
+                        key={index}
+                      >
+                        <input
+                          type="text"
+                          className="border-[2px] outline-none p-2  sm:max-w-xs md:max-w-full flex-1"
+                          placeholder="Enter Ticket Name"
+                          value={el.title}
+                          disabled={true}
+                        />
+                        <div className="flex gap-4  border-[2px] items-center    ">
+                          <input
+                            type="number"
+                            className=" outline-none p-2 flex-1 sm:max-w-[90px] md:max-w-full "
+                            placeholder="Enter Price"
+                            defaultValue={
+                              type === "edit" &&
+                              data?.ticket_types[index]?.price
+                            }
+                            onChange={(e) => {
+                              const newArr = [...field.ticket_types];
+                              let obj = {
+                                title: el.title as string,
+                                price: e.target.value as string,
+                                description: "" as string,
+                              };
+
+                              newArr[index] = obj as any;
+                              setField({
+                                ...field,
+                                ticket_types: [...newArr],
+                              });
+                            }}
+                          />
+                          <DollarSign className="ml-auto" size={18} />
                         </div>
-                      );
-                    }
-                  )}
+                      </div>
+                    );
+                  })}
                   {customErrors?.includes("ticket_types") && (
                     <p className="text-red-800">{`Fill All Ticket Prices`}</p>
                   )}
@@ -311,7 +409,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   <span className="flex gap-2 flex-col">
                     <label className={"text-[#4a4a4a] font-semibold"}>
                       {t("Location Address")}{" "}
-                      <span className="text-[gray]">{`(${t("optional")})`}</span>
+                      <span className="text-[gray]">{`(${t(
+                        "optional"
+                      )})`}</span>
                     </label>
                     <input
                       type="text"
@@ -324,7 +424,9 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                   <span className="flex gap-2 flex-col">
                     <label className={"text-[#4a4a4a] font-semibold"}>
                       {t("Max Capacity")}{" "}
-                      <span className="text-[gray]">{`(${t("optional")})`}</span>
+                      <span className="text-[gray]">{`(${t(
+                        "optional"
+                      )})`}</span>
                     </label>
                     <input
                       type="number"
