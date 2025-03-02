@@ -38,14 +38,14 @@ const RegisterForEventForm1 = ({
           <span className="bg-[#FFE58A] rounded-full p-2 font-semibold">
             <MapPin className="text-[#4a4a4a]" size={20} />
           </span>
-          {company && !company?.address?.googlemaplink && company?.address?.googlemaplink === null && (
+          {data.event &&  data.event?.address?.googlemaplink === null && (
             <h1 className="text-[#4a4a4a] text-sm font-semibold">
-              {data.event.company_address !== "" ? data.event.company_address : t("No Specified Address")}
+              { data.event.company_address || t("No Specified Address")}
             </h1>
           )}
-          {company && company?.address?.googlemaplink && company?.address?.googlemaplink !== null && (
+          {data.event && data.event?.address?.googlemaplink !== null && (
             <a
-              href={company.address?.googlemaplink}
+              href={data.event.address?.googlemaplink}
               className="text-[#7655fa] text-sm font-semibold"
             >
               {t("Click here to Navigate to the location")}
