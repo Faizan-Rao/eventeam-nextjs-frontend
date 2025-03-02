@@ -40,7 +40,7 @@ const RegisterForEventForm1 = ({
           </span>
           {company && !company?.address?.googlemaplink && company?.address?.googlemaplink === null && (
             <h1 className="text-[#4a4a4a] text-sm font-semibold">
-              {data.event.company_address || t("No Specified Address")}
+              {data.event.company_address !== "" ? data.event.company_address : t("No Specified Address")}
             </h1>
           )}
           {company && company?.address?.googlemaplink && company?.address?.googlemaplink !== null && (
