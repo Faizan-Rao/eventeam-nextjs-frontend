@@ -24,7 +24,15 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
             <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
               <Clock size={15} />
               {data.date &&
-                format(new Date(data.date.replace(" ", "T")), "h:mm a")}
+                (() => {
+                  try {
+                    return format(new Date(data.date.replace(" ", "T")), "h:mm a");
+                  }
+                  catch
+                  {
+                    return data.date.split(" ")[1]
+                  }
+                })()}
             </span>
           }
         </div>
