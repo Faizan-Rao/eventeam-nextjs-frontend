@@ -60,14 +60,28 @@ const SingleEventCont = ({ data }: { data: any }) => {
       {/* Header */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col ">
-          <h1 className="text-[#7655fa] font-semibold text-sm">{t("Event Title")}</h1>
+          <h1 className="text-[#7655fa] font-semibold text-sm">
+            {t("Event Title")}
+          </h1>
           <h1 className="text-[#4a4a4a] font-semibold text-3xl mt-3 mb-1 break-words break-all">
             {(data && data && data?.event.title) || "No title"}
           </h1>
           <h1 className="text-[#999999] font-semibold text-sm">
-            {new Date(data?.event["start_date"]).toDateString() +
-              " - " +
-              new Date(data?.event["end_date"]).toDateString()}
+            {(() => {
+              try {
+                return (
+                  format(new Date(data?.event["start_date"]), "dd/MM/yyyy") +
+                  " - " +
+                  format(new Date(data?.event["end_date"]), "dd/MM/yyyy")
+                );
+              } catch {
+                return (
+                  new Date(data?.event["start_date"]).toLocaleDateString() +
+                  " - " +
+                  new Date(data?.event["end_date"]).toLocaleDateString()
+                );
+              }
+            })()}
           </h1>
         </div>
 
@@ -78,7 +92,6 @@ const SingleEventCont = ({ data }: { data: any }) => {
               className="cursor-pointer text-[#7655fa] p-2 hover:bg-[#7655fa26] rounded-full transition-all"
             />
           </EventEditDialog>
-         
         </div>
       </div>
       {/* KPI's  */}
@@ -254,22 +267,17 @@ const SingleEventCont = ({ data }: { data: any }) => {
                 !(
                   data &&
                   data?.event.advances !== undefined &&
-                  data?.event.advances
-                    ?.is_show_address === "1"
+                  data?.event.advances?.is_show_address === "1"
                 ) && "bg-[#FF000026]"
               )}
             >
-              {
-                data?.event.advances
-                  ?.is_show_address !== undefined && (
-                  <span className="font-semibold text-sm text-[#4a4a4a]">
-                    {data &&
-                   
-                    data?.event.advances?.is_show_address === "1"
-                      ? t("Active")
-                      : t("Inactive")}
-                  </span>
-                )}
+              {data?.event.advances?.is_show_address !== undefined && (
+                <span className="font-semibold text-sm text-[#4a4a4a]">
+                  {data && data?.event.advances?.is_show_address === "1"
+                    ? t("Active")
+                    : t("Inactive")}
+                </span>
+              )}
             </span>
           </AdvanceFormOption>
 
@@ -281,17 +289,12 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <span
               className={clsx(
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
-                !(
-                  data &&
-                  data?.event.advances
-                    ?.is_cash_allowed === "1"
-                ) && "bg-[#FF000026]"
+                !(data && data?.event.advances?.is_cash_allowed === "1") &&
+                  "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
-                {data &&
-                data?.event.advances
-                  ?.is_cash_allowed === "1"
+                {data && data?.event.advances?.is_cash_allowed === "1"
                   ? t("Active")
                   : t("Inactive")}
               </span>
@@ -306,17 +309,12 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <span
               className={clsx(
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
-                !(
-                  data &&
-                  data?.event.advances
-                    ?.is_show_regulation === "1"
-                ) && "bg-[#FF000026]"
+                !(data && data?.event.advances?.is_show_regulation === "1") &&
+                  "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
-                {data &&
-                data?.event.advances
-                  ?.is_show_regulation === "1"
+                {data && data?.event.advances?.is_show_regulation === "1"
                   ? t("Active")
                   : t("Inactive")}
               </span>
@@ -331,17 +329,12 @@ const SingleEventCont = ({ data }: { data: any }) => {
             <span
               className={clsx(
                 " px-4 py-1 rounded-full bg-[#1EFF0026]",
-                !(
-                  data &&
-                  data?.event.advances
-                    ?.is_show_stripe === "1"
-                ) && "bg-[#FF000026]"
+                !(data && data?.event.advances?.is_show_stripe === "1") &&
+                  "bg-[#FF000026]"
               )}
             >
               <span className="font-semibold text-sm text-[#4a4a4a]">
-                {data &&
-                data?.event.advances
-                  ?.is_show_stripe === "1"
+                {data && data?.event.advances?.is_show_stripe === "1"
                   ? t("Active")
                   : t("Inactive")}
               </span>
@@ -354,24 +347,22 @@ const SingleEventCont = ({ data }: { data: any }) => {
           >
             <div className="flex items-center gap-4">
               {data && data?.event?.selected_event_donations?.length > 0 && (
-                <DonationViewDialog data={data?.event?.selected_event_donations} />
+                <DonationViewDialog
+                  data={data?.event?.selected_event_donations}
+                />
               )}
               <span
                 className={clsx(
                   " px-4 py-1 rounded-full bg-[#1EFF0026]",
                   !(
-                    data &&
-                    data?.event.advances
-                      ?.is_donation_allowed === "1"
+                    data && data?.event.advances?.is_donation_allowed === "1"
                   ) && "bg-[#FF000026]"
                 )}
               >
                 <span className="font-semibold text-sm text-[#4a4a4a]">
-                {data &&
-                data?.event.advances
-                  ?.is_donation_allowed === "1"
-                  ? t("Active")
-                  : t("Inactive")}
+                  {data && data?.event.advances?.is_donation_allowed === "1"
+                    ? t("Active")
+                    : t("Inactive")}
                 </span>
               </span>
             </div>
