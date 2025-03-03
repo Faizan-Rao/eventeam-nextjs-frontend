@@ -97,7 +97,7 @@ export const columns: ColumnDef<any>[] = [
     enableGlobalFilter: false,
   },
   {
-    accessorKey: "registrations_count",
+    accessorKey: "registration_count",
     header: ({ column }) => {
       return (
         <button
@@ -110,7 +110,7 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      return row.original.registrations_count;
+      return `${row.original.registration_count}`;
     },
     enableGlobalFilter: false,
   },

@@ -34,7 +34,18 @@ const LanguageSelector = () => {
   return (
     <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className=" text-[#757575] mx-2 border-none ring-transparent rounded-full border-[2px]  p-1 text-center">
-        {i18n.language.toUpperCase()}
+        <div className="flex gap-2 items-center justify-center aspect-square h-6 w-6 rounded-full">
+
+        {langs.map((lng : any) => { 
+          if( lng.code === i18n.language.toLowerCase())
+          {
+            return lng.country
+          }
+         
+          return false
+          }).filter((el)=> el !== false)}
+
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>{t("Select Language")}</DropdownMenuLabel>

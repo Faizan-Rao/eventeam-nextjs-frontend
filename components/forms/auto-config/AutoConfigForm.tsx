@@ -124,7 +124,7 @@ const AutoConfigForm = ({ data, type }: { data?: any; type: string }) => {
       toast("AutoConfig Saved Successfully...", {
         type: "success",
       });
-      window.location.replace("/dashboard/my-events");
+      window.location.replace("/dashboard/automatic");
     },
     onError: () => {
       toast("AutoConfig Not Saved...", {

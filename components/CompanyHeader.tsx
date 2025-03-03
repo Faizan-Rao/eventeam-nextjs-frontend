@@ -8,14 +8,15 @@ const CompanyHeader = ({data} : {data : any}) => {
   const {t} = useTranslation(["translation"])
   return (
     <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[400px]">
-      <div className='sm:absolute md:fixed sm:top-[6rem] md:top-5 md:right-5 sm:right-[2rem] bg-[white] rounded-full'>
-        <LanguageSelector/>
-      </div>
+      
+       
+     
     {/* Header Container*/}
     <div className="container">
       <div className="flex-1 flex justify-between items-center gap-4 pb-4 border-b-[1px] border-[#FFFFFFB2]  text-white">
         <h1 className="font-semibold sm:text-xl md:text-2xl">EvenTeam</h1>
         <h1 className="font-semibold sm:hidden md:block text-lg">Event Management System</h1>
+        <LanguageSelector/>
       </div>
     
      {data && <div className="flex-1 min-h-[250px] flex sm:flex-col md:flex-row justify-between items-center gap-10 pb-4   text-white">

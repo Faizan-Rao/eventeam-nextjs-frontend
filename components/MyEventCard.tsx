@@ -174,7 +174,7 @@ const MyEventCard = ({
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   {t("Registrations")}
                 </p>
-                <p className="font-semibold flex  ">{data.registrations_count || 0}</p>
+                <p className="font-semibold flex  ">{data.registration_count || 0}</p>
               </div>
             </div>
             {/*  Operational State */}
