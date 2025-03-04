@@ -23,27 +23,7 @@ const MainLayoutGrid: React.FC<IMainLayoutGrid> = ({ children }) => {
   const pathname = usePathname();
  
 
-  useLayoutEffect(() => {
-    console.log("user data here", user);
-    if (
-      user["token"] &&
-      pathname.includes("/pending-approval") &&
-      user?.is_active === 1
-    ) {
-      window.location.replace("/dashboard");
-      return
-    }
-    if (
-      user["token"] &&
-      pathname.includes("/dashboard") &&
-      user?.is_active !== 1
-    ) {
-      window.location.replace("/pending-approval");
-    }
-    if (!user["token"] && pathname.includes("/dashboard")) {
-      window.location.replace("/login");
-    }
-  }, [pathname]);
+  
 
   return (
     <>
