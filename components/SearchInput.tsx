@@ -19,7 +19,7 @@ import Link from "next/link";
 import { user } from "@/configs/axios";
 
 
-const SearchInput = () => {
+const SearchInput = ({setNavOpen} : {setNavOpen:any}) => {
   const [search, setSearch] = useState<string>("");
   const searchValue = useDeferredValue(search);
   const [open, setOpen] = useState(false);
@@ -79,11 +79,14 @@ const SearchInput = () => {
                   
                      <Link
                      href={nav.path}
+                     
                      className={clsx(
                        "flex text-[#4A4A4A] bg-[#f3f3f3] mb-2  hover:bg-[#7655FA] p-2 transition-all rounded-md hover:text-[white] overflow-none text-nowrap  gap-4 "
                       
                      )}
-                     onClick={()=> setOpen(false)}
+                     onClick={()=> {
+                      setNavOpen(false)
+                      setOpen(false)}}
                      
                    >
                      {nav.icon && <span className="mx-4"><nav.icon/></span>}

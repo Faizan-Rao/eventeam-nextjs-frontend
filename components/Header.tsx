@@ -33,7 +33,7 @@ const Header = ({
         </div>
 
         <div className="md:block sm:hidden">
-          <SearchInput />
+          <SearchInput setNavOpen={setNavOpen} />
         </div>
 
         <span className="sm:hidden md:flex  items-center   flex-wrap">
@@ -55,7 +55,7 @@ const Header = ({
         </span>
 
         <div className="text-black  gap-4 items-center sm:flex md:hidden">
-            <SearchInput />
+            <SearchInput  setNavOpen={setNavOpen}/>
           <div className="cursor-pointer" onClick={() => setNavOpen((prev) => !prev)}>
           <Menu />
           </div>
