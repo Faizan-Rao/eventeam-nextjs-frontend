@@ -12,6 +12,7 @@ import { queryClient } from "@/components/MainLayoutGrid";
 import { useMutation } from "@tanstack/react-query";
 import { Profile } from "@/configs/apiRoutes";
 import { useTranslation } from "react-i18next";
+import { user } from "@/configs/axios";
 const EditProfileGenInfo = ({ profile }: { profile: any }) => {
   const hiddenInputRef = useRef(null);
   const [fileUrl, setFileUrl] = useState<string>(profile?.photo);
@@ -33,8 +34,14 @@ const EditProfileGenInfo = ({ profile }: { profile: any }) => {
 
   const mutateProfile = useMutation({
     mutationFn: Profile.updateGenInfo,
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      const response = await Profile.get()
+      if(response.data.statusCode === 200)
+      {
+        user.email = response.data.data.email
+        localStorage.setItem("user", JSON.stringify(user))
+      }
       toast("Update Successfull..", {
         type: "success",
       });
