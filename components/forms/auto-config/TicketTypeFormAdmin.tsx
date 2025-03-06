@@ -34,9 +34,16 @@ const watch = useWatch({control, name: "tickets"})
         {
           let ticketLength = tickets.length
           let newSubEvents = sub_events.map((el : any) =>{
+            const slicedTicketTypes = el.ticket_types.slice(0, ticketLength)
+            const mutatedTicketType = slicedTicketTypes.map((el : any, index : number)=>{
+              return {
+                ...el,
+                title: tickets[index].title
+              }
+            })
             return {
               ...el,
-              ticket_types: el.ticket_types.slice(0, ticketLength)
+              ticket_types: mutatedTicketType
             }
           })
           setValue(

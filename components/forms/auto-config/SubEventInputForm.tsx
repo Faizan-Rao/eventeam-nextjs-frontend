@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { CircleX, Clock, PencilLine, Plus } from "lucide-react";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Control,
   Controller,
@@ -19,14 +19,38 @@ import { useTranslation } from "react-i18next";
 export const SubEventInput = ({}: { errors?: string[] }) => {
   const {
     control,
+    setValue,
+    getValues,
     formState: { errors },
   } = useFormContext();
   const { fields, append, replace, remove } = useFieldArray({
     control,
     name: "sub_events",
   });
-  const watch = useWatch({ control });
+  const watch = useWatch({ control});
+  const watchSubevents = useWatch({ control, name:"sub_events"});
   const { t } = useTranslation(["translation"]);
+
+  useEffect(()=>{
+    
+   const values = getValues()
+    const {sub_events, activities} = values
+
+    if(sub_events.length > 0)
+    {
+      let subeventsLength = sub_events.length 
+     const activites = activities.slice(0, subeventsLength)
+    
+      setValue(
+        "activities",
+        activites
+      )
+    }
+
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[ watchSubevents])
+ 
 
   // const [open, setOpen] = useState(false);
   return (
