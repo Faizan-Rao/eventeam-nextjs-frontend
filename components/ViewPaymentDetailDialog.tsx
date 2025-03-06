@@ -150,7 +150,7 @@ const ViewPaymentDetailDialog = ({
                                 {t("Events Attending")}
                               </h1>
                               <div className="flex flex-wrap gap-1">
-                                {el.guest_details.map((item: any) => (
+                                {/* {row?.original?.guests.map((item: any) => (
                                   <p
                                     className="text-sm px-2 py-1  rounded-full bg-[#7655FA26] font-semibold"
                                     key={i + item}
@@ -165,8 +165,16 @@ const ViewPaymentDetailDialog = ({
                                       }
                                     )}
                                   </p>
-                                ))}
+                                ))} */}
+
+                                { <p
+                                    className="text-sm px-2 py-1  rounded-full bg-[#7655FA26] font-semibold"
+                                    
+                                  >
+                                    {row?.original?.event.title}
+                                  </p>}
                               </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -180,7 +188,7 @@ const ViewPaymentDetailDialog = ({
               {t("Price Breakdown")}
             </h1>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
-              {row?.original?.event.sub_events.map((el: any, i: number) => {
+              {/* {row?.original?.event.sub_events.map((el: any, i: number) => {
                 return row?.original.price_breakdown[
                   `${el.id} - ${el.title}`
                 ]?.["guests"].map((item: any, i: number) => {
@@ -194,13 +202,36 @@ const ViewPaymentDetailDialog = ({
                     </div>
                   );
                 });
-              })}
+              })} */}
+              
+               {/* Guest Amount */}
+               <div className="flex gap-4 text-base justify-between">
+                <p className="font-semibold px-2">{t("Guest Amount")}</p>
+                <p className="font-semibold px-2">
+                  ${row?.original?.price_breakdown.guest_amount}
+                </p>
+              </div>
+              {/* Donations */}
+              <div className="flex gap-4 text-base justify-between">
+                <p className="font-semibold px-2">{t("Donations")}</p>
+                <p className="font-semibold px-2">
+                  ${row?.original?.price_breakdown.donation}
+                </p>
+              </div>
+
+              {/* Desired Doantions */}
+              <div className="flex gap-4 text-base justify-between">
+                <p className="font-semibold px-2">{t("Desired Donations")}</p>
+                <p className="font-semibold px-2">
+                  ${row?.original?.price_breakdown.donation}
+                </p>
+              </div>
             </div>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">{t("Total")}</p>
                 <p className="font-semibold px-2">
-                  {"$" + row?.original?.total_amount}
+                  {"$" + row?.original?.price_breakdown.total_amount}
                 </p>
               </div>
             </div>
