@@ -330,17 +330,18 @@ export const EmailTempApi = {
 export const StripeAPI = {
   requestOnBoard : async () =>{
     const data = {
-      "return_url" : process.env.NEXT_PUBLIC_STRIPE_CALLBACK_URL,
-      "refresh_url" : process.env.NEXT_PUBLIC_STRIPE_REFRESH_URL
-  }
+      // "return_url" : process.env.NEXT_PUBLIC_STRIPE_CALLBACK_URL,
+      // "refresh_url" : process.env.NEXT_PUBLIC_STRIPE_REFRESH_URL
+    "return_url" : process.env.NEXT_PUBLIC_STRIPE_REFRESH_URL,
+    }
   console.log(data)
     const response = await axiosWithToken.post(`/stripe/request-onboarding-url`, data)
     // console.log(response);
 
     return response
   },
-  completeOnBoarding : async () =>{
-    const response = await axiosWithToken.get(`/stripe/complete-onboarding`)
+  completeOnBoarding : async (data : any) =>{
+    const response = await axiosWithToken.post(`/stripe/complete-onboarding`, data)
     return response
   },
   getStatus : async () =>{

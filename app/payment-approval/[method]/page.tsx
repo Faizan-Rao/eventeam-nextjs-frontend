@@ -2,23 +2,27 @@
 import { StripeAPI } from "@/configs/apiRoutes";
 import { ArrowLeftCircle } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 
 const ApprovalPage = () => {
   const { method } = useParams();
+  const searchParams  = useSearchParams();
+  const code = searchParams.get("code")
   useEffect(() => {
     (async () => {
       try {
-        if (method === "stripe") {
-          let response = await StripeAPI.completeOnBoarding();
+        if (method === "stripe" && searchParams.has("code")) {
+          
+          
+          let response = await StripeAPI.completeOnBoarding({code});
           console.log(response.data.data);
         }
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [method]);
+  }, [code, method, searchParams]);
 
   return (
     <div className="relative overflow-hidden min-h-screen h-full flex flex-col justify-between items-center">
@@ -44,10 +48,11 @@ const ApprovalPage = () => {
       />
       <div className="flex  flex-1 flex-col gap-4 justify-start items-center z-[1]  my-auto">
         <h1 className=" sm:text-2xl md:text-3xl font-semibold">
-          Your Payment Method Connected Successfully!
+         {searchParams.has("code") && " Your Payment Method Connected Successfully!"}
+         {!searchParams.has("code") && " Payment Method Connection Failed"}
         </h1>
         <p className=" text-center sm:text-sm md:text-base max-w-[470px]">
-          To go back to the payment methods Click here{" "}
+          To go back to the payment methods Click here
           <a
             href="/dashboard/payment-method"
             className="text-[#7655fa] font-semibold flex justify-center items-center gap-2 my-3"
