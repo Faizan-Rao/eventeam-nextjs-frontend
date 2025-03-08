@@ -1,25 +1,45 @@
 "use client";
+import Loading from "@/app/loading";
 import { StripeAPI } from "@/configs/apiRoutes";
+import { AxiosError } from "axios";
 import { ArrowLeftCircle } from "lucide-react";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import HashLoader from "react-spinners/HashLoader";
+import { toast } from "react-toastify";
 
 const ApprovalPage = () => {
   const { method } = useParams();
-  const searchParams  = useSearchParams();
-  const code = searchParams.get("code")
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   useEffect(() => {
     (async () => {
       try {
         if (method === "stripe" && searchParams.has("code")) {
-          
-          
-          let response = await StripeAPI.completeOnBoarding({code});
+          let response = await StripeAPI.completeOnBoarding({ code });
           console.log(response.data.data);
+          if(response.data.statusCode === 200)
+          {
+            setIsSuccess(true)
+            window.location.href = "/dashboard/payment-method"
+          }
+          else
+          {
+            setIsSuccess(false)
+          }
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error : AxiosError | any) {
+        if(error !== undefined)
+        {
+          toast(error?.response?.data.message, { type: "error" });
+
+        }
+      } finally {
+        setIsLoading(false)
       }
     })();
   }, [code, method, searchParams]);
@@ -38,18 +58,30 @@ const ApprovalPage = () => {
         />
         <h1 className="text-xl font-semibold">EvenTeam</h1>
       </div>
-      <div className="bg-[#7655fa] absolute rounded-full w-[200vw] h-[200vw] md:bottom-[30vw] sm:-bottom-[179vw]   -left-[50vw] -z-index-[1] aspect-square overflow-hidden" />
+      <div className="bg-[#7655fa] absolute rounded-full w-[200vw] h-[200vw] md:bottom-[50vw] lg:bottom-[25vw] sm:-bottom-[179vw]   -left-[50vw] -z-index-[1] aspect-square overflow-hidden" />
       <Image
         src={"/office-manage.svg"}
-        className={"sm:w-[20em] sm:h-[20em] md:w-[25em] md:h-[25em] z-[1] "}
+        className={"sm:w-[20em] sm:h-[60vw] md:w-[75vw] md:h-[25vw] z-[1] "}
         height={200}
         width={200}
         alt="office-manage"
       />
-      <div className="flex  flex-1 flex-col gap-4 justify-start items-center z-[1]  my-auto">
+
+      {isLoading && (
+        <div className="flex  flex-1 flex-col gap-4 justify-start items-center z-[1]  my-auto">
+          <HashLoader
+            color={"#7655fa"}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+          <h1 className=" sm:text-2xl md:text-2xl ">Loading</h1>
+        </div>
+      )}
+     {!isLoading && <div className="flex  flex-1 flex-col gap-4 justify-start items-center z-[1]  my-auto">
         <h1 className=" sm:text-2xl md:text-3xl font-semibold">
-         {searchParams.has("code") && " Your Payment Method Connected Successfully!"}
-         {!searchParams.has("code") && " Payment Method Connection Failed"}
+         {isSuccess && " Your Payment Method Connected Successfully!"}
+         {!isSuccess && " Payment Method Connection Failed"}
         </h1>
         <p className=" text-center sm:text-sm md:text-base max-w-[470px]">
           To go back to the payment methods Click here
@@ -61,7 +93,7 @@ const ApprovalPage = () => {
             <ArrowLeftCircle className="inline" /> <span>Back</span>
           </a>
         </p>
-      </div>
+      </div>}
 
       <div className="sm:hidden md:flex justify-center items-center gap-2  my-4">
         <Image

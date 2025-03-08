@@ -223,7 +223,7 @@ const ViewPaymentDetailDialog = ({
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">{t("Desired Donations")}</p>
                 <p className="font-semibold px-2">
-                  ${row?.original?.price_breakdown.donation}
+                  ${row?.original?.price_breakdown.desirable_donation}
                 </p>
               </div>
             </div>
