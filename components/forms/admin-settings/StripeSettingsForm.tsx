@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 export const stripeSettingsEditSchema = joi.object({
   stripe_publishable_key: joi.string().label("Stripe Publishable Key"),
   stripe_secret_key: joi.string().label("Stripe Secret Key"),
+  client_id: joi.string().label("Client ID"),
   update_stripe_keys_otp: joi
     .string()
     .custom((value, helpers) => {
@@ -64,6 +65,7 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       stripe_publishable_key: stripeKeys?.data.data?.stripe_publishable_key,
       stripe_secret_key: stripeKeys?.data.data?.stripe_secret_key,
       update_stripe_keys_otp: "",
+      client_id: stripeKeys?.data.data?.client_id,
     },
     resolver: (values, constext, options) => {
       const resolver = joiResolver(stripeSettingsEditSchema, {
@@ -171,6 +173,22 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
             : watch("stripe_secret_key" as any)}
           {...register("stripe_secret_key")}
           onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
+          className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
+        />
+        {errors?.stripe_secret_key && (
+          <span className="text-red-800">{`${errors.stripe_secret_key.message}`}</span>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-[#999999] text-sm font-semibold">
+          {t("Client ID")}
+        </span>
+        <input
+          type="text"
+          placeholder={t("Client ID")}
+          {...register("client_id")}
+          onChange={(e) => setValue("client_id", e.target.value)} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_secret_key && (
