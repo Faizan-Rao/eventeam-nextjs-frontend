@@ -334,6 +334,13 @@ const DashboardPaymentViewModal = ({
                   ${row?.price_breakdown.desirable_donation}
                 </p>
               </div>
+              {/* Plateform Fee */}
+              <div className="flex gap-4 text-base justify-between">
+                <p className="font-semibold px-2">{t("Plateform fee")}</p>
+                <p className="font-semibold px-2">
+                  ${row?.price_breakdown.plateform_fee}
+                </p>
+              </div>
             </div>
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
