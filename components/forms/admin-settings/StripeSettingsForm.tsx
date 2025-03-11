@@ -26,7 +26,9 @@ export const stripeSettingsEditSchema = joi.object({
 
 const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
   const [isPending, setIsPending] = useState(false);
-
+  const [isChanged, setIsChanged] = useState({"publishKey" : false,
+    "secretkey":false,
+  })
   const mutate = useMutation({
     mutationKey: ["update-stripe-keys"],
     mutationFn: async (data: any) => {
@@ -86,10 +88,10 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
       setFormatedStripe({
         ...formatedStripe,
         stripe_publishable_key: getValues("stripe_publishable_key") === stripeKeys?.data.data?.["stripe_publishable_key"]
-        ? watch("stripe_publishable_key" as any).slice(0, 5) + "************"
+        ? watch("stripe_publishable_key" as any).slice(0, 25) + "************"
         : watch("stripe_publishable_key" as any),
         stripe_secret_key: getValues("stripe_secret_key") === stripeKeys?.data.data?.["stripe_secret_key"]
-        ? watch("stripe_secret_key" as any).slice(0, 5) + "************"
+        ? watch("stripe_secret_key" as any).slice(0, 25) + "************"
         : watch("stripe_secret_key" as any),
       });
     }
@@ -150,11 +152,18 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
-          value={getValues("stripe_publishable_key") === stripeKeys?.data.data?.["stripe_publishable_key"]
-            ? watch("stripe_publishable_key" as any).slice(0, 25) + "************"
+          value={!isChanged.publishKey
+            ? formatedStripe.stripe_publishable_key
             : watch("stripe_publishable_key" as any)}
           {...register("stripe_publishable_key")}
-          onChange={(e) => setValue("stripe_publishable_key", e.target.value)} // Ensure value is stored
+          onChange={(e) => {
+            if(!isChanged.publishKey)
+              {
+                 e.target.value = ""
+                setFormatedStripe({...formatedStripe, stripe_publishable_key: ""})
+                setIsChanged({...isChanged, publishKey:true})
+              }
+            setValue("stripe_publishable_key", e.target.value)}} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_publishable_key && (
@@ -168,11 +177,18 @@ const EditStripSettings = ({ stripeKeys }: { stripeKeys: any }) => {
         </span>
         <input
           type="text"
-          value={getValues("stripe_secret_key") === stripeKeys?.data.data?.["stripe_secret_key"]
-            ? watch("stripe_secret_key" as any).slice(0, 25) + "************"
+          value={!isChanged.secretkey
+            ? formatedStripe.stripe_secret_key
             : watch("stripe_secret_key" as any)}
           {...register("stripe_secret_key")}
-          onChange={(e) => setValue("stripe_secret_key", e.target.value)} // Ensure value is stored
+          onChange={(e) => {
+            if(!isChanged.secretkey)
+            {
+              e.target.value = ""
+              setFormatedStripe({...formatedStripe, stripe_secret_key: ""})
+              setIsChanged({...isChanged, secretkey:true})
+            }
+            setValue("stripe_secret_key", e.target.value)}} // Ensure value is stored
           className="text-[#4a4a4a] text-base  p-2 border-[2px] outline-none rounded-md"
         />
         {errors?.stripe_secret_key && (
