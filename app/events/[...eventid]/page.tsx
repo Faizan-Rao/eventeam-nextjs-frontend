@@ -13,6 +13,8 @@ import { useParams } from "next/navigation";
 import { Metadata } from "next/types";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import HashLoader from "react-spinners/HashLoader";
 import { toast } from "react-toastify";
 
 const RegisterEvent = () => {
@@ -23,12 +25,13 @@ const RegisterEvent = () => {
       Companies.getCompaniesEvents((params.eventid[0] as string) || ""),
   });
 
-  const [isLoading, setIsLoading] = useState(false)
+  const {t} = useTranslation(["translation"])
+  const [isLoadingState, setIsLoading] = useState(false);
   console.log("api data", data);
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events?.company;
   console.log("send params", params);
-  const { data: event } = useQuery({
+  const { data: event, isLoading } = useQuery({
     queryKey: ["single-event"],
     queryFn: () => EventReg.singleEvent(params.eventid[0], params.eventid[1]),
   });
@@ -60,12 +63,12 @@ const RegisterEvent = () => {
         formData
       ),
     onSuccess: () => {
-      setIsLoading(false)
+      setIsLoading(false);
       toast("Event Registration Successful", { type: "success" });
       window.location.replace(`/companies/${singleEvent?.company}`);
     },
     onError: (error) => {
-      setIsLoading(false)
+      setIsLoading(false);
       if ((error as any).status !== 200) {
         Object.values((error as any)?.response?.data.data ?? {}).forEach(
           (el: any) => {
@@ -74,7 +77,7 @@ const RegisterEvent = () => {
             });
           }
         );
-        toast((error as any)?.response?.data.message, { type: "error" })
+        toast((error as any)?.response?.data.message, { type: "error" });
       }
     },
   });
@@ -105,7 +108,7 @@ const RegisterEvent = () => {
     }
   };
   const onSubmit = (formData123: any) => {
-    setIsLoading(true)
+    setIsLoading(true);
     const payload = platformFee(formData123);
     mutate.mutate(payload);
   };
@@ -113,7 +116,7 @@ const RegisterEvent = () => {
   return (
     <>
       <CompanyHeader data={companies} />
-      <MainContentGrid className="md:translate-y-[-15%]">
+      <MainContentGrid className="md:translate-y-[-10%]">
         {/* <PageTitleContainer title='Register Event'/> */}
         <FormProvider {...methods}>
           <Elements stripe={stripePromise}>
@@ -124,9 +127,29 @@ const RegisterEvent = () => {
               {singleEvent && (
                 <>
                   {" "}
-                  <RegisterForEventForm1 data={singleEvent} company={companies} />
-                  <RegisterForEventForm2 isLoading={isLoading} data={singleEvent} />
+                  <RegisterForEventForm1
+                    data={singleEvent}
+                    company={companies}
+                  />
+                  <RegisterForEventForm2
+                    isLoading={isLoadingState}
+                    data={singleEvent}
+                  />
                 </>
+              )}
+              {(isLoading || !events) && (
+                <div className="flex min-h-screen gap-4 mx-auto sm:col-span-1 md:col-span-1 lg:col-span-3 w-full items-center justify-center ">
+                  <HashLoader
+                    color={"#7655fa"}
+                    size={50}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+
+                  <p className="text-xl font-semibold text-[#4a4a4a]">
+                    {t("Loading...")}
+                  </p>
+                </div>
               )}
             </form>
           </Elements>

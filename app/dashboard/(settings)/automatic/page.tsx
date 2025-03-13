@@ -215,6 +215,13 @@ const AutomaticForm = () => {
             autoformData.map((el: any, i: number) => {
               return <AutomaticEventCard event={el} key={el.id} />;
             })}
+            {autoformData &&
+            searchString === "" && autoformData.length <= 0 && (
+            <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
+              {" "}
+              {t("No Results Found")}
+            </p>
+          )}
           {autoformData &&
             searchString !== "" &&
             filtered.map((el: any, i: number) => {

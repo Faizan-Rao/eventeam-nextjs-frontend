@@ -18,7 +18,7 @@ const DonationMainCont = () => {
     queryKey: ["donations"],
     queryFn: Donations.getList,
   });
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   const donationData = donations && donations.data.data.data.company_donations;
   return (
     <div className="flex flex-col transition-all ease-in bg-white p-5 gap-4 rounded-md min-h-screen">
@@ -26,7 +26,7 @@ const DonationMainCont = () => {
         <span className="sm:flex-1 md:flex-none  flex place-items-center gap-2 rounded-md border-[2px] p-1">
           <Search size={18} />
           <input
-          type="number"
+            type="number"
             placeholder={t("Search Amount...")}
             onChange={(event) => {
               let payload = [...donationData];
@@ -69,6 +69,12 @@ const DonationMainCont = () => {
             console.log(el);
             return <DonationCard key={el.id} data={el} />;
           })}
+        {filtered.length <= 0 && donationData && donationData.length <= 0 && (
+          <p className="font-semibold text-center border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 mt-4">
+            {" "}
+            {t("No Results Found")}
+          </p>
+        )}
 
         {filtered.length > 0 &&
           filtered.map((el: any, i: number) => {
