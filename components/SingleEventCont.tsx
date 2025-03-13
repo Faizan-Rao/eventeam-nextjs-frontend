@@ -198,7 +198,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
-              <div className="flex items-center justify-between   flex-wrap">
+              <div className="flex items-center justify-between  gap-4 flex-wrap">
                 {data?.event?.sub_events.length > 0 &&
                   data &&
                   data?.event.sub_events.map((el: any, i: number) => {
@@ -228,7 +228,7 @@ const SingleEventCont = ({ data }: { data: any }) => {
               </h1>
             </AccordionTrigger>
             <AccordionContent className="p-4">
-              <div className="flex items-center justify-between  flex-wrap">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
                 {data?.event?.sub_events?.length > 0 &&
                   data?.event?.sub_events.map((el: any, i: number) => {
                     console.log(el);

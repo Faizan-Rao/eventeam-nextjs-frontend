@@ -16,6 +16,8 @@ const EventSubeventCard: React.FC<ISubeventPreview> = ({
   type,
 }) => {
   const { t } = useTranslation(["translation"]);
+
+  
   return (
     <div
       className={clsx(
@@ -35,7 +37,7 @@ const EventSubeventCard: React.FC<ISubeventPreview> = ({
               {(() => {
                 try {
                   return format(
-                    new Date(data.date.replace(" ", "T")[1]),
+                    new Date(data.date.replace(" ", "T")),
                     "h:mm a"
                   );
                 } catch (error) {
