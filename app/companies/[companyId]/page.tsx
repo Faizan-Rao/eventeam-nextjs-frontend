@@ -19,7 +19,7 @@ const CompaniesEvent = () => {
       Companies.getCompaniesEvents((params.companyId as string) || ""),
   });
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events.company;
   console.log(data, "companies data");
@@ -41,11 +41,19 @@ const CompaniesEvent = () => {
               aria-label="Loading Spinner"
               data-testid="loader"
             />
-            
-            <p className="text-xl font-semibold text-[#4a4a4a]">{t("Loading...")}</p>
+
+            <p className="text-xl font-semibold text-[#4a4a4a]">
+              {t("Loading...")}
+            </p>
           </div>
         )}
       </div>
+      {events && events?.length <= 0 && (
+        <p className="font-semibold text-center sm:col-span-1 md:col-span-1 lg:col-span-3 border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 my-4">
+          {" "}
+          {t("No Results Found")}
+        </p>
+      )}
 
       <CompanyFooter />
     </>

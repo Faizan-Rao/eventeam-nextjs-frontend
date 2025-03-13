@@ -151,6 +151,10 @@ const RegisterEvent = () => {
                   </p>
                 </div>
               )}
+              {events && events?.length <= 0 &&  <p className="font-semibold text-center sm:col-span-1 md:col-span-1 lg:col-span-3 border-dashed border-[4px] text-[#999999] py-6 w-full col-span-3 my-4">
+              {" "}
+              {t("No Results Found")}
+            </p>}
             </form>
           </Elements>
         </FormProvider>
