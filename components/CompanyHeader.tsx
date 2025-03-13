@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 const CompanyHeader = ({data} : {data : any}) => {
   const {t} = useTranslation(["translation"])
   return (
-    <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full md:min-h-[400px]">
+    <div className="flex flex-col  bg-[#7655fa] py-10 sm:h-full ">
       
        
      
@@ -24,7 +24,7 @@ const CompanyHeader = ({data} : {data : any}) => {
         <div className="flex gap-4 items-center">
           <div className="flex justify-center rounded-full overflow-hidden items-center m-4">
             <Image
-              src={data?.photo || ""}
+              src={data?.photo || "/profile_logo.svg"}
               className='sm:w-[5rem] sm:h-[5rem] md:w-[5rem] md:h-[5rem]'
               height={75}
               width={75}
@@ -60,7 +60,7 @@ const CompanyHeader = ({data} : {data : any}) => {
           <span className="flex items-center gap-4">
             <Book className="text-white" />
             <span className="text-white font-white sm:text-sm md:text-base">
-              {parser(`${data?.about}`) ?? ""}
+              {parser(`${data?.about || `<p classname={"text-sm"}>No About Section</p>`}`)}
             </span>
           </span>
         </div>

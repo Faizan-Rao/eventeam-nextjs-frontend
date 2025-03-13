@@ -116,7 +116,7 @@ const RegisterEvent = () => {
   return (
     <>
       <CompanyHeader data={companies} />
-      <MainContentGrid className="md:translate-y-[-10%]">
+      <MainContentGrid className="md:translate-y-[-10%] min-h-screen">
         {/* <PageTitleContainer title='Register Event'/> */}
         <FormProvider {...methods}>
           <Elements stripe={stripePromise}>
