@@ -9,7 +9,20 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CheckoutForm } from "./forms/stripe/CheckoutForm";
 import parser from "html-react-parser";
 import { useTranslation } from "react-i18next";
-const RegisterForEventForm2 = ({ data }: { data: any }) => {
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
+import { Loader2 } from "lucide-react";
+const RegisterForEventForm2 = ({
+  data,
+  isLoading,
+}: {
+  data: any;
+  isLoading: boolean;
+}) => {
   // stripe-Specific
 
   const formContext = useFormContext();
@@ -32,20 +45,16 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
   const plateFormFee = (totalfee: any) =>
     (totalfee * parseFloat(data?.settings.plateform_fee)) / 100;
 
-
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <div className="flex-1 items-start  rounded-md bg-[white] sm:p-1 md:p-4 min-h-screen">
-      {data.event.advances &&
-        (
-          <RegsiterForEventDonation data={data} />
-        )}
+      {data.event.advances && <RegsiterForEventDonation data={data} />}
 
       <div className="flex flex-col  px-4 pb-4 gap-4">
         <h1 className="text-[#7655fa] font-semibold">{t("Price Breakdown")}</h1>
         <div className="flex gap-4 text-base justify-between">
           <p className="font-semibold px-2 text-[#999999] text-sm">
-           {t("Ticket Total Amount")}
+            {t("Ticket Total Amount")}
           </p>
           <p className="font-semibold px-2 text-[#999999] text-sm">
             {"$" + watch.totalAmount}
@@ -89,15 +98,14 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
                 />
               )}
 
-             
               <p className=" font-semibold  text-[#999999] text-sm">
-              <span className="text-[rgb(153,153,153)] text-sm mx-1">
-                {data.settings.application_fee_text}
-              </span>
-              {`${data.settings.plateform_fee}%`}
-            </p>
+                <span className="text-[rgb(153,153,153)] text-sm mx-1">
+                  {data.settings.application_fee_text}
+                </span>
+                {`${data.settings.plateform_fee}%`}
+              </p>
             </div>
-           
+
             <p className="ml-auto font-semibold px-2 text-[#999999] text-sm">
               {`$${plateFormFee(
                 parseFloat(watch.totalAmount) +
@@ -125,17 +133,32 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
 
       <div className="flex flex-col  my-4 px-4 pb-4 gap-4">
         <div className=" flex items-center gap-3 text-[#4a4a4a] font-semibold">
-          <Checkbox
-            onCheckedChange={(e) => {
-              setValue("accept_cash_terms", e);
-            }}
-            checked={watch.accept_cash_terms}
-          />
-          {data?.event?.advances?.is_show_regulation === "1" && (
-            <span className="text-[rgb(153,153,153)] text-sm ">
-              {data.settings && parser(`${data.settings.regulation_text}`)}
-            </span>
-          )}
+          <Accordion type="single" collapsible>
+            <AccordionItem
+              className=" w-full   text-[rgb(153,153,153)] text-base font-semibold"
+              value="item-1"
+            >
+              <AccordionTrigger className="flex gap-4">
+                <Checkbox
+                  onCheckedChange={(e) => {
+                    setValue("accept_cash_terms", e);
+                  }}
+                  checked={watch.accept_cash_terms}
+                />
+                <p className="font-semibold px-2">
+                  {t("To agree terms & conditions...")}
+                </p>
+              </AccordionTrigger>
+              <AccordionContent>
+                {data?.event?.advances?.is_show_regulation === "1" && (
+                  <span className="text-[rgb(153,153,153)] text-sm ">
+                    {data.settings &&
+                      parser(`${data.settings.regulation_text}`)}
+                  </span>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
 
@@ -144,19 +167,31 @@ const RegisterForEventForm2 = ({ data }: { data: any }) => {
         {watch.stripeToken && watch.paymentMethod === "stripe" && (
           <button
             type="submit"
-            disabled={!watch.accept_cash_terms}
+            disabled={!watch.accept_cash_terms || isLoading}
             className="rounded-full bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
           >
-            {t("Register for event")}
+            {isLoading ? (
+              <div className="flex gap-4 items-center justify-center">
+                <Loader2 className="animate-spin h-5 w-5" /> {t("Loading...")}
+              </div>
+            ) : (
+              t("Register for event")
+            )}
           </button>
         )}
         {watch.paymentMethod === "cash" && (
           <button
             type="submit"
-            disabled={!watch.accept_cash_terms}
+            disabled={!watch.accept_cash_terms || isLoading}
             className="rounded-full active:scale-[0.95] transition-all bg-[#7655fa] disabled:bg-[#999999] text-white  font-semibold px-4 py-2"
           >
-            {t("Register for event")}
+            {isLoading ? (
+              <div className="flex gap-4 items-center justify-center">
+                <Loader2 className="animate-spin h-5 w-5" /> {t("Loading...")}
+              </div>
+            ) : (
+              t("Register for event")
+            )}
           </button>
         )}
       </div>

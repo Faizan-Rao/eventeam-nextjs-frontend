@@ -11,7 +11,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { Metadata } from "next/types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -23,6 +23,7 @@ const RegisterEvent = () => {
       Companies.getCompaniesEvents((params.eventid[0] as string) || ""),
   });
 
+  const [isLoading, setIsLoading] = useState(false)
   console.log("api data", data);
   const events = data?.data.data.events.events;
   const companies = data?.data.data.events?.company;
@@ -59,10 +60,12 @@ const RegisterEvent = () => {
         formData
       ),
     onSuccess: () => {
+      setIsLoading(false)
       toast("Event Registration Successful", { type: "success" });
       window.location.replace(`/companies/${singleEvent?.company}`);
     },
     onError: (error) => {
+      setIsLoading(false)
       if ((error as any).status !== 200) {
         Object.values((error as any)?.response?.data.data ?? {}).forEach(
           (el: any) => {
@@ -102,6 +105,7 @@ const RegisterEvent = () => {
     }
   };
   const onSubmit = (formData123: any) => {
+    setIsLoading(true)
     const payload = platformFee(formData123);
     mutate.mutate(payload);
   };
@@ -121,7 +125,7 @@ const RegisterEvent = () => {
                 <>
                   {" "}
                   <RegisterForEventForm1 data={singleEvent} company={companies} />
-                  <RegisterForEventForm2 data={singleEvent} />
+                  <RegisterForEventForm2 isLoading={isLoading} data={singleEvent} />
                 </>
               )}
             </form>
