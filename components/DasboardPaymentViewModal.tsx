@@ -51,7 +51,7 @@ const DashboardPaymentViewModal = ({
   const [status, setSetStatus] = useState(row?.original?.status as any);
   const [open, setOpen] = useState(false);
   const { data, setData }: any = useContext(PaymentDetailContext);
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="hover:bg-[#7655fa26] active:scale-[0.90] transition-all p-2 rounded-full">
@@ -78,15 +78,46 @@ const DashboardPaymentViewModal = ({
                   {type === "view_event" && elRow.title}
                 </h1>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  { type !== "view_event" &&
-                    format(new Date(`${row?.event["start_date"]}`), "LLL d") +
-                      " - " +
-                      format(new Date(row?.event["end_date"]), "LLL d")}
-                  { type === "view_event" &&
-                    format(new Date(`${elRow["start_date"]}`), "LLL d") +
-                      " - " +
-                      format(new Date(elRow["end_date"]), "LLL d")}
-                  
+                  {}
+
+                  {type !== "view_event" &&
+                    (() => {
+                      try {
+                        return (
+                          format(
+                            new Date(`${row?.event["start_date"]}`),
+                            "LLL d"
+                          ) +
+                          " - " +
+                          format(new Date(row?.event["end_date"]), "LLL d")
+                        );
+                      } catch {
+                        return (
+                          new Date(
+                            `${row?.event["start_date"]}`
+                          ).toDateString() +
+                          " - " +
+                          new Date(row?.event["end_date"]).toDateString()
+                        );
+                      }
+                    })()}
+
+                  {type === "view_event" &&
+                    (() => {
+                      try {
+                        return (
+                          format(new Date(`${elRow["start_date"]}`), "LLL d") +
+                          " - " +
+                          format(new Date(elRow["end_date"]), "LLL d")
+                        );
+                      } catch {
+                        return (
+                          new Date(`${elRow["start_date"]}`).toDateString() +
+                          " - " +
+                          new Date(elRow["end_date"]).toDateString()
+                        );
+                      }
+                    })()}
                 </p>
               </div>
 
@@ -101,8 +132,8 @@ const DashboardPaymentViewModal = ({
                   {row?.payment_clear === "0" ? t("Pending") : t("Cleared")}
                 </span>
                 <p className="text-sm text-[#tatata] font-semibold">
-                  {type !== "view_event" &&  row?.created_at.split('T')[0]}
-                  {type === "view_event" && elRow.created_at.split('T')[0]}
+                  {type !== "view_event" && row?.created_at.split("T")[0]}
+                  {type === "view_event" && elRow.created_at.split("T")[0]}
                 </p>
                 <p className="text-sm text-[#tatata] font-semibold">
                   {row?.reg_id}
@@ -176,12 +207,11 @@ const DashboardPaymentViewModal = ({
                                       })}
                                     </p>
                                   ))} */}
-                                  { <p
-                                    className="text-sm px-2 py-1  rounded-full bg-[#7655FA26] font-semibold"
-                                    
-                                  >
-                                    {row?.event.title}
-                                  </p>}
+                                  {
+                                    <p className="text-sm px-2 py-1  rounded-full bg-[#7655FA26] font-semibold">
+                                      {row?.event.title}
+                                    </p>
+                                  }
                                 </div>
                               </div>
                             </div>
@@ -192,7 +222,7 @@ const DashboardPaymentViewModal = ({
                   );
                 })}
 
-{type === "view_event" &&
+              {type === "view_event" &&
                 row?.guests.map((el: any, i: number) => {
                   return (
                     <Accordion type="single" collapsible key={i + el.name}>
@@ -243,7 +273,7 @@ const DashboardPaymentViewModal = ({
                                   {el.guest_details.map((item: any) => (
                                     <p
                                       className="text-sm px-2 py-1 rounded-full bg-[#7655FA26] font-semibold"
-                                      key={i }
+                                      key={i}
                                     >
                                       {elRow?.sub_events.map((el: any) => {
                                         console.log("guest item", el, item);
@@ -311,9 +341,8 @@ const DashboardPaymentViewModal = ({
                   }
                 )} */}
 
-
-                {/* Guest Amount */}
-               <div className="flex gap-4 text-base justify-between">
+              {/* Guest Amount */}
+              <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">{t("Guest Amount")}</p>
                 <p className="font-semibold px-2">
                   ${row?.price_breakdown.guest_amount}
@@ -345,7 +374,9 @@ const DashboardPaymentViewModal = ({
             <div className=" flex flex-col gap-3 border-b-[1px] pb-4 w-full flex-1">
               <div className="flex gap-4 text-base justify-between">
                 <p className="font-semibold px-2">{t("Total")}</p>
-                <p className="font-semibold px-2">${row?.price_breakdown.total_amount}</p>
+                <p className="font-semibold px-2">
+                  ${row?.price_breakdown.total_amount}
+                </p>
               </div>
             </div>
           </div>

@@ -27,30 +27,23 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
     control,
     name: "sub_events",
   });
-  const watch = useWatch({ control});
-  const watchSubevents = useWatch({ control, name:"sub_events"});
+  const watch = useWatch({ control });
+  const watchSubevents = useWatch({ control, name: "sub_events" });
   const { t } = useTranslation(["translation"]);
 
-  useEffect(()=>{
-    
-   const values = getValues()
-    const {sub_events, activities} = values
+  useEffect(() => {
+    const values = getValues();
+    const { sub_events, activities } = values;
 
-    if(sub_events.length > 0)
-    {
-      let subeventsLength = sub_events.length 
-     const activites = activities.slice(0, subeventsLength)
-    
-      setValue(
-        "activities",
-        activites
-      )
+    if (sub_events.length > 0) {
+      let subeventsLength = sub_events.length;
+      const activites = activities.slice(0, subeventsLength);
+
+      setValue("activities", activites);
     }
 
-
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[ watchSubevents])
- 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchSubevents]);
 
   // const [open, setOpen] = useState(false);
   return (
@@ -68,16 +61,33 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                   {el.date && (
                     // <span>{format(el.date.split("/")[1] || "1", "MMM")}</span>
                     <span>
-                      {_.isDate(el.date)
-                        ? format(el.date, "MMM")
-                        : format(el.date.split(" ")[0].split("/")[1], "MMM")}
+                      {}
+                      {(() => {
+                        try {
+                          return _.isDate(el.date)
+                            ? format(el.date, "MMM")
+                            : format(
+                                el.date.split(" ")[0].split("/")[1],
+                                "MMM"
+                              );
+                        } catch {
+                          return el.date.split(" ")[0].split("/")[1];
+                        }
+                      })()}
                     </span>
                   )}
                   <span className="sm:text-2xl md:text-4xl font-semibold">
                     {/* {el.date && el.date.split("/")[0]} */}
-                    {_.isDate(el.date)
-                      ? format(el.date, "dd")
-                      : el.date.split(" ")[0].split("/")[0]}
+                    {}
+                    {(() => {
+                      try {
+                        return _.isDate(el.date)
+                          ? format(el.date, "dd")
+                          : el.date.split(" ")[0].split("/")[0];
+                      } catch {
+                        return el.date.split(" ")[0].split("/")[0];
+                      }
+                    })()}
                   </span>
                 </div>
                 <div className="flex flex-col p-4 gap-2 ">
@@ -92,11 +102,11 @@ export const SubEventInput = ({}: { errors?: string[] }) => {
                         el.date.split(" ")[0]}
                   </h1>
                   <h1 className="text-sm flex gap-1 items-center font-semibold text-[#E0A450] ">
-                  <Clock size={15} />
+                    <Clock size={15} />
                     {_.isDate(el.date)
                       ? format(el.date, "  hh:mm")
                       : // : format(el.date.split("/")[1], "MMM dd, yyyy  hh:mm")}
-                         el.date.split(" ")[1]}
+                        el.date.split(" ")[1]}
                   </h1>
 
                   {/* <div className="flex gap-4   text-sm flex-wrap">

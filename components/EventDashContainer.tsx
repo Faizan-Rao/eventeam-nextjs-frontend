@@ -17,26 +17,26 @@ import { user } from "@/configs/axios";
 import { useTranslation } from "react-i18next";
 const EventDashContainer = ({ data }: { data: any }) => {
   let ref = useRef(null);
-  const [isPending ,setPending] = useState(false)
+  const [isPending, setPending] = useState(false);
   console.log(data);
   console.log(ref);
 
   const publishDirectly = async () => {
     try {
-      setPending(true)
+      setPending(true);
       const response = await AutoFormAPI.directPublishForm(data.id);
       if (response.data.statusCode === 200) {
         toast.success("Published Successfully ");
       }
-      setPending(false)
+      setPending(false);
     } catch (error) {
       if ((error as any).status !== 200) {
         toast((error as any)?.response?.data.message, { type: "error" });
       }
-      setPending(false)
+      setPending(false);
     }
   };
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <>
       {!data && (
@@ -46,12 +46,14 @@ const EventDashContainer = ({ data }: { data: any }) => {
               <h4 className="text-2xl">{t("No Upcoming Event Right Now")}</h4>
             </div>
             <span className="flex items-center gap-2">
-              {user.role === "company" && <a
-                href={"/dashboard/add-event"}
-                className="bg-[#7655FA] text-base rounded-full px-7 py-3 text-center"
-              >
-                {t("Start Here")}
-              </a>}
+              {user.role === "company" && (
+                <a
+                  href={"/dashboard/add-event"}
+                  className="bg-[#7655FA] text-base rounded-full px-7 py-3 text-center"
+                >
+                  {t("Start Here")}
+                </a>
+              )}
             </span>
           </div>
         </div>
@@ -62,22 +64,43 @@ const EventDashContainer = ({ data }: { data: any }) => {
             <div className="flex flex-col gap-1">
               <h4 className="text-2xl">{data.title}</h4>
               <p className="text-base text-[#BABABA]">
-                {format(new Date(data["start_date"]), "LLL d") +
-                  " - " +
-                  format(new Date(data["end_date"]), "LLL d")}
+               
+
+                {(() => {
+                  try {
+                    return (
+                      format(new Date(data["start_date"]), "LLL d") +
+                      " - " +
+                      format(new Date(data["end_date"]), "LLL d")
+                    );
+                  } catch {
+                    return (
+                      new Date(data["start_date"]).toDateString() +
+                      " - " +
+                      new Date(data["end_date"]).toDateString()
+                    );
+                  }
+                })()}
               </p>
             </div>
-            <div  className="flex gap-4">
-           { user.role === "company" && <span className="flex items-center gap-2">
-              <button disabled={isPending} onClick={publishDirectly} className="bg-[#7655FA] flex gap-4 items-center disabled:bg-[#999999] text-base rounded-full px-7 py-3 text-center">
-              {isPending && <Loader2 className="animate-spin h-5 w-5"/>} {t("Publish Directly")}
-              </button>
-              <button className="bg-[#E0A450] text-base rounded-full aspect-square object-cover py-2 px-3 text-center">
-                <a href={`/dashboard/use-auto/${data.id}`}>
-                  <SimplePancilLine />
-                </a>
-              </button>
-            </span>}
+            <div className="flex gap-4">
+              {user.role === "company" && (
+                <span className="flex items-center gap-2">
+                  <button
+                    disabled={isPending}
+                    onClick={publishDirectly}
+                    className="bg-[#7655FA] flex gap-4 items-center disabled:bg-[#999999] text-base rounded-full px-7 py-3 text-center"
+                  >
+                    {isPending && <Loader2 className="animate-spin h-5 w-5" />}{" "}
+                    {t("Publish Directly")}
+                  </button>
+                  <button className="bg-[#E0A450] text-base rounded-full aspect-square object-cover py-2 px-3 text-center">
+                    <a href={`/dashboard/use-auto/${data.id}`}>
+                      <SimplePancilLine />
+                    </a>
+                  </button>
+                </span>
+              )}
               <button
                 className="bg-[#7655FA26] hover:rotate-[-180deg] transition-all flex place-items-center rounded-full aspect-square object-cover py-2 px-5 text-center"
                 onClick={() => {
@@ -86,15 +109,19 @@ const EventDashContainer = ({ data }: { data: any }) => {
               >
                 <ArrowDownWhite />
               </button>
-
             </div>
           </div>
 
-          <div ref={ref} className="hidden enabled:animate-accordion-down disabled:animate-accordion-up transition-all">
+          <div
+            ref={ref}
+            className="hidden enabled:animate-accordion-down disabled:animate-accordion-up transition-all"
+          >
             <div className="flex gap-4 my-2">
               <span className="font-bold text-4xl">“”</span>
               <p className="text-center m-4">
-                { `${parse(data?.event_description)}`.trim() === "" ? parse(`${data?.automaticSettings?.event_description}`) : parse(data?.event_description)}
+                {`${parse(data?.event_description)}`.trim() === ""
+                  ? parse(`${data?.automaticSettings?.event_description}`)
+                  : parse(data?.event_description)}
               </p>
               <span className="font-bold text-4xl self-end">“”</span>
             </div>

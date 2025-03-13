@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const UpcomingEventCard = ({ data }: { data: any }) => {
   const status = true;
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   console.log("upcoming event data", data);
   return (
     <div className="grid grid-cols-1  p-4 bg-[#F7F6F9] rounded-md">
@@ -40,28 +40,34 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
             </span>
           </span>
         </div>
-       {user.role === "company" && <DropdownMenu modal={false}>
-          <DropdownMenuTrigger
-            className={clsx(
-              "active:scale-[0.90] rounded-full self-start   p-1 hover:bg-[#7655fa26] transition-all"
-            )}
-          >
-            <EllipsisVertical size={20} className="text-[#999999]" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
-              <a href={`/dashboard/my-events/${data.id}`}>{t("View Event")}</a>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
-              <a href={`/dashboard/my-events/edit/${data.id}`}>{t("Edit Event")}</a>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
-              <a href={`/events/${user.slug}/${data.id}`}>
-                {t("View Registration Form")}
-              </a>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>}
+        {user.role === "company" && (
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger
+              className={clsx(
+                "active:scale-[0.90] rounded-full self-start   p-1 hover:bg-[#7655fa26] transition-all"
+              )}
+            >
+              <EllipsisVertical size={20} className="text-[#999999]" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+                <a href={`/dashboard/my-events/${data.id}`}>
+                  {t("View Event")}
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+                <a href={`/dashboard/my-events/edit/${data.id}`}>
+                  {t("Edit Event")}
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-sm active:scale-[0.95] transition-all">
+                <a href={`/events/${user.slug}/${data.id}`}>
+                  {t("View Registration Form")}
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
 
       {/* data sections */}
@@ -75,9 +81,21 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
             <p className="text-[#999999] text-xs font-semibold">{t("Dates")}</p>
             <p className="text-[#4A4A4A] text-nowrap text-[12.5px]  font-semibold flex  ">
               {data["start_date"] &&
-                format(new Date(data["start_date"]), "LLL d") +
-                  " - " +
-                  format(new Date(data["end_date"]), "LLL d")}
+                (() => {
+                  try {
+                    return (
+                      format(new Date(data["start_date"]), "LLL d") +
+                      " - " +
+                      format(new Date(data["end_date"]), "LLL d")
+                    );
+                  } catch {
+                    return (
+                      new Date(data["start_date"]).toDateString() +
+                      " - " +
+                      new Date(data["end_date"]).toDateString()
+                    );
+                  }
+                })()}
             </p>
           </div>
         </div>
@@ -88,7 +106,9 @@ const UpcomingEventCard = ({ data }: { data: any }) => {
           </div>
 
           <div className="flex justify-center  flex-col  ">
-            <p className="text-[#999999] text-xs font-semibold">{t("Guests")}</p>
+            <p className="text-[#999999] text-xs font-semibold">
+              {t("Guests")}
+            </p>
             <p className="text-[#4A4A4A] text-[12.5px]    font-semibold flex  ">
               {data["registrations"]?.length}
             </p>

@@ -29,7 +29,7 @@ const CompanyEventCard = ({
   console.log("most upcoming", data);
   const params = useParams();
 
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     !isNaN(index) && (
       <div
@@ -57,8 +57,12 @@ const CompanyEventCard = ({
           {parse(data.description)}
         </p>
         <div className="flex my-4 justify-between items-center">
-          <h1 className="text-[#999999] font-semibold">{t("Important Times")}</h1>
-          {data && <UpcomingSubeventPreviewDialog type={"comp_events"} data={data} />}
+          <h1 className="text-[#999999] font-semibold">
+            {t("Important Times")}
+          </h1>
+          {data && (
+            <UpcomingSubeventPreviewDialog type={"comp_events"} data={data} />
+          )}
         </div>
 
         <div className="flex flex-1 pb-4 border-b-[1px] max-h-[140px] gap-2 justify-stretch">
@@ -68,10 +72,17 @@ const CompanyEventCard = ({
               {t("Start Date")}
             </span>
             <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
-              {format(
-                new Date(data.start_date.replace(" ", "T")),
-                "dd/MM/yyyy"
-              )}
+              {}
+              {(() => {
+                try {
+                  return format(
+                    new Date(data.start_date.replace(" ", "T")),
+                    "dd/MM/yyyy"
+                  );
+                } catch {
+                  return data.start_date.split(" ")[0];
+                }
+              })()}
             </span>
           </span>
           <span className=" flex-1 p-4 flex-col flex justify-center items-center rounded-md gap-1 bg-[#7655fa26]">
@@ -80,7 +91,14 @@ const CompanyEventCard = ({
               {t("End Date")}
             </span>
             <span className="text-[#999999] sm:text-base md:text-lg font-semibold">
-              {format(new Date(data.end_date.replace(" ", "T")), "dd/MM/yyyy")}
+              {}
+              {(() => {
+                try {
+                  return format(new Date(data.end_date.replace(" ", "T")), "dd/MM/yyyy")
+                } catch {
+                  return data.end_date.split(" ")[0];
+                }
+              })()}
             </span>
           </span>
         </div>

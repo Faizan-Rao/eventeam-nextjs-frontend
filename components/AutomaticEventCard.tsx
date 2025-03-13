@@ -16,7 +16,7 @@ import AutoFormDeleteDialog from "./DeleteAutoForm";
 import { useTranslation } from "react-i18next";
 
 const AutomaticEventCard = ({ event }: { event: any }) => {
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <div className="grid grid-cols-1  gap-4 sm:min-w-[310px] md:min-w-[350px]  shadow-md flex-wrap rounded-md  sm:p-4 md:p-6">
       <div className="flex flex-col justify-between">
@@ -39,13 +39,27 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
       <div className="grid grid-cols-3 place-content-center place-items-center   rounded-md border p-4 bg-[#7655fa]">
         <div className="flex flex-col ">
           <h1 className="text-white text-lg font-semibold">
-            {dateFormatter(event.start_date, "MMM dd, yyyy")}
+            {}
+            {(() => {
+              try {
+                return dateFormatter(event.start_date, "MMM dd, yyyy")
+              } catch {
+                return event.start_date.toDateString();
+              }
+            })()}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">{t("Start date")}</h1>
         </div>
         <div className=" ">
           <h1 className="text-white text-lg font-semibold">
-            {dateFormatter(event.end_date, "MMM dd, yyyy")}
+            {}
+            {(() => {
+              try {
+                return dateFormatter(event.end_date, "MMM dd, yyyy");
+              } catch {
+                return event.end_date.toDateString();
+              }
+            })()}
           </h1>
           <h1 className="text-[#e8e8e8] text-sm">{t("End date")}</h1>
         </div>
@@ -55,10 +69,8 @@ const AutomaticEventCard = ({ event }: { event: any }) => {
               <AutoEditDialog type="edit" data={event} />
             </span>
             <span className="hover:bg-[#45309b] active:scale-[0.90]  rounded-full justify-self-end aspect-square object-cover   cursor-pointer transition-all  ">
-
               <AutoFormDeleteDialog data={event.id} />
             </span>
-           
           </div>
         )}
         {user && user.role === "company" && event && (

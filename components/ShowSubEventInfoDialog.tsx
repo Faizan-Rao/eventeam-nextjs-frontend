@@ -20,7 +20,7 @@ const ShowSubEventInfoDialog = ({
   payload?: any;
   index: number;
 }) => {
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <Dialog>
       <DialogTrigger className="active:scale-[0.90] transition-all">
@@ -34,7 +34,9 @@ const ShowSubEventInfoDialog = ({
           <DialogDescription>
             <div className="flex flex-col gap-4 mt-4 ">
               <div className="flex flex-col border-b-[1px] my-1 ">
-                <h1 className="text-[#7655fa] font-semibold">{t("Sub Event Name")}</h1>
+                <h1 className="text-[#7655fa] font-semibold">
+                  {t("Sub Event Name")}
+                </h1>
                 <h1 className="text-[#4a4a4a] text-2xl font-semibold my-1">
                   {data.title}
                 </h1>
@@ -76,16 +78,26 @@ const ShowSubEventInfoDialog = ({
                      
                      `} */}
 
-                     {data.date &&
-                      format(
-                        new Date(data.date.replace(" ", "T")),
-                        "h : mm a, MMMM do yyyy"
-                      )}
+                    {}
+
+                    {data.date &&
+                      (() => {
+                        try {
+                          return format(
+                            new Date(data.date.replace(" ", "T")),
+                            "h : mm a, MMMM do yyyy"
+                          );
+                        } catch {
+                          return `${data.date}`;
+                        }
+                      })()}
                   </h1>
                 </div>
               </div>
               <div className="flex flex-col  my-1 ">
-                <h1 className="text-[#7655fa] font-semibold">{t("Ticket Types")}</h1>
+                <h1 className="text-[#7655fa] font-semibold">
+                  {t("Ticket Types")}
+                </h1>
                 {data.products.map((el: any, i: number) => {
                   return (
                     <div

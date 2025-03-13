@@ -34,8 +34,18 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
           {
             <span className="flex items-center gap-1 justify-self-end text-sm text-[#E0A450] text-end ">
               <Clock size={15} />
-              {data.date &&
-                format(new Date(data.date.replace(" ", "T")), "h:mm a")}
+              {
+                }
+
+              {data.date && (() => {
+                try {
+                  return format(new Date(data.date.replace(" ", "T")), "h:mm a")
+                } catch {
+                  return (
+                    `${new Date(data.date.replace(" ", "T")).toDateString()}`
+                  );
+                }
+              })()}
             </span>
           }
         </div>
@@ -50,7 +60,17 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
               "yyyy/MM/dd"
             )} */}
 
-          {format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")}
+          {}
+          {(() => {
+                try {
+                  return format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")
+                } catch {
+                  return (
+                    data.date.split(" ")[0]
+                  );
+                }
+              })()}
+
         </p>
       </div>
 
@@ -66,11 +86,10 @@ const SubActivitiesPreview: React.FC<ISubeventPreview> = ({
             return (
               <tr key={i} className="">
                 <td>{el.title}</td>
-               
+
                 <td className="text-right">{`${
                   data.is_api_enable === 1 ? el.api_time : el.time
                 }   ${data.is_api_enable === 0 ? el.type : ""} `}</td>
-                
               </tr>
             );
           })}

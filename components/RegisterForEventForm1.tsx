@@ -23,7 +23,7 @@ const RegisterForEventForm1 = ({
       <div className=" grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2  items-center ">
         <div className="flex flex-col ">
           <h1 className="text-[#7655fa] sm:text-sm md:text-base font-semibold">
-            {t('Get Registered for')}
+            {t("Get Registered for")}
           </h1>
           <h1 className="text-[#4a4a4a] sm:text-2xl md:text-4xl font-semibold">
             {data.event.title}
@@ -38,9 +38,9 @@ const RegisterForEventForm1 = ({
           <span className="bg-[#FFE58A] rounded-full p-2 font-semibold">
             <MapPin className="text-[#4a4a4a]" size={20} />
           </span>
-          {data.event &&  data.event?.address?.googlemaplink === null && (
+          {data.event && data.event?.address?.googlemaplink === null && (
             <h1 className="text-[#4a4a4a] text-sm font-semibold">
-              { data.event.company_address || t("No Specified Address")}
+              {data.event.company_address || t("No Specified Address")}
             </h1>
           )}
           {data.event && data.event?.address?.googlemaplink !== null && (
@@ -59,15 +59,23 @@ const RegisterForEventForm1 = ({
           </span>
 
           <h1 className="text-[#4a4a4a] text-sm font-semibold">
-            {`${format(
-              new Date(
-                data.event.start_date.toLocaleString().replace(" ", "T")
-              ),
-              "dd/MM/yyy"
-            )} - ${format(
-              new Date(data.event.end_date.toLocaleString().replace(" ", "T")),
-              "dd/MM/yyy"
-            )}`}
+            {}
+            {(() => {
+              try {
+                return `${format(
+                  new Date(
+                    data.event.start_date.toLocaleString().replace(" ", "T")
+                  ),
+                  "dd/MM/yyy"
+                )} - ${format(new Date(data.event.end_date.toLocaleString().replace(" ", "T")), "dd/MM/yyy")}`;
+              } catch {
+                return (
+                  data.event.start_date.toLocaleString().replace(" ", "T") +
+                  " - " +
+                  data.event.end_date.toLocaleString().replace(" ", "T")
+                );
+              }
+            })()}
           </h1>
         </div>
       </div>
@@ -87,7 +95,11 @@ const RegisterForEventForm1 = ({
                   <h1 className="font-semibold sm:text-sm md:text-base">
                     {el.title}
                   </h1>
-                  <ShowSubEventInfoDialog payload={data.event} data={el} index={index} />
+                  <ShowSubEventInfoDialog
+                    payload={data.event}
+                    data={el}
+                    index={index}
+                  />
                 </div>
               );
             })}

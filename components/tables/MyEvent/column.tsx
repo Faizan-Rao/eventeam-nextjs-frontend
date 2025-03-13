@@ -74,7 +74,14 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      return format(row.original.start_date, "dd  MMM  yyyy");
+      return  (() => {
+        try {
+          return format(row.original.start_date, "dd  MMM  yyyy");
+        } catch {
+          return row.original.start_date.toDateString();
+        }
+      })()
+     
     },
     enableGlobalFilter: false,
   },
@@ -92,7 +99,14 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      return format(row.original.end_date, "dd  MMM  yyyy");
+      return  (() => {
+        try {
+          return format(row.original.end_date, "dd  MMM  yyyy");;
+        } catch {
+          return row.original.end_date.toDateString();
+        }
+      })()
+     
     },
     enableGlobalFilter: false,
   },

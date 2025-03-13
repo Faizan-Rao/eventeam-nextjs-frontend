@@ -39,7 +39,7 @@ const MyEventCard = ({
   selectedRecord: number;
   setSelectedRecord: React.Dispatch<SetStateAction<number>>;
 }) => {
-  const {t} = useTranslation(["translation"])
+  const { t } = useTranslation(["translation"]);
   return (
     <Accordion
       value={selectedRecord === index ? "item-1" : "No Element"}
@@ -92,7 +92,11 @@ const MyEventCard = ({
               </Link>
             </div>
             <div className={clsx("mx-4")}>
-              <ActionDropDown row={data} id={index} selectedRecord={selectedRecord}/>
+              <ActionDropDown
+                row={data}
+                id={index}
+                selectedRecord={selectedRecord}
+              />
             </div>
             <div
               onClick={() => setSelectedRecord(index)}
@@ -127,7 +131,16 @@ const MyEventCard = ({
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   {t("Start Date")}
                 </p>
-                <p className="font-semibold flex  ">{format(new Date(data.start_date), "MMM dd, yyyy")}</p>
+                <p className="font-semibold flex  ">
+                  
+                  {(() => {
+                    try {
+                      return format(new Date(data.start_date), "MMM dd, yyyy");
+                    } catch {
+                      return new Date(data.start_date).toDateString();
+                    }
+                  })()}
+                </p>
               </div>
             </div>
             {/* EndDate */}
@@ -150,7 +163,16 @@ const MyEventCard = ({
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   {t("End Date")}
                 </p>
-                <p className="font-semibold flex  ">{format(new Date(data.end_date), "MMM dd, yyyy")}</p>
+                <p className="font-semibold flex  ">
+                  
+                   {(() => {
+                    try {
+                      return format(new Date(data.end_date), "MMM dd, yyyy");
+                    } catch {
+                      return new Date(data.end_date).toDateString();
+                    }
+                  })()} 
+                </p>
               </div>
             </div>
 
@@ -174,7 +196,9 @@ const MyEventCard = ({
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   {t("Registrations")}
                 </p>
-                <p className="font-semibold flex  ">{data.registration_count || 0}</p>
+                <p className="font-semibold flex  ">
+                  {data.registration_count || 0}
+                </p>
               </div>
             </div>
             {/*  Operational State */}
@@ -197,8 +221,14 @@ const MyEventCard = ({
                 <p className=" text-nowrap  group-hover:text-[white] font-semibold">
                   {t("Operational State")}
                 </p>
-                <p className={clsx("font-semibold flex text-[#2AE75C] ", data.current_status === "active" &&  "text-[#2AE75C] ", data.current_status !== "active" &&  "text-[#FF0000] " )}>
-                 {data.current_status === "active" ? t("Active") : t("Ended")}
+                <p
+                  className={clsx(
+                    "font-semibold flex text-[#2AE75C] ",
+                    data.current_status === "active" && "text-[#2AE75C] ",
+                    data.current_status !== "active" && "text-[#FF0000] "
+                  )}
+                >
+                  {data.current_status === "active" ? t("Active") : t("Ended")}
                 </p>
               </div>
             </div>

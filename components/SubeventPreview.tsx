@@ -37,7 +37,17 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
           }
         </div>
         <p className="text-xs text-[#E0A450]">
-          {format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")}
+          
+          {data.date &&
+                (() => {
+                  try {
+                    return format(new Date(data.date.split(" ")[0]), "dd/MM/yyyy")
+                  }
+                  catch
+                  {
+                    return data.date.split(" ")[0]
+                  }
+                })()}
         </p>
       </div>
 
