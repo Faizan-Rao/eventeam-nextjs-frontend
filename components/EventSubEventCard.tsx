@@ -38,7 +38,7 @@ const EventSubeventCard: React.FC<ISubeventPreview> = ({
                 try {
                   return format(
                     new Date(data.date.replace(" ", "T")),
-                    "h:mm a"
+                    "HH:mm"
                   );
                 } catch (error) {
                   return data.date.split(" ")[1];

@@ -301,7 +301,7 @@
   "Hide": "הסתר",
   "Platform Settings": "הגדרות פלטפורמה",
 
-"Default Application Fee State": "מצב דמי בקשה ברירת מחדל",
+  "Default Application Fee State": "מצב דמי בקשה ברירת מחדל",
   "Collect/Show Application Fee on Guest Form": "איסוף/הצגה של דמי בקשה בטופס אורח",
   "Yes": "כן",
   "No": "לא",
@@ -320,32 +320,20 @@
   "Cookie Settings": "הגדרות קובצי Cookie",
   "No Guests Currently": "אין אורחים כרגע",
   "Get Registered for": "הירשם עבור",
-  "Click here to Navigate to the location": "לחץ כאן כדי לנווט למיקום",  
+  "Click here to Navigate to the location": "לחץ כאן כדי לנווט למיקום",
   "Sub Event Name": "שם אירוע משנה",
   "No Specified Address": "לא צוינה כתובת",
   "Add New Guest": "הוסף אורח חדש",
 
- "Ticket Total Amount": "סכום כולל של כרטיס",
- "Desired Donation": "תרומה רצויה",
- "Register for event": "הירשם לאירוע",
-"Pay with your Visa/Mastercard":"שלם באמצעות ויזה/מאסטרקארד",
-"Guest Amount":"סכום אורח",
-"Desired Donations": "תרומות רצויות",
-"Client ID":"מזהה לקוח",
-"Plateform fee":"עמלת פלטפורמה",
-"To agree terms & conditions...":"כדי להסכים לתנאים וההגבלות..."
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
+  "Ticket Total Amount": "סכום כולל של כרטיס",
+  "Desired Donation": "תרומה רצויה",
+  "Register for event": "הירשם לאירוע",
+  "Pay with your Visa/Mastercard": "שלם באמצעות ויזה/מאסטרקארד",
+  "Guest Amount": "סכום אורח",
+  "Desired Donations": "תרומות רצויות",
+  "Client ID": "מזהה לקוח",
+  "Plateform fee": "עמלת פלטפורמה",
+  "To agree terms & conditions...": "כדי להסכים לתנאים וההגבלות...",
+  "I would happy to cover": "אשמח לכסות",
+  "platform fee": "עמלת פלטפורמה"
 }

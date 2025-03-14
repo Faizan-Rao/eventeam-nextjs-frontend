@@ -26,7 +26,7 @@ const SubeventPreview: React.FC<ISubeventPreview> = ({ data, className }) => {
               {data.date &&
                 (() => {
                   try {
-                    return format(new Date(data.date.replace(" ", "T")), "h:mm a");
+                    return format(new Date(data.date.replace(" ", "T")), "HH:mm");
                   }
                   catch
                   {

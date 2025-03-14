@@ -16,6 +16,14 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import { Loader2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 const RegisterForEventForm2 = ({
   data,
   isLoading,
@@ -87,7 +95,7 @@ const RegisterForEventForm2 = ({
 
         {data.settings.is_show_app_fee === "1" && (
           <div className="flex ps-2 justify-between items-center     ">
-            <div className=" flex items-center gap-3 text-[#4a4a4a] font-semibold">
+            <div className=" flex items-center gap-2 text-[#4a4a4a] font-semibold">
               {data.settings && (
                 <Checkbox
                   onCheckedChange={(e) => {
@@ -100,9 +108,9 @@ const RegisterForEventForm2 = ({
 
               <p className=" font-semibold  text-[#999999] text-sm">
                 <span className="text-[rgb(153,153,153)] text-sm mx-1">
-                  {data.settings.application_fee_text}
+                  {t("I would happy to cover") + ` (${data.settings.plateform_fee}%) ` + t("platform fee")}
+                
                 </span>
-                {`${data.settings.plateform_fee}%`}
               </p>
             </div>
 
@@ -133,32 +141,34 @@ const RegisterForEventForm2 = ({
 
       <div className="flex flex-col  my-4 px-4 pb-4 gap-4">
         <div className=" flex items-center gap-3 text-[#4a4a4a] font-semibold">
-          <Accordion type="single" collapsible>
-            <AccordionItem
-              className=" w-full   text-[rgb(153,153,153)] text-base font-semibold"
-              value="item-1"
-            >
-              <AccordionTrigger className="flex gap-4">
-                <Checkbox
-                  onCheckedChange={(e) => {
-                    setValue("accept_cash_terms", e);
-                  }}
-                  checked={watch.accept_cash_terms}
-                />
-                <p className="font-semibold px-2">
-                  {t("To agree terms & conditions...")}
-                </p>
-              </AccordionTrigger>
-              <AccordionContent>
-                {data?.event?.advances?.is_show_regulation === "1" && (
-                  <span className="text-[rgb(153,153,153)] text-sm ">
-                    {data.settings &&
-                      parser(`${data.settings.regulation_text}`)}
-                  </span>
-                )}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <Dialog>
+            <DialogTrigger className="flex items-center text-[#4a4a4a] font-semibold gap-4">
+              <Checkbox
+                onCheckedChange={(e) => {
+                  setValue("accept_cash_terms", e);
+                }}
+                checked={watch.accept_cash_terms}
+              />
+              <p className="font-semibold px-2">
+                {t("To agree terms & conditions...")}
+              </p>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="mb-4">{t("Terms & Conditions")}</DialogTitle>
+                <DialogDescription >
+                  {data?.event?.advances?.is_show_regulation === "1" && (
+                    <span className="text-[#4a4a4a] text-sm ">
+                      {data.settings &&
+                        parser(`${data.settings.regulation_text}`)}
+                    </span>
+                  )}
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+
+         
         </div>
       </div>
 
