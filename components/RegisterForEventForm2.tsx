@@ -149,13 +149,13 @@ const RegisterForEventForm2 = ({
                 }}
                 checked={watch.accept_cash_terms}
               />
-              <p className="font-semibold px-2">
+              <p className="font-semibold ">
                 {t("To agree terms & conditions...")}
               </p>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-h-[600px] overflow-auto ">
               <DialogHeader>
-                <DialogTitle className="mb-4">{t("Terms & Conditions")}</DialogTitle>
+                <DialogTitle className="mb-4 text-center">{t("Terms & Conditions")}</DialogTitle>
                 <DialogDescription >
                   {data?.event?.advances?.is_show_regulation === "1" && (
                     <span className="text-[#4a4a4a] text-sm ">
