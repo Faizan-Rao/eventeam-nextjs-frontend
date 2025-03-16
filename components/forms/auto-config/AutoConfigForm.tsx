@@ -114,12 +114,19 @@ const AutoConfigForm = ({ data, type }: { data?: any; type: string }) => {
   };
 
   // to make the payload prayer object
-  useEffect(()=>{
-    const prayer = getValues("prayer")
-    
-    reset({...getValues(), prayer: {...prayer, before_sunset_time: prayer.before_sunset_time < 18 ? 18 : prayer.before_sunset_time }})
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  useEffect(() => {
+    const prayer = getValues("prayer");
+
+    reset({
+      ...getValues(),
+      prayer: {
+        ...prayer,
+        before_sunset_time:
+          prayer.before_sunset_time < 18 ? 18 : prayer.before_sunset_time,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleStepDec = (e: React.MouseEvent) => {
     e.preventDefault();
