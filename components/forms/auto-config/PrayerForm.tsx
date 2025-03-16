@@ -1,20 +1,21 @@
 import { Switch } from "@/components/ui/switch";
+import { ErrorMessage } from "@hookform/error-message";
 import { CirclePlus, CircleMinus } from "lucide-react";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 const PrayerForm = () => {
-  const { control, setValue, reset, getValues } = useFormContext();
+  const { control, setValue, reset, getValues, formState: {errors} } = useFormContext();
   const {t} = useTranslation(["translation"])
-
+ 
 
   return (
     <div className="flex flex-col flex-1 bg-[#ebe6fe] sm:mb-4 md:m-4 p-4 rounded-lg">
       <h1 className="text-[#7655fa] font-semibold">{t("Time")}</h1>
-      <div className="flex items-center flex-wrap gap-4">
+      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 items-end  gap-10">
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm text-[#999999] text-nowrap font-semibold">{t("Before Time Margin (min)")}</label>
+          <label className="text-sm text-[#999999]  font-semibold">{t("Choose how many Minutes Before sunset is candle lighting in your area?")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.before_sunset_time`}
@@ -54,9 +55,10 @@ const PrayerForm = () => {
               )}
             />
           </div>
+           
         </div>
         <div className="flex flex-1  flex-col gap-1">
-          <label className="text-sm text-[#999999] text-nowrap font-semibold">{t("After Time Margin (min)")}</label>
+          <label className="text-sm text-[#999999]  font-semibold">{t("Choose how many Minutes After sunset is the time of 1st subevent?")}</label>
           <div className="flex justify-between bg-[#7655fa] rounded-md items-center px-4 py-2 ">
             <Controller
               name={`prayer.after_sunset_time`}
@@ -146,7 +148,13 @@ const PrayerForm = () => {
            
           </div>
         </div> */}
+         <ErrorMessage
+            errors={errors}
+            name="prayer.before_sunset_time"
+            render={({ message }) => message && <p className="text-red-800">{message}</p>}
+          />
       </div>
+      
     </div>
   );
 };

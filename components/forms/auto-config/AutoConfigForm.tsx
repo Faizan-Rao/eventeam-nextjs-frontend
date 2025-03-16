@@ -96,6 +96,8 @@ const AutoConfigForm = ({ data, type }: { data?: any; type: string }) => {
     control,
     register,
     handleSubmit,
+    getValues,
+    reset,
     trigger,
     formState: { errors: formErrors },
   } = methods;
@@ -110,6 +112,13 @@ const AutoConfigForm = ({ data, type }: { data?: any; type: string }) => {
       setCurrentStep((prev) => prev + 1);
     }
   };
+
+  // to make the payload prayer object
+  useEffect(()=>{
+    const prayer = getValues("prayer")
+    reset({...getValues(), prayer: {...prayer}})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   const handleStepDec = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -1,5 +1,6 @@
-import joi from "joi";
+import joi, { any } from "joi";
 import { differenceInDays } from "date-fns";
+import { after } from "lodash";
 const ticket = joi.object({
   title: joi.string().required(),
   price: joi.number().min(0).required(),
@@ -94,7 +95,15 @@ export const autoConfigSchema = joi.object({
     is_show_stripe: joi.string().required(),
     // renew_advance_fields: joi.string().required(),
   }),
- 
+  prayer: joi.object({
+    before_sunset_time: joi.number().allow("").label("Before Margin")
+    .custom((value, helpers) => {
+      if ( value < 18 ) {
+        return helpers.message(`"Before Margin" must not be less than 18` as any);
+      }
+      return value; // Valid case
+    }),
+  }).allow(null).default({}),
   activities: joi.array().items(activity).min(1).required(),
 });
 
@@ -127,7 +136,10 @@ export const autoFormDefaults = {
 
     is_show_stripe: "1",
   },
-  prayer:{},
+  prayer:{
+    before_sunset_time: 18,
+    after_sunset_time: 0,
+  },
   activities: [
     {
       sub_event_id: "send_it_empty_in_create_event",
