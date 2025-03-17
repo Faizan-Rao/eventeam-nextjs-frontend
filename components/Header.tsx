@@ -32,9 +32,9 @@ const Header = ({
           <h1 className="text-[#4A4A4A]  text-xl font-bold ">EvenTeam</h1>
         </div>
 
-        <div className="md:block sm:hidden">
+        {/* <div className="md:block sm:hidden">
           <SearchInput setNavOpen={setNavOpen} />
-        </div>
+        </div> */}
 
         <span className="sm:hidden md:flex  items-center   flex-wrap">
           <ProfileDropdown />
@@ -55,7 +55,7 @@ const Header = ({
         </span>
 
         <div className="text-black  gap-4 items-center sm:flex md:hidden">
-            <SearchInput  setNavOpen={setNavOpen}/>
+            {/* <SearchInput  setNavOpen={setNavOpen}/> */}
           <div className="cursor-pointer" onClick={() => setNavOpen((prev) => !prev)}>
           <Menu />
           </div>

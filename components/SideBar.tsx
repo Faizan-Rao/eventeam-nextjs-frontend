@@ -12,6 +12,7 @@ import LanguageSelector from "./LanguageSelector";
 import ProfileDropdown from "./ProfileDropdown";
 import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { user } from "@/configs/axios";
+import { usePathname } from "next/navigation";
 
 export const mobileWidth = 500;
 
@@ -30,7 +31,7 @@ const SideBar = ({
   const toggleList = (id: number) => {
     ref.current[id].classList.toggle("hidden");
   };
-
+  const pathname = usePathname();
   useEffect(() => {
     if (window.innerWidth > mobileWidth) {
       setIsHover(false);
@@ -94,13 +95,25 @@ const SideBar = ({
           {paths.map(
             (nav, index) =>
               nav.role.includes(user.role) && (
-                <div key={index + +3}>
+                <div className=" group hover:text-white" key={index + +3}>
                   {!nav.children && (
                     <SideBarNav
                       setNavOpen={setNavOpen}
                       href={nav.path}
                       value={t(nav.name)}
-                      icon={<nav.icon strokeWidth={1} />}
+                      icon={
+                        <nav.icon
+                          className={clsx(
+                            nav.path === pathname &&
+                              " rounded-md   border-[#7655fa] ",
+                            "group-hover:stroke-white group-hover:border-white"
+                          )}
+                          strokeWidth={(nav.path === pathname && 1.4) || 1}
+                          color={
+                            (nav.path === pathname && "#7655fa") || "#4a4a4a"
+                          }
+                        />
+                      }
                       isHover={isHover}
                       key={nav.path + index}
                       className="rounded-none active:scale-[0.95] transition-all"
@@ -116,7 +129,22 @@ const SideBar = ({
                       >
                         {nav.icon && (
                           <span className="mx-4">
-                            {<nav.icon strokeWidth={1} />}
+                            {
+                              <nav.icon
+                                className={clsx(
+                                 (nav.children.find((el : any) => el.path === pathname) !== undefined )&& 
+                                    " rounded-md stroke-[#7655fa]  "
+                                  
+                                )}
+                                strokeWidth={
+                                  ((nav.children.find((el : any) => el.path === pathname) !== undefined ) && 1.4) || 1
+                                }
+                                color={
+                                  (nav.path === pathname && "#7655fa") ||
+                                  "#4a4a4a"
+                                }
+                              />
+                            }
                           </span>
                         )}
                         {
@@ -185,17 +213,16 @@ const SideBar = ({
           <div className="flex  items-center gap-4">
             <ProfileDropdown setNav={setNavOpen} />
             <div
-          className="text-red-800 cursor-pointer active:scale-[0.95] transition-all"
+              className="text-red-800 cursor-pointer active:scale-[0.95] transition-all"
               onClick={() => {
                 localStorage.removeItem("user");
                 let local = localStorage.getItem("user");
                 if (!local) {
                   window.location.replace("/login");
                 }
-               
               }}
             >
-             <LogOut size={18}  className="text-red-800"/> 
+              <LogOut size={18} className="text-red-800" />
             </div>
             <LanguageSelector />
           </div>
