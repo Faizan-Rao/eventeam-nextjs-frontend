@@ -492,7 +492,7 @@ const AddSubEventDialog: React.FC<AddSubEventDialog> = ({
                     }
                   }}
                 >
-                  {type === "edit" ? t("Edit Event") : t("Add Event")}
+                  {type === "edit" ? t("Save Changes") : t("Add Event")}
                 </button>
               </div>
             </div>

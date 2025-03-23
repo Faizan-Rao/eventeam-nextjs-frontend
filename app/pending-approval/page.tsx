@@ -63,7 +63,7 @@ const PendingApprovalPage = () => {
             support@eventeam.com
           </span>
         </p>
-        <div
+        {/* <div
           className="text-[white] flex justify-center items-center gap-4 px-4  py-2 rounded-full bg-[#7655fa] cursor-pointer active:scale-[0.95] transition-all"
               onClick={() => {
                 localStorage.removeItem("user");
@@ -75,7 +75,7 @@ const PendingApprovalPage = () => {
               }}
             >
            Log Out <LogOut size={35} className=" rounded-full transition-all hover:text-white p-2"/> 
-            </div>
+            </div> */}
       </div>
 
     

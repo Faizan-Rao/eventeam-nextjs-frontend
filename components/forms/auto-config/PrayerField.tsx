@@ -307,13 +307,14 @@ const PrayerField: React.FC<IPrayerField> = ({
                               // : "00:00"
                           }
                           className=" bg-transparent outline-none"
-                          onChange={(e: ChangeEvent) =>
+                          onChange={(e: ChangeEvent) =>{
+                            console.log("changed_time", prayerFields[index].activity_time)
                             field.onChange(
                               format(
                                 new Date(`2/4/2024 ${(e.target as any).value}`),
-                                "hh:mm a"
+                                "HH:mm"
                               )
-                            )
+                            )}
                           }
                         />
                       </>

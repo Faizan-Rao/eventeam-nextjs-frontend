@@ -95,6 +95,7 @@ const CompanyAddDialog = ({
             });
           }
         );
+        toast((error as any)?.response?.data.message, { type: "error" });
       }
     },
   });
@@ -118,6 +119,7 @@ const CompanyAddDialog = ({
             });
           }
         );
+        toast((error as any)?.response?.data.message, { type: "error" });
       }
     },
   });

@@ -205,7 +205,7 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "edit_status",
-    header: "Event Status",
+    header: "Payment Status",
     enableHiding: true,
     cell: ({ row }) => {
       return (
