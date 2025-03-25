@@ -108,7 +108,7 @@ const EditSecurityForm = ({
     if (data !== undefined) {
       data.email = email ?? user.email;
       data.otp_type = pathname.includes("forget-password")
-        ? "forget_password"
+        ? "forgot_password"
         : "change_password";
 
       if (pathname.includes("/forget-password")) {
