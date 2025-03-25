@@ -342,5 +342,9 @@
   "Choose how many Minutes After sunset is the time of 1st subevent?": "בחר כמה דקות אחרי השקיעה הוא הזמן של האירוע המשנה הראשון?"
 ,
   "End Time of 2nd Subevent": "זמן סיום של האירוע המשנה השני"
+,
+"Note :":"הערה :",
+"Place the relavant placeholders in email template for dynamic information.":"הצב את מצייני המיקום הרלוונטיים בתבנית האימייל עבור מידע דינמי.",
+"Instructions":"הוראות"
 
 }

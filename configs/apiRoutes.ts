@@ -317,6 +317,10 @@ export const EmailTempApi = {
     const response = await axiosWithToken.get("/email-templates")
     return response
   },
+  getInstruction:  async (role : any) =>{
+    const response = await axiosWithToken.get(`/email-templates/email-variables/${role}`)
+    return response
+  },
   updateStatus : async (data : any) =>{
     const response = await axiosWithToken.patch(`/email-templates/is-active/${data.id}`, data)
     return response

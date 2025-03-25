@@ -331,7 +331,15 @@
  "Terms & Conditions":"Terms & Conditions",
  "Choose how many Minutes Before sunset is candle lighting in your area?":"Choose how many Minutes Before sunset is candle lighting in your area?",
 "Choose how many Minutes After sunset is the time of 1st subevent?":"Choose how many Minutes After sunset is the time of 1st subevent?",
-"End Time of 2nd Subevent":"End Time of 2nd Subevent"
+"End Time of 2nd Subevent":"End Time of 2nd Subevent",
+"Note :":"Note :",
+"Place the relavant placeholders in email template for dynamic information.":"Place the relavant placeholders in email template for dynamic information.",
+"Instructions":"Instructions"
+
+
+
+
+
 }
 
 
