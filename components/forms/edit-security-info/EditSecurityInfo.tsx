@@ -123,8 +123,12 @@ const EditSecurityForm = ({
     try {
       e.preventDefault();
       setIsPending(true);
+      let otp_type = "change_password"
+      if(pathname.includes("/forget-password")){
+        otp_type = "forgot_password"
+      }
       const data = {
-        otp_type: "change_password",
+        otp_type,
         email: email ?? user.email,
       };
       const resposne = await Profile.sendOTPCommission(data);
