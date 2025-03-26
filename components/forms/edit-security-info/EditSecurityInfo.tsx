@@ -88,6 +88,9 @@ const EditSecurityForm = ({
       toast("Password Updated...", {
         type: "info",
       });
+      if (pathname.includes("forget-password")) {
+        window.location.href = "/login";
+      }
     },
     onError: (error) => {
       if ((error as any).status !== 200) {
