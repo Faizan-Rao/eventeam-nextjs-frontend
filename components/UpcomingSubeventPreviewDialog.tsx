@@ -69,14 +69,27 @@ const UpcomingSubeventPreviewDialog = ({
 
                           {(() => {
                             try {
-                              return format(
+                              const date = format(
                                 new Date(
                                   data.sub_events?.[0].hebTimes?.prayer_times?.[0].date
                                 ),
-                                "HH:mm, dd/MM/yyyy"
+                                "dd/MM/yyyy"
                               );
+                              const time =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[0].title.split(
+                                  " "
+                                );
+                              return `${time[time.length - 1]}, ${date}`;
                             } catch {
-                              return data.sub_events?.[0].hebTimes?.prayer_times?.[0].date.toDateString();
+                              const time =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[0].title.split(
+                                  " "
+                                );
+                              const date =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[0].date.split(
+                                  "T"
+                                )[0];
+                              return `${time[time.length - 1]}, ${date}`;
                             }
                           })()}
                         </span>
@@ -94,14 +107,27 @@ const UpcomingSubeventPreviewDialog = ({
 
                           {(() => {
                             try {
-                              return format(
+                              const date = format(
                                 new Date(
                                   data.sub_events?.[0].hebTimes?.prayer_times?.[1].date
                                 ),
-                                "HH:mm, dd/MM/yyyy"
+                                "dd/MM/yyyy"
                               );
+                              const time =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[1].title.split(
+                                  " "
+                                );
+                              return `${time[time.length - 1]}, ${date}`;
                             } catch {
-                              return data.sub_events?.[0].hebTimes?.prayer_times?.[1].date.toDateString();
+                              const time =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[1].title.split(
+                                  " "
+                                );
+                              const date =
+                                data.sub_events?.[0].hebTimes?.prayer_times?.[1].date.split(
+                                  "T"
+                                )[0];
+                              return `${time[time.length - 1]}, ${date}`;
                             }
                           })()}
                         </span>
