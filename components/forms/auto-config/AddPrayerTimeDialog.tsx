@@ -62,7 +62,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
     sub_event_id: "",
   }
   const [data, setData] = useState( type === "edit" ? editData : defaults);
-
+  
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -202,6 +202,11 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                         <div className="flex justify-center  border-[1px] rounded-md  px-4 py-2 ">
                           <input
                             type="time"
+                            defaultValue={
+                              type !== "edit"
+                                ? data.activity_time
+                                : editData.activity_time
+                            }
                             className=" bg-transparent outline-none"
                             onChange={(e) => {
                               setData({
@@ -210,7 +215,7 @@ const AddPrayerTimeDialog: React.FC<IPrayerField> = ({
                                   new Date(
                                     `2/4/2024 ${(e.target as any).value}`
                                   ),
-                                  "hh:mm a"
+                                  "HH:mm"
                                 ),
                               });
                             }}

@@ -69,7 +69,7 @@ const EmailTempaleEditForm = ({
 
   return (
     <div className="flex flex-col p-6 rounded-xl bg-white flex-1 gap-3">
-      <h1 className="text-2xl font-semibold leading-relaxed">{t("Introduction")} <EmailInstructionDialog/></h1>
+      <h1 className="text-2xl font-semibold leading-relaxed">{t("Introduction")} </h1>
       <p>
         {t("This is a visual editor for email template. You can edit the email template by entering the field here.")} <br />
         {t("Once you have edited your desired section, just click save button")}
@@ -125,7 +125,7 @@ const EmailTempaleEditForm = ({
         id=""
       />
 
-      <h1 className="text-sm font-semibold">{t("Body")}*</h1>
+      <div className="flex justify-between items-center text-sm font-semibold"><span>{t("Body")}*</span> <EmailInstructionDialog/></div>
         
       <JoditEditor
         onChange={(value) => setData({ ...data, body: value })}

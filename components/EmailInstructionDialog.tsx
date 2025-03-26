@@ -25,8 +25,8 @@ const EmailInstructionDialog = () => {
   const values = Object.values(variables || {});
   return (
     <Dialog>
-      <DialogTrigger>
-        <Info size={18} className="text-[#7655fa]" strokeWidth={1.4} />
+      <DialogTrigger className="flex items-center gap-2">
+      <span className="text-[#7655fa]">{t("View Instructions")}</span>  <Info size={18} className="text-[#7655fa]" strokeWidth={1.4} />
       </DialogTrigger>
       <DialogContent >
         <DialogHeader className="max-h-[600px] overflow-h-auto">
