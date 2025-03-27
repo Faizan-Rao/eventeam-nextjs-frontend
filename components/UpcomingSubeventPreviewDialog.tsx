@@ -69,9 +69,14 @@ const UpcomingSubeventPreviewDialog = ({
 
                           {(() => {
                             try {
+                             
                               const date = format(
+                              
                                 new Date(
-                                  data.sub_events?.[0].hebTimes?.prayer_times?.[0].date
+                                  data.sub_events?.[0].hebTimes?.prayer_times?.[0].date.slice(
+                                    0,
+                                    10
+                                  )
                                 ),
                                 "dd/MM/yyyy"
                               );
@@ -109,7 +114,10 @@ const UpcomingSubeventPreviewDialog = ({
                             try {
                               const date = format(
                                 new Date(
-                                  data.sub_events?.[0].hebTimes?.prayer_times?.[1].date
+                                  data.sub_events?.[0].hebTimes?.prayer_times?.[1].date.slice(
+                                    0,
+                                    10
+                                  )
                                 ),
                                 "dd/MM/yyyy"
                               );
