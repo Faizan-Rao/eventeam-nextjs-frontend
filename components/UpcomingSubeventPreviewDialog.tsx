@@ -75,16 +75,13 @@ const UpcomingSubeventPreviewDialog = ({
                                 new Date(
                                   data.sub_events?.[0].hebTimes?.prayer_times?.[0].date.slice(
                                     0,
-                                    10
+                                    16
                                   )
                                 ),
-                                "dd/MM/yyyy"
+                                "HH:mm, dd/MM/yyyy"
                               );
-                              const time =
-                                data.sub_events?.[0].hebTimes?.prayer_times?.[0].title.split(
-                                  " "
-                                );
-                              return `${time[time.length - 1]}, ${date}`;
+                             
+                              return `${date}`;
                             } catch {
                               const time =
                                 data.sub_events?.[0].hebTimes?.prayer_times?.[0].title.split(
@@ -116,16 +113,13 @@ const UpcomingSubeventPreviewDialog = ({
                                 new Date(
                                   data.sub_events?.[0].hebTimes?.prayer_times?.[1].date.slice(
                                     0,
-                                    10
+                                    16
                                   )
                                 ),
-                                "dd/MM/yyyy"
+                                "HH:mm, dd/MM/yyyy"
                               );
-                              const time =
-                                data.sub_events?.[0].hebTimes?.prayer_times?.[1].title.split(
-                                  " "
-                                );
-                              return `${time[time.length - 1]}, ${date}`;
+                             
+                              return `${date}`;
                             } catch {
                               const time =
                                 data.sub_events?.[0].hebTimes?.prayer_times?.[1].title.split(
